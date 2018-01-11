@@ -1,0 +1,42 @@
+.container-fluid{
+    height: 615px;
+}
+.centered{
+	text-align: left;
+	padding: 15px;
+	margin-top: 15px;
+}
+p.dropdown-item:hover{
+	background-color: #3A99FC;
+}
+.bg{
+	background-color: green;
+	padding: 20px;
+	height: 100%;
+}
+#img{
+	padding: 100px;
+	text-align: center;
+}
+.topic{
+	font-size: 36px;
+	font-weight: bold;
+}
+.choice{
+	font-size: 24px;
+	font-weight: bolder;
+	padding: 50px;
+}
+.button-group{
+	margin-top: 40px;
+	text-align: center;
+}
+.qa{
+	padding: 50px;
+	background: rgba(240, 196, 220, 0.8);
+	border-radius: 10px;
+	height: 100%;
+}
+.btn{
+	font-size: 22px;
+}
