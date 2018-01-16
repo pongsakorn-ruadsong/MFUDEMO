@@ -8,7 +8,6 @@
 			}else{
 				window.location.replace("index.jsp");
 			}
-			
 		});
 	</script>
 <%@include file="bottom.jsp" %>

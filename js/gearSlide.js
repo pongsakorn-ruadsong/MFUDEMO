@@ -1,3 +1,4 @@
+var Global;
 $(function() {
 
   // Initiate Slider
@@ -6,7 +7,7 @@ $(function() {
     min: 10000,
     max: 110000,
     step: 100,
-    values: [45000, 75000]
+    values: [20000, 80000]
   });
 
   // Move the range wrapper into the generated divs
@@ -45,7 +46,7 @@ $(function() {
 
       // Get old value
       var previousVal = parseInt($(this).data('value'));
-
+      Global = [ui.values[0],ui.values[1]];
       // Save new value
       $(this).data({
         'value': parseInt(ui.value)
@@ -98,3 +99,6 @@ $(function() {
   });
 
 });
+  function getSelectValue(){
+    return Global;
+  }

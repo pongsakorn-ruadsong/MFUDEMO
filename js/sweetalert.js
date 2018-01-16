@@ -19,7 +19,7 @@ var defaultParams = {
   confirmButtonText: 'OK',
   confirmButtonClass: 'btn-primary',
   cancelButtonText: 'Cancel',
-  cancelButtonClass: 'btn-default',
+  cancelButtonClass: 'btn-danger',
   containerClass: '',
   titleClass: '',
   textClass: '',

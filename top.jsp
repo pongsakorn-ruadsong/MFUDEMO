@@ -9,12 +9,16 @@
 	<script src="js/toastr.min.js"></script>
 	<script src="js/login.js"></script>
 	<script src="js/gearSlide.js"></script>
-	<script src="js/sweetalert.min.js"></script>
+	<script src="js/slider.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/sweetalert.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/toastr.min.css">
 	<link rel="stylesheet" type="text/css" href="css/Whole.css">
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+
 	<title>Demo v0.1</title>
 </head>
 <body>

@@ -2,71 +2,154 @@ var quizId = sessionStorage['qId'];
 var player = sessionStorage['player'];
 var token = sessionStorage['Token'];
 var api_key = sessionStorage['api_key'];
-var Gtemp_01 = [];
-var quesionId = null;
 var getQuestUrl = sessionStorage['mainUrl']+"Quiz/"+quizId+"/question?api_key="+api_key+"&player_id="+player;
 var inputType = '';
+var Quiz01 = [];
+var Quiz02;
+var Gtemp_02;
+var quesionId = null;
+var topic;
+var option;
+var QuestImg;
+var questId;
+var type;
+var select;
+var select2,test2,test;
+var answer, answer2,index,total;
+var value, a,b,c,d,e;
+var z;
+function getStatus(a){
+	$.ajax({
+			type: "GET",
+	        url: sessionStorage['mainUrl']+"Quiz/"+a+"/question?api_key="+api_key+"&player_id="+player,
+	        dataType: "json",
+		    success: function(data){
+		    	Quiz02 = data;
+		    	if (Quiz02.response.result == null) {
+		    		z = true;
+		    		document.getElementById(a).style.backgroundColor = "#6A6569";
+		    	}else{
+			    	if (Quiz02.response.result.total == Quiz02.response.result.index) {
+			    		z = true;
+			    		document.getElementById(a).style.backgroundColor = "#FBDDF3";
+			    	}else{
+			    		z = false;
+			    		document.getElementById(a).disabled = false;
+			    	}
+		    	}
+		    },
+	    error: function (xhr, textStatus, errorThrown){
+//          window.location.reload(true)
+            console.log(errorThrown);
+            alert("Failed");
+        }	
+	});
+}
 function getQuestion(){
 	$.ajax({
 		type: "GET",
         url: getQuestUrl,
         dataType: "json",
 	    success: function(data){
-	    Gtemp_01 = data;
-	    var text = '';
-	    var topic = Gtemp_01.response.result.question;
-	    var option = Gtemp_01.response.result.options;
-	    var QuestImg = Gtemp_01.response.result.question_image;
-	    var type = Gtemp_01.response.result.question_type;
+	    Quiz01 = data;
+	    localStorage.setItem("temp_Quest", JSON.stringify(Quiz01));
+	    test2 = localStorage.getItem("temp_Quest");
+	    console.log(test2);
+	    test = JSON.parse(test2);
+	    if (Quiz01.response.result == null) {
+	    	swal({
+			  title: "What's going on?",
+			  text: "You have answered all quiz questions. Do you want to reset it?",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonClass: "btn-danger",
+			  confirmButtonText: "Yes, reset it",
+			  cancelButtonText: "No, go back",
+			  closeOnConfirm: false,
+			  closeOnCancel: false
+			},
+			function(isConfirm) {
+			  if (isConfirm) {
+			  	resetQuiz();
+			    swal("Reseted!", "The quiz has been reseted!.", "success");
+			    setTimeout(function(){ location.reload(); }, 1500);
+			  } else {
+			    window.location.replace("index.jsp");
+			  }
+			});
+	    }else{
+	    text = '';
+	    topic = Quiz01.response.result.question;
+	    option = Quiz01.response.result.options;
+	    QuestImg = Quiz01.response.result.question_image;
+	    questId = Quiz01.response.result.question_id;
+	    type = Quiz01.response.result.question_type;
+	    var rMin = Quiz01.response.result.options[0].range_min;
+	    var rMax = Quiz01.response.result.options[0].range_max;
+	    var interval = Quiz01.response.result.options[0].range_interval;
+	    index = Quiz01.response.result.index;
+	    total = Quiz01.response.result.total;
+	    if (index == total) {
+	    	sessionStorage['isLast'] = "true";
+	    	swal({
+			  title: "Hoorayy!",
+			  text: "Finally! This question is the last! ("+index+"/"+total+")",
+			  imageUrl: 'img/thumbs-up.png'
+			});
+	    	
+	    }
+	    a = parseInt(rMin);
+	    b = parseInt(rMax);
+	    c = parseInt(interval);
 	    	document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	$('#topic').text(topic);
 	    	if (type == 'SQ') {
 		    	for (var i=0;i<option.length;i++) {
-		    		text+='<p>'+option[i].option+'</p>'
+		    		text+='<input class="inputTXT" type="radio" name="'+topic+'" typeZ="SQ" value="'+option[i].option_id+'"><p>'+option[i].option+'</p><br>'
 		    	}
 	    	}else if(type == 'YN'){
-	    		text+='<textarea class="form-control input" rows="8" placeholder="Put your address..."></textarea>'
+	    		for (var i=0;i<option.length;i++) {
+	    			text+='<input class="inputTXT" type="radio" name="'+topic+'" typeZ="YN" value="'+option[i].option_id+'"><p>'+option[i].option+'</p><br>'
+	    			}
 	    	}
-	    	else if(type == 'SCROL'){
-	    		var script1 = document.createElement('script');
-			    script1.type = 'text/javascript';
-			    script1.src = 'http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js';
-			    document.body.appendChild(script1);
-			    var script2 = document.createElement('script');
-			    script2.type = 'text/javascript';
-			    script2.src = 'http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js';
-			    document.body.appendChild(script2);
-	    		text+='<div class="slider-wrapper">'+
-'				      <div id="slider-range"></div>'+
-'				      <div class="range-wrapper">'+
-'				        <div class="range"></div>'+
-'				        <div class="range-alert">+</div>'+
-'				        <div class="gear-wrapper">'+
-'				          <div class="gear-large gear-one">'+
-'				            <div class="gear-tooth"></div>'+
-'				            <div class="gear-tooth"></div>'+
-'				            <div class="gear-tooth"></div>'+
-'				            <div class="gear-tooth"></div>'+
-'				          </div>'+
-'				          <div class="gear-large gear-two">'+
-'				            <div class="gear-tooth"></div>'+
-'				            <div class="gear-tooth"></div>'+
-'				            <div class="gear-tooth"></div>'+
-'				            <div class="gear-tooth"></div>'+
-'				          </div>'+
-'				        </div>'+
-'				      </div>'+
-'	      <div class="marker marker-0"><sup>$</sup>10,000</div>'+
-'	      <div class="marker marker-25"><sup>$</sup>35,000</div>'+
-'	      <div class="marker marker-50"><sup>$</sup>60,000</div>'+
-			'      <div class="marker marker-75"><sup>$</sup>85,000</div>'+
-			'	      <div class="marker marker-100"><sup>$</sup>110,000+</div>'+
-			'	    </div>'
+	    	else if(type == 'RANGE'){
+	    		$('#slider-range').slider({
+				    range: true,
+				    min: a,
+				    max: b,
+				    step: c,
+				    values: [percentage(b,20), percentage(b,80)]
+				  });
+	    		$('#minsli').text(a.toLocaleString());
+	    		$('#maxsli').text(b.toLocaleString());
+	    		$("#range-panel").addClass("inputTXT");
+	    		document.getElementById("range-panel").style.display = "block";
+	    		select = Quiz01.response.result.options[1].option_id;
+	    		select2 = Quiz01.response.result.options[2].option_id;
+	    		
 	    	}
 	    	else if(type == 'TXT'){
-	    		text+='<textarea class="form-control input" rows="8" placeholder="Put your address..." type="TXT"></textarea>'
+	    		text+='<textarea class="form-control inputTXT" rows="8" placeholder="Put something..." typeZ="TXT"></textarea>'
+	    		select = Quiz01.response.result.options[0].option_id;
+	    		
+	    	}
+	    	else if(type == 'MULTI'){
+	    		text+=''
+	    	}
+	    	else if(type == 'SLI'){
+	    		$("#slider-panel").addClass("inputTXT");
+	    		document.getElementById("slider-panel").style.display = "block";
+	    		document.getElementById("slider-bar").setAttribute("value", (b/2).toLocaleString());
+	    		document.getElementById("slider-bar").setAttribute("min", a.toLocaleString());
+	    		document.getElementById("slider-bar").setAttribute("max", b.toLocaleString());
+	    		document.getElementById("slider-bar").setAttribute("step", c.toLocaleString());
+	    		$('#disValueSli').text(b/2);
+	    		$('#minslider').text(rMin);
+	    		$('#maxslider').text(rMax);
+	    		select = Quiz01.response.result.options[0].option_id;
 	    	}
 	    	$('#choice').append(text);
+	    	}
 	    },
 	    error: function (xhr, textStatus, errorThrown){
 //          window.location.reload(true)
@@ -89,8 +172,8 @@ function resetQuiz(){
 		data: data,
 		success: function(d) {
 			getToastrOption();
-	    	toastr["info"]("Please wait for 3 sec.", "Successful");
-	    	setTimeout(function(){ window.location.replace("index.jsp"); }, 3000);
+	    	toastr["info"]("Please wait for 1-2 sec.", "Successful");
+	    	setTimeout(function(){ location.reload(); }, 1500);
 		},
 		error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
@@ -100,46 +183,159 @@ function resetQuiz(){
 	});
 }
 function valid(){
-	if ($('.input').attr('type') == 'TXT') {
+
+	if ($('.inputTXT').attr('typeZ') == 'TXT') {
 		inputType = 'TXT';
-		isEmptyTXT()
-		isTooShortTXT()
-	}else if($('.input').attr('type') == 'SCROL'){
-		inputType = 'SCROL';
-		validSCROL();
-	}else if($('.input').attr('type') == 'YN'){
+		if (isEmptyTXT()) {
+			getToastrOption();
+	    	toastr["warning"]("Please put something in the box.", "Hint!");
+	    	return false;
+		}else if(isTooShortTXT()){
+			getToastrOption();
+	    	toastr["warning"]("The text is too short.", "Hint!");
+	    	return false;
+		}else{
+			answer = $('.inputTXT').val();
+			return true;
+		}
+	}else if($('.inputTXT').attr('typeZ') == 'SLI'){
+		inputType = 'SLI';
+		if (!validSLI()) {
+			getToastrOption();
+	    	toastr["warning"]("undefined", "Hint!");
+	    	return false;
+		}else{
+			answer = $('#disValueSli').text();
+			return true;
+		}
+	}else if(type == 'RANGE'){
+		inputType = 'RANGE';
+		if (!validRANGE()) {
+			getToastrOption();
+	    	toastr["warning"]("The gap between min and max must not more than 10% ("+percentage(b,10).toLocaleString()+").", "Hint!");
+	    	return false;
+		}else{
+			answer = getSelectValue()[0];
+			answer2 = getSelectValue()[1];
+			return true;
+		}
+	}else if($('.inputTXT').attr('typeZ') == 'YN'){
 		inputType = 'YN';
-		validYN();
-	}else if($('.input').attr('type') == 'SQ'){
+		if (!validYN()) {
+			getToastrOption();
+	    	toastr["warning"]("Please select one of choices.", "Hint!");
+	    	return false;
+		}else{
+			return true;
+		}
+	}else if($('.inputTXT').attr('typeZ') == 'SQ'){
 		inputType = 'SQ';
-		validSQ();
+		if (!validSQ()) {
+			getToastrOption();
+	    	toastr["warning"]("Please select one of choices.", "Hint!");
+	    	return false;
+		}else{
+			return true;
+		}
+		
+	}else if($('.inputTXT').attr('typeZ') == 'MULTI'){
+		inputType = 'MULTI';
+		validMU();
 	}
 }
 function isEmptyTXT(){
-	if ($('.input').val() == '') {
+	if ($('.inputTXT').val() == '') {
 		return true;
 	}else{
 		return false;
 	}
 }
 function isTooShortTXT(){
-	if ($('.input').val().length <= 6) {
+	if ($('.inputTXT').val().length <= 6) {
 		return true;
 	}else{
 		return false;
 	}
 }
-function validSCROL(){
-	
+function validSLI(){
+	return true;
+}
+function validRANGE(){
+	if (getSelectValue() == undefined) {
+		return false;
+	}else{
+		if ((getSelectValue()[1]-getSelectValue()[0]) > percentage(b,10)) {
+			return false;
+		}else{
+			return true;
+		}
+	}
 }
 function validYN(){
-	
+	return validSQ();
 }
 function validSQ(){
-	
+	var radios = document.getElementsByTagName('input');
+	for (var i = 0; i < radios.length; i++) {
+	    if (radios[i].type === 'radio' && radios[i].checked) {
+	        // get value, set checked flag or do whatever you need to
+	        select = radios[i].value; 
+	    }
+	}
+	if (select != undefined) {
+		return true;
+	}else{
+		return false;
+	}
 }
 function validEmail(){
 
+}
+function nextQuestion(){
+	var data = new Object();
+        data.token = sessionStorage['Token'];
+        data.player_id = sessionStorage['player'];
+        data.question_id = questId;
+        if (answer != undefined) {
+        	data.answer = answer;
+        	if (answer2 != undefined) {
+       		data.answer = answer+","+answer2;
+       		}
+       		if (select2 != undefined) {
+       		data.option_id = select+","+select2;
+       		}
+       	}
+       	data.option_id = select;
+        tokenUrl = sessionStorage['mainUrl']+"Quiz/"+sessionStorage['qId']+"/answer"
+	$.ajax({
+		type: "POST",
+		url: tokenUrl,
+		content: "application/json; charset=utf-8",
+		dataType: "json",
+		data: data,
+		success: function(d) {
+			Gtemp_02 = d;
+			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
+		},
+		error: function (xhr, textStatus, errorThrown){
+//                window.location.reload(true)
+                console.log(errorThrown);
+                alert("Failed");
+            }
+        });
+	
+}
+
+function isLastQuestion(){
+	if (sessionStorage['isLast'] == "true") { //true == out *Default = false
+		return true;
+	}else{							// false == next
+		return false;
+	}
+}
+function percentage(num, per)
+{
+  return (num/100)*per;
 }
 
 

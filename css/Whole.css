@@ -1,5 +1,5 @@
 .container-fluid{
-    height: 615px;
+    
 }
 .centered{
 	text-align: left;
@@ -8,6 +8,7 @@
 }
 p.dropdown-item:hover{
 	background-color: #3A99FC;
+	cursor: pointer;
 }
 .bg{
 	background-color: green;
@@ -39,4 +40,27 @@ p.dropdown-item:hover{
 }
 .btn{
 	font-size: 22px;
+}
+.btn-green {
+    background-color: #1ab394;
+    color: #fff;
+    border-radius: 3px;
+}
+.btn-green:focus,
+.btn-green:hover {
+    background-color: #18a689;
+    color: #fff;
+}
+.panel-footer {
+    padding: 0 15px;
+    border: none;
+    text-align: right;
+    background-color: #fff;
+}
+.sa-custom{
+	width: 120px !important;
+    height: 80px !important;
+}
+.quizlist{
+	border-color: #FFF !important;
 }

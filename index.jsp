@@ -4,6 +4,7 @@
 			if (checkUser()) {
 				window.location.replace("login.jsp");
 			}else{
+				chkStatus();
 				getToken();
 		    	getCusData();
 			}
@@ -19,6 +20,13 @@
 			$('#lgout').click(function(){
 			    Logout();
 			});
+			$('#resetAllQ').click(function(){
+			    resetAllQ();
+			});
+			$('#SsSp').click(function(){
+			    alert("UnderConstruction")
+			});
+
 		});
 	</script>
 	<div class="container" style="margin-top: 50px;">
@@ -34,6 +42,8 @@
 						<p class="dropdown-item" id="getToken">Get Token</p>
 					    <p class="dropdown-item" id="vApi">View Api_Key</p>
 					    <p class="dropdown-item" id="vPlayer">View Player</p>
+					    <p class="dropdown-item" id="resetAllQ">Reset All Quiz</p>
+					    <p class="dropdown-item" id="SsSp">Session Storage Panel</p>
 					    <p class="dropdown-item" id="lgout">Logout</p>
 				    </div>
 				</div>
