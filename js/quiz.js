@@ -14,7 +14,7 @@ var QuestImg;
 var questId;
 var type;
 var select;
-var select2,test2,test;
+var select2,test, test2;
 var answer, answer2,index,total;
 var value, a,b,c,d,e;
 var z;
@@ -52,10 +52,10 @@ function getQuestion(){
         dataType: "json",
 	    success: function(data){
 	    Quiz01 = data;
-	    localStorage.setItem("temp_Quest", JSON.stringify(Quiz01));
-	    test2 = localStorage.getItem("temp_Quest");
-	    console.log(test2);
-	    test = JSON.parse(test2);
+	    sessionStorage.setItem("cur_Quest", JSON.stringify(Quiz01));
+	    var cur_Quest = sessionStorage.getItem("cur_Quest");
+	    console.log(cur_Quest);
+	    test = JSON.parse(cur_Quest);
 	    if (Quiz01.response.result == null) {
 	    	swal({
 			  title: "What's going on?",
@@ -182,6 +182,12 @@ function resetQuiz(){
             }
 	});
 }
+function savePrevious(){
+	sessionStorage['past_Quest'] = sessionStorage['cur_Quest'];
+	var past_Quest = sessionStorage['past_Quest'];
+	console.log(past_Quest);
+	test2 = JSON.parse(past_Quest);
+}
 function valid(){
 
 	if ($('.inputTXT').attr('typeZ') == 'TXT') {
@@ -242,6 +248,7 @@ function valid(){
 		inputType = 'MULTI';
 		validMU();
 	}
+	
 }
 function isEmptyTXT(){
 	if ($('.inputTXT').val() == '') {

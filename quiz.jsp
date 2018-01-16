@@ -36,6 +36,7 @@
 				    	toastr["info"]("This is the last question. we're bringing you to index", "Successful");
 				    	setTimeout(function(){ window.location.replace("index.jsp"); }, 1500);
 					}else{
+						savePrevious();
 						getToastrOption();
 				    	toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
 				    	setTimeout(function(){ location.reload(); }, 1500);
