@@ -18,6 +18,9 @@ var select2,test, test2;
 var answer, answer2,index,total;
 var value, a,b,c,d,e;
 var z,data,aa;
+var choices = []; 
+var unit = '';
+var ph = '';
 function getStatus(a){
 	$.ajax({
 			type: "GET",
@@ -68,6 +71,32 @@ function getTopic(a){
 	for(var i=0;i<n;i++){
 	    		if (qname == data.response.result[i].node_id) {
 	    			topic = data.response.result[i].title;
+	    			if (type == 'SQ' || type == 'YN') {
+		    			for(var k=0;k<n;k++){
+		    				if (qname+"_" == (data.response.result[k].node_id).substring(0,5)) {
+		    					choices.push(data.response.result[k].title);
+		    				}
+		    			}
+	    			}else if (type == 'TXT') {
+	    				for(var k=0;k<n;k++){
+		    				if (qname+"_" == (data.response.result[k].node_id).substring(0,5)) {
+		    					ph = data.response.result[k].title;
+		    				}
+		    			}
+	    			}
+	    			else if (type == 'SLI') {
+	    				if (topic.indexOf('How') > -1 && topic.indexOf('old') > -1) {
+	    					$('#unit').text();
+	    				}else if (topic.indexOf('have') > -1 && topic.indexOf('kids') > -1) {
+	    					$('#unit').text();
+	    				}
+	    				if (Quiz01.response.result.options.length > 3) {
+
+	    				}
+	    			}
+	    			else if (true) {
+	    				
+	    			}
 	    		}
 	    	}
 }
@@ -163,7 +192,7 @@ function buildQuiz(){
 	    		
 	    	}
 	    	else if(type == 'TXT'){
-	    		text+='<textarea class="form-control inputTXT" rows="8" placeholder="Put something..." typeZ="TXT"></textarea>'
+	    		text+='<textarea class="form-control inputTXT" rows="8" placeholder="'+ph+'" typeZ="TXT"></textarea>'
 	    		select = Quiz01.response.result.options[0].option_id;
 	    		
 	    	}
@@ -192,7 +221,6 @@ function chkIndex(){
 			  text: "Finally! This question is the last! ("+index+"/"+total+")",
 			  imageUrl: 'img/thumbs-up.png'
 			});
-	    	
 	    }
 }
 function resetQuiz(){

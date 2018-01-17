@@ -39,7 +39,8 @@ $(function() {
 
   $('#slider-range').slider({
     slide: function(event, ui) {
-
+      $('#showMin').val(ui.values[0].toLocaleString());
+      $('#showMax').val(ui.values[1].toLocaleString());
       // Update the range container values upon sliding
 
       $('.range').html('<span class="range-value"><sup>$</sup>' + ui.values[0].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + '</span><span class="range-divider"></span><span class="range-value"><sup>$</sup>' + ui.values[1].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + '</span>');
@@ -96,6 +97,7 @@ $(function() {
   // Prevent the range container from moving the slider
   $('.range, .range-alert').on('mousedown', function(event) {
     event.stopPropagation();
+
   });
 
 });

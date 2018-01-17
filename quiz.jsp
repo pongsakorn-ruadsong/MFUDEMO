@@ -46,6 +46,11 @@
 		    $('.range-slider__range').change(function(){
 		    	$('.range-slider__value').text(($('.range-slider__range').val()));
 		    });
+		    $('.dropdown-menu > .dropdown-item').click(function(){
+		    	$('#showCurren').remove();
+		    	$('#chgCurren').text($(this).attr('value'));
+		    });
+
 		});
 		
 	</script>
@@ -66,8 +71,11 @@
 					<p id="topic"></p>
 				</div>
 				<div class="choice">
-					<p id="choice">
-						<div class="row" id="range-panel" typeZ="RANGE" style="display: none;">
+					<div class="4Play">
+						
+					</div>
+					<div class="realDeal" style="display: none">
+						<div class="row" id="range-panel" typeZ="RANGE" style="display: none;margin-bottom: 50px;">
 							<div class="col-md-12">
 								<div class="wrapper">
   								<div class="containerG">
@@ -102,7 +110,26 @@
 								</div>
 							</div>
 						</div>
-
+							<center>
+								<div class="row" style="padding-left: 4px;">
+									<div class="col-md-12">
+										<div class="input-group " style="width: 70%">
+											<input type="text" class="form-control showMoney" id="showMin" readonly="true">
+												<span style="padding-top: 10px;">&nbsp&nbsp&nbsp&nbspTo&nbsp&nbsp&nbsp&nbsp</span>
+											<input type="text" class="form-control showMoney" id="showMax" readonly="true"> 
+										   <span class="input-group-btn" style="margin-left: 10px;">
+										       <div class="dropdown">
+													<button class="btn btn-default dropdown-toggle" type="button" id="chgCurren" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="float: right;width: 100px;"><img id="showCurren" style="margin-right: 0px;" src="img/currency.png"></button>
+													<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+														<p class="dropdown-item" id="CurrenTH" value="Baht"><img src="http://i64.tinypic.com/fd60km.png"/>THB</p>
+													    <p class="dropdown-item" id="CurrenEN" value="Dollar"><img src="img/thaiFlag.png"/>USD</p>
+												    </div>
+												</div>
+										   </span>
+										</div>
+									</div>
+								</div>
+							</center>
 						<div class="row" id="slider-panel" typeZ="SLI" style="display: none;text-align: center;">
 							<div class="range-slider">
 								<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
@@ -110,11 +137,10 @@
 							 		<div class="col-md-8"><input class="range-slider__range" id="slider-bar" type="range"  value="" min="" max="" step="" ></div>
 							 		<div class="col-md-2"><span id="maxslider"></span></div>
 							 	</div>
-							  <div style="text-align: center;margin-top: 30px;"><span id="disValueSli" style="padding: 15px;" class="range-slider__value" style="width: 20%"></span></div>
+							  <div style="text-align: center;margin-top: 30px;"><span id="disValueSli" style="padding: 15px;" class="range-slider__value" style="width: 20%"></span><span id="unit" style="margin-left: 10px;"></span>></div>
 							</div>
-
 						</div>
-					</p>
+					</div>
 				</div>
 				<div class="button-group">
 					<button class="btn btn-danger" id="resetQuiz" type="button" style="margin-right: 20px;">Reset</button>

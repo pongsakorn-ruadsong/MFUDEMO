@@ -8,6 +8,7 @@ var getQuizz = sessionStorage['mainUrl']+'Quiz/list?api_key='+sessionStorage['ap
 function changeLang(a){
 	sessionStorage['lang'] = a;
 	location.reload();
+	
 }
 function chkStatus() {
 
