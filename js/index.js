@@ -72,25 +72,11 @@ function getCusData() {
             dataType: "json",
 	    	success: function(data){
 	        	Index01 = data;
-	        	var qData = '';
-	        	var text = '<div class="row">';
-	        	for(var i = 0;i<Index01.response.result.length;i++) {
-	        		var quiz_id = Index01.response.result[i].quiz_id;
-	        		var quiz_name = Index01.response.result[i].name;
-	        		getStatus(quiz_id);
-	      			text +='<div class="col-md-4 centered">'+
-	      			'<button class="btn btn-primary quizlist" qId="'+quiz_id+'" id="'+quiz_id+'">'+quiz_name+
-	      			'</button>'+
-	      			'</div>'
-	      			qData += quiz_id+" ";
-	        	}
-	        	text += '</div>';
-	        	console.log(qData);
-	        	$('#qlist').append(text);
-	        	$('.quizlist').click(function(){
-	        		sessionStorage['qId'] = this.getAttribute("qId");
-		    		window.location = 'quiz.jsp?qId='+sessionStorage['qId']+'&player='+sessionStorage['player'];
-		    	});
+	        	$('#myModal').modal({backdrop: 'static', keyboard: false}); 
+	    		setTimeout(function(){ 
+	    			$('#myModal').modal('hide');
+	    			buildQuizList();
+	    		}, 1500);
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
@@ -98,6 +84,39 @@ function getCusData() {
                 alert("Failed 2");
             }
         });
+}
+function buildQuizList(){
+	var qData = '';
+	var text = '<div class="row">';
+	for(var i = 0;i<Index01.response.result.length;i++) {
+	    var quiz_id = Index01.response.result[i].quiz_id;
+	    var quiz_name = Index01.response.result[i].name;
+	    var values = getBtnName(quiz_id); 
+	    getStatus(quiz_id);
+	    text +='<div class="col-md-4 centered">'+
+	    '<button class="btn btn-primary quizlist" qId="'+quiz_id+'" id="'+quiz_id+'">'+values+
+	    '</button>'+
+	    '</div>'
+	    qData += quiz_id+" ";
+	    }
+	    text += '</div>';
+	    console.log(qData);
+	    $('#qlist').append(text);
+	    $('.quizlist').click(function(){
+	    sessionStorage['qId'] = this.getAttribute("qId");
+		window.location = 'quiz.jsp?qId='+sessionStorage['qId']+'&player='+sessionStorage['player'];
+	});
+}
+function getBtnName(a){
+	var abz = data.response.result.length;
+	var ab = data.response.result;
+	var ans = '';
+	for(var c = 0;c<abz;c++) {
+		if (a == data.response.result[c].node_id) {
+			ans = data.response.result[c].title;
+		}
+	}
+	return ans;
 }
 function resetAllQ(){
 	var data = new Object();

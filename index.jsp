@@ -6,6 +6,7 @@
 			}else{
 				chkStatus();
 				getToken();
+				getContent();
 		    	getCusData();
 			}
 		    $('#getToken').click(function(){
@@ -57,4 +58,18 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" style="margin-top: 200px;">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;">
+        <CENTER>
+        <div class="modal-body" style="padding: 100px;">
+          <div class="loader"></div>
+        </div>
+        </CENTER>
+      </div>
+      
+    </div>
+  </div>
 <%@include file="bottom.jsp" %>

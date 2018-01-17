@@ -17,7 +17,7 @@ var select;
 var select2,test, test2;
 var answer, answer2,index,total;
 var value, a,b,c,d,e;
-var z,data;
+var z,data,aa;
 function getStatus(a){
 	$.ajax({
 			type: "GET",
@@ -48,7 +48,7 @@ function getStatus(a){
 function getContent(){
 	$.ajax({
 		type: "GET",
-        url: 'https://api.pbapp.net/Content?api_key='+api_key+'&player_id='+player+'&language='+sessionStorage['lang'],
+        url: 'https://api.pbapp.net/Content?api_key='+sessionStorage['api_key']+'&player_id='+sessionStorage['player']+'&language='+sessionStorage['lang'],
         dataType: "json",
 	    success: function(d){
 	    	data = d;
@@ -61,9 +61,10 @@ function getContent(){
         }	
 	});
 }
-function getTopic(){
+function getTopic(a){
 	var n = data.response.result.length;
-	var qname = Quiz01.response.result.question;
+	var qname = a.response.result.question;
+	console.log(a);
 	for(var i=0;i<n;i++){
 	    		if (qname == data.response.result[i].node_id) {
 	    			topic = data.response.result[i].title;
@@ -79,7 +80,7 @@ function getQuestion(){
 	    Quiz01 = data;
 	    sessionStorage.setItem("cur_Quest", JSON.stringify(Quiz01));
 	    var cur_Quest = sessionStorage.getItem("cur_Quest");
-	    console.log(cur_Quest);
+	    console.log(data);
 	    test = JSON.parse(cur_Quest);
 	    if (Quiz01.response.result == null) {
 	    	swal({
@@ -105,15 +106,15 @@ function getQuestion(){
 	    }else{
 	    		$('#myModal').modal({backdrop: 'static', keyboard: false})  
 	    		setTimeout(function(){ 
-	    			getTopic(); 
 	    			$('#myModal').modal('hide');
+	    			getTopic(data); 
 	    			buildQuiz();
 	    		}, 1500);
 	    		
 	    	}
 	    },
 	    error: function (xhr, textStatus, errorThrown){
-//          window.location.reload(true)
+         window.location.reload(true)
             console.log(errorThrown);
             alert("Failed");
         }	

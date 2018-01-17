@@ -5,6 +5,7 @@
 				getIdentifyKey();
 				getToastrOption()
 				toastr["info"]("141073538", "Successful")
+				sessionStorage['lang'] = 'English'
 			}else{
 				window.location.replace("index.jsp");
 			}

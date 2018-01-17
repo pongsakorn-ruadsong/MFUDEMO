@@ -52,3 +52,6 @@ function checkUser(){
 		return false;
 	}
 }
+function chkPage(){
+	
+}
