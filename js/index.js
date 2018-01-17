@@ -5,6 +5,10 @@ var Index04 = [];
 var Index05 = [];
 var TempLink = sessionStorage['mainUrl']+'Player/'+sessionStorage['player']+'/data/all?api_key='+sessionStorage['api_key'];
 var getQuizz = sessionStorage['mainUrl']+'Quiz/list?api_key='+sessionStorage['api_key'];
+function changeLang(a){
+	sessionStorage['lang'] = a;
+	location.reload();
+}
 function chkStatus() {
 
 }

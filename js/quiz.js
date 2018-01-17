@@ -17,7 +17,7 @@ var select;
 var select2,test, test2;
 var answer, answer2,index,total;
 var value, a,b,c,d,e;
-var z;
+var z,data;
 function getStatus(a){
 	$.ajax({
 			type: "GET",
@@ -44,6 +44,31 @@ function getStatus(a){
             alert("Failed");
         }	
 	});
+}
+function getContent(){
+	$.ajax({
+		type: "GET",
+        url: 'https://api.pbapp.net/Content?api_key='+api_key+'&player_id='+player+'&language='+sessionStorage['lang'],
+        dataType: "json",
+	    success: function(d){
+	    	data = d;
+	    	console.log(data);
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+//          window.location.reload(true)
+            console.log(errorThrown);
+            alert("Failed");
+        }	
+	});
+}
+function getTopic(){
+	var n = data.response.result.length;
+	var qname = Quiz01.response.result.question;
+	for(var i=0;i<n;i++){
+	    		if (qname == data.response.result[i].node_id) {
+	    			topic = data.response.result[i].title;
+	    		}
+	    	}
 }
 function getQuestion(){
 	$.ajax({
@@ -78,26 +103,34 @@ function getQuestion(){
 			  }
 			});
 	    }else{
-	    text = '';
-	    topic = Quiz01.response.result.question;
-	    option = Quiz01.response.result.options;
-	    QuestImg = Quiz01.response.result.question_image;
+	    		$('#myModal').modal({backdrop: 'static', keyboard: false})  
+	    		setTimeout(function(){ 
+	    			getTopic(); 
+	    			$('#myModal').modal('hide');
+	    			buildQuiz();
+	    		}, 1500);
+	    		
+	    	}
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+//          window.location.reload(true)
+            console.log(errorThrown);
+            alert("Failed");
+        }	
+	});
+}
+function buildQuiz(){
+		var text = '';
+	    var option = Quiz01.response.result.options;
+	    var QuestImg = Quiz01.response.result.question_image;
 	    questId = Quiz01.response.result.question_id;
 	    type = Quiz01.response.result.question_type;
 	    var rMin = Quiz01.response.result.options[0].range_min;
 	    var rMax = Quiz01.response.result.options[0].range_max;
 	    var interval = Quiz01.response.result.options[0].range_interval;
-	    index = Quiz01.response.result.index;
-	    total = Quiz01.response.result.total;
-	    if (index == total) {
-	    	sessionStorage['isLast'] = "true";
-	    	swal({
-			  title: "Hoorayy!",
-			  text: "Finally! This question is the last! ("+index+"/"+total+")",
-			  imageUrl: 'img/thumbs-up.png'
-			});
-	    	
-	    }
+	     index = Quiz01.response.result.index;
+	     total = Quiz01.response.result.total;
+	    chkIndex();
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
 	    c = parseInt(interval);
@@ -149,14 +182,17 @@ function getQuestion(){
 	    		select = Quiz01.response.result.options[0].option_id;
 	    	}
 	    	$('#choice').append(text);
-	    	}
-	    },
-	    error: function (xhr, textStatus, errorThrown){
-//          window.location.reload(true)
-            console.log(errorThrown);
-            alert("Failed");
-        }	
-	});
+}
+function chkIndex(){
+	if (index == total) {
+	    	sessionStorage['isLast'] = "true";
+	    	swal({
+			  title: "Hoorayy!",
+			  text: "Finally! This question is the last! ("+index+"/"+total+")",
+			  imageUrl: 'img/thumbs-up.png'
+			});
+	    	
+	    }
 }
 function resetQuiz(){
 	var data = new Object();

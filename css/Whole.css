@@ -64,3 +64,126 @@ p.dropdown-item:hover{
 .quizlist{
 	border-color: #FFF !important;
 }
+.languagepicker {
+	background-color: #FFF;
+	display: inline-block;
+	padding: 0;
+	height: 40px;
+	overflow: hidden;
+	transition: all .3s ease;
+	margin: 0 11px 10px 0;
+	vertical-align: top;
+	
+}
+.languagepicker a{
+	color: #000;
+	text-decoration: none;
+}
+
+.languagepicker li {
+	display: block;
+	padding: 0px 20px;
+	line-height: 40px;
+	border-top: 1px solid #EEE;
+}
+
+.languagepicker li:hover{
+	background-color: #EEE;
+}
+
+.languagepicker a:first-child li {
+	border: none;
+	background: #FFF !important;
+}
+
+.languagepicker li img {
+	margin-right: 5px;
+}
+
+.roundborders {
+	border-radius: 5px;
+}
+.chgLang{
+	text-decoration: none;
+    display: inline-block;
+    -moz-transition: 0.3s linear;
+    -ms-transition: 0.3s linear;
+    -o-transition: 0.3s linear;
+    -webkit-transition: 0.3s linear;
+    transition: 0.3s linear;
+    padding: 5px;
+    outline: none !important;
+}
+.chgLeft{
+    margin-right: -3px;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.chgRight{
+    margin-left: -3px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+img{
+	margin-right: 10px;
+}
+.chgLang:hover{
+	background-color: #B7ACE8;
+}
+.hAs{
+	background: rgba(54, 89, 88, 0.6);
+	outline: none !important;
+	border:solid 2px;
+	border-top: none;
+	border-color: rgba(37, 64, 63, 0.6);
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	padding: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.hAs:hover{
+	background: rgba(37, 64, 63, 0.6);
+	border-color: rgba(16, 50, 48, 0.6);
+}
+.trapezoid {
+  width: 230px;
+  text-align: center;
+  height: 0; 
+  position: relative;
+  border-right: 50px solid transparent;
+  border-top: 40px solid #2963BD;
+  border-left: 50px solid transparent;
+  box-sizing: content-box;
+}
+.trapezoid span { 
+  position: absolute;
+  top: -30px;
+  left: 25%;
+  color: #fff;
+}
+#sliderUD{
+	display: block;
+    position: fixed;
+    top: -70px;
+    background-color: rgba(157, 157, 179, 0.6);
+    padding: 30px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    transition: top 0.5s;
+}
+#sliderUD:hover{
+	top: 0px;
+}
+.myBtn{
+	outline: none !important;
+	border: none !important;
+}
+.myBtn:active {
+  background-color: #3e8e41;
+  box-shadow: 2px 2px 2px 2px #666 inset;
+}
