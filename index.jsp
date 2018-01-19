@@ -51,6 +51,15 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-md-12" style="padding-left: 222px;padding-right: 222px;">
+				<div class="prog-bar">
+					
+						
+						
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<div class="" id="qlist">
 					

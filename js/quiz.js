@@ -9,6 +9,7 @@ var Quiz02;
 var Gtemp_02;
 var quesionId = null;
 var topic;
+var title;
 var option;
 var QuestImg;
 var questId;
@@ -28,11 +29,14 @@ function getStatus(a){
 	        dataType: "json",
 		    success: function(data){
 		    	Quiz02 = data;
-		    	if (Quiz02.response.result == null) {
+		    	if (Quiz02.response.result == null) { //no question. need reset
 		    		z = true;
 		    		document.getElementById(a).style.backgroundColor = "#6A6569";
+		    		document.getElementById(a).disabled = true;
+		    		document.getElementById("progNode_"+a).style.backgroundColor = "red";
+		    		document.getElementById("progNode_"+a).disabled = true;
 		    	}else{
-			    	if (Quiz02.response.result.total == Quiz02.response.result.index) {
+			    	if (Quiz02.response.result.total == Quiz02.response.result.index) { //last question. alert to user.
 			    		z = true;
 			    		document.getElementById(a).style.backgroundColor = "#FBDDF3";
 			    	}else{
@@ -44,7 +48,7 @@ function getStatus(a){
 	    error: function (xhr, textStatus, errorThrown){
 //          window.location.reload(true)
             console.log(errorThrown);
-            alert("Failed");
+            alert("Failed : getStatus(a) @ quiz.js ");
         }	
 	});
 }
@@ -60,18 +64,23 @@ function getContent(){
 	    error: function (xhr, textStatus, errorThrown){
 //          window.location.reload(true)
             console.log(errorThrown);
-            alert("Failed");
+            alert("Failed : getContent() @ quiz.js");
         }	
 	});
 }
 function getTopic(a){
 	var n = data.response.result.length;
 	var qname = a.response.result.question;
-	console.log(a);
+	console.log(qname);
 	for(var i=0;i<n;i++){
+		// console.log(qname+" == "+data.response.result[i].node_id+" ?");
 	    		if (qname == data.response.result[i].node_id) {
-	    			topic = data.response.result[i].title;
+	    			topic = data.response.result[i].summary;
+	    			title = data.response.result[i].title;
+	    			// console.log('Enter if');
+	    			// console.log(type+" == \'SQ\' ?");
 	    			if (type == 'SQ' || type == 'YN') {
+	    				// console.log('Enter if2');
 		    			for(var k=0;k<n;k++){
 		    				if (qname+"_" == (data.response.result[k].node_id).substring(0,5)) {
 		    					choices.push(data.response.result[k].title);
@@ -85,10 +94,19 @@ function getTopic(a){
 		    			}
 	    			}
 	    			else if (type == 'SLI') {
-	    				if (topic.indexOf('How') > -1 && topic.indexOf('old') > -1) {
-	    					$('#unit').text();
-	    				}else if (topic.indexOf('have') > -1 && topic.indexOf('kids') > -1) {
-	    					$('#unit').text();
+	    				if (title.indexOf('How') > -1 && title.indexOf('old') > -1) {
+	    					for(var k=0;k<n;k++){
+		    				if (data.response.result[k].node_id == 'YEAR_OLD') {
+		    						$('#unit').text(data.response.result[k].title);
+			    				}
+			    			}
+	    				}else if (title.indexOf('have') > -1 && title.indexOf('kids') > -1) {
+	    					var kid = "kid";
+	    					if ($('.range-slider__range').val() == 0) {
+	    						$('#unit').text(" "+kid+"s");
+	    					}else{
+	    						$('#unit').text(" "+kid);
+	    					}
 	    				}
 	    				if (Quiz01.response.result.options.length > 3) {
 
@@ -97,6 +115,9 @@ function getTopic(a){
 	    			else if (true) {
 	    				
 	    			}
+	    		}
+	    		else{
+	    			// console.log('Out if')
 	    		}
 	    	}
 }
@@ -109,6 +130,7 @@ function getQuestion(){
 	    Quiz01 = data;
 	    sessionStorage.setItem("cur_Quest", JSON.stringify(Quiz01));
 	    var cur_Quest = sessionStorage.getItem("cur_Quest");
+	    type = Quiz01.response.result.question_type;
 	    console.log(data);
 	    test = JSON.parse(cur_Quest);
 	    if (Quiz01.response.result == null) {
@@ -145,7 +167,7 @@ function getQuestion(){
 	    error: function (xhr, textStatus, errorThrown){
          window.location.reload(true)
             console.log(errorThrown);
-            alert("Failed");
+            alert("Failed : getQuestion() @ quiz.js");
         }	
 	});
 }
@@ -154,7 +176,6 @@ function buildQuiz(){
 	    var option = Quiz01.response.result.options;
 	    var QuestImg = Quiz01.response.result.question_image;
 	    questId = Quiz01.response.result.question_id;
-	    type = Quiz01.response.result.question_type;
 	    var rMin = Quiz01.response.result.options[0].range_min;
 	    var rMax = Quiz01.response.result.options[0].range_max;
 	    var interval = Quiz01.response.result.options[0].range_interval;
@@ -168,11 +189,11 @@ function buildQuiz(){
 	    	$('#topic').text(topic);
 	    	if (type == 'SQ') {
 		    	for (var i=0;i<option.length;i++) {
-		    		text+='<input class="inputTXT" type="radio" name="'+topic+'" typeZ="SQ" value="'+option[i].option_id+'"><p>'+option[i].option+'</p><br>'
+		    		text+='<input class="inputTXT" type="radio" name="'+topic+'" typeZ="SQ" value="'+option[i].option_id+'"><p>'+choices[i]+'</p><br>'
 		    	}
 	    	}else if(type == 'YN'){
 	    		for (var i=0;i<option.length;i++) {
-	    			text+='<input class="inputTXT" type="radio" name="'+topic+'" typeZ="YN" value="'+option[i].option_id+'"><p>'+option[i].option+'</p><br>'
+	    			text+='<input class="inputTXT" type="radio" name="'+topic+'" typeZ="YN" value="'+option[i].option_id+'"><p>'+choices[i]+'</p><br>'
 	    			}
 	    	}
 	    	else if(type == 'RANGE'){
@@ -187,6 +208,22 @@ function buildQuiz(){
 	    		$('#maxsli').text(b.toLocaleString());
 	    		$("#range-panel").addClass("inputTXT");
 	    		document.getElementById("range-panel").style.display = "block";
+	    		document.getElementById("realDeal").style.display = "block";
+	    		select = Quiz01.response.result.options[1].option_id;
+	    		select2 = Quiz01.response.result.options[2].option_id;
+	    	}
+	    	else if(type == 'RANGE_S'){
+	    		$('#slider-range').slider({
+				    range: true,
+				    min: a,
+				    max: b,
+				    step: c,
+				    values: [percentage(b,20), percentage(b,80)]
+				  });
+	    		$('#minsli').text(a.toLocaleString());
+	    		$('#maxsli').text(b.toLocaleString());
+	    		$("#range-panel").addClass("inputTXT");
+	    		document.getElementById("4Play").style.display = "block";
 	    		select = Quiz01.response.result.options[1].option_id;
 	    		select2 = Quiz01.response.result.options[2].option_id;
 	    		
@@ -200,6 +237,19 @@ function buildQuiz(){
 	    		text+=''
 	    	}
 	    	else if(type == 'SLI'){
+	    		$("#slider-panel").addClass("inputTXT");
+	    		document.getElementById("slider-panel").style.display = "block";
+	    		document.getElementById("realDeal").style.display = "block";
+	    		document.getElementById("slider-bar").setAttribute("value", (b/2).toLocaleString());
+	    		document.getElementById("slider-bar").setAttribute("min", a.toLocaleString());
+	    		document.getElementById("slider-bar").setAttribute("max", b.toLocaleString());
+	    		document.getElementById("slider-bar").setAttribute("step", c.toLocaleString());
+	    		$('#disValueSli').text(b/2);
+	    		$('#minslider').text(rMin);
+	    		$('#maxslider').text(rMax);
+	    		select = Quiz01.response.result.options[0].option_id;
+	    	}
+	    	else if(type == 'SLI_S'){
 	    		$("#slider-panel").addClass("inputTXT");
 	    		document.getElementById("slider-panel").style.display = "block";
 	    		document.getElementById("slider-bar").setAttribute("value", (b/2).toLocaleString());
@@ -243,7 +293,7 @@ function resetQuiz(){
 		error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
                 console.log(errorThrown);
-                alert("Failed");
+                alert("Failed : resetQuiz() @ quiz.js");
             }
 	});
 }
@@ -269,18 +319,17 @@ function valid(){
 			answer = $('.inputTXT').val();
 			return true;
 		}
-	}else if($('.inputTXT').attr('typeZ') == 'SLI'){
+	}else if($('.inputTXT').attr('typeZ') == 'SLI' || $('.inputTXT').attr('typeZ') == 'SLI_S'){
 		inputType = 'SLI';
 		if (!validSLI()) {
 			getToastrOption();
 	    	toastr["warning"]("undefined", "Hint!");
 	    	return false;
 		}else{
-			answer = $('#disValueSli').text();
+			answer = $('#hidSLIval').val();
 			return true;
 		}
-	}else if(type == 'RANGE'){
-		inputType = 'RANGE';
+	}else if(type == 'RANGE' || type == 'RANGE_S'){
 		if (!validRANGE()) {
 			getToastrOption();
 	    	toastr["warning"]("The gap between min and max must not more than 10% ("+percentage(b,10).toLocaleString()+").", "Hint!");
@@ -392,7 +441,7 @@ function nextQuestion(){
 		error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
                 console.log(errorThrown);
-                alert("Failed");
+                alert("Failed : nextQuestion() @ quiz.js");
             }
         });
 	

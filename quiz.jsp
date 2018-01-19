@@ -44,7 +44,8 @@
 			    }
 			});
 		    $('.range-slider__range').change(function(){
-		    	$('.range-slider__value').text(($('.range-slider__range').val()));
+		    	$('.range-slider__value').text(($('.range-slider__range').val())+" "+$('#unit').text());
+		    	$('#hidSLIval').val(($('.range-slider__range').val()));
 		    });
 		    $('.dropdown-menu > .dropdown-item').click(function(){
 		    	$('#showCurren').remove();
@@ -70,46 +71,47 @@
 				<div class="topic">
 					<p id="topic"></p>
 				</div>
-				<div class="choice">
-					<div class="4Play">
+				<div id="choice">
+					<div id="4Play" style="display: none;">
 						
 					</div>
-					<div class="realDeal" style="display: none">
-						<div class="row" id="range-panel" typeZ="RANGE" style="display: none;margin-bottom: 50px;">
-							<div class="col-md-12">
-								<div class="wrapper">
-  								<div class="containerG">
-								<div class="slider-wrapper">
-							      <div id="slider-range"></div>
+					<div id="realDeal" style="display: none">
+						<div id="range-panel" typeZ="RANGE" style="display: none;margin-bottom: 50px;">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="wrapper">
+	  								<div class="containerG">
+									<div class="slider-wrapper">
+								      <div id="slider-range"></div>
 
-							      <div class="range-wrapper">
-							        <div class="range"></div>
-							        <div class="range-alert">+</div>
+								      <div class="range-wrapper">
+								        <div class="range"></div>
+								        <div class="range-alert">+</div>
 
-							        <div class="gear-wrapper">
-							          <div class="gear-large gear-one">
-							            <div class="gear-tooth"></div>
-							            <div class="gear-tooth"></div>
-							            <div class="gear-tooth"></div>
-							            <div class="gear-tooth"></div>
-							          </div>
-							          <div class="gear-large gear-two">
-							            <div class="gear-tooth"></div>
-							            <div class="gear-tooth"></div>
-							            <div class="gear-tooth"></div>
-							            <div class="gear-tooth"></div>
-							          </div>
-							        </div>
+								        <div class="gear-wrapper">
+								          <div class="gear-large gear-one">
+								            <div class="gear-tooth"></div>
+								            <div class="gear-tooth"></div>
+								            <div class="gear-tooth"></div>
+								            <div class="gear-tooth"></div>
+								          </div>
+								          <div class="gear-large gear-two">
+								            <div class="gear-tooth"></div>
+								            <div class="gear-tooth"></div>
+								            <div class="gear-tooth"></div>
+								            <div class="gear-tooth"></div>
+								          </div>
+								        </div>
 
-							      </div>
+								      </div>
 
-							      <div class="marker marker-0"><sup>$</sup><span id="minsli"></span></div>
-							      <div class="marker marker-100"><sup>$</sup><span id="maxsli"></span></div>
-							    </div>
-							    </div>
+								      <div class="marker marker-0"><sup>$</sup><span id="minsli"></span></div>
+								      <div class="marker marker-100"><sup>$</sup><span id="maxsli"></span></div>
+								    </div>
+								    </div>
+									</div>
 								</div>
 							</div>
-						</div>
 							<center>
 								<div class="row" style="padding-left: 4px;">
 									<div class="col-md-12">
@@ -130,6 +132,7 @@
 									</div>
 								</div>
 							</center>
+						</div>
 						<div class="row" id="slider-panel" typeZ="SLI" style="display: none;text-align: center;">
 							<div class="range-slider">
 								<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
@@ -137,7 +140,13 @@
 							 		<div class="col-md-8"><input class="range-slider__range" id="slider-bar" type="range"  value="" min="" max="" step="" ></div>
 							 		<div class="col-md-2"><span id="maxslider"></span></div>
 							 	</div>
-							  <div style="text-align: center;margin-top: 30px;"><span id="disValueSli" style="padding: 15px;" class="range-slider__value" style="width: 20%"></span><span id="unit" style="margin-left: 10px;"></span>></div>
+							  <div style="text-align: center;margin-top: 30px;">
+							  	<span id="disValueSli" style="padding: 15px;" class="range-slider__value" style="width: 20%">
+									
+								</span>
+								<span id="unit" style="margin-left: 10px;display: none"></span>
+								<input type="hidden" id="hidSLIval" value="">
+							  </div>
 							</div>
 						</div>
 					</div>

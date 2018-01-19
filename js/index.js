@@ -50,7 +50,7 @@ function getToken() {
 		error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
                 console.log(errorThrown);
-                alert("Failed 1");
+                alert("Failed : getToken() @ index.js");
             }
         });
 }
@@ -77,14 +77,35 @@ function getCusData() {
 	    		setTimeout(function(){ 
 	    			$('#myModal').modal('hide');
 	    			buildQuizList();
+	    			buildProgBar(data);
 	    		}, 1500);
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
                 console.log(errorThrown);
-                alert("Failed 2");
+                alert("Failed : getCusData() @ index.js");
             }
         });
+}
+function buildProgBar(a){
+	var text = '';
+	var length = a.response.result.length;
+	for (var i = 1;i <= length;i++) {
+		console.log(i+" "+length);
+		text += '<div class="form-control progNode weight'+i+'" id="progNode_'+a.response.result[i-1].quiz_id+'">'+i+
+		'</div>'
+		for(var c = i;c<i+1;c++){
+			console.log(c+" "+length);
+			if (c == length) {
+				break;
+			}else{
+				text += '<div class="form-control progBar weightBar'+i+'" id="progBar_'+a.response.result[i-1].quiz_id+'">'+
+		'<div class="progress"></div>'+
+		'</div>'
+			}
+		}
+	}
+	$('.prog-bar').append(text);
 }
 function buildQuizList(){
 	var qData = '';
@@ -92,9 +113,11 @@ function buildQuizList(){
 	for(var i = 0;i<Index01.response.result.length;i++) {
 	    var quiz_id = Index01.response.result[i].quiz_id;
 	    var quiz_name = Index01.response.result[i].name;
+	    var weight = Index01.response.result[i].weight;
+	    console.log(weight);
 	    var values = getBtnName(quiz_id); 
 	    getStatus(quiz_id);
-	    text +='<div class="col-md-4 centered">'+
+	    text +='<div class="col-md-12 centered">'+
 	    '<button class="btn btn-primary quizlist" qId="'+quiz_id+'" id="'+quiz_id+'">'+values+
 	    '</button>'+
 	    '</div>'
@@ -138,7 +161,7 @@ function resetAllQ(){
 		error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
                 console.log(errorThrown);
-                alert("Failed 3");
+                alert("Failed : resetAllQ() @ index.js");
             }
 	});
 }
