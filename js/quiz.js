@@ -141,7 +141,7 @@ function getTopic(a){
 	    				// console.log('Enter if2');
 		    			for(var k=0;k<nn;k++){
 		    				for(var j=k;j<n;j++){
-		    					if (_qname.options[k].option == (data.response.result[j].node_id)) {
+		    					if (_qname.options[k].description == (data.response.result[j].node_id)) {
 		    						
 		    							choices.push(data.response.result[j].summary);
 		    						

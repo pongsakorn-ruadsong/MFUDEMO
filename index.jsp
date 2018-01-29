@@ -85,8 +85,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<div class="" id="qlist">
-					<button class="btn-slide" id="btn-pre" style="float: left;">Previous</button>
-					<button class="btn-slide" id="btn-next" disabled="true" style="float: right;">Next</button>
+					<button class="btn-slide" id="btn-pre"  style="float: left;display: none">Previous</button>
+					<button class="btn-slide" id="btn-next" disabled="true" style="float: right;display: none">Next</button>
 				</div>
 			</div>
 		</div>
