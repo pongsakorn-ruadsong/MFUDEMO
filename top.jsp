@@ -21,6 +21,9 @@
 	<link rel="stylesheet" type="text/css" href="css/toastr.min.css">
 	<link rel="stylesheet" type="text/css" href="css/Whole.css">
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="css/flags.min.css">
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	
 	<%
 		String uri = request.getRequestURI();
 		String pageName = uri.substring(uri.lastIndexOf("/")+1);

@@ -1,13 +1,29 @@
+				<script type="text/javascript">
+					$(document).ready(function(){
+						$("#sliderUD").hover(function(){
+						    	$('#up').fadeOut();
+						    	$('#down').fadeIn();
+						    	$('#sliderUD').css("top","0px");
+						    }, function(){
+						    	$('#up').fadeIn();
+						    	$('#down').fadeOut();
+						    	var bba = "-"+sessionStorage['top']+"px";
+						    	console.log(bba);
+						    	$('#sliderUD').css("top",bba);
+						});
+						$("#back").click(function(){
+							window.location.replace("index.jsp");
+						});
+					});
+				</script>
 				<div class="gb" id="sliderUD">
-					<div class="input-group">
-						<button class="form-control myBtn chgLang chgLeft" lang="English" onclick="changeLang('English')"><img src="http://i64.tinypic.com/fd60km.png"/>English</button>
-					    <button class="form-control myBtn chgLang chgRight" lang="Thai" onclick="changeLang('Thai')"><img src="img/thaiFlag.png"/>Thai</button>
+					<div class="" id="btn-lang">
+						
 					</div>
 					    <br>
-					    <img id="up" src="img/test.png" style="position: absolute;bottom: 3px;left: 102px;">
-					    <img id="down" src="img/test2.png" style="position: absolute;bottom: 3px;left: 115px;display: none">
+					    <img id="up" src="img/test.png" style="position: absolute;bottom: 10%;left: 46%;">
+					    <img id="down" src="img/test2.png" style="position: absolute;bottom: 10%;left: 46%;display: none">
 				</div>
-			
 		</div>
 	</div>
 </body>

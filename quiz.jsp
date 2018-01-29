@@ -4,8 +4,11 @@
 			if (checkUser()) {
 				window.location.replace("login.jsp");
 			}else{
+				getLang();
 				getQuestion();
 				getContent();
+				sessionStorage['ans_no'] = null;
+				sessionStorage['type'] = null;
 			}
 		    $('#resetQuiz').click(function(){
 		    	swal({
@@ -29,19 +32,43 @@
 				});
 		    });
 		    $("#nextBtn").click(function(){
+		    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
+		    		getToastrOption();
+					toastr["info"]("Please answer the question.", "Hint!");
+		    	}
+		    	else if(sessionStorage['type'] == 'SLI_S' && sessionStorage['ans_no'] == "null"){
+		    		getToastrOption();
+					toastr["info"]("Please answer the question.", "Hint!");
+		    	}
+		    	else if (sessionStorage['ans_no'] == "no") {
+		    		if (valid()) {
+			    		nextQuestion();
+			    		if (isLastQuestion()) {
+					    		getToastrOption();
+						    	toastr["info"]("This is the last question. we're bringing you to index", "Successful");
+						    	setTimeout(function(){ window.location.replace("index.jsp"); }, 1500);
+							}else{
+								savePrevious();
+								getToastrOption();
+						    	toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+						    	setTimeout(function(){ location.reload(); }, 1500);
+							}
+						}
+		    	}else{
 			    if (valid()) {
-			    	nextQuestion();
-			    	if (isLastQuestion()) {
-			    		getToastrOption();
-				    	toastr["info"]("This is the last question. we're bringing you to index", "Successful");
-				    	setTimeout(function(){ window.location.replace("index.jsp"); }, 1500);
-					}else{
-						savePrevious();
-						getToastrOption();
-				    	toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-				    	setTimeout(function(){ location.reload(); }, 1500);
-					}
-			    }
+				    	nextQuestion();
+				    	if (isLastQuestion()) {
+				    		getToastrOption();
+					    	toastr["info"]("This is the last question. we're bringing you to index", "Successful");
+					    	setTimeout(function(){ window.location.replace("index.jsp"); }, 1500);
+						}else{
+							savePrevious();
+							getToastrOption();
+					    	toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+					    	setTimeout(function(){ location.reload(); }, 1500);
+						}
+				    }
+				}
 			});
 		    $('.range-slider__range').change(function(){
 		    	$('.range-slider__value').text(($('.range-slider__range').val())+" "+$('#unit').text());
@@ -51,7 +78,14 @@
 		    	$('#showCurren').remove();
 		    	$('#chgCurren').text($(this).attr('value'));
 		    });
-
+		    $('#yesi').click(function(){
+		    	$('#realDeal').slideDown();
+		    	sessionStorage['ans_no'] = "yes";
+		    });
+		    $('#noi').click(function(){
+			   $('#realDeal').slideUp(); 
+			   sessionStorage['ans_no'] = "no";
+		    });
 		});
 		
 	</script>
@@ -73,10 +107,11 @@
 				</div>
 				<div id="choice">
 					<div id="4Play" style="display: none;">
-						
+						<input type="button" id="yesi" value="Yes"><br>
+						<input type="button" id="noi" value="No"><br>
 					</div>
-					<div id="realDeal" style="display: none">
-						<div id="range-panel" typeZ="RANGE" style="display: none;margin-bottom: 50px;">
+					<div id="realDeal" style="display: none;">
+						<div id="range-panel" typeZ="RANGE" style="display: none;margin-bottom: 50px;margin-top: 70px;">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="wrapper">
@@ -113,7 +148,7 @@
 								</div>
 							</div>
 							<center>
-								<div class="row" style="padding-left: 4px;">
+								<div class="row" style="padding-left: 4px;margin-top: 50px;">
 									<div class="col-md-12">
 										<div class="input-group " style="width: 70%">
 											<input type="text" class="form-control showMoney" id="showMin" readonly="true">
@@ -123,8 +158,8 @@
 										       <div class="dropdown">
 													<button class="btn btn-default dropdown-toggle" type="button" id="chgCurren" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="float: right;width: 100px;"><img id="showCurren" style="margin-right: 0px;" src="img/currency.png"></button>
 													<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-														<p class="dropdown-item" id="CurrenTH" value="Baht"><img src="http://i64.tinypic.com/fd60km.png"/>THB</p>
-													    <p class="dropdown-item" id="CurrenEN" value="Dollar"><img src="img/thaiFlag.png"/>USD</p>
+														<p class="dropdown-item" id="CurrenTH" value="Baht"><img src="img/en.png"/>THB</p>
+													    <p class="dropdown-item" id="CurrenEN" value="Dollar"><img src="img/th.png"/>USD</p>
 												    </div>
 												</div>
 										   </span>
@@ -144,7 +179,7 @@
 							  	<span id="disValueSli" style="padding: 15px;" class="range-slider__value" style="width: 20%">
 									
 								</span>
-								<span id="unit" style="margin-left: 10px;display: none"></span>
+								<span id="unit" style="margin-left: 10px;display: none;"></span>
 								<input type="hidden" id="hidSLIval" value="">
 							  </div>
 							</div>
@@ -159,6 +194,7 @@
 			</div>
 		</div>
 	</div>
+	<div id="back" style="position: absolute;bottom: 100px;left: 100px;"><img src="img/go-back_temp.png"></div>
 	<!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog" style="margin-top: 200px;">

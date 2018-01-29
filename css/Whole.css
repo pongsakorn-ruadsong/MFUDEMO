@@ -12,8 +12,6 @@
 }
 .centered{
 	text-align: center;
-	padding: 15px;
-	margin-top: 15px;
 }
 p.dropdown-item:hover{
 	background-color: #3A99FC;
@@ -70,7 +68,10 @@ p.dropdown-item:hover{
     height: 80px !important;
 }
 .quizlist{
-	border-color: #FFF !important;
+	border: none !important;
+	background: none !important;
+	padding: 0px !important; 
+	transition: all 300ms;
 }
 .languagepicker {
 	background-color: #FFF;
@@ -122,21 +123,9 @@ p.dropdown-item:hover{
     padding: 5px;
     outline: none !important;
     width: auto !important;
+    border: none !important;
 }
-.chgLeft{
-    margin-right: -3px;
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
-    padding-left: 12px;
-    padding-right: 12px;
-}
-.chgRight{
-    margin-left: -3px;
-    border-top-right-radius: 7px;
-    border-bottom-right-radius: 7px;
-    padding-left: 12px;
-    padding-right: 12px;
-}
+
 img{
 	margin-right: 10px;
 }
@@ -180,22 +169,20 @@ img{
     position: fixed;
     top: -70px;
     background-color: rgba(157, 157, 179, 0.6);
-    padding: 20px;
+    padding: 15px 35px 20px 35px;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
     transition: top 0.5s;
 }
-#sliderUD:hover{
-	top: 0px;
-}
-.myBtn{
-	outline: none !important;
-	border: none !important;
-}
-.myBtn:active {
+
+.chgLang:active {
   background-color: #3e8e41;
   box-shadow: 2px 2px 2px 2px #666 inset;
+  outline: none !important;
+  border: none !important;
 }
+
+.chgLang:focus {outline:0!important;}
 .loader {
 		  border: 16px solid #f3f3f3;
 		  border-radius: 50%;
@@ -223,14 +210,14 @@ img{
 .progNode{
 	width: 150px;
 	height: 150px;
-	background-color: #66B1A7;
+	background: linear-gradient(to right, green 50%, #66B1A7 50%);
 	border-radius: 50%;
 	text-align: center;
 	padding-top: 60px;
-	transition: all 1.5s;
-}
-.progNode:hover{
-	background-color: red;
+	transition: all 500ms;
+	transition-timing-function: linear;
+	background-size: 200%;
+    background-position:right;
 }
 .progBar{
 	background-color: #66B1A7;
@@ -238,20 +225,31 @@ img{
     height: 40px;
     text-align: center;
     margin-top: 55px;
-    margin-left: -5px !important;
-    margin-right: -5px;
+    margin-left: -6px !important;
+    margin-right: -6px;
     z-index: 5;
     border-right: none;
     border-left: none;
     border: 0px;
     position: relative;
 }
+.btn-slide{
+	position: relative;
+	top: 158px;
+}
+.cover{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(50,109,105,0.5);
+	position: relative;
+	z-index: 999;
+}
 .prog-bar{
 	width: 100%;
-    overflow-x: scroll;
     position: relative;
     display: -webkit-box;
     z-index:1;
+    border: 0px;
 }
 .progress{
 	position: absolute;
@@ -259,7 +257,51 @@ img{
 	left: 0px;
 	width: 0%;
 	height: 100%;
+	border: 0px;
 	background-color: green;
+	transition-timing-function: linear;
+	transition: all 500ms;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #008CBA;
 }
 
+.ggez .overlay{
+  opacity: 1 !important;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+.visable{
+	display: inline-block;
+}
+.non-visable{
+	display: none;
+}
+.node{
+	padding-top: 50px;
+	padding-bottom: 60px;
+	padding-top: 50px;
+    padding-bottom: 60px;
+    width: 100%;
+    overflow: auto;
+}
+}
 }

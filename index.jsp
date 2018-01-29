@@ -4,7 +4,7 @@
 			if (checkUser()) {
 				window.location.replace("login.jsp");
 			}else{
-				chkStatus();
+				getLang();
 				getToken();
 				getContent();
 		    	getCusData();
@@ -27,7 +27,32 @@
 			$('#SsSp').click(function(){
 			    alert("UnderConstruction")
 			});
-
+			$('#btn-pre').click(function(){
+				var _to = $(this).attr('prev');
+				$("#btn-pre").prop('disabled', true);
+				// console.log(_to);
+				if (updateBtnOrder('prev',_to)) {
+					setTimeout(function(){ 
+					console.log("Test")
+					$("#btn-pre").prop('disabled', false);
+					}, 1000);
+				}
+				
+				
+			});
+			$('#btn-next').click(function(){
+				var _to = $(this).attr('next');
+				// console.log(_to);
+				updateBtnOrder('next',_to);
+				// $('#btn_5a55bd7ae92a2e785e8b456e').addClass('animated fadeOutLeft');
+				// setTimeout(function(){ 
+	   //  			document.getElementById('btn_5a55bd7ae92a2e785e8b456e').style.display = 'none';
+	   //  			setTimeout(function(){ 
+				// 		document.getElementById('btn_5a69a5062f131c1f298b4569').style.display = 'block';
+				// 		$('#btn_5a69a5062f131c1f298b4569').addClass('animated fadeInRight');
+		  //   		}, 10);
+	   //  		}, 350);
+			});
 		});
 	</script>
 	<div class="container" style="margin-top: 50px;">
@@ -50,19 +75,18 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-12" style="padding-left: 222px;padding-right: 222px;">
+		<div class="row node" style="padding-left: 220px;">
+			<div class="col-md-12" >
 				<div class="prog-bar">
 					
-						
-						
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<div class="" id="qlist">
-					
+					<button class="btn-slide" id="btn-pre" style="float: left;">Previous</button>
+					<button class="btn-slide" id="btn-next" disabled="true" style="float: right;">Next</button>
 				</div>
 			</div>
 		</div>
