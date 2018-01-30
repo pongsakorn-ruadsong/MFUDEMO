@@ -5,6 +5,7 @@ sessionStorage['Token'];
 sessionStorage['isLast'] = "false";
 sessionStorage['subUrl'] = 'http://10.49.67.156/api/';
 sessionStorage['mainUrl'] = 'https://api.pbapp.net/';
+var contentData;
 function getIdentifyKey(){
 	swal({
 	  title: "Who are you?",
@@ -69,4 +70,30 @@ function checkUser(){
 }
 function chkPage(){
 	
+}
+function getContent(){
+	$.ajax({
+		type: "GET",
+		async: false,
+        url: 'https://api.pbapp.net/Content?api_key='+sessionStorage['api_key']+'&player_id='+sessionStorage['player']+'&language='+sessionStorage['lang'],
+        dataType: "json",
+	    success: function(d){
+	    	var data = d;
+            sessionStorage.setItem("contentData", JSON.stringify(data));
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+//          window.location.reload(true)
+            console.log(errorThrown);
+            console.log("Failed : getContent() @ quiz.js");
+        }	
+	});
+}
+function translateContent(){
+	var data = JSON.parse(sessionStorage["contentData"]);
+	contentData = data;
+	jQuery.each(data.response.result, function() {
+				contentSummary[this.node_id] = this.summary;
+				contentTitle[this.node_id] = this.title;	
+        }	
+    );
 }

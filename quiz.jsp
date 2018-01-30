@@ -4,9 +4,9 @@
 			if (checkUser()) {
 				window.location.replace("login.jsp");
 			}else{
+				translateContent();
 				getLang();
 				getQuestion();
-				getContent();
 				sessionStorage['ans_no'] = null;
 				sessionStorage['type'] = null;
 			}

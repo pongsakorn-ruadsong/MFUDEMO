@@ -12,7 +12,12 @@ var rawData;
 var cdata;
 var quizMax;
 var quizMin;
-var mathRand = Math.floor(1000 + Math.random() * 1000)
+var contentLang = [];
+var contentAbbrev = [];
+var mathRand = Math.floor(1000 + Math.random() * 1000);
+function initialData(){
+
+}
 function changeLang(a){
 	sessionStorage['lang'] = a;
 	location.reload();
@@ -23,8 +28,12 @@ function getLang() {
             url: sessionStorage['mainUrl']+'Language?api_key='+sessionStorage['api_key'],
             dataType: "json",
 	    	success: function(data){
-	    		console.log(data.response);
+	    		console.log(data);
 	    		buildLangButton(data.response);
+	    		jQuery.each(data.response, function() {
+					contentLang[this.language] = this.language;
+					contentAbbrev[this.language] = this.abbreviation;	
+	            });
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
@@ -126,14 +135,21 @@ function getCusData() {
             dataType: "json",
 	    	success: function(data){
 	        	Index01 = data;
-	        	getStatus(Index01.response.result);
 	        	$('#myModal').modal({backdrop: 'static', keyboard: false});
-	        	
-		    		setTimeout(function(){ 
-		    			$('#myModal').modal('hide');
-		    			buildQuizList();
-		    			buildProgBar(data);
-		    		}, 3000);
+				getStatus(Index01.response.result, function(){
+					buildQuizList(function(){
+						$('#myModal').modal('hide');
+					});
+					// buildLangButton(data.response);
+					buildProgBar(data);
+				});
+	       //  	getStatus(Index01.response.result);
+	       //  	$('#myModal').modal({backdrop: 'static', keyboard: false});
+		    		// setTimeout(function(){ 
+		    		// 	$('#myModal').modal('hide');
+		    		// 	buildQuizList();
+		    		// 	buildProgBar(data);
+		    		// }, 1000);
 	    		
 	    		
 	    	},
@@ -205,16 +221,19 @@ function setCurrent(a){
 	// $("#btn_"+a).prop("disabled", false);
 	$("#btn_"+a).css("display", "block");
 }
-function buildQuizList(){
+function buildQuizList(callback){
 	var length = Index01.response.result.length;
 	var qData = '';
 	var text = '<div><center>';
+	rawData = sessionStorage['quizStatus'];
+	cdata = JSON.parse(rawData);
+
 	for(var i = 0;i<length;i++) {
 	    var quiz_id = Index01.response.result[i].quiz_id;
 	    var quiz_name = Index01.response.result[i].name;
 	    var img = Index01.response.result[i].image;
 	    var btn_order = '';
-	    if (cdata[i] == undefined) {
+	    if (cdata.length < length) {
 	    	location.reload();
 	    }else{
 		    if (quiz_id == cdata[i].id) {
@@ -222,7 +241,7 @@ function buildQuizList(){
 		    }
 		}
 	    var weight = Index01.response.result[i].weight;
-	    var values = getBtnName(quiz_id);
+	    var values = contentSummary[quiz_id];
 	    text += '<div class="centered">'+
 	    '<center>'+
 	    '<button class="quizlist" style="display:none" qId="'+quiz_id+'" disabled id="btn_'+quiz_id+'" order="'+btn_order+'">'+
@@ -252,6 +271,7 @@ function buildQuizList(){
 		    sessionStorage['qId'] = this.getAttribute("qId");
 			window.location = 'quiz.jsp?qId='+sessionStorage['qId']+'&player='+sessionStorage['player'];
 		});
+		callback();
 		setPrevious(previous);
 		setCurrent(current);
 }

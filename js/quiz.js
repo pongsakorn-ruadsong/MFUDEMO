@@ -15,16 +15,20 @@ var option;
 var QuestImg;
 var questId;
 var type;
-var select1;var select2,test, test2, test3;
+var select1;
+var select2,test, test2, test3;
 var answer, answer2,index,total;
 var value, a,b,c,d,e;
-var data,aa;
-var choices = []; 
+var aa;
+var choices = [];
+var contentSummary=[];
+var contentTitle =[]; 
 var unit = '';
 var ph = '';
 var ttess = [];
 var qStatus = [];
-function getStatus(a){
+var result = [];
+function getStatus(a, callback){
 	console.log("Getting quiz status . . .");
 	var length = a.length;
 	var Ids = [];
@@ -37,7 +41,7 @@ function getStatus(a){
 	function myLoop () {  
 			    setTimeout(function () {    
 				   	assignStatus(Ids[k],(k+1));
-				   	console.log("Time: "+k+" | Ids.length: "+Ids.length+" | Ids: %c"+Ids[k]+"","color:blue"," | Result: ?")              
+				   	// console.log("Time: "+k+" | Ids.length: "+Ids.length+" | Ids: %c"+Ids[k]+"","color:blue"," | Result: ?")              
 					k++;                     
 				if ((k-1) < Ids.length) {
 					console.log("Call: "+(k));               
@@ -46,12 +50,13 @@ function getStatus(a){
 				}else{
 					console.log("Finnished");
 					sessionStorage.setItem('quizStatus', JSON.stringify(qStatus));
+					// console.log("Out of range: k = "+(k-1)+" of length = "+Ids.length)
 					sortOrder();
-				}
-					// console.log("Out of range: k = "+k+" of length = "+Ids.length)
-					
+					callback();
+				}	
 			}, 300); 
 		}
+		
 	}
 function assignStatus(a,b){
 	console.log("Entered assign function as parameter: a = %c"+a+"","color:blue");
@@ -63,11 +68,11 @@ function assignStatus(a,b){
 		    	Quiz02 = data;
 		    	if (Quiz02.response != null) {
 			    	if (Quiz02.response.result == null) { 
-			    		console.log("Quiz : %c"+a+""+" is "+"%cfinished","color:blue","color:green");
+			    		// console.log("Quiz : %c"+a+""+" is "+"%cfinished","color:blue","color:green");
 			    		qStatus.push({'id':a,'isFinnish':true,'Order':b});
 			    		console.log(" ");
 			    	}else{
-			    		console.log("Quiz : %c"+a+""+" is "+"%cunfinish yet","color:blue","color:red");
+			    		// console.log("Quiz : %c"+a+""+" is "+"%cunfinish yet","color:blue","color:red");
 			    		qStatus.push({'id':a,'isFinnish':false,'Order':b});
 			    		console.log(" ");
 			    	}
@@ -103,97 +108,61 @@ function fillColor(a){
 	// 	} 
 		
 	}
-	
-	
-function getContent(){
-	$.ajax({
-		type: "GET",
-		async: false,
-        url: 'https://api.pbapp.net/Content?api_key='+sessionStorage['api_key']+'&player_id='+sessionStorage['player']+'&language='+sessionStorage['lang'],
-        dataType: "json",
-	    success: function(d){
-	    	data = d;
-	    	console.log(data);
-	    },
-	    error: function (xhr, textStatus, errorThrown){
-//          window.location.reload(true)
-            console.log(errorThrown);
-            console.log("Failed : getContent() @ quiz.js");
-        }	
-	});
-}
+
 function getTopic(a){
-	var n = data.response.result.length;
+	var content = JSON.parse(sessionStorage["contentData"]);
+	var n = content.response.result.length;
 	var qname = a.response.result.question;
 	var _qname = a.response.result;
 	var nn = a.response.result.options.length;
 	console.log("Question: "+qname+" | Content: "+n+" | Type: "+type+" | Language: "+sessionStorage['lang']);
-	for(var i=0;i<n;i++){
-		// console.log(qname+" == "+data.response.result[i].node_id+" ?");
-	    		if (qname == data.response.result[i].node_id) {
-	    			topic = data.response.result[i].summary;
-	    			if (qname == 'S2Q4') {
-	    				topic = data.response.result[i].detail;
-	    			}
-	    			title = data.response.result[i].title;
-	    			// console.log('Enter if');
-	    			// console.log(type+" == \'SQ\' ?");
-	    			if (type == 'SQ' || type == 'YN') {
-	    				// console.log('Enter if2');
-		    			for(var k=0;k<nn;k++){
-		    				for(var j=k;j<n;j++){
-		    					if (_qname.options[k].description == (data.response.result[j].node_id)) {
-		    						
-		    							choices.push(data.response.result[j].summary);
-		    						
-		    					}
-		    				}
-		    			}
-	    			}else if (type == 'TXT') {
-	    				console.log("TXT");
-	    				for(var k=0;k<n;k++){
-		    				if (qname+"_PH" == (data.response.result[k].node_id)) {
-		    					ph = data.response.result[k].title;
-		    				}
-		    			}
-	    			}
-	    			else if (type == 'SLI' || type == 'SLI_S') {
-	    				// console.log("TYPE:SLI||SLI_S");
-	    				if (title.indexOf('How') > -1 && title.indexOf('old') > -1) {
-	    					for(var k=0;k<n;k++){
-		    				if (data.response.result[k].node_id == 'YEAR_OLD') {
-		    						$('#unit').text(data.response.result[k].summary);
-			    				}
-			    			}
-	    				}else if (title.indexOf('have') > -1 && title.indexOf('kids') > -1) {
-	    					for(var k=0;k<n;k++){
-		    				if (data.response.result[k].node_id == 'KID') {
-		    						$('#unit').text(data.response.result[k].summary);
-		    						if ($('.range-slider__range').val() > 0 && sessionStorage['lang'] == 'English') {
-		    							$('#unit').text(data.response.result[k].summary+"s")
-		    						}
-			    				}
-			    			}
-	    				}
-	    				if (type == 'SLI_S') {
-	    					console.log("FIND NO");
-	    					for(var k=0;k<nn;k++){
-		    					for(var j=k;j<n;j++){
-			    					if (_qname.options[k].description == (data.response.result[j].node_id)) {
-			    						choices.push(data.response.result[j].title+""+data.response.result[j].summary);
-			    					}
-			    				}
-		    				}
-	    				}
-	    			}
-	    			else if (true) {
-	    				
-	    			}
-	    		}
-	    		else{
-	    			// console.log('Out if')
-	    		}
-	    	}
+
+    topic = contentSummary[qname];
+	title = contentTitle[qname];
+	    			
+	// console.log('Enter if');
+	// console.log(type+" == \'SQ\' ?");
+	if (type == 'SQ' || type == 'YN') {
+		// console.log('Enter if2');
+		for(var k=0;k<nn;k++){
+			choices.push(contentSummary[_qname.options[k].description]);		
+		}
+		
+	}else if (type == 'TXT') {
+		console.log("TXT");
+		if (qname+"_PH" in contentTitle){
+			ph = contentTitle[qname+"_PH"];
+		}
+			
+		
+	}
+	else if (type == 'SLI' || type == 'SLI_S') {
+		// console.log("TYPE:SLI||SLI_S");
+		if (title.indexOf('How') > -1 && title.indexOf('old') > -1) {
+			
+			$('#unit').text(contentSummary['YEAR_OLD']);
+				
+		}else if (title.indexOf('have') > -1 && title.indexOf('kids') > -1) {
+			
+			if ($('.range-slider__range').val() > 0 && sessionStorage['lang'] == 'English') {
+				$('#unit').text(contentSummary['KID']+"s")
+			}else{
+				$('#unit').text(contentSummary['KID']);
+			}
+		}
+		if (type == 'SLI_S') {
+			console.log("FIND NO");
+			for(var k=0;k<nn;k++){
+				choices.push(contentTitle[_qname.options[k].description]+contentSummary[_qname.options[k].description]);		
+			}
+			
+		}
+	}
+	else if (true) {
+		
+	}
+	    		
+	    	
 }
 function getQuestion(){
 	$.ajax({
@@ -230,12 +199,10 @@ function getQuestion(){
 			  }
 			});
 	    }else{
-	    		$('#myModal').modal({backdrop: 'static', keyboard: false})  
-	    		setTimeout(function(){ 
-	    			$('#myModal').modal('hide');
+	    		
 	    			getTopic(data); 
 	    			buildQuiz();
-	    		}, 1500);
+	    		
 	    		
 	    	}
 	    },
@@ -379,9 +346,11 @@ function savePrevious(){
 	sessionStorage['past_Quest'] = sessionStorage['cur_Quest'];
 	var past_Quest = sessionStorage['past_Quest'];
 	test2 = JSON.parse(past_Quest);
-
-	var save_result = sessionStorage['past_Quest'];
-	test3 = JSON.parse(save_result);
+}
+function saveResult(){
+	var temp_result = sessionStorage['save_result'];
+	var result = JSON.parse(temp_result);
+	return result;
 }
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -596,7 +565,7 @@ function nextQuestion(){
 		data: data,
 		success: function(d) {
 			Gtemp_02 = d;
-			sessionStorage['save_result'] = Gtemp_02;
+			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
 			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
 		},
 		error: function (xhr, textStatus, errorThrown){
