@@ -12,6 +12,7 @@ var rawData;
 var cdata;
 var quizMax;
 var quizMin;
+var mathRand = Math.floor(1000 + Math.random() * 1000)
 function changeLang(a){
 	sessionStorage['lang'] = a;
 	location.reload();
