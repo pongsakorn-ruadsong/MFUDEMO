@@ -87,6 +87,7 @@ function getToken() {
         tokenUrl = sessionStorage['mainUrl']+"Auth"
 	$.ajax({
 		type: "POST",
+		async: false,
 		url: tokenUrl,
 		content: "application/json; charset=utf-8",
 		dataType: "json",
@@ -94,8 +95,6 @@ function getToken() {
 		success: function(d) {
 			Index02 = d;
 			sessionStorage['Token'] = Index02.response.token;
-			getToastrOption();
-			toastr["success"]("Token has been added", "Successful")
 		},
 		error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)

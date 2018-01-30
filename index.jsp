@@ -5,7 +5,6 @@
 				window.location.replace("login.jsp");
 			}else{
 				getLang();
-				getToken();
 				getContent();
 		    	getCusData();
 			}
@@ -75,7 +74,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row node" style="padding-left: 220px;">
+		<div class="row node" >
 			<div class="col-md-12" >
 				<div class="prog-bar">
 					
