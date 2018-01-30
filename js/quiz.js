@@ -108,6 +108,7 @@ function fillColor(a){
 function getContent(){
 	$.ajax({
 		type: "GET",
+		async: false,
         url: 'https://api.pbapp.net/Content?api_key='+sessionStorage['api_key']+'&player_id='+sessionStorage['player']+'&language='+sessionStorage['lang'],
         dataType: "json",
 	    success: function(d){

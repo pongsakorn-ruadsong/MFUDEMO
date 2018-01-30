@@ -36,9 +36,11 @@ function getIdentifyKey(){
 	    	if (in_data.success == false) {
 	    		console.log(in_data.message)
 	    		sessionStorage['player'] = inputValue;
+	    		location.reload();
 	    	}else{
 	    		console.log(in_data.message)
 	    		sessionStorage['player'] = inputValue;
+	    		location.reload();
 	    	}
 	    },
 	    error: function (xhr, textStatus, errorThrown){
