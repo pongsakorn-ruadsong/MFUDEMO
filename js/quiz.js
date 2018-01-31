@@ -645,6 +645,12 @@ function scorePop(a,b){
 							console.log("Enter re_type:"+re_type+" == point | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
 							console.log(" ")
 					  	}
+					}else{
+						if ((i+1) < b.length) {
+					  		console.log(i+" < "+b.length);
+					  		i+=1;
+					  		initialProp();
+					  	}
 					}
 					$("#myScore").modal({backdrop: "static"});
 			}
