@@ -57,16 +57,7 @@
 		    	}else{
 			    if (valid()) {
 				    	nextQuestion();
-				    	if (isLastQuestion()) {
-				    		getToastrOption();
-					    	toastr["info"]("This is the last question. we're bringing you to index", "Successful");
-					    	setTimeout(function(){ window.location.replace("index.jsp"); }, mathRand);
-						}else{
-							savePrevious();
-							getToastrOption();
-					    	toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-					    	setTimeout(function(){ location.reload(); }, mathRand);
-						}
+						getToastrOption();
 				    }
 				}
 			});
@@ -194,7 +185,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="back" style="position: absolute;bottom: 100px;left: 100px;"><img src="img/go-back_temp.png"></div>
+	<div id="back" style="position: absolute;bottom: 100px;left: 100px;"><img src="img/go-back_temp.png" style="display: none"></div>
 	<!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog" style="margin-top: 200px;">
@@ -210,5 +201,7 @@
       
     </div>
   </div>
-	
+  <div id="modal_score">
+  	
+  </div>
 <%@include file="bottom.jsp" %>

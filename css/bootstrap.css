@@ -5428,9 +5428,9 @@ button.close {
 }
 
 .modal-header {
-  display: -webkit-box;
+  /*display: -webkit-box;*/
   display: -ms-flexbox;
-  display: flex;
+  /*display: flex;*/
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
@@ -5441,6 +5441,7 @@ button.close {
   border-bottom: 1px solid #e9ecef;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
+  text-align: center;
 }
 
 .modal-header .close {
@@ -5458,13 +5459,14 @@ button.close {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  padding: 1rem;
+  padding: 2.5rem;
+  text-align: center;
 }
 
 .modal-footer {
-  display: -webkit-box;
+  /*display: -webkit-box;*/
   display: -ms-flexbox;
-  display: flex;
+  /*display: flex;*/
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -5473,6 +5475,7 @@ button.close {
   justify-content: flex-end;
   padding: 1rem;
   border-top: 1px solid #e9ecef;
+  text-align: center;
 }
 
 .modal-footer > :not(:first-child) {

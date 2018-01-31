@@ -274,7 +274,12 @@ img{
   transition: .5s ease;
   background-color: #008CBA;
 }
-
+.highlight{
+	color:blue;
+}
+.sa-custom {
+    width: 100% !important;
+}
 .ggez .overlay{
   opacity: 1 !important;
 }

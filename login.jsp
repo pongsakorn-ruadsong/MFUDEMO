@@ -1,11 +1,11 @@
 <%@include file="top.jsp" %>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			sessionStorage['lang'] = 'English'
 			if (checkUser()) {
-				getContent();
 				getToken();
 				getIdentifyKey();
-				sessionStorage['lang'] = 'English'
+				getContent();
 			}else{
 				window.location.replace("index.jsp");
 

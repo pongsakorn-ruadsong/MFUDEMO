@@ -125,7 +125,8 @@ function getTopic(a){
 	if (type == 'SQ' || type == 'YN') {
 		// console.log('Enter if2');
 		for(var k=0;k<nn;k++){
-			choices.push(contentSummary[_qname.options[k].description]);		
+			choices.push(contentSummary[_qname.options[k].description]);
+			console.log(choices);		
 		}
 		
 	}else if (type == 'TXT') {
@@ -224,6 +225,19 @@ function buildQuiz(){
 	     index = Quiz01.response.result.index;
 	     total = Quiz01.response.result.total;
 	    chkIndex();
+	    if (sessionStorage['save_result'] != undefined) {
+	    	var a = JSON.parse(sessionStorage['save_result']);
+	    	var ans_result = a.response.result.explanation;
+	    	var get_score = a.response.result.grade.score;
+	    	var max_this_score = a.response.result.grade.score;
+	    	var cur_score = a.response.result.grade.total_score;
+	    	var max_score = a.response.result.grade.total_max_score;
+	    	console.log("")
+	    	console.log("Your answer is : "+a.response.result.explanation)
+	    	console.log("Get :"+get_score+" score of "+max_this_score)
+	    	console.log("Total score: "+cur_score+" score of "+max_score)
+	    	console.log("")
+	    }
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
 	    c = parseInt(interval);
@@ -233,6 +247,7 @@ function buildQuiz(){
 	    		document.getElementById("4Play").style.display = "none";
 		    	for (var i=0;i<option.length;i++) {
 		    		text+='<input class="inputTXT" type="radio" name="'+topic+'" typeZ="SQ" value="'+option[i].option_id+'"><p>'+choices[i]+'</p><br>'
+		    		console.log(choices[i]);
 		    	}
 	    	}else if(type == 'YN'){
 	    		document.getElementById("4Play").style.display = "none";
@@ -309,14 +324,11 @@ function buildQuiz(){
 	    	$('#choice').append(text);
 }
 function chkIndex(){
+	console.log(index+" / "+total);
 	if (index == total) {
 	    	sessionStorage['isLast'] = "true";
-	    	swal({
-			  title: "Hoorayy!",
-			  text: "Finally! This question is the last! ("+index+"/"+total+")",
-			  imageUrl: 'img/thumbs-up.png'
-			});
 	    }
+	    console.log("Last Question: "+sessionStorage['isLast'])
 }
 function resetQuiz(){
 	var data = new Object();
@@ -567,6 +579,16 @@ function nextQuestion(){
 			Gtemp_02 = d;
 			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
 			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
+			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
+			savePrevious();
+			if (Gtemp_02.response.result.is_last_question) {
+				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
+				scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
+				console.log("Hey! it is the last now! check the console about reward!")
+			}else{
+				toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+				setTimeout(function(){ location.reload(); }, mathRand);
+			}
 		},
 		error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
@@ -574,9 +596,128 @@ function nextQuestion(){
                 console.log("Failed : nextQuestion() @ quiz.js");
             }
         });
+}
+function scorePop(a,b){
+	// var get_grade = JSON.parse(sessionStorage['graded']);
+	var total_score = a.total_score;
+	var max_score = a.total_max_score;
+	var gr_rank = a.rank;
+	var gr_rank_img = a.rank_image;
+	var gr_grade = a.grade;
+	var img = '';
+	swal({
+		title: total_score+" / "+max_score,
+		imageUrl: gr_rank_img,
+		confirmButtonText: "Ok!",
+  		closeOnConfirm: true
+  		},
+		function(){
+			var i = 0;
+			initialProp();
+				function initialProp(){
+					if (b[i].value >= 1) {
+						console.log(" ")
+						console.log("Enter if in for loop b["+i+"].value >= 1 | "+b[i].value)
+						console.log(" ")
+						var re_id = b[i].reward_id;
+						var re_type = b[i].reward_type;
+						var re_value = b[i].value;
+						var re_event = b[i].event_type;
+						console.log(" ")
+						console.log("re_id: "+re_id+" | re_type: "+re_type+" | re_value: "+re_value+" | re_event: "+re_event)
+						console.log(" ")
+						if (re_type == "badge") {
+							var badge_img = b[i].reward_data.image;
+							var badge_name = b[i].reward_data.name;
+							buildModal(re_type,re_value,badge_img,badge_name);
+							console.log(" ")
+							console.log("Enter re_type:"+re_type+" == badge | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
+							console.log(" ")
+						}else if (re_type == "exp"){
+							buildModal(re_type,re_value,null,null);
+							console.log(" ")
+							console.log("Enter re_type:"+re_type+" == exp | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
+							console.log(" ")
+					  	}
+					  	else if (re_type == "point"){
+							buildModal(re_type,re_value,null,null);
+							console.log(" ")
+							console.log("Enter re_type:"+re_type+" == point | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
+							console.log(" ")
+					  	}
+					}
+					$("#myScore").modal({backdrop: "static"});
+			}
+			function buildModal(typer,valuer,imgr,badgeN,callback){
+				var imgss = '';
+				var text = '';
+				var got = 'You got <span class="highlight">'+valuer+'</span> '+typer;
+				var imgee = '<img src="img/con1.png">'
+				if (typer == 'exp') {
+					imgss = 'img/Exp_big.png';
+				}else if (typer == 'point') {
+					imgss = 'img/Mission_1.png';
+				}
+				else{
+					got = 'You got <span class="highlight">'+valuer+' '+badgeN+'</span> '+typer;
+					imgss = imgr;
+				}
+				text += '<div class="modal fade" id="myScore" role="dialog">'+
+			    '<div class="modal-dialog">'+
+			      '<!-- Modal content-->'+
+			      '<div class="modal-content">'+
+			        '<div class="modal-header">'+
+					    '<h3>'+imgee+'</h3>'+
+					    '<h4>'+got+'</h4>'+
+					'</div>'+
+			        '<div class="modal-body">'+
+			          	'<img src="'+imgss+'">'+
+			        '</div>'+
+			        '<div class="modal-footer">'+
+			          ' <button type="submit" class="btn btn-primary closeM">Ok!'+
+			        '</div>'+
+			      '</div>'+
+			    '</div>'+
+			  '</div> '
+			  $('#modal_score').append(text);
+			  $('.closeM').click(function(){
+			  	$("#myScore").modal("hide");
+			  	$("#modal_score > div").remove();
+			  	$(".modal-backdrop").remove();
+			  	if ((i+1) < b.length) {
+			  		console.log(i+" < "+b.length);
+			  		i+=1;
+			  		initialProp();
+			  	}
+			  	else{
+			  		swal({
+					  title: "Completed",
+					  text: "That's all you got, we're bringing you to main menu!",
+					  type: "success",
+					  confirmButtonClass: "btn-primary",
+					  confirmButtonText: "Ok!",
+					  closeOnConfirm: false
+					},
+					function(){
+						setTimeout(function(){
+							window.location.replace("index.jsp");
+						},500)
+					});
+			  	}
+			  });
+			}
+			// $("#myScore").modal("toggle");
+			// console.log(" ")
+			// console.log("Out of loop. . .")
+			// console.log(" ")
+		});
 	
 }
 
+function translateResult(a){
+	var data = JSON.parse(a);
+	return data;
+}
 function isLastQuestion(){
 	if (sessionStorage['isLast'] == "true") { //true == out *Default = false
 		return true;

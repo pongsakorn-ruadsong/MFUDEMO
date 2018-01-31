@@ -14,12 +14,13 @@ var quizMax;
 var quizMin;
 var contentLang = [];
 var contentAbbrev = [];
-var mathRand = Math.floor(1000 + Math.random() * 1000);
+var mathRand = Math.floor(500 + Math.random() * 500);
 function initialData(){
 
 }
 function changeLang(a){
 	sessionStorage['lang'] = a;
+	getContent();
 	location.reload();
 }
 function getLang() {
@@ -30,10 +31,10 @@ function getLang() {
 	    	success: function(data){
 	    		console.log(data);
 	    		buildLangButton(data.response);
-	    		jQuery.each(data.response, function() {
-					contentLang[this.language] = this.language;
-					contentAbbrev[this.language] = this.abbreviation;	
-	            });
+	    // 		jQuery.each(data.response, function() {
+					// contentLang[this.language] = this.language;
+					// contentAbbrev[this.language] = this.abbreviation;	
+	    //         });
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
@@ -262,7 +263,7 @@ function buildQuizList(callback){
 	    initialBtnOrder();
 		console.log(" ");
 		console.log("previous: "+previous+" | current: "+current)
-		console.log("Type of previous: "+typeof(previous)+" | Type of current: "+typeof(current))
+		// console.log("Type of previous: "+typeof(previous)+" | Type of current: "+typeof(current))
 		console.log(" ");
 	    text += '</center></div>';
 	    console.log(qData);
@@ -271,9 +272,9 @@ function buildQuizList(callback){
 		    sessionStorage['qId'] = this.getAttribute("qId");
 			window.location = 'quiz.jsp?qId='+sessionStorage['qId']+'&player='+sessionStorage['player'];
 		});
-		callback();
 		setPrevious(previous);
 		setCurrent(current);
+		callback();
 }
 function initialBtnOrder(){
 	rawData = sessionStorage['quizStatus'];

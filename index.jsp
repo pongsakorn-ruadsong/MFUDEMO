@@ -67,8 +67,8 @@
 						<!-- <p class="dropdown-item" id="getToken">Get Token</p>
 					    <p class="dropdown-item" id="vApi">View Api_Key</p>
 					    <p class="dropdown-item" id="vPlayer">View Player</p>
-					    <p class="dropdown-item" id="resetAllQ">Reset All Quiz</p>
 					    <p class="dropdown-item" id="SsSp">Session Storage Panel</p> -->
+					    <p class="dropdown-item" id="resetAllQ">Reset All Quiz</p>
 					    <p class="dropdown-item" id="lgout">Logout</p>
 				    </div>
 				</div>

@@ -75,11 +75,17 @@ function getContent(){
 	$.ajax({
 		type: "GET",
 		async: false,
-        url: 'https://api.pbapp.net/Content?api_key='+sessionStorage['api_key']+'&player_id='+sessionStorage['player']+'&language='+sessionStorage['lang'],
+        url: 'https://api.pbapp.net/Content?api_key='+sessionStorage['api_key']+'&language='+sessionStorage['lang'],
         dataType: "json",
 	    success: function(d){
 	    	var data = d;
-            sessionStorage.setItem("contentData", JSON.stringify(data));
+	    		console.log(data);
+	    		if (data.response == null) {
+	    			alert("Cannot get content!");
+	    		}else{
+	    		sessionStorage.setItem("contentData", JSON.stringify(data));
+	    	}
+	    	
 	    },
 	    error: function (xhr, textStatus, errorThrown){
 //          window.location.reload(true)
