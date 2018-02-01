@@ -50,15 +50,13 @@ function getStatus(a, callback){
 				}else{
 					console.log("Finnished");
 					sessionStorage.setItem('quizStatus', JSON.stringify(qStatus));
-					// console.log("Out of range: k = "+(k-1)+" of length = "+Ids.length)
+					console.log("Out of range: k = "+(k-1)+" of length = "+Ids.length)
 					sortOrder();
 					callback();
 				}	
-			}, 300); 
+			}, 350); 
 		}
-		
-	}
-function assignStatus(a,b){
+	function assignStatus(a,b){
 	console.log("Entered assign function as parameter: a = %c"+a+"","color:blue");
 		$.ajax({
 			type: "GET",
@@ -84,7 +82,9 @@ function assignStatus(a,b){
 	            console.log("Failed : getStatus(a) @ quiz.js ");
 	        }	
 		});
+	}
 }
+
 function fillColor(a){
 	console.log("Enter fillColor");
 	for(var i = 0;i<a.length;i++){
@@ -172,47 +172,55 @@ function getQuestion(){
         dataType: "json",
 	    success: function(data){
 	    Quiz01 = data;
+	    if (Quiz01.response == null || Quiz01.response.result == null) {
+	    	sessionStorage.removeItem("qId");
+	    	swal({
+			  title: "Oops!",
+			  text: "You has finnished all quiz! Do you need to reset it?",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonClass: "btn-primary",
+			  confirmButtonText: "Yes, reset!",
+			  cancelButtonText: "No, go back!",
+			  closeOnConfirm: false,
+			  closeOnCancel: false
+			},
+			function(isConfirm) {
+			  if (isConfirm) {
+			    swal("Reseted!", "All quiz has been reseted", "success");
+			    setTimeout(function(){
+					resetQuiz();
+					window.location.replace("index.jsp");
+			    },800);
+			  } 
+			  else {
+			    swal("Going back!", "We're bringing you to home page!", "success");
+			    setTimeout(function(){
+			    	window.location.replace("index.jsp");
+			    },800);
+			  }
+			});
+	    }else{
 	    sessionStorage.setItem("cur_Quest", JSON.stringify(Quiz01));
 	    var cur_Quest = sessionStorage.getItem("cur_Quest");
 	    type = Quiz01.response.result.question_type;
 	    sessionStorage['type'] = type;
 	    console.log(data);
 	    test = JSON.parse(cur_Quest);
-	    if (Quiz01.response.result == null) {
-	    	swal({
-			  title: "What's going on?",
-			  text: "You have answered all quiz questions. Do you want to reset it?",
-			  type: "warning",
-			  showCancelButton: true,
-			  confirmButtonClass: "btn-danger",
-			  confirmButtonText: "Yes, reset it",
-			  cancelButtonText: "No, go back",
-			  closeOnConfirm: false,
-			  closeOnCancel: false
-			},
-			function(isConfirm) {
-			  if (isConfirm) {
-			  	resetQuiz();
-			    swal("Reseted!", "The quiz has been reseted!.", "success");
-			    setTimeout(function(){ location.reload(); }, 1500);
-			  } else {
-			    window.location.replace("index.jsp");
-			  }
-			});
-	    }else{
-	    		
-	    			getTopic(data); 
-	    			buildQuiz();
-	    		
-	    		
-	    	}
-	    },
+		getTopic(data); 
+		buildQuiz();
+    		
+    		
+    	}
+    
+		},
 	    error: function (xhr, textStatus, errorThrown){
          window.location.reload(true)
             console.log(errorThrown);
             console.log("Failed : getQuestion() @ quiz.js");
         }	
 	});
+
 }
 function buildQuiz(){
 		var text = '';
@@ -226,7 +234,7 @@ function buildQuiz(){
 	     index = Quiz01.response.result.index;
 	     total = Quiz01.response.result.total;
 	    chkIndex();
-	    if (sessionStorage['save_result'] != undefined) {
+	    if (sessionStorage['save_result'] != undefined ) {
 	    	var a = JSON.parse(sessionStorage['save_result']);
 	    	var ans_result = a.response.result.explanation;
 	    	var get_score = a.response.result.grade.score;
@@ -322,7 +330,7 @@ function buildQuiz(){
 	    		$('#maxslider').text(rMax);
 	    		select1 = Quiz01.response.result.options[2].option_id;
 	    	}
-	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button" style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
+	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button" onClick="resetQuiz()" style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
 					'<button class="btn btn-primary" id="nextBtn"  type="button">'+contentSummary['BTN_NEXT']+
 					'</button>'
@@ -618,9 +626,13 @@ function nextQuestion(){
 			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
 			savePrevious();
 			if (Gtemp_02.response.result.is_last_question) {
+				$('#myModal').modal({backdrop: 'static', keyboard: false});
 				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
-				scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
-				console.log("Hey! it is the last now! check the console about reward!")
+				setTimeout(function(){
+					scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
+					console.log("Hey! it is the last now! check the console about reward!")
+					$('#myModal').modal("hide");
+				}, 1000);
 			}else{
 				toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
 				setTimeout(function(){ location.reload(); }, mathRand);
@@ -651,6 +663,7 @@ function scorePop(a,b){
 			var i = 0;
 			initialProp();
 				function initialProp(){
+					console.log(i);
 					if (b[i].value >= 1) {
 						console.log(" ")
 						console.log("Enter if in for loop b["+i+"].value >= 1 | "+b[i].value)
@@ -682,19 +695,36 @@ function scorePop(a,b){
 							console.log(" ")
 					  	}
 					  	else if(re_event == "LEVEL_UP"){
-					  		buildModal(re_type,re_value,null,null);
+					  		buildModal(re_event,re_value,null,null);
 							console.log(" ")
 							console.log("Enter re_type:"+re_type+" == point | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
 							console.log(" ")
 					  	}
+					  	$("#myScore").modal({backdrop: "static"});
 					}else{
 						if ((i+1) < b.length) {
-					  		console.log(i+" < "+b.length);
 					  		i+=1;
 					  		initialProp();
 					  	}
+					  	else{
+						  	setTimeout(function(){
+						  		swal({
+								  title: "Completed",
+								  text: "That's all you got, we're bringing you to main menu!",
+								  type: "success",
+								  confirmButtonClass: "btn-primary",
+								  confirmButtonText: "Ok!",
+								  closeOnConfirm: false
+								},
+								function(){
+									setTimeout(function(){
+										window.location.replace("index.jsp");
+									},500)
+								});
+							},500)
+				  		}
 					}
-					$("#myScore").modal({backdrop: "static"});
+					// $("#myScore").modal({backdrop: "static"});
 			}
 			function buildModal(typer,valuer,imgr,badgeN,callback){
 				var imgss = '';
@@ -705,6 +735,8 @@ function scorePop(a,b){
 					imgss = 'img/EXP.png';
 				}else if (typer == 'point') {
 					imgss = 'img/Mission_1.png';
+				}else if (typer == 'LEVEL_UP'){
+					imgss = 'img/Levelup.png';
 				}
 				else{
 					got = 'You got <span class="highlight">'+valuer+' '+badgeN+'</span> '+typer;
@@ -761,7 +793,9 @@ function scorePop(a,b){
 		});
 	
 }
-
+function swalAlert(){
+	
+}
 function translateResult(a){
 	var data = JSON.parse(a);
 	return data;

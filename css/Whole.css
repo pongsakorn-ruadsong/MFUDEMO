@@ -218,13 +218,15 @@ img{
 	transition-timing-function: linear;
 	background-size: 200%;
     background-position:right;
+    position: relative;
+    align-self: center;
 }
 .progBar{
 	background-color: #66B1A7;
     width: 133px;
     height: 40px;
     text-align: center;
-    margin-top: 55px;
+    margin-top: 7px;
     margin-left: -6px !important;
     margin-right: -6px;
     z-index: 5;
@@ -232,6 +234,23 @@ img{
     border-left: none;
     border: 0px;
     position: relative;
+    align-self: center;
+}
+.btnN span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.btnN:hover span {
+  padding-right: 10px;
+}
+
+.btnN:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 .btn-slide{
 	position: relative;
@@ -250,6 +269,8 @@ img{
     display: -webkit-box;
     z-index:1;
     border: 0px;
+    justify-content: center; 
+    display:flex;
 }
 .progress{
 	position: absolute;

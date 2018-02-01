@@ -7,6 +7,7 @@
 				translateContent();
 		    	getCusData();
 				getLang();
+				sessionStorage.removeItem("save_result");
 			}
 		    $('#getToken').click(function(){
 			    getToken();
@@ -76,20 +77,23 @@
 					    <p class="dropdown-item" id="lgout">Logout</p>
 				    </div>
 				</div>
+				<div>
+					<button class="btn btn-primary" type="button" style="float: right;">My Account<span class="caret"></span></button>
+				</div>
 			</div>
 		</div>
-		<div class="row node" >
-			<div class="col-md-12" >
-				<div class="prog-bar">
-					
+		<div class="row node">
+			<div class="col-md-11" >
+				<div class="prog-bar offset-md-1">
+
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<div class="" id="qlist">
-					<button class="btn-slide" id="btn-pre"  style="float: left;display: block">Previous</button>
-					<button class="btn-slide" id="btn-next"  style="float: right;display: block">Next</button>
+					<button class="btn-slide" id="btn-pre"  style="float: left;display: block"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
+					<button class="btn-slide" id="btn-next"  style="float: right;display: block"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
 				</div>
 			</div>
 		</div>
