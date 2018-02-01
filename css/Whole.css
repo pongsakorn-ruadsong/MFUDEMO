@@ -276,13 +276,22 @@ img{
 .highlight{
 	color:blue;
 }
+.btn_qList{
+	cursor: pointer;
+	width: 250px;
+	height:350px;
+	background-color: #c38d8d;
+	padding: 5px;
+}
 .sa-custom {
     width: 100% !important;
+}
+.ggez{
+	cursor: not-allowed !important;
 }
 .ggez .overlay{
   background-color: rgba(89,101,108,0.8);
 }
-
 .text {
   color: white;
   font-size: 20px;

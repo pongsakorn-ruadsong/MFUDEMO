@@ -31,36 +31,7 @@
 				  }
 				});
 		    });
-		    $("#nextBtn").click(function(){
-		    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
-		    		getToastrOption();
-					toastr["info"]("Please answer the question.", "Hint!");
-		    	}
-		    	else if(sessionStorage['type'] == 'SLI_S' && sessionStorage['ans_no'] == "null"){
-		    		getToastrOption();
-					toastr["info"]("Please answer the question.", "Hint!");
-		    	}
-		    	else if (sessionStorage['ans_no'] == "no") {
-		    		if (valid()) {
-			    		nextQuestion();
-			    		if (isLastQuestion()) {
-					    		getToastrOption();
-						    	toastr["info"]("This is the last question. we're bringing you to index", "Successful");
-						    	setTimeout(function(){ window.location.replace("index.jsp"); }, mathRand);
-							}else{
-								savePrevious();
-								getToastrOption();
-						    	toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-						    	setTimeout(function(){ location.reload(); }, mathRand);
-							}
-						}
-		    	}else{
-			    if (valid()) {
-				    	nextQuestion();
-						getToastrOption();
-				    }
-				}
-			});
+		   
 		    $('.range-slider__range').change(function(){
 		    	$('.range-slider__value').text(($('.range-slider__range').val())+" "+$('#unit').text());
 		    	$('#hidSLIval').val(($('.range-slider__range').val()));
@@ -177,9 +148,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="button-group">
-					<button class="btn btn-danger" id="resetQuiz" type="button" style="margin-right: 20px;">Reset</button>
-					<button class="btn btn-primary" id="nextBtn"  type="button">Next</button>
+				<div class="button-group" id="btn_NR">
+					
 
 				</div>
 			</div>

@@ -18,9 +18,10 @@ var mathRand = Math.floor(500 + Math.random() * 500);
 function initialData(){
 
 }
-function changeLang(a){
+function changeLang(a, callback){
 	sessionStorage['lang'] = a;
 	getContent();
+	callback();
 	location.reload();
 }
 function getLang() {
@@ -71,7 +72,10 @@ function buildLangButton(a) {
 		}
 		$('#btn-lang').append(text);
 		$('.chgLang').click(function(){
-		    changeLang(this.getAttribute("lang"));
+			$('#myModal').modal({backdrop: 'static', keyboard: false});
+		    changeLang(this.getAttribute("lang"), function(){
+		    	$('#myModal').modal('hide');
+		    });
 		});
 	}
 function getToastrOption(){
@@ -263,7 +267,7 @@ function buildQuizList(callback){
 	    text += '<div class="centered">'+
 	    '<center>'+
 	    '<button class="quizlist" style="display:none" qId="'+quiz_id+'" disabled id="btn_'+quiz_id+'" order="'+btn_order+'">'+
-					'<div class="" style="cursor:pointer;width: 250px;height:350px;background-color: #c38d8d;padding: 5px;">'+
+					'<div class="btn_qList">'+
 					    '<div style="position:relative;width:100%;height:75%;background-color: #00adff;">'+
 					        '<img src="'+img+'" style="display:block">'+
 					        	'<div class="overlay">'+
@@ -343,13 +347,13 @@ function updateBtnOrder(code,position){
 	    	var quiz_id = Index01.response.result[i].quiz_id;
 	    	var pre_id = Index01.response.result[(p-1)].quiz_id;
 	    	if($('#btn_'+quiz_id).attr('order') == b){
-	    		$('#btn_'+quiz_id).addClass('animated fadeOutLeft');
+	    		$('#btn_'+quiz_id).addClass('animated fadeOutRight');
 	    		$("#btn_"+quiz_id).hide("slow");
 	    		setTimeout(function(){ 
 	    			console.log("")
 	    			setTimeout(function(){ 
 						$("#btn_"+pre_id).css("display", "block");
-						$('#btn_'+pre_id).addClass('animated fadeInRight');
+						$('#btn_'+pre_id).addClass('animated fadeInLeft');
 		    		}, 300);
 	    		}, 350);
 
@@ -397,12 +401,12 @@ function updateBtnOrder(code,position){
 	    	var quiz_id = Index01.response.result[i].quiz_id;
 	    	var next_id = Index01.response.result[(n-1)].quiz_id;
 	    	if($('#btn_'+quiz_id).attr('order') == b){
-	    		$('#btn_'+quiz_id).removeClass('animated fadeInLeft').addClass('animated fadeOutRight');
+	    		$('#btn_'+quiz_id).addClass('animated fadeOutLeft');
 	    		$("#btn_"+quiz_id).hide("slow");
 	    		setTimeout(function(){ 
 	    			setTimeout(function(){ 
 						$("#btn_"+next_id).css("display", "block");
-						$('#btn_'+next_id).removeClass('animated fadeOutRight').addClass('animated fadeInLeft');
+						$('#btn_'+next_id).addClass('animated fadeInRight');
 		    		}, 300);
 	    		}, 350);
 

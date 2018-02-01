@@ -216,6 +216,7 @@ function getQuestion(){
 }
 function buildQuiz(){
 		var text = '';
+		var btn_text = '';
 	    var option = Quiz01.response.result.options;
 	    var QuestImg = Quiz01.response.result.question_image;
 	    questId = Quiz01.response.result.question_id;
@@ -321,7 +322,42 @@ function buildQuiz(){
 	    		$('#maxslider').text(rMax);
 	    		select1 = Quiz01.response.result.options[2].option_id;
 	    	}
+	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button" style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
+	    			'</button>'+
+					'<button class="btn btn-primary" id="nextBtn"  type="button">'+contentSummary['BTN_NEXT']+
+					'</button>'
 	    	$('#choice').append(text);
+	    	$('#btn_NR').append(btn_text);
+	    	 $("#nextBtn").click(function(){
+		    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
+		    		getToastrOption();
+					toastr["info"]("Please answer the question.", "Hint!");
+		    	}
+		    	else if(sessionStorage['type'] == 'SLI_S' && sessionStorage['ans_no'] == "null"){
+		    		getToastrOption();
+					toastr["info"]("Please answer the question.", "Hint!");
+		    	}
+		    	else if (sessionStorage['ans_no'] == "no") {
+		    		if (valid()) {
+			    		nextQuestion();
+			    		if (isLastQuestion()) {
+					    		getToastrOption();
+						    	toastr["info"]("This is the last question. we're bringing you to index", "Successful");
+						    	setTimeout(function(){ window.location.replace("index.jsp"); }, mathRand);
+							}else{
+								savePrevious();
+								getToastrOption();
+						    	toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+						    	setTimeout(function(){ location.reload(); }, mathRand);
+							}
+						}
+		    	}else{
+			    if (valid()) {
+				    	nextQuestion();
+						getToastrOption();
+				    }
+				}
+			});
 }
 function chkIndex(){
 	console.log(index+" / "+total);
@@ -682,7 +718,7 @@ function scorePop(a,b){
 					    '<h3>'+imgee+'</h3>'+
 					    '<h4>'+got+'</h4>'+
 					'</div>'+
-			        '<div class="modal-body">'+
+			        '<div class="modal-body" style="text-align: center;">'+
 			          	'<img src="'+imgss+'">'+
 			        '</div>'+
 			        '<div class="modal-footer">'+
