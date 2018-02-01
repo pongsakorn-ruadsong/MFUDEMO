@@ -32,7 +32,6 @@
 				// console.log(_to);
 				if (updateBtnOrder('prev',_to)) {
 					setTimeout(function(){ 
-					console.log("Test")
 					$("#btn-pre").prop('disabled', false);
 					}, 1000);
 				}
@@ -41,8 +40,13 @@
 			});
 			$('#btn-next').click(function(){
 				var _to = $(this).attr('next');
+				$("#btn-next").prop('disabled', true);
 				// console.log(_to);
-				updateBtnOrder('next',_to);
+				if (updateBtnOrder('next',_to)) {
+					setTimeout(function(){ 
+					$("#btn-next").prop('disabled', false);
+					}, 1000);
+				}
 				// $('#btn_5a55bd7ae92a2e785e8b456e').addClass('animated fadeOutLeft');
 				// setTimeout(function(){ 
 	   //  			document.getElementById('btn_5a55bd7ae92a2e785e8b456e').style.display = 'none';
@@ -84,8 +88,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<div class="" id="qlist">
-					<button class="btn-slide" id="btn-pre"  style="float: left;display: none">Previous</button>
-					<button class="btn-slide" id="btn-next" disabled="true" style="float: right;display: none">Next</button>
+					<button class="btn-slide" id="btn-pre"  style="float: left;display: block">Previous</button>
+					<button class="btn-slide" id="btn-next"  style="float: right;display: block">Next</button>
 				</div>
 			</div>
 		</div>
@@ -96,7 +100,7 @@
       <!-- Modal content-->
       <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;">
         <CENTER>
-        <div class="modal-body" style="padding: 100px;">
+        <div class="modal-body" style="padding: 100px;text-align: -webkit-center;">
           <div class="loader"></div>
         </div>
         </CENTER>

@@ -645,6 +645,12 @@ function scorePop(a,b){
 							console.log("Enter re_type:"+re_type+" == point | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
 							console.log(" ")
 					  	}
+					  	else if(re_event == "LEVEL_UP"){
+					  		buildModal(re_type,re_value,null,null);
+							console.log(" ")
+							console.log("Enter re_type:"+re_type+" == point | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
+							console.log(" ")
+					  	}
 					}else{
 						if ((i+1) < b.length) {
 					  		console.log(i+" < "+b.length);
@@ -660,7 +666,7 @@ function scorePop(a,b){
 				var got = 'You got <span class="highlight">'+valuer+'</span> '+typer;
 				var imgee = '<img src="img/con1.png">'
 				if (typer == 'exp') {
-					imgss = 'img/Exp_big.png';
+					imgss = 'img/EXP.png';
 				}else if (typer == 'point') {
 					imgss = 'img/Mission_1.png';
 				}

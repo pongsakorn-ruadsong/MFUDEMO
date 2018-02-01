@@ -201,15 +201,32 @@ function sortOrder(){
 		}
 	}
 }
-function isFinnished(){
-	rawData = sessionStorage['quizStatus'];
-	cdata = JSON.parse(rawData);
-	for(var i=0;i<cdata.length;i++){
-		if (cdata[i].isFinnish == 'true') {
-			$('#btn_'+cdata.id).addClass('ggez');
-		}
-	}
-}
+ function isFinnished(){
+	console.log(" ")
+	// console.log("Enter isFinnish checking. . .")
+ 	rawData = sessionStorage['quizStatus'];
+ 	cdata = JSON.parse(rawData);
+ 	for(var i=0;i<cdata.length;i++){
+ 		// console.log("Enter For Loop. . . As: I = "+i+" | length = "+cdata.length+" | cdata"+i+" = "+cdata[i].id+" & "+cdata[i].isFinnish)
+		if (cdata[i].isFinnish == true) {
+			// console.log("Enter if in for loop as data id: "+cdata[i].id);
+			$('#overlay_lo_'+cdata[i].id).css('display',"none");
+			$('#overlay_fi_'+cdata[i].id).css('display',"block");
+			$('#btn_'+cdata[i].id+' > div').addClass('ggez');
+		}else if (cdata[i].isFinnish == false) {
+			// console.log("Enter Else if in for loop as data id: "+cdata[i].id);
+			if (cdata[i].id != current) {
+				$('#overlay_lo_'+cdata[i].id).css('display',"block");
+				$('#overlay_fi_'+cdata[i].id).css('display',"none");
+				$('#btn_'+cdata[i].id+' > div').addClass('ggez');
+			}
+			else{
+				$('#btn_'+cdata[i].id+' > div').removeClass('ggez');
+			}
+ 		}
+ 	}
+ }
+
 function setPrevious(a){
 	// $("#btn_"+a).prop("disabled", true);
 	$("#btn_"+a).prop("disabled",true);
@@ -250,7 +267,8 @@ function buildQuizList(callback){
 					    '<div style="position:relative;width:100%;height:75%;background-color: #00adff;">'+
 					        '<img src="'+img+'" style="display:block">'+
 					        	'<div class="overlay">'+
-							    	'<div class="text">Finnished</div>'+
+							    	'<div class="text" style="display:none" id="overlay_lo_'+quiz_id+'">Locked</div>'+
+							    	'<div class="text" style="display:none" id="overlay_fi_'+quiz_id+'">Finnished</div>'+
 							  	'</div>'+
 					    '</div>'+
 						'<span style="position: relative;color: white;font-size: 22px;top: 20px;">'+values+'</span>'+
@@ -274,6 +292,7 @@ function buildQuizList(callback){
 		});
 		setPrevious(previous);
 		setCurrent(current);
+		isFinnished();
 		callback();
 }
 function initialBtnOrder(){
@@ -296,26 +315,29 @@ function initialBtnOrder(){
 	    console.log("Pre: "+preQuiz+" | Current: "+currentIndex+" | Next: "+nextQuiz+" | Min: "+quizMin+" | Max: "+quizMax);
 }
 function updateBtnOrder(code,position){
+	console.log(position);
 	var length = Index01.response.result.length;
 	$('.quizlist').removeClass('animated fadeInLeft fadeOutLeft fadeInRight fadeOutRight')
-	var b = parseInt(position);
-	b = b+1;
-	if (b>quizMax) {
-		b = quizMin;
-	}
-	var p = b-1;
-	if (p<quizMin) {
-		p = quizMax;
-	}
-	var n = b+1;
-	if (n>quizMax) {
-		n = quizMin;
-	}
+	
 	var quiz_id = [];
-	console.log(" ")
-	console.log("%cprevious: "+p+" | current: "+b+" | next: "+n+"","color:red")
-	console.log(" ")
+	
 	if (code == 'prev') {
+		var b = parseInt(position);
+		b = b+1;
+		if (b>quizMax) {
+			b = quizMin;
+		}
+		var p = b-1;
+		if (p<quizMin) {
+			p = quizMax;
+		}
+		var n = b+1;
+		if (n>quizMax) {
+			n = quizMin;
+		}
+		console.log(" ")
+		console.log("%cprevious: "+p+" | current: "+b+" | next: "+n+"","color:red")
+		console.log(" ")
 		for(var i=0;i<length;i++){
 			// console.log(preQuiz);
 	    	var quiz_id = Index01.response.result[i].quiz_id;
@@ -336,20 +358,40 @@ function updateBtnOrder(code,position){
 // $("#id").css("display", "block");
 	    }
 	    p = p-1;
+	    b = p+1;
 	    if (p<quizMin) {
-		p = quizMax;
-	}
+			p = quizMax;
+		}
 	    n = n-1;
 	    if (n<quizMin) {
-		n = quizMax;
-	}
-		console.log("code: "+code+" | Previous: "+p+" | Next: "+n);
+			n = quizMax;
+		}
+		if (b>quizMax) {
+			b = quizMin;
+		}
+		console.log("code: "+code+" | Previous: "+p+" | Current: "+b+" | Next: "+n);
 		$("#btn-pre").attr("prev",p);
 	    $("#btn-next").attr("next",n);
 	    return true;
 	    
 
 	}else if(code == 'next'){
+		var b = parseInt(position);
+		b = b-1;
+		if (b<quizMin) {
+			b = quizMax;
+		}
+		var n = b+1;
+		if (n>quizMax) {
+			n = quizMin;
+		}
+		var p = b-1;
+		if (p<quizMin) {
+			p = quizMax;
+		}
+		console.log(" ")
+		console.log("%cprevious: "+p+" | current: "+b+" | next: "+n+"","color:red")
+		console.log(" ")
 		for(var i=0;i<length;i++){
 			// console.log(preQuiz);
 	    	var quiz_id = Index01.response.result[i].quiz_id;
@@ -368,14 +410,15 @@ function updateBtnOrder(code,position){
 // $("#id").css("display", "none");
 // $("#id").css("display", "block");
 	    }
-	    p = p+1;
-	    if (p>quizMax) {
-		p = quizMin;
-	}
 	    n = n+1;
+	    b = n-1;
+	    p = b-1;
 	    if (n>quizMax) {
-		n = quizMin;
-	}
+	    	n = quizMin;
+	    }
+	    if (p<quizMin) {
+	    	p = quizMax;
+	    }
 		console.log("code: "+code+" | Previous: "+p+" | Current: "+b+" | Next: "+n);
 		$("#btn-pre").attr("prev",p);
 	    $("#btn-next").attr("next",n);
