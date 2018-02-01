@@ -15,6 +15,7 @@
 	<script src="js/gearSlide.js"></script>
 	<script src="js/slider.js"></script>
 	<script src="js/sweetalert.js"></script>
+	<script src="js/account.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">

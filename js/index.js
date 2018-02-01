@@ -52,7 +52,9 @@ function buildLangButton(a) {
     top = style.getPropertyValue('top');
     var cc = top.match(/\d+/g).map(Number);
     var sa = parseInt(cc);
-    var bba;
+    var bba = sa;
+    sessionStorage['top'] = bba;
+    console.log(sa);
     text += '<button class="form-control chgLang" abbrev="us" lang="English"><img src="css/blank.gif" class="flag flag-us alt="English"/>EN</button>'
 	for(var i=0;i<a.length;i++){
 		if (a[i].abbreviation == 'en') {
@@ -64,9 +66,10 @@ function buildLangButton(a) {
 		'<img src="css/blank.gif" class="flag flag-'+abbreviation+'" alt="'+a[i].language+'" />'+abbreviation.toUpperCase()+'</button>'
 		if ((i+1)%5 == 0) {
 			text+='</div></div> <div class="row" style="margin-top:10px;"><div class="input-group">'
-			// console.log(as);
+			console.log("(i+1)%5 = "+(i+1)%5);
 			bba = sa+=35;
 			sessionStorage['top'] = bba;
+			console.log("(i+1)%5 = "+(i+1)%5);
 			document.getElementById('sliderUD').style.top = "-"+bba+"px";
 			}
 		}
@@ -133,7 +136,7 @@ function Logout() {
 function previousSlide(a){
 	console.log(a);
 }
-function getCusData() {
+function getQuizData() {
         $.ajax({
         	type: "GET",
             url: getQuizz,
@@ -161,7 +164,7 @@ function getCusData() {
 	    	error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
                 console.log(errorThrown);
-                console.log("Failed : getCusData() @ index.js");
+                console.log("Failed : getQuizData() @ index.js");
             }
         });
 }

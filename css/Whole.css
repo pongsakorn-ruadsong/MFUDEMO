@@ -254,7 +254,7 @@ img{
 }
 .btn-slide{
 	position: relative;
-	top: 158px;
+	top: 130px;
 }
 .cover{
 	width: 100%;
@@ -336,6 +336,14 @@ img{
     padding-bottom: 60px;
     width: 100%;
     overflow: auto;
+}
+.btn-slide{
+	background: none;
+    border: none;
+}
+.slide-img{
+	 width: 50px;
+    height: 90px;
 }
 }
 }

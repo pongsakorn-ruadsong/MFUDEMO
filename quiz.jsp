@@ -10,27 +10,7 @@
 				sessionStorage['ans_no'] = null;
 				sessionStorage['type'] = null;
 			}
-		    $('#resetQuiz').click(function(){
-		    	swal({
-				  title: "Are you sure?",
-				  text: "You will not be able to recover your answered data",
-				  type: "warning",
-				  showCancelButton: true,
-				  confirmButtonClass: "btn-danger",
-				  confirmButtonText: "Yes, reset it!",
-				  cancelButtonText: "No, cancel plx!",
-				  closeOnConfirm: false,
-				  closeOnCancel: false
-				},
-				function(isConfirm) {
-				  if (isConfirm) {
-				  	resetQuiz();
-				    swal("Successful!", "The quiz has been reseted!.", "success");
-				  } else {
-				    swal("Cancelled", "The quiz are safe!", "error");
-				  }
-				});
-		    });
+		    
 		   
 		    $('.range-slider__range').change(function(){
 		    	$('.range-slider__value').text(($('.range-slider__range').val())+" "+$('#unit').text());

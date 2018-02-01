@@ -5,7 +5,7 @@
 				window.location.replace("login.jsp");
 			}else{
 				translateContent();
-		    	getCusData();
+		    	getQuizData();
 				getLang();
 				sessionStorage.removeItem("save_result");
 			}
@@ -77,12 +77,12 @@
 					    <p class="dropdown-item" id="lgout">Logout</p>
 				    </div>
 				</div>
-				<div>
-					<button class="btn btn-primary" type="button" style="float: right;">My Account<span class="caret"></span></button>
-				</div>
+				<!-- <div >
+					<button class="btn btn-primary" type="button" style="float: right;margin-right: 30px;" onclick="location.href = 'account.jsp';">My Account<span class="caret"></span></button>
+				</div> -->
 			</div>
 		</div>
-		<div class="row node">
+		<div class="row node" style="margin-left: -40px;">
 			<div class="col-md-11" >
 				<div class="prog-bar offset-md-1">
 
@@ -92,20 +92,22 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<div class="" id="qlist">
-					<button class="btn-slide" id="btn-pre"  style="float: left;display: block"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
-					<button class="btn-slide" id="btn-next"  style="float: right;display: block"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
+					<button class="btn-slide" id="btn-pre"  style="float: left;display: block;cursor: pointer;"> <img class="slide-img" src="img/prev.png"> </button>
+					<button class="btn-slide" id="btn-next"  style="float: right;display: block;cursor: pointer;"><img class="slide-img" src="img/next.png"></button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog" style="margin-top: 200px;">
+    <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;">
         <CENTER>
-        <div class="modal-body" style="padding: 100px;text-align: -webkit-center;">
-          <div class="loader"></div>
+        <div class="modal-body" style="position: fixed;top: 0px;left: 0px;">
+          <div class="" style="">
+          	<img src="gif/lotus.gif" style="margin-left: -74%;">
+		  </div>
         </div>
         </CENTER>
       </div>

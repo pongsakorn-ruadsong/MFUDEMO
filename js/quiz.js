@@ -54,7 +54,7 @@ function getStatus(a, callback){
 					sortOrder();
 					callback();
 				}	
-			}, 350); 
+			}, 400); 
 		}
 	function assignStatus(a,b){
 	console.log("Entered assign function as parameter: a = %c"+a+"","color:blue");
@@ -330,13 +330,15 @@ function buildQuiz(){
 	    		$('#maxslider').text(rMax);
 	    		select1 = Quiz01.response.result.options[2].option_id;
 	    	}
-	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button" onClick="resetQuiz()" style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
+	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button"  style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
 					'<button class="btn btn-primary" id="nextBtn"  type="button">'+contentSummary['BTN_NEXT']+
 					'</button>'
 	    	$('#choice').append(text);
 	    	$('#btn_NR').append(btn_text);
 	    	 $("#nextBtn").click(function(){
+	    	 	$("#nextBtn").prop('disabled', true);
+	    	 	$("#resetQuiz").prop('disabled', true);
 		    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
 		    		getToastrOption();
 					toastr["info"]("Please answer the question.", "Hint!");
@@ -359,13 +361,42 @@ function buildQuiz(){
 						    	setTimeout(function(){ location.reload(); }, mathRand);
 							}
 						}
+						else{
+							$("#nextBtn").prop('disabled', false);
+	    	 				$("#resetQuiz").prop('disabled', false);
+						}
 		    	}else{
 			    if (valid()) {
 				    	nextQuestion();
 						getToastrOption();
 				    }
+				    else{
+							$("#nextBtn").prop('disabled', false);
+	    	 				$("#resetQuiz").prop('disabled', false);
+					}
 				}
 			});
+	    	 $('#resetQuiz').click(function(){
+		    	swal({
+				  title: "Are you sure?",
+				  text: "You will not be able to recover your answered data",
+				  type: "warning",
+				  showCancelButton: true,
+				  confirmButtonClass: "btn-danger",
+				  confirmButtonText: "Yes, reset it!",
+				  cancelButtonText: "No, cancel plx!",
+				  closeOnConfirm: false,
+				  closeOnCancel: false
+				},
+				function(isConfirm) {
+				  if (isConfirm) {
+				  	resetQuiz();
+				    swal("Successful!", "The quiz has been reseted!.", "success");
+				  } else {
+				    swal("Cancelled", "The quiz are safe!", "error");
+				  }
+				});
+		    });
 }
 function chkIndex(){
 	console.log(index+" / "+total);
