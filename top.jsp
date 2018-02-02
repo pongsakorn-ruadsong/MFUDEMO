@@ -21,6 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/toastr.min.css">
 	<link rel="stylesheet" type="text/css" href="css/Whole.css">
+	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="css/flags.min.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
@@ -35,6 +36,12 @@
 	$(document).ready(function(){
 		sessionStorage['pageName'] = $('#pageName').val();
 		console.log(sessionStorage['pageName']);
+		if (sessionStorage['pageName'] == 'login.jsp') {
+			$('#sliderUD').hide();
+		}
+		else{
+			$('#sliderUD').show();
+		}
 	});
 </script>
 <body>

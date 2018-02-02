@@ -62,27 +62,26 @@
 	<div class="container" style="margin-top: 50px;">
 		<div class="row">
 			<div class="col-md-6">
-				<h3>Welcome</h3>
-				<h5>Quiz list</h5>
+				
 			</div>
 			<div class="col-md-6">
-				<div class="dropdown">
+				<!-- <div class="dropdown">
 					<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="float: right;">Debugger<span class="caret"></span></button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<!-- <p class="dropdown-item" id="getToken">Get Token</p>
+						<p class="dropdown-item" id="getToken">Get Token</p>
 					    <p class="dropdown-item" id="vApi">View Api_Key</p>
 					    <p class="dropdown-item" id="vPlayer">View Player</p>
-					    <p class="dropdown-item" id="SsSp">Session Storage Panel</p> -->
+					    <p class="dropdown-item" id="SsSp">Session Storage Panel</p>
 					    <p class="dropdown-item" id="resetAllQ">Reset All Quiz</p>
 					    <p class="dropdown-item" id="lgout">Logout</p>
 				    </div>
-				</div>
+				</div> -->
 				<!-- <div >
-					<button class="btn btn-primary" type="button" style="float: right;margin-right: 30px;" onclick="location.href = 'account.jsp';">My Account<span class="caret"></span></button>
+					
 				</div> -->
 			</div>
 		</div>
-		<div class="row node" style="margin-left: -40px;">
+		<div class="row node" style="margin-left: -40px;margin-bottom: 50px;margin-top: 50px;">
 			<div class="col-md-11" >
 				<div class="prog-bar offset-md-1">
 
@@ -106,7 +105,7 @@
         <CENTER>
         <div class="modal-body" style="position: fixed;top: 0px;left: 0px;">
           <div class="" style="">
-          	<img src="gif/lotus.gif" style="margin-left: -74%;">
+          	<img src="gif/lotus2.gif" style="margin-left: -74%;">
 		  </div>
         </div>
         </CENTER>

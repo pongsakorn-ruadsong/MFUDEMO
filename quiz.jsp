@@ -38,7 +38,7 @@
 
 	<!-- font awesome -->
 	
-	<div class="bg row" id="quizImg">
+	<div class="bg row" id="quizImg" style="margin-top: 70px;">
 		<div class="col-md-6" id="img">
 			<img src="" class="quizImg" id="OptionImg">
 		</div>

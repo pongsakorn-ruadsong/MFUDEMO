@@ -16,14 +16,28 @@
 						});
 					});
 				</script>
-				<div class="gb" id="sliderUD">
-					<div class="" id="btn-lang">
-						
+					<div class="gb" id="sliderUD" style="display: none">
+						<div class="row">
+							<div class="col-md-2">
+								
+							</div>
+							<div class="col-md-6">
+								
+							</div>
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="" id="btn-lang">
+								
+										</div>
+									</div>
+									<div class="col-md-6">
+										<button class="btn btn-primary" type="button" style="float: right;margin-right: 30px;" onclick="Logout()">Logout<span class="caret"></span></button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					    <br>
-					    <img id="up" src="img/test.png" style="position: absolute;bottom: 10%;left: 46%;">
-					    <img id="down" src="img/test2.png" style="position: absolute;bottom: 10%;left: 46%;display: none">
-				</div>
 		</div>
 	</div>
 </body>

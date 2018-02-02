@@ -6,29 +6,24 @@ sessionStorage['isLast'] = "false";
 sessionStorage['subUrl'] = 'http://10.49.67.156/api/';
 sessionStorage['mainUrl'] = 'https://api.pbapp.net/';
 var contentData;
-function getIdentifyKey(){
-	swal({
-	  title: "Who are you?",
-	  text: "Please input your Player ID",
-	  type: "input",
-	  closeOnConfirm: false,
-	  inputPlaceholder: "Player ID"
-	}, function (inputValue) {
-	  if (inputValue === false) return false;
-	  if (inputValue === "") {
+function loginModal(){
+	$('#loginModal').modal({backdrop: "static"});
+}
+function getIdentifyKey(a){
+	  if (a === "") {
 	  	getToastrOption();
 	    toastr["warning"]("You need to write something!", "Error");
 		return false;
 	  }else  {
 	  	var data = new Object();
-	  	console.log('https://api.pbapp.net/Player/'+inputValue+'/register'+" | token = "+sessionStorage['Token']+" | email = qa1+"+inputValue+"@playbasis.com")
+	  	console.log('https://api.pbapp.net/Player/'+a+'/register'+" | token = "+sessionStorage['Token']+" | email = qa1+"+a+"@playbasis.com")
 	  	data.token = sessionStorage['Token'];
-	  	data.id = inputValue;
-	  	data.username = inputValue;
-	  	data.email = "qa1+"+inputValue+"@playbasis.com";
+	  	data.id = a;
+	  	data.username = a;
+	  	data.email = "qa1+"+a+"@playbasis.com";
 	  	$.ajax({
 		type: "POST",
-        url: 'https://api.pbapp.net/Player/'+inputValue+'/register',
+        url: 'https://api.pbapp.net/Player/'+a+'/register',
         data: data,
         dataType: "json",
 	    success: function(d){
@@ -36,11 +31,11 @@ function getIdentifyKey(){
 	    	console.log(in_data);
 	    	if (in_data.success == false) {
 	    		console.log(in_data.message)
-	    		sessionStorage['player'] = inputValue;
+	    		sessionStorage['player'] = a;
 	    		location.reload();
 	    	}else{
 	    		console.log(in_data.message)
-	    		sessionStorage['player'] = inputValue;
+	    		sessionStorage['player'] = a;
 	    		location.reload();
 	    	}
 	    },
@@ -49,20 +44,20 @@ function getIdentifyKey(){
             console.log(errorThrown);
             console.log("Failed : getIdentifyKey() @ login.js");
         }	
-		});
-
-	    
-	  }
-	  // else{
-	  // 	getToastrOption();
-	  //   toastr["warning"]("No user in database. Please contact admin", "Error");
-	  //   return false
-	  // }
-	  
 	});
+	}
 }
+	    
+// 	  }
+// 	  // else{
+// 	  // 	getToastrOption();
+// 	  //   toastr["warning"]("No user in database. Please contact admin", "Error");
+// 	  //   return false
+// 	  // }
+	  
+// 	});
 function checkUser(){
-	if (sessionStorage['player'] == undefined) {
+	if (sessionStorage['player'] == "undefined" || sessionStorage['player'] == undefined) {
 		return true;
 	}else{
 		return false;
