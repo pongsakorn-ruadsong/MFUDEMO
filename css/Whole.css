@@ -46,6 +46,7 @@ p.dropdown-item:hover{
 }
 .btn{
 	font-size: 18px;
+	padding: 6px;
 }
 .btn-green {
     background-color: #1ab394;
@@ -56,6 +57,11 @@ p.dropdown-item:hover{
 .btn-green:hover {
     background-color: #18a689;
     color: #fff;
+}
+.tab-content{
+	transition: height 1s;
+	height: 100px;
+	overflow-y: auto;
 }
 .panel-footer {
     padding: 0 15px;
@@ -124,6 +130,31 @@ p.dropdown-item:hover{
     width: auto !important;
     border: none !important;
 
+}
+.level_bar{
+	background-color: #66B1A7;
+	width: 100%;
+	/*border-radius: 5px;*/
+}
+.panel-default > .panel-heading{
+	color: white;
+	background: #333;
+}
+.level_progress{
+	position: absolute;
+	top: 0px;
+/*	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;*/
+	left: 15px;
+	width: 0%;
+	height: 100%;
+	border: 0px;
+	background: green;
+	transition-timing-function: linear;
+	transition: all 500ms;
+}
+.myRow{
+	padding: 5px 0px 5px 0px;
 }
 .chgLang:focus,.chgLang:active {
    outline: none !important;

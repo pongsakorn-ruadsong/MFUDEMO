@@ -102,9 +102,9 @@
       <!-- Modal content-->
       <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;">
         <CENTER>
-        <div class="modal-body" style="position: fixed;top: 0px;left: 0px;">
+        <div class="modal-body" style="position: fixed;top: 80px;left: 0px;">
           <div class="" style="">
-          	<img src="gif/lotus_fast.gif" style="margin-left: -74%;">
+          	<img src="gif/Lotus.gif" style="width: 100%;height: 100%;">
 		  </div>
         </div>
         </CENTER>

@@ -24,6 +24,7 @@ function getUserInfo() {
             dataType: "json",
             data: data,
 	    	success: function(data){
+	    		Index05 = data;
 	    		console.log(data);
 	    		buildPlayer(data.response.player);
 	    // 		jQuery.each(data.response, function() {
@@ -40,8 +41,12 @@ function getUserInfo() {
 }
 function buildPlayer(a) {
 	// $('#playerPanel > div').remove();
-	var text = '<div class="row">'
-	var img = a.image;  
+	var img = a.image;
+	var img_for_check = /[^/]*$/.exec(img)[0];  
+	console.log(img_for_check)
+	if (img_for_check == 'default_profile.jpg') {
+		img = 'img/default_user.png'
+	}
 	var Fname = a.first_name;
 	var Lname = a.last_name;
 	var exp = a.exp;
@@ -49,7 +54,7 @@ function buildPlayer(a) {
 	var lv = a.level;
 	var badge = ''; //many in array
 	var gender = a.gender; // 1 or 2
-	var lv_percent = a.percent_of_level;
+	var lv_percent = a.percent_of_level-15;
 	var regis_date = a.registered;
 	var username = a.username;
 	var phone_number = ''; //null
@@ -66,7 +71,7 @@ function buildPlayer(a) {
 		birthDate = a.birth_date;
 	}
 	for(var i = 0; i<a.points.length;i++){
-		if (a.points[i] == "point") {
+		if (a.points[i].reward_name == "point") {
 			point = a.points[i].value;
 		}
 	}
@@ -75,6 +80,33 @@ function buildPlayer(a) {
 	$('#user_level').text(lv);
 	$('#user_exp').text(exp);
 	$('#user_point').text(point);
+	console.log(lv_percent)
+	document.getElementById("level_progress").style.width = lv_percent+'%'; 
+}
+function buildRewardList() {
+	$('#table_reward > tr').remove();
+	console.log("Enter build reward list")
+	var badges = Index05.response.player.badges;
+	var length = badges.length;
+	var k =1;
+	console.log("badges: "+badges+" | length: "+length);
+	var text = '<tr><td>#</td><td>Image</td><td>Name</td><td>Amount</td><td>Action</td></tr>';
+	for (var i = 0; i < length; i++) {
+		if (badges[i].amount == 0) {
+			continue;
+		}
+		text += '<tr>'+
+		'<td>'+k+'</td>'+
+		'<td><img src='+badges[i].image+' style="width:50px;height:50px;"></td>'+
+		'<td>'+badges[i].name+'</td>'+
+		'<td>'+badges[i].amount+'</td>'+
+		'<td>'+
+			'<button type="button" rId="'+badges[i].badge_id+'" class="btn btn-redeem btn-primary" style="padding:none !important;font-size:15px;">Redeem</button>'+
+		'</td>'+
+		'</tr>'
+		k++;
+	}
+	$('#table_reward').append(text);
 }
 function initialData(){
 
