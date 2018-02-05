@@ -15,14 +15,73 @@ var quizMin;
 var contentLang = [];
 var contentAbbrev = [];
 var mathRand = Math.floor(500 + Math.random() * 500);
+function getUserInfo() {
+	var data = new Object();
+	data.token = sessionStorage['Token'];
+	$.ajax({
+        	type: "POST",
+            url: 'https://api.pbapp.net/Player/'+sessionStorage['player']+'/data/all',
+            dataType: "json",
+            data: data,
+	    	success: function(data){
+	    		console.log(data);
+	    		buildPlayer(data.response.player);
+	    // 		jQuery.each(data.response, function() {
+					// contentLang[this.language] = this.language;
+					// contentAbbrev[this.language] = this.abbreviation;	
+	    //         });
+	    	},
+	    	error: function (xhr, textStatus, errorThrown){
+//                window.location.reload(true)
+                console.log(errorThrown);
+                console.log("Failed : getLang() @ index.js");
+            }
+        });
+}
+function buildPlayer(a) {
+	// $('#playerPanel > div').remove();
+	var text = '<div class="row">'
+	var img = a.image;  
+	var Fname = a.first_name;
+	var Lname = a.last_name;
+	var exp = a.exp;
+	var point = ''; //In points
+	var lv = a.level;
+	var badge = ''; //many in array
+	var gender = a.gender; // 1 or 2
+	var lv_percent = a.percent_of_level;
+	var regis_date = a.registered;
+	var username = a.username;
+	var phone_number = ''; //null
+	if (a.phone_number == null) {
+		phone_number = 'null';
+	}else{
+		phone_number = a.phone_number;
+	}
+	var email = a.email;
+	var birthDate = ''; //null
+	if (a.birth_date == null) {
+		birthDate = 'null';
+	}else{
+		birthDate = a.birth_date;
+	}
+	for(var i = 0; i<a.points.length;i++){
+		if (a.points[i] == "point") {
+			point = a.points[i].value;
+		}
+	}
+	$('#user_pic').attr("src",img);
+	$('#user_name').text(username);
+	$('#user_level').text(lv);
+	$('#user_exp').text(exp);
+	$('#user_point').text(point);
+}
 function initialData(){
 
 }
-function changeLang(a, callback){
-	sessionStorage['lang'] = a;
+function changeLang(callback){
 	getContent();
 	callback();
-	location.reload();
 }
 function getLang() {
 	$.ajax({
@@ -45,6 +104,7 @@ function getLang() {
         });
 }
 function buildLangButton(a) {
+	$('#langList > div').remove();
 	var text = '<div class="row"><div class="input-group">';
 	var abbreviation = '';
 	// var element = document.getElementById('sliderUD'),
@@ -64,7 +124,7 @@ function buildLangButton(a) {
 		}
 		text+='<button class="form-control chgLang" abbrev="'+abbreviation+'" lang="'+a[i].language+'")">'+
 		'<img src="css/blank.gif" class="flag flag-'+abbreviation+'" alt="'+a[i].language+'" />'+abbreviation.toUpperCase()+'</button>'
-		if ((i+1)%5 == 0) {
+		if ((i+1)%4 == 0) {
 			text+='</div></div> <div class="row" style="margin-top:10px;"><div class="input-group">'
 			// console.log("(i+1)%5 = "+(i+1)%5);
 			// bba = sa+=35;
@@ -73,12 +133,15 @@ function buildLangButton(a) {
 			// document.getElementById('sliderUD').style.top = "-"+bba+"px";
 			}
 		}
-		$('#btn-lang').append(text);
+		$('#langList').append(text);
 		$('.chgLang').click(function(){
-			$('#myModal').modal({backdrop: 'static', keyboard: false});
-		    changeLang(this.getAttribute("lang"), function(){
-		    	$('#myModal').modal('hide');
-		    });
+			// $('#myModal').modal({backdrop: 'static', keyboard: false});
+		 //    changeLang(this.getAttribute("lang"), function(){
+		 //    	$('#myModal').modal('hide');
+		 //    });
+			sessionStorage['lang'] = this.getAttribute("lang");
+			$('.chgLang').css('background-color','white');
+			$(this).css('background-color','red');
 		});
 	}
 function getToastrOption(){

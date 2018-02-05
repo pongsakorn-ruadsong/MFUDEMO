@@ -16,28 +16,30 @@
 						});
 					});
 				</script>
-					<div class="gb" id="sliderUD" style="display: none">
+				
+					<!-- <div class="gb" id="sliderUD" style="display: none;height: 6%">
 						<div class="row">
+							<div class="col-md-2" style="border-right: solid 1px white;text-align: center;">
+								<h5>Home</h5>
+							</div>
+							<div class="col-md-8" style="border-right: solid 1px white">
+								<h5>User's Space</h5>
+							</div>
 							<div class="col-md-2">
-								
-							</div>
-							<div class="col-md-6">
-								
-							</div>
-							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-6">
-										<div class="" id="btn-lang">
+										<button class="btn btn-primary" type="button" >Language<span class="caret"></span></button>
+										<div class="" id="btn-lang" style="text-align: center;display: none">
 								
 										</div>
 									</div>
-									<div class="col-md-6">
-										<button class="btn btn-primary" type="button" style="float: right;margin-right: 30px;" onclick="Logout()">Logout<span class="caret"></span></button>
+									<div class="col-md-6" style="text-align: center;">
+										<button class="btn btn-primary" type="button"  onclick="Logout()">Logout<span class="caret"></span></button>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 		</div>
 	</div>
 </body>

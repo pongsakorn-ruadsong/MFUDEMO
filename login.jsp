@@ -1,6 +1,7 @@
 <%@include file="top.jsp" %>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();
 			sessionStorage['lang'] = 'English';
 			if (checkUser()) {
 				getToken();
@@ -27,8 +28,8 @@
 	  <div class="modal-dialog" role="document" style="margin-top: 10%;">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h2 class="modal-title" id="exampleModalLabel">Who are you?</h2>
-	        </button>
+	        <h1 class="modal-title" id="exampleModalLabel">Who are you?</h1>
+	        
 	      </div>
 	      <div class="modal-body" style="text-align: center;">
 	       	<div class="row">
@@ -39,12 +40,12 @@
 	       	<br>
 	       	<div class="row">
 	       		<div class="col-md-12" style="text-align: left;padding-left: 20px;">
-	       			<input type="checkbox" id="userType" name="userType" value="Admin"><span style="font-size: 14px;"> Login as administrator</span>
+	       			<input type="checkbox" id="userType" name="userType" value="Admin"><span  style="font-size: 14px;"> Login as administrator</span><span data-toggle="tooltip" data-placement="bottom" title="If checked, no quiz sequences required." class="glyphicon glyphicon-info-sign"></span>
 	       		</div>
 	       	</div>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" id="loginBtn">Login</button>
+	        <button type="button" class="btn custom btn-primary" id="loginBtn">Login</button>
 	      </div>
 	    </div>
 	  </div>

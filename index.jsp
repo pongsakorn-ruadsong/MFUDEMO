@@ -6,7 +6,6 @@
 			}else{
 				translateContent();
 		    	getQuizData();
-				getLang();
 				sessionStorage.removeItem("save_result");
 			}
 		    $('#getToken').click(function(){
@@ -81,7 +80,7 @@
 				</div> -->
 			</div>
 		</div>
-		<div class="row node" style="margin-left: -40px;margin-bottom: 50px;margin-top: 50px;">
+		<div class="row node" style="margin-left: -40px;">
 			<div class="col-md-11" >
 				<div class="prog-bar offset-md-1">
 
@@ -105,7 +104,7 @@
         <CENTER>
         <div class="modal-body" style="position: fixed;top: 0px;left: 0px;">
           <div class="" style="">
-          	<img src="gif/lotus2.gif" style="margin-left: -74%;">
+          	<img src="gif/lotus_fast.gif" style="margin-left: -74%;">
 		  </div>
         </div>
         </CENTER>

@@ -5,7 +5,6 @@
 				window.location.replace("login.jsp");
 			}else{
 				translateContent();
-				getLang();
 				getQuestion();
 				sessionStorage['ans_no'] = null;
 				sessionStorage['type'] = null;
@@ -34,11 +33,11 @@
 	<style type="text/css">
 		
 	</style>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
 
 	<!-- font awesome -->
 	
-	<div class="bg row" id="quizImg" style="margin-top: 70px;">
+	<div class="bg row" id="quizImg" style="margin-top: 50px;">
 		<div class="col-md-6" id="img">
 			<img src="" class="quizImg" id="OptionImg">
 		</div>

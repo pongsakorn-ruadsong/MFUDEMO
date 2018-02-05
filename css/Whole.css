@@ -45,7 +45,7 @@ p.dropdown-item:hover{
 	height: 100%;
 }
 .btn{
-	font-size: 20px;
+	font-size: 18px;
 }
 .btn-green {
     background-color: #1ab394;
@@ -113,7 +113,6 @@ p.dropdown-item:hover{
 	border-radius: 5px;
 }
 .chgLang{
-	text-decoration: none;
     display: inline-block;
     -moz-transition: 0.3s linear;
     -ms-transition: 0.3s linear;
@@ -124,11 +123,29 @@ p.dropdown-item:hover{
     outline: none !important;
     width: auto !important;
     border: none !important;
-}
 
+}
+.chgLang:focus,.chgLang:active {
+   outline: none !important;
+   box-shadow: none;
+}
 img{
 	margin-right: 10px;
 }
+.left{
+	text-align: left;
+}
+.center{
+	text-align: center;
+}
+.right{
+	text-align: right;
+}
+.user-img{
+	height: 100px;
+	border-radius: 50%;
+}
+
 .chgLang:hover{
 	background-color: #B7ACE8;
 }
@@ -176,21 +193,20 @@ img{
     position: fixed;
     top: 0px;
     background-color: rgba(157, 157, 179, 1);
-    padding: 15px 35px 20px 35px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    padding: 5px 35px 5px 35px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
     transition: top 0.5s;
     left: 0px;
 }
-
-.chgLang:active {
-  background-color: #3e8e41;
-  box-shadow: 2px 2px 2px 2px #666 inset;
-  outline: none !important;
-  border: none !important;
+.glyphicon-info-sign{
+	margin-left: 10px;
+	font-size: 16px;
+	top: 3px;
 }
-
-.chgLang:focus {outline:0!important;}
+.custom{
+	font-size: 16px;
+}
 .loader {
 		  border: 16px solid #f3f3f3;
 		  border-radius: 50%;
@@ -315,11 +331,22 @@ img{
 .sa-custom {
     width: 100% !important;
 }
+.mCustom{
+	background-color: #222;
+	color: white;
+}
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
 .ggez{
 	cursor: not-allowed !important;
 }
 .ggez .overlay{
   background-color: rgba(89,101,108,0.8);
+}
+.glyphicon{
+	top: 3px;
 }
 .text {
   color: white;
