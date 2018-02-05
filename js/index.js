@@ -101,7 +101,7 @@ function buildRewardList() {
 		'<td>'+badges[i].name+'</td>'+
 		'<td>'+badges[i].amount+'</td>'+
 		'<td>'+
-			'<button type="button" rId="'+badges[i].badge_id+'" class="btn btn-redeem btn-primary" style="padding:none !important;font-size:15px;">Redeem</button>'+
+			'<button type="button" rId="'+badges[i].badge_id+'" class="btn btn-redeem btn-primary" style="padding:none !important;font-size:15px;" disabled>Not now</button>'+
 		'</td>'+
 		'</tr>'
 		k++;
@@ -377,14 +377,14 @@ function buildQuizList(callback){
 	    '<center>'+
 	    '<button class="quizlist" style="display:none" qId="'+quiz_id+'" '+disable+' id="btn_'+quiz_id+'" order="'+btn_order+'">'+
 					'<div class="btn_qList">'+
-					    '<div style="position:relative;width:100%;height:75%;background-color: #00adff;">'+
-					        '<img src="'+img+'" style="display:block">'+
+					    '<div class="img-place">'+
+					        '<img src="'+img+'" style="display:block;width: 100%;height: 80%;">'+
 					        	'<div class="overlay">'+
 							    	'<div class="text" style="display:none" id="overlay_lo_'+quiz_id+'">Locked</div>'+
 							    	'<div class="text" style="display:none" id="overlay_fi_'+quiz_id+'">Finnished</div>'+
 							  	'</div>'+
 					    '</div>'+
-						'<span style="position: relative;color: white;font-size: 22px;top: 20px;">'+values+'</span>'+
+						'<p style="position: relative;color: white;font-size: 26px;top: 15px;margin-bottom: 25px;">'+values+'</p>'+
 					'</div>'+
 		'</button>'+
 		'</center>'+    

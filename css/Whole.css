@@ -1,3 +1,8 @@
+@media (max-width: 375px) {
+  .btn {
+    color: red;
+  }
+}
 .dropdown-toggle::after {
     display: none !important;
 }
@@ -354,8 +359,7 @@ img{
 }
 .btn_qList{
 	cursor: pointer;
-	width: 250px;
-	height:350px;
+	width: 100%;
 	background-color: #c38d8d;
 	padding: 5px;
 }
@@ -366,10 +370,11 @@ img{
 	background-color: #222;
 	color: white;
 }
-.btn:focus,.btn:active {
+.btn:focus,.btn:active,a,li {
    outline: none !important;
    box-shadow: none;
 }
+
 .ggez{
 	cursor: not-allowed !important;
 }
@@ -378,6 +383,12 @@ img{
 }
 .glyphicon{
 	top: 3px;
+}
+
+.img-place{
+	position:relative;
+	width:100%;
+	background-color: #00adff;
 }
 .text {
   color: white;
@@ -398,9 +409,6 @@ img{
 .node{
 	padding-top: 50px;
 	padding-bottom: 60px;
-	padding-top: 50px;
-    padding-bottom: 60px;
-    width: 100%;
     overflow: auto;
 }
 .btn-slide{

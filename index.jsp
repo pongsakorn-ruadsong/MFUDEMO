@@ -80,9 +80,9 @@
 				</div> -->
 			</div>
 		</div>
-		<div class="row node" style="margin-left: -40px;">
-			<div class="col-md-11" >
-				<div class="prog-bar offset-md-1">
+		<div class="row node" >
+			<div class="col-md-12" >
+				<div class="prog-bar">
 
 				</div>
 			</div>
@@ -92,6 +92,11 @@
 				<div class="" id="qlist">
 					<button class="btn-slide" id="btn-pre"  style="float: left;display: block;cursor: pointer;"> <img class="slide-img" src="img/prev.png"> </button>
 					<button class="btn-slide" id="btn-next"  style="float: right;display: block;cursor: pointer;"><img class="slide-img" src="img/next.png"></button>
+				</div>
+				<div class="row">
+					<div class="input-group">
+						
+					</div>
 				</div>
 			</div>
 		</div>
