@@ -28,53 +28,26 @@ var ph = '';
 var ttess = [];
 var qStatus = [];
 var result = [];
-function getStatus(a, callback){
+var quizStatus = [];
+var quizStatus1 = [];
+
+function getStatus(callback){
 	console.log("Getting quiz status . . .");
-	var length = a.length;
-	var Ids = [];
-	var k = 0;
-	for(var i=0;i<length;i++){
-		Ids.push(a[i].quiz_id);
-		console.log("PUSH: "+i);
-	}
-	myLoop();
-	function myLoop () {  
-			    setTimeout(function () {    
-				   	assignStatus(Ids[k],(k+1));
-				   	// console.log("Time: "+k+" | Ids.length: "+Ids.length+" | Ids: %c"+Ids[k]+"","color:blue"," | Result: ?")              
-					k++;                     
-				if ((k-1) < Ids.length) {
-					console.log("Call: "+(k));               
-				    myLoop(); 
-				    // console.log("In range: k = "+k+" of length = "+Ids.length+" //call my loop again")
-				}else{
-					console.log("Finnished");
-					sessionStorage.setItem('quizStatus', JSON.stringify(qStatus));
-					console.log("Out of range: k = "+(k-1)+" of length = "+Ids.length)
-					sortOrder();
-					callback();
-				}	
-			}, 400); 
-		}
-	function assignStatus(a,b){
-	console.log("Entered assign function as parameter: a = %c"+a+"","color:blue");
 		$.ajax({
 			type: "GET",
-	        url: sessionStorage['mainUrl']+"Quiz/"+a+"/question?api_key="+api_key+"&player_id="+player,
+	        url: sessionStorage['mainUrl']+"Quiz/list?player_id="+sessionStorage['player']+"&get_status=true&api_key="+sessionStorage['api_key'],
 	        dataType: "json",
 		    success: function(data){
 		    	Quiz02 = data;
-		    	if (Quiz02.response != null) {
-			    	if (Quiz02.response.result == null) { 
-			    		// console.log("Quiz : %c"+a+""+" is "+"%cfinished","color:blue","color:green");
-			    		qStatus.push({'id':a,'isFinnish':true,'Order':b});
-			    		console.log(" ");
-			    	}else{
-			    		// console.log("Quiz : %c"+a+""+" is "+"%cunfinish yet","color:blue","color:red");
-			    		qStatus.push({'id':a,'isFinnish':false,'Order':b});
-			    		console.log(" ");
-			    	}
-			    }
+			    jQuery.each(data.response.result, function() {
+					quizStatus[this.quiz_id] = this.completed;
+		        }
+		        );	
+		        for (var i = 0; i < data.response.result.length; i++) {
+		        	qStatus.push({'id':data.response.result[i].quiz_id,'isFinnish':data.response.result[i].completed,'Order':data.response.result[i].weight});
+		        }
+			    sessionStorage.setItem('quizStatus', JSON.stringify(qStatus));		
+			    callback();
 		    },
 		    error: function (xhr, textStatus, errorThrown){
 	//          window.location.reload(true)
@@ -82,7 +55,8 @@ function getStatus(a, callback){
 	            console.log("Failed : getStatus(a) @ quiz.js ");
 	        }	
 		});
-	}
+		
+	// }
 }
 
 function fillColor(a){

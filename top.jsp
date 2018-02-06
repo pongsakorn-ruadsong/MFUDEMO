@@ -120,7 +120,7 @@
 
 		<!-- Modal -->
 		<div class="modal  fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-		  <div class="modal-dialog" role="document" style="margin-top: 5%;">
+		  <div class="modal-dialog" role="document" style="margin-top: 10%;">
 		    <div class="modal-content mCustom">
 		      <div class="modal-header">
 		        <h3>User's Infomation</h3> 

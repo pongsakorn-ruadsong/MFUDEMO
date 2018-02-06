@@ -444,8 +444,8 @@ img{
     width: 100% !important;
 }
 .mCustom{
-	background-color: #222;
-	color: white;
+	background-color: #222 !important;
+	color: white !important;
 }
 .btn:focus,.btn:active,a,li {
    outline: none !important;

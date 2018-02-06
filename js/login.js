@@ -93,8 +93,8 @@ function translateContent(){
 	var data = JSON.parse(sessionStorage["contentData"]);
 	contentData = data;
 	jQuery.each(data.response.result, function() {
-				contentSummary[this.node_id] = this.summary;
-				contentTitle[this.node_id] = this.title;	
+			contentSummary[this.node_id] = this.summary;
+			contentTitle[this.node_id] = this.title;	
         }	
     );
 }

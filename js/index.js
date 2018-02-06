@@ -239,12 +239,18 @@ function getQuizData() {
 	    	success: function(data){
 	        	Index01 = data;
 	        	$('#myModal').modal({backdrop: 'static', keyboard: false});
-				getStatus(Index01.response.result, function(){
-					buildQuizList(function(){
+				getStatus(function(){
+					console.log('Finnished get status')
+					// console.log(sessionStorage[''])
+					sortOrder();
+					setTimeout(function(){
+						buildQuizList(function(){
+						console.log('Finnished get buildQuizList')
+						buildProgBar(data);
 						$('#myModal').modal('hide');
 					});
+					},2000);
 					// buildLangButton(data.response);
-					buildProgBar(data);
 				});
 	       //  	getStatus(Index01.response.result);
 	       //  	$('#myModal').modal({backdrop: 'static', keyboard: false});
@@ -268,6 +274,9 @@ function buildProgBar(a){
 	var length = a.response.result.length;
 	for (var i = 1;i <= length;i++) {
 		text += '<div class="form-control progNode weight'+i+'" id="progNode_'+a.response.result[i-1].quiz_id+'">'+i+
+		'<div>'+
+
+		'</div>'+
 		'</div>'
 		for(var c = i;c<i+1;c++){
 			if (c == length) {
@@ -353,21 +362,15 @@ function buildQuizList(callback){
 	var length = Index01.response.result.length;
 	var qData = '';
 	var text = '<div><center>';
-	rawData = sessionStorage['quizStatus'];
-	cdata = JSON.parse(rawData);
+	// rawData = sessionStorage['quizStatus'];
+	// cdata = JSON.parse(rawData);
 	var disable = '';
 	for(var i = 0;i<length;i++) {
 	    var quiz_id = Index01.response.result[i].quiz_id;
 	    var quiz_name = Index01.response.result[i].name;
 	    var img = Index01.response.result[i].image;
-	    var btn_order = '';
-	    if (cdata.length < length) {
-	    	location.reload();
-	    }else{
-		    if (quiz_id == cdata[i].id) {
-		    	btn_order = cdata[i].Order;
-		    }
-		}
+	    var btn_order = Index01.response.result[i].weight;
+	    console.log(btn_order)
 	    var weight = Index01.response.result[i].weight;
 	    var values = contentSummary[quiz_id];
 	    if (sessionStorage["isAdmin"] == 'false') {
