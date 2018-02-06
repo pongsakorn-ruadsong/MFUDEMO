@@ -60,10 +60,10 @@
 	</script>
 	<div class="container" style="margin-top: 50px;">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-6 col-sm-6 col-xs-6">
 				
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6 col-sm-6 col-xs-6">
 				<!-- <div class="dropdown">
 					<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="float: right;">Debugger<span class="caret"></span></button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -81,17 +81,26 @@
 			</div>
 		</div>
 		<div class="row node" >
-			<div class="col-md-12" >
+			<div class="col-md-12 col-sm-12 col-xs-12" >
 				<div class="prog-bar">
 
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<div class="" id="qlist">
-					<button class="btn-slide" id="btn-pre"  style="float: left;display: block;cursor: pointer;"> <img class="slide-img" src="img/prev.png"> </button>
-					<button class="btn-slide" id="btn-next"  style="float: right;display: block;cursor: pointer;"><img class="slide-img" src="img/next.png"></button>
+			<div class="col-md-10 offset-md-1 col-xs-10 offset-xs-1 col-sm-10 offset-sm-1">
+				<div class="row">
+					<div class="col-md-1 col-sm-1 col-xs-1">
+						<button class="btn-slide" id="btn-pre"  style="display: block;cursor: pointer;"> <img class="slide-img" src="img/prev.png"> </button>
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-10">
+						<div class="" id="qlist">
+
+						</div>
+					</div>
+					<div class="col-md-1 col-sm-1 col-xs-1">
+						<button class="btn-slide" id="btn-next"  style="display: block;cursor: pointer;"><img class="slide-img" src="img/next.png"></button>
+					</div>
 				</div>
 			</div>
 		</div>

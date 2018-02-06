@@ -367,8 +367,8 @@ function buildQuiz(){
 	    	$('#choice').append(text);
 	    	$('#btn_NR').append(btn_text);
 	    	 $("#nextBtn").click(function(){
-	    	 //	$("#nextBtn").prop('disabled', true);
-	    	 //	$("#resetQuiz").prop('disabled', true);
+	    	 	$("#nextBtn").prop('disabled', true);
+	    	 	$("#resetQuiz").prop('disabled', true);
 		    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
 		    		getToastrOption();
 					toastr["info"]("Please answer the question.", "Hint!");
