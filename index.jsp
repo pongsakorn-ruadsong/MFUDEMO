@@ -113,7 +113,7 @@
         <CENTER>
         <div class="modal-body" style="position: fixed;top: 80px;left: 0px;">
           <div class="" style="">
-          	<img src="gif/Lotus.gif" style="width: 100%;height: 100%;">
+          	<img src="gif/Newest_Lotus.gif" style="width: 100%;height: 100%;">
 		  </div>
         </div>
         </CENTER>
