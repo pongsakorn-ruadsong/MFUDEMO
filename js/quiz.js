@@ -115,6 +115,7 @@ function getTopic(a){
 	var qname = a.response.result.question;
 	var _qname = a.response.result;
 	var nn = a.response.result.options.length;
+//	var isTextOp = a.response.result
 	console.log("Question: "+qname+" | Content: "+n+" | Type: "+type+" | Language: "+sessionStorage['lang']);
 
     topic = contentSummary[qname];
@@ -122,9 +123,12 @@ function getTopic(a){
 	    			
 	// console.log('Enter if');
 	// console.log(type+" == \'SQ\' ?");
-	if (type == 'SQ' || type == 'YN') {
+	if (type == 'SQ' || type == 'YN' || type == 'SQ_S') {
 		// console.log('Enter if2');
 		for(var k=0;k<nn;k++){
+			if (contentSummary[_qname.options[k].description] == undefined) {
+				continue;
+			}
 			choices.push(contentSummary[_qname.options[k].description]);
 			console.log(choices);		
 		}
@@ -247,6 +251,7 @@ function buildQuiz(){
 	    	console.log("Total score: "+cur_score+" score of "+max_score)
 	    	console.log("")
 	    }
+
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
 	    c = parseInt(interval);
@@ -254,16 +259,41 @@ function buildQuiz(){
 	    	$('#topic').text(topic);
 	    	if (type == 'SQ') {
 	    		document.getElementById("4Play").style.display = "none";
+	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons">'
 		    	for (var i=0;i<option.length;i++) {
-		    		text+='<input class="inputTXT" type="radio" name="'+topic+'" typeZ="SQ" value="'+option[i].option_id+'"><p>'+choices[i]+'</p><br>'
+		    		text += '<label class="btn">'+
+			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ" valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+			        '</label>'
 		    		console.log(choices[i]);
 		    	}
-	    	}else if(type == 'YN'){
-	    		document.getElementById("4Play").style.display = "none";
-	    		for (var i=0;i<option.length;i++) {
-	    			text+='<input class="inputTXT" type="radio" name="'+topic+'" typeZ="YN" value="'+option[i].option_id+'"><p>'+choices[i]+'</p><br>'
-	    			}
+		    	text += '</div>';
 	    	}
+	    	else if (type == 'SQ_S') {
+	    		document.getElementById("4Play").style.display = "none";
+	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons">'
+		    	for (var i=0;i<option.length;i++) {
+		    		if (option[i].is_text_option) {
+		    			text+= '<input type="text" class="form-control inputTXT_S" id="other_input" idZ="'+option[i].option_id+'" style="display:none;width: 100%;font-size: 16px;margin-left:50px;">'
+	    				continue;
+	    			}
+		    		text += '<label class="btn">'+
+			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ" valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+			        '</label>'
+		    			
+		    		console.log(choices[i]);
+		    	}
+		    	text += '</div>';
+	    	}
+	    	//else if(type == 'YN'){
+	    	//	document.getElementById("4Play").style.display = "none";
+	    	//	text += '<div class="btn-group btn-group-vertical" data-toggle="buttons">'
+	    	//	for (var i=0;i<option.length;i++) {
+	    	//		text += '<label class="btn">'+
+			 //         '<input class="inputTXT" name="'+topic+'" typeZ="SQ" valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+			 //       '</label>'
+	    	//		}
+	    	//		text += '</div>';
+	    	//}
 	    	else if(type == 'RANGE'){
 	    		$('#slider-range').slider({
 				    range: true,
@@ -306,14 +336,14 @@ function buildQuiz(){
 	    		$("#slider-panel").addClass("inputTXT");
 	    		document.getElementById("slider-panel").style.display = "block";
 	    		document.getElementById("realDeal").style.display = "block";
-	    		document.getElementById("slider-bar").setAttribute("value", (b/2).toLocaleString());
-	    		document.getElementById("slider-bar").setAttribute("min", a.toLocaleString());
-	    		document.getElementById("slider-bar").setAttribute("max", b.toLocaleString());
-	    		document.getElementById("slider-bar").setAttribute("step", c.toLocaleString());
-	    		$('#disValueSli').text(b/2);
+	    		document.getElementById("slider-bar").setAttribute("value", (b/2));
+	    		document.getElementById("slider-bar").setAttribute("min", a);
+	    		document.getElementById("slider-bar").setAttribute("max", b);
+	    		document.getElementById("slider-bar").setAttribute("step", c);
+	    		$('#disValueSli').text((b/2).toLocaleString());
 	    		$('#hidSLIval').val(b/2);
-	    		$('#minslider').text(rMin);
-	    		$('#maxslider').text(rMax);
+	    		$('#minslider').text(a.toLocaleString());
+	    		$('#maxslider').text(b.toLocaleString());
 	    		select1 = Quiz01.response.result.options[0].option_id;
 	    	}
 	    	else if(type == 'SLI_S'){
@@ -337,8 +367,8 @@ function buildQuiz(){
 	    	$('#choice').append(text);
 	    	$('#btn_NR').append(btn_text);
 	    	 $("#nextBtn").click(function(){
-	    	 	$("#nextBtn").prop('disabled', true);
-	    	 	$("#resetQuiz").prop('disabled', true);
+	    	 //	$("#nextBtn").prop('disabled', true);
+	    	 //	$("#resetQuiz").prop('disabled', true);
 		    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
 		    		getToastrOption();
 					toastr["info"]("Please answer the question.", "Hint!");
@@ -397,6 +427,16 @@ function buildQuiz(){
 				  }
 				});
 		    });
+	    	 $('input:radio[name="'+topic+'"]').change(
+			    function(){
+			        if ($(this).is(':checked') && $(this).attr('valueZ') == 'Other') {
+			            $('#other_input').slideDown();
+			            select1 = $('#other_input').attr('idZ');
+			        }
+			        else{
+			        	 $('#other_input').slideUp();
+			        }
+			    });
 }
 function chkIndex(){
 	console.log(index+" / "+total);
@@ -444,7 +484,6 @@ function capitalizeFirstLetter(string) {
 }
 function valid(){
 	if (type == 'TXT') {
-		inputType = 'TXT';
 		if (isEmptyTXT()) {
 			getToastrOption();
 	    	toastr["warning"]("Please put something in the box.", "Hint!");
@@ -467,11 +506,13 @@ function valid(){
 			console.log(d);
 			console.log(e);
 		if (sessionStorage['ans_no'] == 'yes' || sessionStorage['ans_no'] == 'null') {
+			console.log("Enter ans_no");
 			if (!validSLI()) {
 				getToastrOption();
 		    	toastr["warning"]("undefined", "Hint!");
 		    	return false;
 			}else{
+				console.log("Enter ans_no_for");
 				for(var i=0;i<Quiz01.response.result.options.length;i++){
 					if (Quiz01.response.result.options[i].is_text_option) {
 						console.log("Select"+i+" : "+i+" | C : "+c+" = "+Quiz01.response.result.options[i].option_id);
@@ -548,12 +589,22 @@ function valid(){
 			return true;
 		}
 	}else if(type == 'SQ'){
-		inputType = 'SQ';
 		if (!validSQ()) {
 			getToastrOption();
 	    	toastr["warning"]("Please select one of choices.", "Hint!");
 	    	return false;
 		}else{
+			return true;
+		}
+		
+	}else if(type == 'SQ_S'){
+		console.log("Enter SQ_S")
+		if (validSQ_S()) {
+			getToastrOption();
+	    	toastr["warning"]("Invaild input data.", "Hint!");
+	    	return false;
+		}else{
+			answer = $('.inputTXT_S').val();
 			return true;
 		}
 		
@@ -563,6 +614,13 @@ function valid(){
 	}
 	
 }
+function validSQ_S() {
+	if ($('.inputTXT_S').val() == '' || $('.inputTXT_S').val().length < 2) {
+		return true;
+	}else{
+		return false;
+	}
+}
 function isEmptyTXT(){
 	if ($('.inputTXT').val() == '') {
 		return true;
@@ -571,7 +629,7 @@ function isEmptyTXT(){
 	}
 }
 function isTooShortTXT(){
-	if ($('.inputTXT').val().length <= 6) {
+	if ($('.inputTXT').val().length < 2) {
 		return true;
 	}else{
 		return false;
@@ -642,6 +700,7 @@ function nextQuestion(){
 	       		}
 	       	}
 	       	console.log("Final Report: Answer: "+answer+" & Answer2: "+answer2+" & Selected: "+select1+" & Selected2: "+select2);
+	       	console.log(data);
        	}
         tokenUrl = sessionStorage['mainUrl']+"Quiz/"+sessionStorage['qId']+"/answer"
 	$.ajax({
@@ -684,6 +743,21 @@ function scorePop(a,b){
 	var gr_rank_img = a.rank_image;
 	var gr_grade = a.grade;
 	var img = '';
+	if (max_score == 0 || b == "") {
+		swal({
+		  title: "Completed",
+		  text: "Thank you for your time!, we're bringing you to main menu!",
+		  type: "success",
+		  confirmButtonClass: "btn-primary",
+		  confirmButtonText: "Ok!",
+		  closeOnConfirm: false
+		},
+		function(){
+			setTimeout(function(){
+				window.location.replace("index.jsp");
+			},500)
+		});
+	}else{
 	swal({
 		title: total_score+" / "+max_score,
 		imageUrl: gr_rank_img,
@@ -822,7 +896,7 @@ function scorePop(a,b){
 			// console.log("Out of loop. . .")
 			// console.log(" ")
 		});
-	
+	}
 }
 function swalAlert(){
 	

@@ -9,12 +9,14 @@
 				sessionStorage['ans_no'] = null;
 				sessionStorage['type'] = null;
 			}
-		    
+		    $('.range-slider__range').on('input', function(){
+		    	var val = parseInt($('.range-slider__range').val());
+		    	var vaule = val.toLocaleString()
+			    $('.range-slider__value').text(vaule);
+			    $('#hidSLIval').val($('.range-slider__range').val());
+			});
 		   
-		    $('.range-slider__range').change(function(){
-		    	$('.range-slider__value').text(($('.range-slider__range').val())+" "+$('#unit').text());
-		    	$('#hidSLIval').val(($('.range-slider__range').val()));
-		    });
+		    
 		    $('.dropdown-menu > .dropdown-item').click(function(){
 		    	$('#showCurren').remove();
 		    	$('#chgCurren').text($(this).attr('value'));
@@ -27,6 +29,7 @@
 			   $('#realDeal').slideUp(); 
 			   sessionStorage['ans_no'] = "no";
 		    });
+		   // $('#Other').click(function(){ console.log("Success")});
 		});
 		
 	</script>
@@ -34,9 +37,10 @@
 		
 	</style>
 	
+		
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 
-	<!-- font awesome -->
-	
 	<div class="bg row" id="quizImg" style="margin-top: 50px;">
 		<div class="col-md-6" id="img">
 			<img src="" class="quizImg" id="OptionImg">
@@ -113,7 +117,7 @@
 							<div class="range-slider">
 								<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
 									<div class="col-md-2"><span id="minslider"></span></div>
-							 		<div class="col-md-8"><input class="range-slider__range" id="slider-bar" type="range"  value="" min="" max="" step="" ></div>
+							 		<div class="col-md-8"><input class="range-slider__range" id="slider-bar" type="range"  value=0 min=0 max=1000000 step=1000 ></div>
 							 		<div class="col-md-2"><span id="maxslider"></span></div>
 							 	</div>
 							  <div style="text-align: center;margin-top: 30px;">
@@ -140,7 +144,7 @@
     <div class="modal-dialog" style="margin-top: 200px;">
     
       <!-- Modal content-->
-      <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;">
+      <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;box-shadow: none;">
         <CENTER>
         <div class="modal-body" style="padding: 100px;">
           <div class="loader"></div>

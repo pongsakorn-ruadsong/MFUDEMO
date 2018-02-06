@@ -93,11 +93,6 @@
 					<button class="btn-slide" id="btn-pre"  style="float: left;display: block;cursor: pointer;"> <img class="slide-img" src="img/prev.png"> </button>
 					<button class="btn-slide" id="btn-next"  style="float: right;display: block;cursor: pointer;"><img class="slide-img" src="img/next.png"></button>
 				</div>
-				<div class="row">
-					<div class="input-group">
-						
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
