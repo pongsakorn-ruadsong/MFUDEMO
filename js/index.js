@@ -14,7 +14,7 @@ var quizMax;
 var quizMin;
 var contentLang = [];
 var contentAbbrev = [];
-var addHighLight = '<span class="testLoader"></span>'; //					by Dew
+addHighLight = '<span class="testLoader" animated="fadeIn"></span>'; //					by Dew
 var mathRand = Math.floor(500 + Math.random() * 500);
 function getUserInfo() {
 	var data = new Object();
@@ -248,6 +248,7 @@ function getQuizData() {
 						buildQuizList(function(){
 						console.log('Finnished get buildQuizList')
 						buildProgBar(data);
+						isFinnished();
 						$('#myModal').modal('hide');
 					});
 					},2000);
@@ -274,11 +275,9 @@ function buildProgBar(a){
 	var text = '';
 	var length = a.response.result.length;
 	for (var i = 1;i <= length;i++) {
-		text += '<div class="form-control progNodeLock weight'+i+'" id="progNode_'+a.response.result[i-1].quiz_id+'">'+i+ //		(Edited progNodeLock)			by Dew
-		'<div>'+
-
-		'</div>'+
-		'</div>'
+		text += '<div class="form-control progNodeLock weight'+i+'" id="progNode_'+a.response.result[i-1].quiz_id+'">'+
+					'<label> '+a.response.result[i-1].name+' </label>'+
+					'</div>'
 		for(var c = i;c<i+1;c++){
 			if (c == length) {
 				break;
@@ -331,6 +330,7 @@ function sortOrder(){
 			            '</div>'; //					by Dew
  	for(var i=0;i<cdata.length;i++){
  		// console.log("Enter For Loop. . . As: I = "+i+" | length = "+cdata.length+" | cdata"+i+" = "+cdata[i].id+" & "+cdata[i].isFinnish)
+ 		console.log("Enter Else if in for loop as data id: "+cdata[i].id+' | sdasd: '+lockQuiz);
 		if (cdata[i].isFinnish == true) {
 			// console.log("Enter if in for loop as data id: "+cdata[i].id);
 			$('#overlay_lo_'+cdata[i].id).css('display',"none");

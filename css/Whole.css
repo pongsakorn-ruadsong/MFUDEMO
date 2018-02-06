@@ -402,7 +402,7 @@ img{
 .progBar{
 	background-color: #66B1A7;
     width: 133px;
-    height: 40px;
+    height: 3px;
     text-align: center;
     margin-top: 7px;
     margin-left: -6px !important;
