@@ -400,16 +400,11 @@ img{
     align-self: center;
 }
 .progBar{
-	background-color: #66B1A7;
+	background-color: #e6e6e6;
     width: 133px;
-    height: 3px;
+    height: 1px;
     text-align: center;
     margin-top: 7px;
-    margin-left: -6px !important;
-    margin-right: -6px;
-    z-index: 5;
-    border-right: none;
-    border-left: none;
     border: 0px;
     position: relative;
     align-self: center;

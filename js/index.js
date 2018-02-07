@@ -248,7 +248,7 @@ function getQuizData() {
 						buildQuizList(function(){
 						console.log('Finnished get buildQuizList')
 						buildProgBar(data);
-						isFinnished();
+						isFinnished();	
 						$('#myModal').modal('hide');
 					});
 					},2000);
@@ -276,8 +276,8 @@ function buildProgBar(a){
 	var length = a.response.result.length;
 	for (var i = 1;i <= length;i++) {
 		text += '<div class="form-control progNodeLock weight'+i+'" id="progNode_'+a.response.result[i-1].quiz_id+'">'+
-					'<label> '+a.response.result[i-1].name+' </label>'+
 					'</div>'
+
 		for(var c = i;c<i+1;c++){
 			if (c == length) {
 				break;
