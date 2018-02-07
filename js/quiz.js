@@ -589,11 +589,27 @@ function valid(){
 	
 }
 function validSQ_S() {
-	if ($('.inputTXT_S').val() == '' || $('.inputTXT_S').val().length < 2) {
-		return true;
-	}else{
-		return false;
-	}
+	var radios = document.getElementsByTagName('input');
+	for (var i = 0; i < radios.length; i++) {
+		console.log("Enter for")
+	    if (radios[i].type === 'radio' && radios[i].checked) {
+	    	console.log("Enter If 1")
+	        if (radios[i].getAttribute('valueZ') == 'Other') {
+	        	console.log("Enter If 2")
+	        	if ($('.inputTXT_S').val() == '' || $('.inputTXT_S').val().length < 2) {
+	        		console.log("Enter If 3")
+					return true;
+				}else{
+					return false;
+				}
+			}
+			else{
+				console.log("Enter Else")
+				select1 = radios[i].value; 
+				return false;
+			}
+	    }
+	}	
 }
 function isEmptyTXT(){
 	if ($('.inputTXT').val() == '') {
@@ -717,7 +733,7 @@ function scorePop(a,b){
 	var gr_rank_img = a.rank_image;
 	var gr_grade = a.grade;
 	var img = '';
-	if (max_score == 0 || b == "") {
+	if (gr_rank == "") {
 		swal({
 		  title: "Completed",
 		  text: "Thank you for your time!, we're bringing you to main menu!",
