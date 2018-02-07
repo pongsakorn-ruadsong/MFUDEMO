@@ -22,7 +22,7 @@ var value, a,b,c,d,e;
 var aa;
 var choices = [];
 var contentSummary=[];
-var contentTitle =[]; 
+var contentTitle =[];
 var unit = '';
 var ph = '';
 var ttess = [];
@@ -42,20 +42,20 @@ function getStatus(callback){
 			    jQuery.each(data.response.result, function() {
 					quizStatus[this.quiz_id] = this.completed;
 		        }
-		        );	
+		        );
 		        for (var i = 0; i < data.response.result.length; i++) {
 		        	qStatus.push({'id':data.response.result[i].quiz_id,'isFinnish':data.response.result[i].completed,'Order':data.response.result[i].weight});
 		        }
-			    sessionStorage.setItem('quizStatus', JSON.stringify(qStatus));		
+			    sessionStorage.setItem('quizStatus', JSON.stringify(qStatus));
 			    callback();
 		    },
 		    error: function (xhr, textStatus, errorThrown){
 	//          window.location.reload(true)
 	            console.log(errorThrown);
 	            console.log("Failed : getStatus(a) @ quiz.js ");
-	        }	
+	        }
 		});
-		
+
 	// }
 }
 
@@ -66,21 +66,21 @@ function fillColor(a){
 			// myLoop();
 		}
 	}
-	// function myLoop () {  
-	// 	   setTimeout(function () { 
+	// function myLoop () {
+	// 	   setTimeout(function () {
 	// 	   		console.log("Fill : "+ttess[i].node+" i = "+i)
 	// 	      	document.getElementById(ttess[i].node).style.backgroundPosition = "left";
-	// 		      	setTimeout(function () {    
+	// 		      	setTimeout(function () {
 	// 		   		console.log("Fill : "+ttess[i].bar+" i = "+i)
-	// 				document.getElementById(ttess[i].bar).children[0].style.width = "100%";              
-	// 				i++;                     
-	// 			      if (i < ttess.length) {            
-	// 			         myLoop(); 
-	// 			      }     
-	// 			   }, 480)                
+	// 				document.getElementById(ttess[i].bar).children[0].style.width = "100%";
+	// 				i++;
+	// 			      if (i < ttess.length) {
+	// 			         myLoop();
+	// 			      }
+	// 			   }, 480)
 	// 		   }, 480)
-	// 	} 
-		
+	// 	}
+
 	}
 
 function getTopic(a){
@@ -94,7 +94,7 @@ function getTopic(a){
 
     topic = contentSummary[qname];
 	title = contentTitle[qname];
-	    			
+
 	// console.log('Enter if');
 	// console.log(type+" == \'SQ\' ?");
 	if (type == 'SQ' || type == 'YN' || type == 'SQ_S') {
@@ -104,25 +104,25 @@ function getTopic(a){
 				continue;
 			}
 			choices.push(contentSummary[_qname.options[k].description]);
-			console.log(choices);		
+			console.log(choices);
 		}
-		
+
 	}else if (type == 'TXT') {
 		console.log("TXT");
 		if (qname+"_PH" in contentTitle){
 			ph = contentTitle[qname+"_PH"];
 		}
-			
-		
+
+
 	}
 	else if (type == 'SLI' || type == 'SLI_S') {
 		// console.log("TYPE:SLI||SLI_S");
 		if (title.indexOf('How') > -1 && title.indexOf('old') > -1) {
-			
+
 			$('#unit').text(contentSummary['YEAR_OLD']);
-				
+
 		}else if (title.indexOf('have') > -1 && title.indexOf('kids') > -1) {
-			
+
 			if ($('.range-slider__range').val() > 0 && sessionStorage['lang'] == 'English') {
 				$('#unit').text(contentSummary['KID']+"s")
 			}else{
@@ -132,16 +132,16 @@ function getTopic(a){
 		if (type == 'SLI_S') {
 			console.log("FIND NO");
 			for(var k=0;k<nn;k++){
-				choices.push(contentTitle[_qname.options[k].description]+contentSummary[_qname.options[k].description]);		
+				choices.push(contentTitle[_qname.options[k].description]+contentSummary[_qname.options[k].description]);
 			}
-			
+
 		}
 	}
 	else if (true) {
-		
+
 	}
-	    		
-	    	
+
+
 }
 function getQuestion(){
 	$.ajax({
@@ -150,6 +150,7 @@ function getQuestion(){
         dataType: "json",
 	    success: function(data){
 	    Quiz01 = data;
+			$('#myModal').modal({backdrop: 'static', keyboard: false});
 	    if (Quiz01.response == null || Quiz01.response.result == null) {
 	    	sessionStorage.removeItem("qId");
 	    	swal({
@@ -170,7 +171,7 @@ function getQuestion(){
 					resetQuiz();
 					window.location.replace("index.jsp");
 			    },800);
-			  } 
+			  }
 			  else {
 			    swal("Going back!", "We're bringing you to home page!", "success");
 			    setTimeout(function(){
@@ -185,22 +186,25 @@ function getQuestion(){
 	    sessionStorage['type'] = type;
 	    console.log(data);
 	    test = JSON.parse(cur_Quest);
-		getTopic(data); 
-		buildQuiz();
-    		
-    		
-    	}
-    
-		},
+			getTopic(data);
+			setTimeout(function(){
+				buildQuiz(function() {
+					$('#myModal').modal('hide');
+				});
+			},2000);
+
+	    }
+
+			},
 	    error: function (xhr, textStatus, errorThrown){
          window.location.reload(true)
             console.log(errorThrown);
             console.log("Failed : getQuestion() @ quiz.js");
-        }	
+        }
 	});
 
 }
-function buildQuiz(){
+function buildQuiz(callback){
 		var text = '';
 		var btn_text = '';
 	    var option = Quiz01.response.result.options;
@@ -253,7 +257,7 @@ function buildQuiz(){
 		    		text += '<label class="btn">'+
 			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ" valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
-		    			
+
 		    		console.log(choices[i]);
 		    	}
 		    	text += '</div>';
@@ -296,12 +300,12 @@ function buildQuiz(){
 	    		$("#range-panel").addClass("inputTXT");
 	    		document.getElementById("range-panel").style.display = "block";
 	    		document.getElementById("4Play").style.display = "block";
-	    		
+
 	    	}
 	    	else if(type == 'TXT'){
 	    		text+='<textarea class="form-control inputTXT" rows="8" placeholder="'+ph+'" typeZ="TXT"></textarea>'
 	    		select1 = Quiz01.response.result.options[0].option_id;
-	    		
+
 	    	}
 	    	else if(type == 'MULTI'){
 	    		text+=''
@@ -411,6 +415,7 @@ function buildQuiz(){
 			        	 $('#other_input').slideUp();
 			        }
 			    });
+					callback();
 }
 function chkIndex(){
 	console.log(index+" / "+total);
@@ -490,10 +495,10 @@ function valid(){
 				for(var i=0;i<Quiz01.response.result.options.length;i++){
 					if (Quiz01.response.result.options[i].is_text_option) {
 						console.log("Select"+i+" : "+i+" | C : "+c+" = "+Quiz01.response.result.options[i].option_id);
-						
+
 							select1 = Quiz01.response.result.options[i].option_id;
 							console.log("Select1: "+select1);
-						
+
 					}
 				}
 				if (type == 'SLI_S') {
@@ -570,7 +575,7 @@ function valid(){
 		}else{
 			return true;
 		}
-		
+
 	}else if(type == 'SQ_S'){
 		console.log("Enter SQ_S")
 		if (validSQ_S()) {
@@ -581,12 +586,12 @@ function valid(){
 			answer = $('.inputTXT_S').val();
 			return true;
 		}
-		
+
 	}else if(type == 'MULTI'){
 		inputType = 'MULTI';
 		validMU();
 	}
-	
+
 }
 function validSQ_S() {
 	var radios = document.getElementsByTagName('input');
@@ -605,11 +610,11 @@ function validSQ_S() {
 			}
 			else{
 				console.log("Enter Else")
-				select1 = radios[i].value; 
+				select1 = radios[i].value;
 				return false;
 			}
 	    }
-	}	
+	}
 }
 function isEmptyTXT(){
 	if ($('.inputTXT').val() == '') {
@@ -647,7 +652,7 @@ function validSQ(){
 	for (var i = 0; i < radios.length; i++) {
 	    if (radios[i].type === 'radio' && radios[i].checked) {
 	        // get value, set checked flag or do whatever you need to
-	        select1 = radios[i].value; 
+	        select1 = radios[i].value;
 	        console.log("Selected: "+radios[i].value)
 	    }
 	}
@@ -889,7 +894,7 @@ function scorePop(a,b){
 	}
 }
 function swalAlert(){
-	
+
 }
 function translateResult(a){
 	var data = JSON.parse(a);
@@ -906,12 +911,3 @@ function percentage(num, per)
 {
   return (num/100)*per;
 }
-
-
-
-
-
-
-
-
-

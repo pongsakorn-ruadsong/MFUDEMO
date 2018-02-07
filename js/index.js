@@ -5,7 +5,7 @@ var Index04 = [];
 var Index05 = [];
 var TempLink = sessionStorage['mainUrl']+'Player/'+sessionStorage['player']+'/data/all?api_key='+sessionStorage['api_key'];
 var getQuizz = sessionStorage['mainUrl']+'Quiz/list?api_key='+sessionStorage['api_key'];
-var previous = ''; 
+var previous = '';
 var current = '';
 var current_Index = '';
 var rawData;
@@ -30,7 +30,7 @@ function getUserInfo() {
 	    		buildPlayer(data.response.player);
 	    // 		jQuery.each(data.response, function() {
 					// contentLang[this.language] = this.language;
-					// contentAbbrev[this.language] = this.abbreviation;	
+					// contentAbbrev[this.language] = this.abbreviation;
 	    //         });
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
@@ -43,7 +43,7 @@ function getUserInfo() {
 function buildPlayer(a) {
 	// $('#playerPanel > div').remove();
 	var img = a.image;
-	var img_for_check = /[^/]*$/.exec(img)[0];  
+	var img_for_check = /[^/]*$/.exec(img)[0];
 	console.log(img_for_check)
 	if (img_for_check == 'default_profile.jpg') {
 		img = 'img/default_user.png'
@@ -82,7 +82,7 @@ function buildPlayer(a) {
 	$('#user_exp').text(exp);
 	$('#user_point').text(point);
 	console.log(lv_percent)
-	document.getElementById("level_progress").style.width = lv_percent+'%'; 
+	document.getElementById("level_progress").style.width = lv_percent+'%';
 }
 function buildRewardList() {
 	$('#table_reward > tr').remove();
@@ -126,7 +126,7 @@ function getLang() {
 	    		buildLangButton(data.response);
 	    // 		jQuery.each(data.response, function() {
 					// contentLang[this.language] = this.language;
-					// contentAbbrev[this.language] = this.abbreviation;	
+					// contentAbbrev[this.language] = this.abbreviation;
 	    //         });
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
@@ -255,13 +255,13 @@ function getQuizData() {
 				});
 	       //  	getStatus(Index01.response.result);
 	       //  	$('#myModal').modal({backdrop: 'static', keyboard: false});
-		    		// setTimeout(function(){ 
+		    		// setTimeout(function(){
 		    		// 	$('#myModal').modal('hide');
 		    		// 	buildQuizList();
 		    		// 	buildProgBar(data);
 		    		// }, 1000);
-	    		
-	    		
+
+
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
@@ -322,7 +322,7 @@ function sortOrder(){
 						'</div>'+
 						'</div>'+
 						'</div>'; //					by Dew
-	var loadingDot = '<div class="load-3 loading-text">'+ 
+	var loadingDot = '<div class="load-3 loading-text">'+
 			                '<div class="line" style="background-color: #4285F4"></div>'+
 			                '<div class="line" style="background-color: #FBBC05;"></div>'+
 			                '<div class="line" style="background-color: #EA4335"></div>'+
@@ -405,7 +405,7 @@ function buildQuizList(callback){
 						'<p style="position: relative;color: white;font-size: 26px;top: 15px;margin-bottom: 25px;">'+values+'</p>'+
 					'</div>'+
 		'</button>'+
-		'</center>'+    
+		'</center>'+
 	    '</div>'
 	    qData += quiz_id+" ";
 	    }
@@ -454,9 +454,9 @@ function updateBtnOrder(code,position){
 	console.log(position);
 	var length = Index01.response.result.length;
 	$('.quizlist').removeClass('animated fadeInLeft fadeOutLeft fadeInRight fadeOutRight')
-	
+
 	var quiz_id = [];
-	
+
 	if (code == 'prev') {
 		var b = parseInt(position);
 		b = b+1;
@@ -482,9 +482,9 @@ function updateBtnOrder(code,position){
 	    		$('#btn_'+quiz_id).addClass('animated fadeOutRight');
 	    		$('#progNode_'+quiz_id+' > span').remove();//					by Dew
 	    		$("#btn_"+quiz_id).hide("slow");
-	    		setTimeout(function(){ 
+	    		setTimeout(function(){
 	    			console.log("")
-	    			setTimeout(function(){ 
+	    			setTimeout(function(){
 						$("#btn_"+pre_id).css("display", "block");
 						$('#progNode_'+pre_id).prepend(addHighLight);//					by Dew
 						$('#btn_'+pre_id).addClass('animated fadeInLeft');
@@ -511,7 +511,7 @@ function updateBtnOrder(code,position){
 		$("#btn-pre").attr("prev",p);
 	    $("#btn-next").attr("next",n);
 	    return true;
-	    
+
 
 	}else if(code == 'next'){
 		var b = parseInt(position);
@@ -538,8 +538,8 @@ function updateBtnOrder(code,position){
 	    		$('#btn_'+quiz_id).addClass('animated fadeOutLeft');
 	    		$('#progNode_'+quiz_id+' > span').remove(); //					by Dew
 	    		$("#btn_"+quiz_id).hide("slow");
-	    		setTimeout(function(){ 
-	    			setTimeout(function(){ 
+	    		setTimeout(function(){
+	    			setTimeout(function(){
 						$("#btn_"+next_id).css("display", "block");
 						$('#progNode_'+next_id).prepend(addHighLight); //					by Dew
 						$('#btn_'+next_id).addClass('animated fadeInRight');
@@ -600,6 +600,3 @@ function resetAllQ(){
             }
 	});
 }
-
-
-

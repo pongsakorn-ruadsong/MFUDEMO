@@ -5,7 +5,7 @@
 				window.location.replace("login.jsp");
 			}else{
 				translateContent();
-		    	getQuizData();
+		    getQuizData();
 				sessionStorage.removeItem("save_result");
 			}
 		    $('#getToken').click(function(){
@@ -31,26 +31,26 @@
 				$("#btn-pre").prop('disabled', true);
 				// console.log(_to);
 				if (updateBtnOrder('prev',_to)) {
-					setTimeout(function(){ 
+					setTimeout(function(){
 					$("#btn-pre").prop('disabled', false);
 					}, 1000);
 				}
-				
-				
+
+
 			});
 			$('#btn-next').click(function(){
 				var _to = $(this).attr('next');
 				$("#btn-next").prop('disabled', true);
 				// console.log(_to);
 				if (updateBtnOrder('next',_to)) {
-					setTimeout(function(){ 
+					setTimeout(function(){
 					$("#btn-next").prop('disabled', false);
 					}, 1000);
 				}
 				// $('#btn_5a55bd7ae92a2e785e8b456e').addClass('animated fadeOutLeft');
-				// setTimeout(function(){ 
+				// setTimeout(function(){
 	   //  			document.getElementById('btn_5a55bd7ae92a2e785e8b456e').style.display = 'none';
-	   //  			setTimeout(function(){ 
+	   //  			setTimeout(function(){
 				// 		document.getElementById('btn_5a69a5062f131c1f298b4569').style.display = 'block';
 				// 		$('#btn_5a69a5062f131c1f298b4569').addClass('animated fadeInRight');
 		  //   		}, 10);
@@ -61,7 +61,7 @@
 	<div class="container" style="margin-top: 50px;">
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-6">
-				
+
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-6">
 				<!-- <div class="dropdown">
@@ -76,7 +76,7 @@
 				    </div>
 				</div> -->
 				<!-- <div >
-					
+
 				</div> -->
 			</div>
 		</div>
@@ -107,7 +107,7 @@
 	</div>
 	<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;">
         <CENTER>
@@ -118,7 +118,7 @@
         </div>
         </CENTER>
       </div>
-      
+
     </div>
   </div>
 <%@include file="bottom.jsp" %>
