@@ -248,7 +248,6 @@ function getQuizData() {
 						buildQuizList(function(){
 						console.log('Finnished get buildQuizList')
 						buildProgBar(data);
-						isFinnished();
 						$('#myModal').modal('hide');
 					});
 					},2000);
@@ -422,13 +421,13 @@ function buildQuizList(callback){
 		    sessionStorage['qId'] = this.getAttribute("qId");
 			window.location = 'quiz.jsp?qId='+sessionStorage['qId']+'&player='+sessionStorage['player'];
 		});
-		if (sessionStorage["isAdmin"] == 'false') {
+		if (sessionStorage["isAdmin"] == 'true') {
+			setVisableAll_P(previous);
+			setVisableAll_C(current);
+		}else {
 			setPrevious(previous);
 			setCurrent(current);
 			isFinnished();
-		}else {
-			setVisableAll_P(previous);
-			setVisableAll_C(current);
 		}
 		callback();
 }
