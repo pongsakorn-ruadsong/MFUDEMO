@@ -14,6 +14,7 @@ var quizMax;
 var quizMin;
 var contentLang = [];
 var contentAbbrev = [];
+addHighLight = '<span class="testLoader" animated="fadeIn"></span>'; //					by Dew
 var mathRand = Math.floor(500 + Math.random() * 500);
 function getUserInfo() {
 	var data = new Object();
@@ -247,6 +248,7 @@ function getQuizData() {
 						buildQuizList(function(){
 						console.log('Finnished get buildQuizList')
 						buildProgBar(data);
+						isFinnished();
 						$('#myModal').modal('hide');
 					});
 					},2000);
@@ -273,11 +275,9 @@ function buildProgBar(a){
 	var text = '';
 	var length = a.response.result.length;
 	for (var i = 1;i <= length;i++) {
-		text += '<div class="form-control progNode weight'+i+'" id="progNode_'+a.response.result[i-1].quiz_id+'">'+i+
-		'<div>'+
-
-		'</div>'+
-		'</div>'
+		text += '<div class="form-control progNodeLock weight'+i+'" id="progNode_'+a.response.result[i-1].quiz_id+'">'+
+					'<label> '+a.response.result[i-1].name+' </label>'+
+					'</div>'
 		for(var c = i;c<i+1;c++){
 			if (c == length) {
 				break;
@@ -317,22 +317,38 @@ function sortOrder(){
 	// console.log("Enter isFinnish checking. . .")
  	rawData = sessionStorage['quizStatus'];
  	cdata = JSON.parse(rawData);
+ 	var lockQuiz = '<div class="lock-container">'+
+						'<div class="lock">'+
+						'<div style="background-color: white; border-radius: 5px; top: 6px; left: 10px; width: 4px; height: 7px; position: absolute;">'+
+						'</div>'+
+						'</div>'+
+						'</div>'; //					by Dew
+	var loadingDot = '<div class="load-3 loading-text">'+ 
+			                '<div class="line" style="background-color: #4285F4"></div>'+
+			                '<div class="line" style="background-color: #FBBC05;"></div>'+
+			                '<div class="line" style="background-color: #EA4335"></div>'+
+			            '</div>'; //					by Dew
  	for(var i=0;i<cdata.length;i++){
  		// console.log("Enter For Loop. . . As: I = "+i+" | length = "+cdata.length+" | cdata"+i+" = "+cdata[i].id+" & "+cdata[i].isFinnish)
+ 		console.log("Enter Else if in for loop as data id: "+cdata[i].id+' | sdasd: '+lockQuiz);
 		if (cdata[i].isFinnish == true) {
 			// console.log("Enter if in for loop as data id: "+cdata[i].id);
 			$('#overlay_lo_'+cdata[i].id).css('display',"none");
 			$('#overlay_fi_'+cdata[i].id).css('display',"block");
 			$('#btn_'+cdata[i].id+' > div').addClass('ggez');
+			$('#progNode_'+cdata[i].id).prepend(lockQuiz); //					by Dew
 		}else if (cdata[i].isFinnish == false) {
 			// console.log("Enter Else if in for loop as data id: "+cdata[i].id);
 			if (cdata[i].id != current) {
 				$('#overlay_lo_'+cdata[i].id).css('display',"block");
 				$('#overlay_fi_'+cdata[i].id).css('display',"none");
 				$('#btn_'+cdata[i].id+' > div').addClass('ggez');
+				$('#progNode_'+cdata[i].id).css('background-color',"#d9d9d9"); //					by Dew
+				$('#progNode_'+cdata[i].id).prepend(lockQuiz); //					by Dew
 			}
 			else{
 				$('#btn_'+cdata[i].id+' > div').removeClass('ggez');
+				$('#progNode_'+cdata[i].id).prepend(addHighLight); //					by Dew
 			}
  		}
  	}
@@ -465,11 +481,13 @@ function updateBtnOrder(code,position){
 	    	var pre_id = Index01.response.result[(p-1)].quiz_id;
 	    	if($('#btn_'+quiz_id).attr('order') == b){
 	    		$('#btn_'+quiz_id).addClass('animated fadeOutRight');
+	    		$('#progNode_'+quiz_id+' > span').remove();//					by Dew
 	    		$("#btn_"+quiz_id).hide("slow");
 	    		setTimeout(function(){ 
 	    			console.log("")
 	    			setTimeout(function(){ 
 						$("#btn_"+pre_id).css("display", "block");
+						$('#progNode_'+pre_id).prepend(addHighLight);//					by Dew
 						$('#btn_'+pre_id).addClass('animated fadeInLeft');
 		    		}, 300);
 	    		}, 350);
@@ -519,10 +537,12 @@ function updateBtnOrder(code,position){
 	    	var next_id = Index01.response.result[(n-1)].quiz_id;
 	    	if($('#btn_'+quiz_id).attr('order') == b){
 	    		$('#btn_'+quiz_id).addClass('animated fadeOutLeft');
+	    		$('#progNode_'+quiz_id+' > span').remove(); //					by Dew
 	    		$("#btn_"+quiz_id).hide("slow");
 	    		setTimeout(function(){ 
 	    			setTimeout(function(){ 
 						$("#btn_"+next_id).css("display", "block");
+						$('#progNode_'+next_id).prepend(addHighLight); //					by Dew
 						$('#btn_'+next_id).addClass('animated fadeInRight');
 		    		}, 300);
 	    		}, 350);
