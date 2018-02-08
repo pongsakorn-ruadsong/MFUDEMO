@@ -33,7 +33,7 @@
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="css/flags.min.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
-	
+
 	<%
 		String uri = request.getRequestURI();
 		String pageName = uri.substring(uri.lastIndexOf("/")+1);
@@ -84,12 +84,20 @@
 			$('.tab-content').css('height','400');
 			buildRewardList();
 		});
-		$('#reward').click(function(){
-			
+		$('#anime').click(function(){
+
 		});
 	});
 
 </script>
+<style type="text/css">
+	.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 4px 10px 35px 15px;
+    font-size: 12px;
+    line-height: 20px;
+</style>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
 				  <div class="container-fluid">
@@ -97,9 +105,9 @@
 				      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>                        
+				        <span class="icon-bar"></span>
 				      </button>
-				      <a class="navbar-brand" href="#">Playbasis</a>
+				      <a class="navbar-brand" href="#"><img src="img/playbasis_logo.png"></a>
 				    </div>
 				    <div class="collapse navbar-collapse" id="myNavbar">
 				      <ul class="nav navbar-nav">
@@ -107,6 +115,7 @@
 				         <li class="dropdown" id="showUser">
 				          <a class="dropdown-toggle" data-toggle="modal" data-target="#userInfo" href="#">User </a>
 				        </li>
+				        <!-- <li id="anime" style="cursor: pointer;"><a data-toggle="modal" data-target="#animation-panel">Animation</a></li> -->
 				      </ul>
 				      <ul class="nav navbar-nav navbar-right">
 				        <li id="showLang"><a href="#" data-toggle="modal" data-target="#langPanel"><span class="glyphicon glyphicon-globe"></span> Language </a></li>
@@ -123,7 +132,7 @@
 		  <div class="modal-dialog" role="document" style="margin-top: 10%;">
 		    <div class="modal-content mCustom">
 		      <div class="modal-header">
-		        <h3>User's Infomation</h3> 
+		        <h3>User's Infomation</h3>
 		      </div>
 		      <div class="modal-body" style="text-align: center;">
 		       	<div id="playerPanel">
@@ -177,7 +186,7 @@
 
 								  <div class="tab-content">
 								    <div id="home" class="tab-pane fade in active" style="padding: 20px 10px 10px 10px;">
-								      
+
 								    </div>
 								    <div id="menu1" class="tab-pane fade" style="padding: 20px 10px 10px 10px;">
 								      <div class="panel panel-default">
@@ -185,7 +194,7 @@
 										  <div class="panel-heading">
 										  	<!-- Table -->
 										  	<table class="table" id="table_reward">
-										  		
+
 										    </table>
 										  </div>
 										</div>
@@ -202,7 +211,7 @@
 		    </div>
 		  </div>
 		</div>
-
+		
 		<!-- Modal -->
 		<div class="modal  fade" id="langPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
@@ -212,7 +221,7 @@
 		      </div>
 		      <div class="modal-body" style="text-align: center;padding: 25px 70px 25px 70px;">
 		       	<div id="langList">
-		       		
+
 		       	</div>
 		      </div>
 		      <div class="modal-footer">
@@ -221,8 +230,20 @@
 		    </div>
 		  </div>
 		</div>
+		<div class="modal  fade" id="animation-panel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
+		    <div class="modal-content mCustom">
+		      <div class="modal-header">
+		         <h3>Language Selection</h3>
+		      </div>
+		      <div class="modal-body" style="text-align: center;padding: 25px 70px 25px 70px;">
+		       	<div id="langList">
 
-		 
-		
-	
-
+		       	</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn custom btn-primary" data-dismiss="modal" id="submitLang">Select</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>

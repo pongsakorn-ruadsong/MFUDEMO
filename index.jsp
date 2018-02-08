@@ -35,8 +35,6 @@
 					$("#btn-pre").prop('disabled', false);
 					}, 1000);
 				}
-
-
 			});
 			$('#btn-next').click(function(){
 				var _to = $(this).attr('next');

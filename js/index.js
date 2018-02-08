@@ -14,7 +14,7 @@ var quizMax;
 var quizMin;
 var contentLang = [];
 var contentAbbrev = [];
-addHighLight = '<span class="testLoader" animated="fadeIn"></span>'; //					by Dew
+addHighLight = '<span class="testLoader" animated="fadeIn"></span>'; //by Dew
 var mathRand = Math.floor(500 + Math.random() * 500);
 function getUserInfo() {
 	var data = new Object();
@@ -244,10 +244,10 @@ function getQuizData() {
 					console.log('Finnished get status')
 					// console.log(sessionStorage[''])
 					sortOrder();
+					buildProgBar(data);
 					setTimeout(function(){
 						buildQuizList(function(){
 						console.log('Finnished get buildQuizList')
-						buildProgBar(data);
 						$('#myModal').modal('hide');
 					});
 					},2000);
@@ -329,15 +329,15 @@ function sortOrder(){
 			            '</div>'; //					by Dew
  	for(var i=0;i<cdata.length;i++){
  		// console.log("Enter For Loop. . . As: I = "+i+" | length = "+cdata.length+" | cdata"+i+" = "+cdata[i].id+" & "+cdata[i].isFinnish)
- 		console.log("Enter Else if in for loop as data id: "+cdata[i].id+' | sdasd: '+lockQuiz);
+ 		// console.log("Enter Else if in for loop as data id: "+cdata[i].id+' | sdasd: '+lockQuiz);
 		if (cdata[i].isFinnish == true) {
-			// console.log("Enter if in for loop as data id: "+cdata[i].id);
+			console.log("Enter if in for loop as data id: "+cdata[i].id);
 			$('#overlay_lo_'+cdata[i].id).css('display',"none");
 			$('#overlay_fi_'+cdata[i].id).css('display',"block");
 			$('#btn_'+cdata[i].id+' > div').addClass('ggez');
 			$('#progNode_'+cdata[i].id).prepend(lockQuiz); //					by Dew
 		}else if (cdata[i].isFinnish == false) {
-			// console.log("Enter Else if in for loop as data id: "+cdata[i].id);
+			console.log("Enter Else if in for loop as data id: "+cdata[i].id);
 			if (cdata[i].id != current) {
 				$('#overlay_lo_'+cdata[i].id).css('display',"block");
 				$('#overlay_fi_'+cdata[i].id).css('display',"none");
@@ -385,7 +385,7 @@ function buildQuizList(callback){
 	    var quiz_name = Index01.response.result[i].name;
 	    var img = Index01.response.result[i].image;
 	    var btn_order = Index01.response.result[i].weight;
-	    console.log(btn_order)
+	    
 	    var weight = Index01.response.result[i].weight;
 	    var values = contentSummary[quiz_id];
 	    if (sessionStorage["isAdmin"] == 'false') {

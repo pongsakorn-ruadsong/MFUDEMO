@@ -12,7 +12,7 @@
 		    $('.range-slider__range').on('input', function(){
 		    	var val = parseInt($('.range-slider__range').val());
 		    	var vaule = val.toLocaleString()
-			    $('.range-slider__value').text(vaule);
+			    $('.range-slider__value').html(vaule+" 	&#3647");
 			    $('#hidSLIval').val($('.range-slider__range').val());
 			});
 
@@ -33,14 +33,18 @@
 		});
 
 	</script>
-	<style type="text/css">
-
-	</style>
 
 
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-
+	<style type="text/css">
+		.modal-backdrop.fade, .modal-backdrop.show  {
+		    opacity: 0.5;
+		}
+	</style>
 	<div class="bg row" id="quizImg" style="margin-top: 50px;">
 		<div class="col-md-6" id="img">
 			<img src="" class="quizImg" id="OptionImg">
@@ -117,8 +121,8 @@
 							<div class="range-slider">
 								<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
 									<div class="col-md-2"><span id="minslider"></span></div>
-							 		<div class="col-md-8"><input class="range-slider__range" id="slider-bar" type="range"  value=0 min=0 max=1000000 step=1000 ></div>
-							 		<div class="col-md-2"><span id="maxslider"></span></div>
+							 		<div class="col-md-7"><input class="range-slider__range" id="slider-bar" type="range"  value=0 min=0 max=1000000 step=1000 ></div>
+							 		<div class="col-md-3"><span id="maxslider"></span></div>
 							 	</div>
 							  <div style="text-align: center;margin-top: 30px;">
 							  	<span id="disValueSli" style="padding: 15px;" class="range-slider__value" style="width: 20%">

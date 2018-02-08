@@ -10,7 +10,14 @@
 label.btn span {
   font-size: 1.5em ;
 }
-
+.animatedss{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  text-align: center;"
+}
 label input[type="radio"] ~ i.fa.fa-circle-o{
     color: #6F6E6E;    display: inline;
     margin-right: 15px;
@@ -71,20 +78,23 @@ color: #6F6E6E;
 -o-user-select: none;
 user-select: none;
 }
-
+.animated-location{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: rgba(255, 255, 255, 0);
+}
 div[data-toggle="buttons"] label:hover {
 color: #30A91D;
 }
-
 div[data-toggle="buttons"] label:active, div[data-toggle="buttons"] label.active {
 -webkit-box-shadow: none;
 box-shadow: none;
 }
 .dropdown-toggle::after {
     display: none !important;
-}
-.container-fluid{
-    
 }
 .dropdown-menu{
 	min-width: 0rem; */

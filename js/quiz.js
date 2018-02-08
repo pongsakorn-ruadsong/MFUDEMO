@@ -30,7 +30,18 @@ var qStatus = [];
 var result = [];
 var quizStatus = [];
 var quizStatus1 = [];
+function loadAnimation(a){
+	// var img = a.question_image;
+	// var text = '<div><img src="'+img+'" style="width:460px;height:460px;"></div>'
+	
 
+
+
+
+
+	
+	// $('#animation-locate').append(text);
+}
 function getStatus(callback){
 	console.log("Getting quiz status . . .");
 		$.ajax({
@@ -150,9 +161,8 @@ function getQuestion(){
         dataType: "json",
 	    success: function(data){
 	    Quiz01 = data;
-			$('#myModal').modal({backdrop: 'static', keyboard: false});
 	    if (Quiz01.response == null || Quiz01.response.result == null) {
-	    	sessionStorage.removeItem("qId");
+	    	sessionStorage.removeItem("save_result");
 	    	swal({
 			  title: "Oops!",
 			  text: "You has finnished all quiz! Do you need to reset it?",
@@ -166,10 +176,10 @@ function getQuestion(){
 			},
 			function(isConfirm) {
 			  if (isConfirm) {
-			    swal("Reseted!", "All quiz has been reseted", "success");
+			    swal("Reseted!", "The quiz has been reseted", "success");
 			    setTimeout(function(){
 					resetQuiz();
-					window.location.replace("index.jsp");
+					location.reload();
 			    },800);
 			  }
 			  else {
@@ -180,6 +190,11 @@ function getQuestion(){
 			  }
 			});
 	    }else{
+	    $('#myModal').modal({backdrop: 'static', keyboard: false});
+
+	    // --  ON TEST FUNCTION -- 
+	    // loadAnimation(data.response.result);
+
 	    sessionStorage.setItem("cur_Quest", JSON.stringify(Quiz01));
 	    var cur_Quest = sessionStorage.getItem("cur_Quest");
 	    type = Quiz01.response.result.question_type;
@@ -233,7 +248,7 @@ function buildQuiz(callback){
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
 	    c = parseInt(interval);
-	    	document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
+	    	// document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	$('#topic').text(topic);
 	    	if (type == 'SQ') {
 	    		document.getElementById("4Play").style.display = "none";
@@ -318,10 +333,10 @@ function buildQuiz(callback){
 	    		document.getElementById("slider-bar").setAttribute("min", a);
 	    		document.getElementById("slider-bar").setAttribute("max", b);
 	    		document.getElementById("slider-bar").setAttribute("step", c);
-	    		$('#disValueSli').text((b/2).toLocaleString());
+	    		$('#disValueSli').html((b/2).toLocaleString()+" &#3647");
 	    		$('#hidSLIval').val(b/2);
-	    		$('#minslider').text(a.toLocaleString());
-	    		$('#maxslider').text(b.toLocaleString());
+	    		$('#minslider').html(a.toLocaleString()+" &#3647");
+	    		$('#maxslider').html(b.toLocaleString()+" &#3647");
 	    		select1 = Quiz01.response.result.options[0].option_id;
 	    	}
 	    	else if(type == 'SLI_S'){
@@ -332,10 +347,10 @@ function buildQuiz(callback){
 	    		document.getElementById("slider-bar").setAttribute("min", a.toLocaleString());
 	    		document.getElementById("slider-bar").setAttribute("max", b.toLocaleString());
 	    		document.getElementById("slider-bar").setAttribute("step", c.toLocaleString());
-	    		$('#disValueSli').text(b/2);
+	    		$('#disValueSli').html((b/2).toLocaleString()+" &#3647");
 	    		$('#hidSLIval').val(b/2);
-	    		$('#minslider').text(rMin);
-	    		$('#maxslider').text(rMax);
+	    		$('#minslider').html(a.toLocaleString()+" &#3647");
+	    		$('#maxslider').html(b.toLocaleString()+" &#3647");
 	    		select1 = Quiz01.response.result.options[2].option_id;
 	    	}
 	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button"  style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
@@ -360,12 +375,12 @@ function buildQuiz(callback){
 			    		nextQuestion();
 			    		if (isLastQuestion()) {
 					    		getToastrOption();
-						    	toastr["info"]("This is the last question. we're bringing you to index", "Successful");
+						    	// toastr["info"]("This is the last question. we're bringing you to index", "Successful");
 						    	setTimeout(function(){ window.location.replace("index.jsp"); }, mathRand);
 							}else{
 								savePrevious();
 								getToastrOption();
-						    	toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+						    	// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
 						    	setTimeout(function(){ location.reload(); }, mathRand);
 							}
 						}
@@ -438,7 +453,7 @@ function resetQuiz(){
 		data: data,
 		success: function(d) {
 			getToastrOption();
-	    	toastr["info"]("Please wait for 1-2 sec.", "Successful");
+	    	// toastr["info"]("Please wait for 1-2 sec.", "Successful");
 	    	setTimeout(function(){ location.reload(); }, 1500);
 		},
 		error: function (xhr, textStatus, errorThrown){
@@ -662,9 +677,6 @@ function validSQ(){
 		return false;
 	}
 }
-function validEmail(){
-
-}
 function nextQuestion(){
 	var data = new Object();
         data.token = sessionStorage['Token'];
@@ -719,8 +731,8 @@ function nextQuestion(){
 					$('#myModal').modal("hide");
 				}, 1000);
 			}else{
-				toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-				setTimeout(function(){ location.reload(); }, mathRand);
+				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+				window.top.location = window.top.location;
 			}
 		},
 		error: function (xhr, textStatus, errorThrown){
@@ -738,7 +750,7 @@ function scorePop(a,b){
 	var gr_rank_img = a.rank_image;
 	var gr_grade = a.grade;
 	var img = '';
-	if (gr_rank == "") {
+	if (gr_rank == "" && max_score == 0) {
 		swal({
 		  title: "Completed",
 		  text: "Thank you for your time!, we're bringing you to main menu!",
@@ -752,14 +764,52 @@ function scorePop(a,b){
 				window.location.replace("index.jsp");
 			},500)
 		});
-	}else{
+	}
+	else if (max_score == 0 && gr_rank != "") {
+		swalRank(a,b);
+	}
+	else if (max_score != 0 && gr_rank != "") {
+		swalRankWithScore(a,b);
+	}
+}
+
+function swalRank(a,b){
+	var total_score = a.total_score;
+	var max_score = a.total_max_score;
+	var gr_rank = a.rank;
+	var gr_rank_img = a.rank_image;
+	var gr_grade = a.grade;
+	swal({
+		title: "",
+		imageUrl: gr_rank_img,
+		confirmButtonText: "Ok!",
+  		closeOnConfirm: true
+  		},
+  		function(){
+  			if (b != []) {
+  				swalReward(b)
+			}
+  		});
+}
+function swalRankWithScore(a,b){
+	var total_score = a.total_score;
+	var max_score = a.total_max_score;
+	var gr_rank = a.rank;
+	var gr_rank_img = a.rank_image;
+	var gr_grade = a.grade;
 	swal({
 		title: total_score+" / "+max_score,
 		imageUrl: gr_rank_img,
 		confirmButtonText: "Ok!",
   		closeOnConfirm: true
   		},
-		function(){
+  		function(){
+  			if (b != []) {
+  				swalReward(b)
+			}
+  		});
+}
+function swalReward(b){
 			var i = 0;
 			initialProp();
 				function initialProp(){
@@ -890,11 +940,6 @@ function scorePop(a,b){
 			// console.log(" ")
 			// console.log("Out of loop. . .")
 			// console.log(" ")
-		});
-	}
-}
-function swalAlert(){
-
 }
 function translateResult(a){
 	var data = JSON.parse(a);
