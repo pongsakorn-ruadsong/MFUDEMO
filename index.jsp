@@ -26,23 +26,23 @@
 			$('#SsSp').click(function(){
 			    alert("UnderConstruction")
 			});
-			$('#btn-pre').click(function(){
+			$('.btn-pre').click(function(){
 				var _to = $(this).attr('prev');
-				$("#btn-pre").prop('disabled', true);
+				$(".btn-pre").prop('disabled', true);
 				// console.log(_to);
 				if (updateBtnOrder('prev',_to)) {
 					setTimeout(function(){
-					$("#btn-pre").prop('disabled', false);
+					$(".btn-pre").prop('disabled', false);
 					}, 1000);
 				}
 			});
-			$('#btn-next').click(function(){
+			$('.btn-next').click(function(){
 				var _to = $(this).attr('next');
-				$("#btn-next").prop('disabled', true);
+				$(".btn-next").prop('disabled', true);
 				// console.log(_to);
 				if (updateBtnOrder('next',_to)) {
 					setTimeout(function(){
-					$("#btn-next").prop('disabled', false);
+					$(".btn-next").prop('disabled', false);
 					}, 1000);
 				}
 				// $('#btn_5a55bd7ae92a2e785e8b456e').addClass('animated fadeOutLeft');
@@ -54,6 +54,24 @@
 		  //   		}, 10);
 	   //  		}, 350);
 			});
+			if ($(window).width() < 1200) {
+			   $('.mana').css('display','none');
+			   $('#xs-slide').css('display','block');
+			}
+			else {
+				$('.mana').css('display','block');
+				$('#xs-slide').css('display','none');
+			}
+			window.onresize = function(event) {
+			   if ($(window).width() < 1200) {
+				   $('.mana').css('display','none');
+				   $('#xs-slide').css('display','block');
+				}
+			else {
+					$('.mana').css('display','block');
+					$('#xs-slide').css('display','none');
+				}
+			};
 		});
 	</script>
 	<div class="container" style="margin-top: 50px;">
@@ -85,21 +103,48 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row qlist-locate">
 			<div class="col-md-10 offset-md-1 col-xs-10 offset-xs-1 col-sm-10 offset-sm-1">
 				<div class="row">
 					<div class="col-md-1 col-sm-1 col-xs-1">
-						<button class="btn-slide" id="btn-pre"  style="display: block;cursor: pointer;"> <img class="slide-img" src="img/prev.png"> </button>
+						<button class="btn-slide mana btn-pre" id=""  style="display: block;cursor: pointer;"> <img class="slide-img" src="img/prev.png"> </button>
 					</div>
 					<div class="col-md-10 col-sm-10 col-xs-10">
-						<div class="" id="qlist">
+						<center>
+							<div class="" id="qlist" style="width: 315px;height: 340px;">
 
-						</div>
+							</div>
+						</center>
 					</div>
 					<div class="col-md-1 col-sm-1 col-xs-1">
-						<button class="btn-slide" id="btn-next"  style="display: block;cursor: pointer;"><img class="slide-img" src="img/next.png"></button>
+						<button class="btn-slide mana btn-next" id=""  style="display: block;cursor: pointer;"><img class="slide-img" src="img/next.png"></button>
 					</div>
 				</div>
+				<center>
+				<div class="row" id="xs-slide" style="display: none;width: 292px;">
+					
+					<div class="col-md-1 col-sm-1 col-xs-1">
+						
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-10">
+						
+						<div class="input-group" style="background-color: #8D81CD;border-radius: 4px;"">
+								<button class="form-control btn-slide btn-pre" id=""  style="display: block;cursor: pointer;border-right: solid 1px white"> 
+									<img class="slide-img" src="img/prev.png"> 
+								</button>
+					
+								<button class="form-control btn-slide btn-next" id=""  style="display: block;cursor: pointer;border-left: solid 1px white">
+									<img class="slide-img" src="img/next.png">
+								</button>
+						</div>
+
+					</div>
+					<div class="col-md-1 col-sm-1 col-xs-1">
+						
+					</div>
+					
+				</div>
+				</center>
 			</div>
 		</div>
 	</div>

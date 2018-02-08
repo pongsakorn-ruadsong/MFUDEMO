@@ -16,6 +16,25 @@ var contentLang = [];
 var contentAbbrev = [];
 addHighLight = '<span class="testLoader" animated="fadeIn"></span>'; //by Dew
 var mathRand = Math.floor(500 + Math.random() * 500);
+function nFormatter(num, digits) {
+  var si = [
+    { value: 1, symbol: "" },
+    { value: 1E3, symbol: "k" },
+    { value: 1E6, symbol: "M" },
+    { value: 1E9, symbol: "G" },
+    { value: 1E12, symbol: "T" },
+    { value: 1E15, symbol: "P" },
+    { value: 1E18, symbol: "E" }
+  ];
+  var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  var i;
+  for (i = si.length - 1; i > 0; i--) {
+    if (num >= si[i].value) {
+      break;
+    }
+  }
+  return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+}
 function getUserInfo() {
 	var data = new Object();
 	data.token = sessionStorage['Token'];
@@ -90,7 +109,7 @@ function buildRewardList() {
 	var badges = Index05.response.player.badges;
 	var length = badges.length;
 	var k =1;
-	console.log("badges: "+badges+" | length: "+length);
+	console.log(badges);
 	var text = '<tr><td>#</td><td>Image</td><td>Name</td><td>Amount</td><td>Action</td></tr>';
 	for (var i = 0; i < length; i++) {
 		if (badges[i].amount == 0) {
@@ -102,8 +121,6 @@ function buildRewardList() {
 		'<td>'+badges[i].name+'</td>'+
 		'<td>'+badges[i].amount+'</td>'+
 		'<td>'+
-			'<button type="button" rId="'+badges[i].badge_id+'" class="btn btn-redeem btn-primary" style="padding:none !important;font-size:15px;" disabled>Not now</button>'+
-		'</td>'+
 		'</tr>'
 		k++;
 	}
@@ -376,7 +393,7 @@ function setVisableAll_C(a){
 function buildQuizList(callback){
 	var length = Index01.response.result.length;
 	var qData = '';
-	var text = '<div><center>';
+	var text = '<center>';
 	// rawData = sessionStorage['quizStatus'];
 	// cdata = JSON.parse(rawData);
 	var disable = '';
@@ -405,8 +422,7 @@ function buildQuizList(callback){
 						'<p style="position: relative;color: white;font-size: 26px;top: 15px;margin-bottom: 25px;">'+values+'</p>'+
 					'</div>'+
 		'</button>'+
-		'</center>'+
-	    '</div>'
+		'</center>'
 	    qData += quiz_id+" ";
 	    }
 	    initialBtnOrder();
@@ -446,8 +462,8 @@ function initialBtnOrder(){
 		if (nextQuiz>quizMax) {
 			nextQuiz = quizMin;
 		}
-	    $("#btn-pre").attr("prev",preQuiz);
-	    $("#btn-next").attr("next",nextQuiz);
+	    $(".btn-pre").attr("prev",preQuiz);
+	    $(".btn-next").attr("next",nextQuiz);
 	    console.log("Pre: "+preQuiz+" | Current: "+currentIndex+" | Next: "+nextQuiz+" | Min: "+quizMin+" | Max: "+quizMax);
 }
 function updateBtnOrder(code,position){
@@ -508,8 +524,8 @@ function updateBtnOrder(code,position){
 			b = quizMin;
 		}
 		console.log("code: "+code+" | Previous: "+p+" | Current: "+b+" | Next: "+n);
-		$("#btn-pre").attr("prev",p);
-	    $("#btn-next").attr("next",n);
+		$(".btn-pre").attr("prev",p);
+	    $(".btn-next").attr("next",n);
 	    return true;
 
 
@@ -560,8 +576,8 @@ function updateBtnOrder(code,position){
 	    	p = quizMax;
 	    }
 		console.log("code: "+code+" | Previous: "+p+" | Current: "+b+" | Next: "+n);
-		$("#btn-pre").attr("prev",p);
-	    $("#btn-next").attr("next",n);
+		$(".btn-pre").attr("prev",p);
+	    $(".btn-next").attr("next",n);
 	    return true;
 	}
 

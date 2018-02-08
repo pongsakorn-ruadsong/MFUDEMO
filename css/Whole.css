@@ -1,7 +1,48 @@
-@media (max-width: 375px) {
-  .btn {
-    
+@media (max-width: 1200px) {
+  p#topic{
+    font-size: 20px;
   }
+  .qa{
+    padding: 20px !important;
+  }
+  label.btn span {
+    font-size: 18px !important;
+  }
+  #choice {
+    padding: 10px !important; 
+  }
+  .button-group {
+    margin-top: 20px !important;
+  }
+  body{
+    font-size: 12px !important;
+  }
+  #slider-panel{
+    font-size: 18px !important;
+  }
+  .range-slider{
+    margin-top: 20px !important;
+  }
+  #other_input{
+    width: 62% !important;
+  }
+  #img{
+    padding: 20px !important;
+  }
+}
+@media (max-width: 1200px) {
+  .btn-slide{
+    top:0px !important;
+  }
+  .row.node{
+    display: none;
+  }
+  .qlist-locate{
+    margin-top: 100px;
+  }
+}
+span, p{
+  word-wrap:break-word;
 }
 .btn-primary.disabled, .btn-primary:disabled {
     background-color: #566161;
@@ -97,7 +138,7 @@ box-shadow: none;
     display: none !important;
 }
 .dropdown-menu{
-	min-width: 0rem; */
+	min-width: 0rem; 
 }
 .showMoney{
 	text-align: center;

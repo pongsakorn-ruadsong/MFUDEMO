@@ -21,6 +21,9 @@
 				</script>
 		</div>
 	</div>
+	<!-- <div style="width: 80px;height: 120px;background-color: red;position: absolute;bottom: 50px;right: 50px;">
+		<p>BIN</p>
+	</div> -->
 	<div id="animation-locate">
 		
 	</div>
