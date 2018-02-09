@@ -22,15 +22,27 @@ var value, a,b,c,d,e;
 var aa;
 var choices = [];
 var contentSummary=[];
-var contentTitle =[]; 
+var contentTitle =[];
 var unit = '';
 var ph = '';
 var ttess = [];
 var qStatus = [];
 var result = [];
 var quizStatus = [];
-var quizStatus1 = [];
+var quizImg = [];
+var choicesTitle = [];
+function loadAnimation(a){
+	// var img = a.question_image;
+	// var text = '<div><img src="'+img+'" style="width:460px;height:460px;"></div>'
 
+
+
+
+
+
+
+	// $('#animation-locate').append(text);
+}
 function getStatus(callback){
 	console.log("Getting quiz status . . .");
 		$.ajax({
@@ -41,21 +53,22 @@ function getStatus(callback){
 		    	Quiz02 = data;
 			    jQuery.each(data.response.result, function() {
 					quizStatus[this.quiz_id] = this.completed;
+					quizImg[this.quiz_id] = this.description_image;
 		        }
-		        );	
+		        );
 		        for (var i = 0; i < data.response.result.length; i++) {
-		        	qStatus.push({'id':data.response.result[i].quiz_id,'isFinnish':data.response.result[i].completed,'Order':data.response.result[i].weight});
+		        	qStatus.push({'id':data.response.result[i].quiz_id,'isFinnish':data.response.result[i].completed,'Order':data.response.result[i].weight,'Image':data.response.result[i].description_image});
 		        }
-			    sessionStorage.setItem('quizStatus', JSON.stringify(qStatus));		
+			    sessionStorage.setItem('quizStatus', JSON.stringify(qStatus));
 			    callback();
 		    },
 		    error: function (xhr, textStatus, errorThrown){
 	//          window.location.reload(true)
 	            console.log(errorThrown);
 	            console.log("Failed : getStatus(a) @ quiz.js ");
-	        }	
+	        }
 		});
-		
+
 	// }
 }
 
@@ -66,21 +79,21 @@ function fillColor(a){
 			// myLoop();
 		}
 	}
-	// function myLoop () {  
-	// 	   setTimeout(function () { 
+	// function myLoop () {
+	// 	   setTimeout(function () {
 	// 	   		console.log("Fill : "+ttess[i].node+" i = "+i)
 	// 	      	document.getElementById(ttess[i].node).style.backgroundPosition = "left";
-	// 		      	setTimeout(function () {    
+	// 		      	setTimeout(function () {
 	// 		   		console.log("Fill : "+ttess[i].bar+" i = "+i)
-	// 				document.getElementById(ttess[i].bar).children[0].style.width = "100%";              
-	// 				i++;                     
-	// 			      if (i < ttess.length) {            
-	// 			         myLoop(); 
-	// 			      }     
-	// 			   }, 480)                
+	// 				document.getElementById(ttess[i].bar).children[0].style.width = "100%";
+	// 				i++;
+	// 			      if (i < ttess.length) {
+	// 			         myLoop();
+	// 			      }
+	// 			   }, 480)
 	// 		   }, 480)
-	// 	} 
-		
+	// 	}
+
 	}
 
 function getTopic(a){
@@ -94,7 +107,7 @@ function getTopic(a){
 
     topic = contentSummary[qname];
 	title = contentTitle[qname];
-	    			
+
 	// console.log('Enter if');
 	// console.log(type+" == \'SQ\' ?");
 	if (type == 'SQ' || type == 'YN' || type == 'SQ_S') {
@@ -104,25 +117,26 @@ function getTopic(a){
 				continue;
 			}
 			choices.push(contentSummary[_qname.options[k].description]);
-			console.log(choices);		
+			choicesTitle.push(contentTitle[_qname.options[k].description]);
+			console.log(choices);
 		}
-		
+
 	}else if (type == 'TXT') {
 		console.log("TXT");
 		if (qname+"_PH" in contentTitle){
 			ph = contentTitle[qname+"_PH"];
 		}
-			
-		
+
+
 	}
 	else if (type == 'SLI' || type == 'SLI_S') {
 		// console.log("TYPE:SLI||SLI_S");
 		if (title.indexOf('How') > -1 && title.indexOf('old') > -1) {
-			
+
 			$('#unit').text(contentSummary['YEAR_OLD']);
-				
+
 		}else if (title.indexOf('have') > -1 && title.indexOf('kids') > -1) {
-			
+
 			if ($('.range-slider__range').val() > 0 && sessionStorage['lang'] == 'English') {
 				$('#unit').text(contentSummary['KID']+"s")
 			}else{
@@ -132,16 +146,16 @@ function getTopic(a){
 		if (type == 'SLI_S') {
 			console.log("FIND NO");
 			for(var k=0;k<nn;k++){
-				choices.push(contentTitle[_qname.options[k].description]+contentSummary[_qname.options[k].description]);		
+				choices.push(contentTitle[_qname.options[k].description]+contentSummary[_qname.options[k].description]);
 			}
-			
+
 		}
 	}
 	else if (true) {
-		
+
 	}
-	    		
-	    	
+
+
 }
 function getQuestion(){
 	$.ajax({
@@ -151,7 +165,7 @@ function getQuestion(){
 	    success: function(data){
 	    Quiz01 = data;
 	    if (Quiz01.response == null || Quiz01.response.result == null) {
-	    	sessionStorage.removeItem("qId");
+	    	sessionStorage.removeItem("save_result");
 	    	swal({
 			  title: "Oops!",
 			  text: "You has finnished all quiz! Do you need to reset it?",
@@ -165,12 +179,12 @@ function getQuestion(){
 			},
 			function(isConfirm) {
 			  if (isConfirm) {
-			    swal("Reseted!", "All quiz has been reseted", "success");
+			    swal("Reseted!", "The quiz has been reseted", "success");
 			    setTimeout(function(){
 					resetQuiz();
-					window.location.replace("index.jsp");
+					location.reload();
 			    },800);
-			  } 
+			  }
 			  else {
 			    swal("Going back!", "We're bringing you to home page!", "success");
 			    setTimeout(function(){
@@ -179,32 +193,42 @@ function getQuestion(){
 			  }
 			});
 	    }else{
+	    $('#myModal').modal({backdrop: 'static', keyboard: false});
+
+	    // --  ON TEST FUNCTION -- 
+	    // loadAnimation(data.response.result);
+
 	    sessionStorage.setItem("cur_Quest", JSON.stringify(Quiz01));
 	    var cur_Quest = sessionStorage.getItem("cur_Quest");
 	    type = Quiz01.response.result.question_type;
 	    sessionStorage['type'] = type;
 	    console.log(data);
 	    test = JSON.parse(cur_Quest);
-		getTopic(data); 
-		buildQuiz();
-    		
-    		
-    	}
-    
-		},
+			getTopic(data);
+			setTimeout(function(){
+				buildQuiz(function() {
+					$('#myModal').modal('hide');
+				});
+			},2000);
+
+	    }
+
+			},
 	    error: function (xhr, textStatus, errorThrown){
          window.location.reload(true)
             console.log(errorThrown);
             console.log("Failed : getQuestion() @ quiz.js");
-        }	
+        }
 	});
 
 }
-function buildQuiz(){
+function buildQuiz(callback){
+		var rawData = JSON.parse(sessionStorage['quizStatus']);
+		console.log(rawData);
 		var text = '';
 		var btn_text = '';
 	    var option = Quiz01.response.result.options;
-	    var QuestImg = Quiz01.response.result.question_image;
+	    var QuestImg = '';
 	    questId = Quiz01.response.result.question_id;
 	    var rMin = Quiz01.response.result.options[0].range_min;
 	    var rMax = Quiz01.response.result.options[0].range_max;
@@ -225,15 +249,20 @@ function buildQuiz(){
 	    	console.log("Total score: "+cur_score+" score of "+max_score)
 	    	console.log("")
 	    }
-
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
 	    c = parseInt(interval);
+	    console.log(rMax+" "+b)
+	    for (var i = 0; i < rawData.length; i++) {
+	    	if (rawData[i].id == sessionStorage["qId"]) {
+	    		QuestImg = rawData[i].Image;
+	    	}
+	    }
 	    	document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	$('#topic').text(topic);
 	    	if (type == 'SQ') {
 	    		document.getElementById("4Play").style.display = "none";
-	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons">'
+	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons" style="width:100%;">'
 		    	for (var i=0;i<option.length;i++) {
 		    		text += '<label class="btn">'+
 			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ" valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
@@ -246,14 +275,12 @@ function buildQuiz(){
 	    		document.getElementById("4Play").style.display = "none";
 	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons">'
 		    	for (var i=0;i<option.length;i++) {
-		    		if (option[i].is_text_option) {
-		    			text+= '<input type="text" class="form-control inputTXT_S" id="other_input" idZ="'+option[i].option_id+'" style="display:none;width: 100%;font-size: 16px;margin-left:50px;">'
-	    				continue;
-	    			}
 		    		text += '<label class="btn">'+
-			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ" valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ_S" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
-		    			
+			        if (option[i].is_text_option) {
+		    			text+= '<input type="text" class="form-control inputTXT_S" id="other_input" idZ="'+option[i].option_id+'" style="display:none;width: 100%;font-size: 16px;margin-left:50px;">'
+	    			}
 		    		console.log(choices[i]);
 		    	}
 		    	text += '</div>';
@@ -296,12 +323,12 @@ function buildQuiz(){
 	    		$("#range-panel").addClass("inputTXT");
 	    		document.getElementById("range-panel").style.display = "block";
 	    		document.getElementById("4Play").style.display = "block";
-	    		
+
 	    	}
 	    	else if(type == 'TXT'){
 	    		text+='<textarea class="form-control inputTXT" rows="8" placeholder="'+ph+'" typeZ="TXT"></textarea>'
 	    		select1 = Quiz01.response.result.options[0].option_id;
-	    		
+
 	    	}
 	    	else if(type == 'MULTI'){
 	    		text+=''
@@ -314,10 +341,10 @@ function buildQuiz(){
 	    		document.getElementById("slider-bar").setAttribute("min", a);
 	    		document.getElementById("slider-bar").setAttribute("max", b);
 	    		document.getElementById("slider-bar").setAttribute("step", c);
-	    		$('#disValueSli').text((b/2).toLocaleString());
+	    		$('#disValueSli').html(nFormatter((b/2), 1)+" &#3647");
 	    		$('#hidSLIval').val(b/2);
-	    		$('#minslider').text(a.toLocaleString());
-	    		$('#maxslider').text(b.toLocaleString());
+	    		$('.minslider').html(nFormatter(a, 1)+" &#3647");
+	    		$('.maxslider').html(nFormatter(b, 1)+" &#3647");
 	    		select1 = Quiz01.response.result.options[0].option_id;
 	    	}
 	    	else if(type == 'SLI_S'){
@@ -328,10 +355,10 @@ function buildQuiz(){
 	    		document.getElementById("slider-bar").setAttribute("min", a.toLocaleString());
 	    		document.getElementById("slider-bar").setAttribute("max", b.toLocaleString());
 	    		document.getElementById("slider-bar").setAttribute("step", c.toLocaleString());
-	    		$('#disValueSli').text(b/2);
+	    		$('#disValueSli').html((b/2).toLocaleString()+" &#3647");
 	    		$('#hidSLIval').val(b/2);
-	    		$('#minslider').text(rMin);
-	    		$('#maxslider').text(rMax);
+	    		$('.minslider').html(nFormatter(a, 1)+" &#3647");
+	    		$('.maxslider').html(nFormatter(b, 1)+" &#3647");
 	    		select1 = Quiz01.response.result.options[2].option_id;
 	    	}
 	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button"  style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
@@ -356,12 +383,12 @@ function buildQuiz(){
 			    		nextQuestion();
 			    		if (isLastQuestion()) {
 					    		getToastrOption();
-						    	toastr["info"]("This is the last question. we're bringing you to index", "Successful");
+						    	// toastr["info"]("This is the last question. we're bringing you to index", "Successful");
 						    	setTimeout(function(){ window.location.replace("index.jsp"); }, mathRand);
 							}else{
 								savePrevious();
 								getToastrOption();
-						    	toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+						    	// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
 						    	setTimeout(function(){ location.reload(); }, mathRand);
 							}
 						}
@@ -411,6 +438,7 @@ function buildQuiz(){
 			        	 $('#other_input').slideUp();
 			        }
 			    });
+					callback();
 }
 function chkIndex(){
 	console.log(index+" / "+total);
@@ -433,7 +461,7 @@ function resetQuiz(){
 		data: data,
 		success: function(d) {
 			getToastrOption();
-	    	toastr["info"]("Please wait for 1-2 sec.", "Successful");
+	    	// toastr["info"]("Please wait for 1-2 sec.", "Successful");
 	    	setTimeout(function(){ location.reload(); }, 1500);
 		},
 		error: function (xhr, textStatus, errorThrown){
@@ -490,10 +518,10 @@ function valid(){
 				for(var i=0;i<Quiz01.response.result.options.length;i++){
 					if (Quiz01.response.result.options[i].is_text_option) {
 						console.log("Select"+i+" : "+i+" | C : "+c+" = "+Quiz01.response.result.options[i].option_id);
-						
+
 							select1 = Quiz01.response.result.options[i].option_id;
 							console.log("Select1: "+select1);
-						
+
 					}
 				}
 				if (type == 'SLI_S') {
@@ -570,7 +598,7 @@ function valid(){
 		}else{
 			return true;
 		}
-		
+
 	}else if(type == 'SQ_S'){
 		console.log("Enter SQ_S")
 		if (validSQ_S()) {
@@ -581,18 +609,34 @@ function valid(){
 			answer = $('.inputTXT_S').val();
 			return true;
 		}
-		
+
 	}else if(type == 'MULTI'){
 		inputType = 'MULTI';
 		validMU();
 	}
-	
+
 }
 function validSQ_S() {
-	if ($('.inputTXT_S').val() == '' || $('.inputTXT_S').val().length < 2) {
-		return true;
-	}else{
-		return false;
+	var radios = document.getElementsByTagName('input');
+	for (var i = 0; i < radios.length; i++) {
+		console.log("Enter for")
+	    if (radios[i].type === 'radio' && radios[i].checked) {
+	    	console.log("Enter If 1")
+	        if (radios[i].getAttribute('valueZ') == 'Other') {
+	        	console.log("Enter If 2")
+	        	if ($('.inputTXT_S').val() == '' || $('.inputTXT_S').val().length < 2) {
+	        		console.log("Enter If 3")
+					return true;
+				}else{
+					return false;
+				}
+			}
+			else{
+				console.log("Enter Else")
+				select1 = radios[i].value;
+				return false;
+			}
+	    }
 	}
 }
 function isEmptyTXT(){
@@ -631,7 +675,7 @@ function validSQ(){
 	for (var i = 0; i < radios.length; i++) {
 	    if (radios[i].type === 'radio' && radios[i].checked) {
 	        // get value, set checked flag or do whatever you need to
-	        select1 = radios[i].value; 
+	        select1 = radios[i].value;
 	        console.log("Selected: "+radios[i].value)
 	    }
 	}
@@ -640,9 +684,6 @@ function validSQ(){
 	}else{
 		return false;
 	}
-}
-function validEmail(){
-
 }
 function nextQuestion(){
 	var data = new Object();
@@ -698,8 +739,8 @@ function nextQuestion(){
 					$('#myModal').modal("hide");
 				}, 1000);
 			}else{
-				toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-				setTimeout(function(){ location.reload(); }, mathRand);
+				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+				window.top.location = window.top.location;
 			}
 		},
 		error: function (xhr, textStatus, errorThrown){
@@ -717,7 +758,7 @@ function scorePop(a,b){
 	var gr_rank_img = a.rank_image;
 	var gr_grade = a.grade;
 	var img = '';
-	if (max_score == 0 || b == "") {
+	if (gr_rank == "" && max_score == 0) {
 		swal({
 		  title: "Completed",
 		  text: "Thank you for your time!, we're bringing you to main menu!",
@@ -731,14 +772,52 @@ function scorePop(a,b){
 				window.location.replace("index.jsp");
 			},500)
 		});
-	}else{
+	}
+	else if (max_score == 0 && gr_rank != "") {
+		swalRank(a,b);
+	}
+	else if (max_score != 0 && gr_rank != "") {
+		swalRankWithScore(a,b);
+	}
+}
+
+function swalRank(a,b){
+	var total_score = a.total_score;
+	var max_score = a.total_max_score;
+	var gr_rank = a.rank;
+	var gr_rank_img = a.rank_image;
+	var gr_grade = a.grade;
+	swal({
+		title: "",
+		imageUrl: gr_rank_img,
+		confirmButtonText: "Ok!",
+  		closeOnConfirm: true
+  		},
+  		function(){
+  			if (b != []) {
+  				swalReward(b)
+			}
+  		});
+}
+function swalRankWithScore(a,b){
+	var total_score = a.total_score;
+	var max_score = a.total_max_score;
+	var gr_rank = a.rank;
+	var gr_rank_img = a.rank_image;
+	var gr_grade = a.grade;
 	swal({
 		title: total_score+" / "+max_score,
 		imageUrl: gr_rank_img,
 		confirmButtonText: "Ok!",
   		closeOnConfirm: true
   		},
-		function(){
+  		function(){
+  			if (b != []) {
+  				swalReward(b)
+			}
+  		});
+}
+function swalReward(b){
 			var i = 0;
 			initialProp();
 				function initialProp(){
@@ -869,11 +948,6 @@ function scorePop(a,b){
 			// console.log(" ")
 			// console.log("Out of loop. . .")
 			// console.log(" ")
-		});
-	}
-}
-function swalAlert(){
-	
 }
 function translateResult(a){
 	var data = JSON.parse(a);
@@ -890,12 +964,3 @@ function percentage(num, per)
 {
   return (num/100)*per;
 }
-
-
-
-
-
-
-
-
-

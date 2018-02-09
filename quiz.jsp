@@ -12,11 +12,11 @@
 		    $('.range-slider__range').on('input', function(){
 		    	var val = parseInt($('.range-slider__range').val());
 		    	var vaule = val.toLocaleString()
-			    $('.range-slider__value').text(vaule);
+			    $('.range-slider__value').html(nFormatter(val, 1)+" &#3647");
 			    $('#hidSLIval').val($('.range-slider__range').val());
 			});
-		   
-		    
+
+
 		    $('.dropdown-menu > .dropdown-item').click(function(){
 		    	$('#showCurren').remove();
 		    	$('#chgCurren').text($(this).attr('value'));
@@ -26,24 +26,47 @@
 		    	sessionStorage['ans_no'] = "yes";
 		    });
 		    $('#noi').click(function(){
-			   $('#realDeal').slideUp(); 
+			   $('#realDeal').slideUp();
 			   sessionStorage['ans_no'] = "no";
 		    });
 		   // $('#Other').click(function(){ console.log("Success")});
-		});
-		
-	</script>
-	<style type="text/css">
-		
-	</style>
-	
-		
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 
+		   if ($(window).width() < 1200) {
+			   $('.mSli').css('display','none');
+			   $('#hideMinMax').css('display','block');
+			}
+			else {
+				$('.mSli').css('display','block');
+				$('#hideMinMax').css('display','none');
+			}
+			window.onresize = function(event) {
+			   if ($(window).width() < 1200) {
+				   $('.mSli').css('display','none');
+				   $('#hideMinMax').css('display','block');
+				}
+			else {
+					$('.mSli').css('display','block');
+					$('#hideMinMax').css('display','none');
+				}
+			};
+		});
+
+	</script>
+
+
+
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+	<style type="text/css">
+		.modal-backdrop.fade, .modal-backdrop.show  {
+		    opacity: 0.5;
+		}
+	</style>
 	<div class="bg row" id="quizImg" style="margin-top: 50px;">
 		<div class="col-md-6" id="img">
-			<img src="" class="quizImg" id="OptionImg">
+			<img src="gif/flydog.gif" class="quizImg" id="OptionImg" style="width: 100%;height: 100%;">
 		</div>
 		<div class="col-md-6" id="question">
 			<div class="qa">
@@ -98,7 +121,7 @@
 										<div class="input-group " style="width: 70%">
 											<input type="text" class="form-control showMoney" id="showMin" readonly="true">
 												<span style="padding-top: 10px;">&nbsp&nbsp&nbsp&nbspTo&nbsp&nbsp&nbsp&nbsp</span>
-											<input type="text" class="form-control showMoney" id="showMax" readonly="true"> 
+											<input type="text" class="form-control showMoney" id="showMax" readonly="true">
 										   <span class="input-group-btn" style="margin-left: 10px;">
 										       <div class="dropdown">
 													<button class="btn btn-default dropdown-toggle" type="button" id="chgCurren" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="float: right;width: 100px;"><img id="showCurren" style="margin-right: 0px;" src="img/currency.png"></button>
@@ -115,14 +138,17 @@
 						</div>
 						<div class="row" id="slider-panel" typeZ="SLI" style="display: none;text-align: center;">
 							<div class="range-slider">
+								<div id="hideMinMax" style="display: none;">
+									<span class="minslider"></span><span> to </span><span class="maxslider"></span>
+								</div>
 								<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
-									<div class="col-md-2"><span id="minslider"></span></div>
-							 		<div class="col-md-8"><input class="range-slider__range" id="slider-bar" type="range"  value=0 min=0 max=1000000 step=1000 ></div>
-							 		<div class="col-md-2"><span id="maxslider"></span></div>
+									<div class="col-md-2"><span class="minslider mSli"></span></div>
+							 		<div class="col-md-7"><input class="range-slider__range" id="slider-bar" type="range"  value=0 min=0 max=1000000 step=1000 ></div>
+							 		<div class="col-md-3"><span class="maxslider mSli"></span></div>
 							 	</div>
 							  <div style="text-align: center;margin-top: 30px;">
 							  	<span id="disValueSli" style="padding: 15px;" class="range-slider__value" style="width: 20%">
-									
+
 								</span>
 								<span id="unit" style="margin-left: 10px;display: none;"></span>
 								<input type="hidden" id="hidSLIval" value="">
@@ -132,29 +158,30 @@
 					</div>
 				</div>
 				<div class="button-group" id="btn_NR">
-					
+
 
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="back" style="position: absolute;bottom: 100px;left: 100px;"><img src="img/go-back_temp.png" style="display: none"></div>
-	<!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog" style="margin-top: 200px;">
-    
+
+  <div id="modal_score">
+
+  </div>
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
       <!-- Modal content-->
-      <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;box-shadow: none;">
+      <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;">
         <CENTER>
-        <div class="modal-body" style="padding: 100px;">
-          <div class="loader"></div>
+        <div class="modal-body" style="position: fixed;top: 80px;left: 0px;">
+          <div class="" style="">
+          	<img src="gif/Newest_Lotus2.gif" style="width: 100%;height: 100%;">
+		  </div>
         </div>
         </CENTER>
       </div>
-      
+
     </div>
-  </div>
-  <div id="modal_score">
-  	
   </div>
 <%@include file="bottom.jsp" %>

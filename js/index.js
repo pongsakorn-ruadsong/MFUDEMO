@@ -5,7 +5,7 @@ var Index04 = [];
 var Index05 = [];
 var TempLink = sessionStorage['mainUrl']+'Player/'+sessionStorage['player']+'/data/all?api_key='+sessionStorage['api_key'];
 var getQuizz = sessionStorage['mainUrl']+'Quiz/list?api_key='+sessionStorage['api_key'];
-var previous = ''; 
+var previous = '';
 var current = '';
 var current_Index = '';
 var rawData;
@@ -14,8 +14,27 @@ var quizMax;
 var quizMin;
 var contentLang = [];
 var contentAbbrev = [];
-addHighLight = '<span class="testLoader" animated="fadeIn"></span>'; //					by Dew
+addHighLight = '<span class="testLoader" animated="fadeIn"></span>'; //by Dew
 var mathRand = Math.floor(500 + Math.random() * 500);
+function nFormatter(num, digits) {
+  var si = [
+    { value: 1, symbol: "" },
+    { value: 1E3, symbol: "k" },
+    { value: 1E6, symbol: "M" },
+    { value: 1E9, symbol: "G" },
+    { value: 1E12, symbol: "T" },
+    { value: 1E15, symbol: "P" },
+    { value: 1E18, symbol: "E" }
+  ];
+  var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  var i;
+  for (i = si.length - 1; i > 0; i--) {
+    if (num >= si[i].value) {
+      break;
+    }
+  }
+  return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+}
 function getUserInfo() {
 	var data = new Object();
 	data.token = sessionStorage['Token'];
@@ -30,7 +49,7 @@ function getUserInfo() {
 	    		buildPlayer(data.response.player);
 	    // 		jQuery.each(data.response, function() {
 					// contentLang[this.language] = this.language;
-					// contentAbbrev[this.language] = this.abbreviation;	
+					// contentAbbrev[this.language] = this.abbreviation;
 	    //         });
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
@@ -43,7 +62,7 @@ function getUserInfo() {
 function buildPlayer(a) {
 	// $('#playerPanel > div').remove();
 	var img = a.image;
-	var img_for_check = /[^/]*$/.exec(img)[0];  
+	var img_for_check = /[^/]*$/.exec(img)[0];
 	console.log(img_for_check)
 	if (img_for_check == 'default_profile.jpg') {
 		img = 'img/default_user.png'
@@ -82,7 +101,7 @@ function buildPlayer(a) {
 	$('#user_exp').text(exp);
 	$('#user_point').text(point);
 	console.log(lv_percent)
-	document.getElementById("level_progress").style.width = lv_percent+'%'; 
+	document.getElementById("level_progress").style.width = lv_percent+'%';
 }
 function buildRewardList() {
 	$('#table_reward > tr').remove();
@@ -90,7 +109,7 @@ function buildRewardList() {
 	var badges = Index05.response.player.badges;
 	var length = badges.length;
 	var k =1;
-	console.log("badges: "+badges+" | length: "+length);
+	console.log(badges);
 	var text = '<tr><td>#</td><td>Image</td><td>Name</td><td>Amount</td><td>Action</td></tr>';
 	for (var i = 0; i < length; i++) {
 		if (badges[i].amount == 0) {
@@ -102,8 +121,6 @@ function buildRewardList() {
 		'<td>'+badges[i].name+'</td>'+
 		'<td>'+badges[i].amount+'</td>'+
 		'<td>'+
-			'<button type="button" rId="'+badges[i].badge_id+'" class="btn btn-redeem btn-primary" style="padding:none !important;font-size:15px;" disabled>Not now</button>'+
-		'</td>'+
 		'</tr>'
 		k++;
 	}
@@ -126,7 +143,7 @@ function getLang() {
 	    		buildLangButton(data.response);
 	    // 		jQuery.each(data.response, function() {
 					// contentLang[this.language] = this.language;
-					// contentAbbrev[this.language] = this.abbreviation;	
+					// contentAbbrev[this.language] = this.abbreviation;
 	    //         });
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
@@ -244,11 +261,10 @@ function getQuizData() {
 					console.log('Finnished get status')
 					// console.log(sessionStorage[''])
 					sortOrder();
+					buildProgBar(data);
 					setTimeout(function(){
 						buildQuizList(function(){
 						console.log('Finnished get buildQuizList')
-						buildProgBar(data);
-						isFinnished();	
 						$('#myModal').modal('hide');
 					});
 					},2000);
@@ -256,13 +272,13 @@ function getQuizData() {
 				});
 	       //  	getStatus(Index01.response.result);
 	       //  	$('#myModal').modal({backdrop: 'static', keyboard: false});
-		    		// setTimeout(function(){ 
+		    		// setTimeout(function(){
 		    		// 	$('#myModal').modal('hide');
 		    		// 	buildQuizList();
 		    		// 	buildProgBar(data);
 		    		// }, 1000);
-	    		
-	    		
+
+
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
@@ -323,22 +339,22 @@ function sortOrder(){
 						'</div>'+
 						'</div>'+
 						'</div>'; //					by Dew
-	var loadingDot = '<div class="load-3 loading-text">'+ 
+	var loadingDot = '<div class="load-3 loading-text">'+
 			                '<div class="line" style="background-color: #4285F4"></div>'+
 			                '<div class="line" style="background-color: #FBBC05;"></div>'+
 			                '<div class="line" style="background-color: #EA4335"></div>'+
 			            '</div>'; //					by Dew
  	for(var i=0;i<cdata.length;i++){
  		// console.log("Enter For Loop. . . As: I = "+i+" | length = "+cdata.length+" | cdata"+i+" = "+cdata[i].id+" & "+cdata[i].isFinnish)
- 		console.log("Enter Else if in for loop as data id: "+cdata[i].id+' | sdasd: '+lockQuiz);
+ 		// console.log("Enter Else if in for loop as data id: "+cdata[i].id+' | sdasd: '+lockQuiz);
 		if (cdata[i].isFinnish == true) {
-			// console.log("Enter if in for loop as data id: "+cdata[i].id);
+			console.log("Enter if in for loop as data id: "+cdata[i].id);
 			$('#overlay_lo_'+cdata[i].id).css('display',"none");
 			$('#overlay_fi_'+cdata[i].id).css('display',"block");
 			$('#btn_'+cdata[i].id+' > div').addClass('ggez');
 			$('#progNode_'+cdata[i].id).prepend(lockQuiz); //					by Dew
 		}else if (cdata[i].isFinnish == false) {
-			// console.log("Enter Else if in for loop as data id: "+cdata[i].id);
+			console.log("Enter Else if in for loop as data id: "+cdata[i].id);
 			if (cdata[i].id != current) {
 				$('#overlay_lo_'+cdata[i].id).css('display',"block");
 				$('#overlay_fi_'+cdata[i].id).css('display',"none");
@@ -377,7 +393,7 @@ function setVisableAll_C(a){
 function buildQuizList(callback){
 	var length = Index01.response.result.length;
 	var qData = '';
-	var text = '<div><center>';
+	var text = '<center>';
 	// rawData = sessionStorage['quizStatus'];
 	// cdata = JSON.parse(rawData);
 	var disable = '';
@@ -386,7 +402,7 @@ function buildQuizList(callback){
 	    var quiz_name = Index01.response.result[i].name;
 	    var img = Index01.response.result[i].image;
 	    var btn_order = Index01.response.result[i].weight;
-	    console.log(btn_order)
+	    
 	    var weight = Index01.response.result[i].weight;
 	    var values = contentSummary[quiz_id];
 	    if (sessionStorage["isAdmin"] == 'false') {
@@ -406,8 +422,7 @@ function buildQuizList(callback){
 						'<p style="position: relative;color: white;font-size: 26px;top: 15px;margin-bottom: 25px;">'+values+'</p>'+
 					'</div>'+
 		'</button>'+
-		'</center>'+    
-	    '</div>'
+		'</center>'
 	    qData += quiz_id+" ";
 	    }
 	    initialBtnOrder();
@@ -422,13 +437,13 @@ function buildQuizList(callback){
 		    sessionStorage['qId'] = this.getAttribute("qId");
 			window.location = 'quiz.jsp?qId='+sessionStorage['qId']+'&player='+sessionStorage['player'];
 		});
-		if (sessionStorage["isAdmin"] == 'false') {
+		if (sessionStorage["isAdmin"] == 'true') {
+			setVisableAll_P(previous);
+			setVisableAll_C(current);
+		}else {
 			setPrevious(previous);
 			setCurrent(current);
 			isFinnished();
-		}else {
-			setVisableAll_P(previous);
-			setVisableAll_C(current);
 		}
 		callback();
 }
@@ -447,17 +462,17 @@ function initialBtnOrder(){
 		if (nextQuiz>quizMax) {
 			nextQuiz = quizMin;
 		}
-	    $("#btn-pre").attr("prev",preQuiz);
-	    $("#btn-next").attr("next",nextQuiz);
+	    $(".btn-pre").attr("prev",preQuiz);
+	    $(".btn-next").attr("next",nextQuiz);
 	    console.log("Pre: "+preQuiz+" | Current: "+currentIndex+" | Next: "+nextQuiz+" | Min: "+quizMin+" | Max: "+quizMax);
 }
 function updateBtnOrder(code,position){
 	console.log(position);
 	var length = Index01.response.result.length;
 	$('.quizlist').removeClass('animated fadeInLeft fadeOutLeft fadeInRight fadeOutRight')
-	
+
 	var quiz_id = [];
-	
+
 	if (code == 'prev') {
 		var b = parseInt(position);
 		b = b+1;
@@ -483,9 +498,9 @@ function updateBtnOrder(code,position){
 	    		$('#btn_'+quiz_id).addClass('animated fadeOutRight');
 	    		$('#progNode_'+quiz_id+' > span').remove();//					by Dew
 	    		$("#btn_"+quiz_id).hide("slow");
-	    		setTimeout(function(){ 
+	    		setTimeout(function(){
 	    			console.log("")
-	    			setTimeout(function(){ 
+	    			setTimeout(function(){
 						$("#btn_"+pre_id).css("display", "block");
 						$('#progNode_'+pre_id).prepend(addHighLight);//					by Dew
 						$('#btn_'+pre_id).addClass('animated fadeInLeft');
@@ -509,10 +524,10 @@ function updateBtnOrder(code,position){
 			b = quizMin;
 		}
 		console.log("code: "+code+" | Previous: "+p+" | Current: "+b+" | Next: "+n);
-		$("#btn-pre").attr("prev",p);
-	    $("#btn-next").attr("next",n);
+		$(".btn-pre").attr("prev",p);
+	    $(".btn-next").attr("next",n);
 	    return true;
-	    
+
 
 	}else if(code == 'next'){
 		var b = parseInt(position);
@@ -539,8 +554,8 @@ function updateBtnOrder(code,position){
 	    		$('#btn_'+quiz_id).addClass('animated fadeOutLeft');
 	    		$('#progNode_'+quiz_id+' > span').remove(); //					by Dew
 	    		$("#btn_"+quiz_id).hide("slow");
-	    		setTimeout(function(){ 
-	    			setTimeout(function(){ 
+	    		setTimeout(function(){
+	    			setTimeout(function(){
 						$("#btn_"+next_id).css("display", "block");
 						$('#progNode_'+next_id).prepend(addHighLight); //					by Dew
 						$('#btn_'+next_id).addClass('animated fadeInRight');
@@ -561,8 +576,8 @@ function updateBtnOrder(code,position){
 	    	p = quizMax;
 	    }
 		console.log("code: "+code+" | Previous: "+p+" | Current: "+b+" | Next: "+n);
-		$("#btn-pre").attr("prev",p);
-	    $("#btn-next").attr("next",n);
+		$(".btn-pre").attr("prev",p);
+	    $(".btn-next").attr("next",n);
 	    return true;
 	}
 
@@ -601,6 +616,3 @@ function resetAllQ(){
             }
 	});
 }
-
-
-
