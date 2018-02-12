@@ -34,13 +34,6 @@ var choicesTitle = [];
 function loadAnimation(a){
 	// var img = a.question_image;
 	// var text = '<div><img src="'+img+'" style="width:460px;height:460px;"></div>'
-
-
-
-
-
-
-
 	// $('#animation-locate').append(text);
 }
 function getStatus(callback){
@@ -71,7 +64,6 @@ function getStatus(callback){
 
 	// }
 }
-
 function fillColor(a){
 	console.log("Enter fillColor");
 	for(var i = 0;i<a.length;i++){
@@ -95,7 +87,6 @@ function fillColor(a){
 	// 	}
 
 	}
-
 function getTopic(a){
 	var content = JSON.parse(sessionStorage["contentData"]);
 	var n = content.response.result.length;
@@ -154,8 +145,6 @@ function getTopic(a){
 	else if (true) {
 
 	}
-
-
 }
 function getQuestion(){
 	$.ajax({
@@ -210,22 +199,20 @@ function getQuestion(){
 					$('#myModal').modal('hide');
 				});
 			},2000);
-
-	    }
-
-			},
+		    }
+		},
 	    error: function (xhr, textStatus, errorThrown){
          window.location.reload(true)
             console.log(errorThrown);
             console.log("Failed : getQuestion() @ quiz.js");
         }
 	});
-
 }
 function buildQuiz(callback){
 		var rawData = JSON.parse(sessionStorage['quizStatus']);
 		console.log(rawData);
 		var text = '';
+		var image = '<center>';
 		var btn_text = '';
 	    var option = Quiz01.response.result.options;
 	    var QuestImg = '';
@@ -252,12 +239,21 @@ function buildQuiz(callback){
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
 	    c = parseInt(interval);
-	    console.log(rMax+" "+b)
+	    // console.log(rMax+" "+b)
 	    for (var i = 0; i < rawData.length; i++) {
 	    	if (rawData[i].id == sessionStorage["qId"]) {
 	    		QuestImg = rawData[i].Image;
 	    	}
 	    }
+	    for (var i = 0; i < option.length; i++) {
+	    	var op_img = option[i].option_image;
+	    	var img_for_check = /[^/]*$/.exec(op_img)[0];
+	    	console.log(img_for_check)
+	    	if (img_for_check == 'no_image.jpg') {
+	    		
+	    	}
+		    image += '<img src="'+op_img+'" class="quizImg" id="img_'+option[i].option_id+'" style="display:none;">'
+		}
 	    	document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	$('#topic').text(topic);
 	    	if (type == 'SQ') {
@@ -366,6 +362,8 @@ function buildQuiz(callback){
 					'<button class="btn btn-primary" id="nextBtn"  type="button">'+contentSummary['BTN_NEXT']+
 					'</button>'
 	    	$('#choice').append(text);
+	    	image += '</center>';
+	    	$('#img').append(image);
 	    	$('#btn_NR').append(btn_text);
 	    	 $("#nextBtn").click(function(){
 	    	 	$("#nextBtn").prop('disabled', true);
@@ -430,6 +428,11 @@ function buildQuiz(callback){
 		    });
 	    	 $('input:radio[name="'+topic+'"]').change(
 			    function(){
+			    	if ($(this).is(':checked')) {
+			    		$('.quizImg').css('display','none');
+			    		$('#img_'+$(this).attr('value')).css('display','block');
+			    		console.log($(this).attr('value'))
+			    	}
 			        if ($(this).is(':checked') && $(this).attr('valueZ') == 'Other') {
 			            $('#other_input').slideDown();
 			            select1 = $('#other_input').attr('idZ');

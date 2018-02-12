@@ -265,6 +265,7 @@ function getQuizData() {
 					setTimeout(function(){
 						buildQuizList(function(){
 						console.log('Finnished get buildQuizList')
+						initialSwipe();
 						$('#myModal').modal('hide');
 					});
 					},2000);
@@ -286,6 +287,17 @@ function getQuizData() {
                 console.log("Failed : getQuizData() @ index.js");
             }
         });
+}
+function initialSwipe(){
+	var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      centeredSlides: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
 }
 function buildProgBar(a){
 	var text = '';
@@ -393,7 +405,7 @@ function setVisableAll_C(a){
 function buildQuizList(callback){
 	var length = Index01.response.result.length;
 	var qData = '';
-	var text = '<center>';
+	var text = '';
 	// rawData = sessionStorage['quizStatus'];
 	// cdata = JSON.parse(rawData);
 	var disable = '';
@@ -408,21 +420,42 @@ function buildQuizList(callback){
 	    if (sessionStorage["isAdmin"] == 'false') {
 	    	disable = 'disabled';
 	    }
-	    text += '<div class="centered">'+
-	    '<center>'+
-	    '<button class="quizlist" style="display:none" qId="'+quiz_id+'" '+disable+' id="btn_'+quiz_id+'" order="'+btn_order+'">'+
-					'<div class="btn_qList">'+
-					    '<div class="img-place">'+
-					        '<img src="'+img+'" style="display:block;width: 100%;height: 80%;">'+
-					        	'<div class="overlay">'+
-							    	'<div class="text" style="display:none" id="overlay_lo_'+quiz_id+'">Locked</div>'+
-							    	'<div class="text" style="display:none" id="overlay_fi_'+quiz_id+'">Finnished</div>'+
-							  	'</div>'+
-					    '</div>'+
-						'<p style="position: relative;color: white;font-size: 26px;top: 15px;margin-bottom: 25px;">'+values+'</p>'+
-					'</div>'+
-		'</button>'+
-		'</center>'
+	    if ($(window).width() > 1024) {
+	    	text += '<div class="centered">'+
+		    '<center>'+
+		    '<button class="quizlist" style="display:none" qId="'+quiz_id+'" '+disable+' id="btn_'+quiz_id+'" order="'+btn_order+'">'+
+						'<div class="btn_qList">'+
+						    '<div class="img-place">'+
+						        '<img src="'+img+'" style="display:block;width: 100%;height: 80%;">'+
+						        	'<div class="overlay">'+
+								    	'<div class="text" style="display:none" id="overlay_lo_'+quiz_id+'">Locked</div>'+
+								    	'<div class="text" style="display:none" id="overlay_fi_'+quiz_id+'">Finnished</div>'+
+								  	'</div>'+
+						    '</div>'+
+							'<p style="position: relative;color: white;font-size: 26px;top: 15px;margin-bottom: 25px;">'+values+'</p>'+
+						'</div>'+
+			'</button>'+
+			'</center>'+
+			'</div>'
+	    }else{
+	    	text += '<div class="centered swiper-slide wipp">'+
+		    '<center>'+
+		    '<button class="quizlist" qId="'+quiz_id+'" '+disable+' id="btn_'+quiz_id+'" order="'+btn_order+'">'+
+						'<div class="btn_qList">'+
+						    '<div class="img-place">'+
+						        '<img src="'+img+'" style="display:block;width: 100%;height: 80%;">'+
+						        	'<div class="overlay">'+
+								    	'<div class="text" style="display:none" id="overlay_lo_'+quiz_id+'">Locked</div>'+
+								    	'<div class="text" style="display:none" id="overlay_fi_'+quiz_id+'">Finnished</div>'+
+								  	'</div>'+
+						    '</div>'+
+							'<p class="quizName" style="">'+values+'</p>'+
+						'</div>'+
+			'</button>'+
+			'</center>'+
+			'</div>'
+	    }
+	    console.log($(window).width())
 	    qData += quiz_id+" ";
 	    }
 	    initialBtnOrder();
@@ -430,12 +463,16 @@ function buildQuizList(callback){
 		console.log("previous: "+previous+" | current: "+current)
 		// console.log("Type of previous: "+typeof(previous)+" | Type of current: "+typeof(current))
 		console.log(" ");
-	    text += '</center></div>';
+	    text += '';
 	    console.log(qData);
-	    $('#qlist').append(text);
+	    if ($(window).width() > 1024) {
+	    	$('#quizlist').append(text);
+	    }else{
+	    	$('#wipp_wrap').append(text);
+	    }
 	    $('.quizlist').click(function(){
 		    sessionStorage['qId'] = this.getAttribute("qId");
-			window.location = 'quiz.jsp?qId='+sessionStorage['qId']+'&player='+sessionStorage['player'];
+			window.location = 'quiz.jsp';
 		});
 		if (sessionStorage["isAdmin"] == 'true') {
 			setVisableAll_P(previous);

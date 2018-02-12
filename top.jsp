@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 	  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
@@ -106,15 +106,29 @@
     padding: 4px 0px 35px 15px;
     font-size: 12px;
     line-height: 20px;
+	}
+	.container-fluid > .navbar-collapse {
+	    margin-right: 0px;
+	     margin-left: 0px; 
+	}
+	.navbar-inverse{
+		background-color: rgba(34,34,34,0);
+		border: none;
+		color: white;
+	}
+	.navbar-nav > li > a {
+		
+	}
+	.swiper-container-horizontal>.swiper-pagination-bullets{
+		bottom: -5px !important;
+	}
 </style>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
 				  <div class="container-fluid">
 				    <div class="navbar-header">
-				      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
+				      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="margin-right: 22px;">
+				        <img src="">
 				      </button>
 				      <a class="navbar-brand" href="#"><img src="img/playbasis_logo.png"></a>
 				    </div>
@@ -126,7 +140,7 @@
 				        </li>
 				        <!-- <li id="anime" style="cursor: pointer;"><a data-toggle="modal" data-target="#animation-panel">Animation</a></li> -->
 				      </ul>
-				      <ul class="nav navbar-nav navbar-right">
+				      <ul class="nav navbar-nav navbar-right" style="margin-right: 0px;">
 				        <li id="showLang"><a href="#" data-toggle="modal" data-target="#langPanel"><span class="glyphicon glyphicon-globe"></span> Language </a></li>
 				        <li id="logOut"><a href="#" ><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 				      </ul>

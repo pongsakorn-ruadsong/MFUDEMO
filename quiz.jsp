@@ -12,7 +12,7 @@
 		    $('.range-slider__range').on('input', function(){
 		    	var val = parseInt($('.range-slider__range').val());
 		    	var vaule = val.toLocaleString()
-			    $('.range-slider__value').html(nFormatter(val, 1)+" &#3647");
+			    $('.range-slider__value').text(vaule);
 			    $('#hidSLIval').val($('.range-slider__range').val());
 			});
 
@@ -30,34 +30,10 @@
 			   sessionStorage['ans_no'] = "no";
 		    });
 		   // $('#Other').click(function(){ console.log("Success")});
-
-		   if ($(window).width() < 1200) {
-			   $('.mSli').css('display','none');
-			   $('#hideMinMax').css('display','block');
-			}
-			else {
-				$('.mSli').css('display','block');
-				$('#hideMinMax').css('display','none');
-			}
-			window.onresize = function(event) {
-			   if ($(window).width() < 1200) {
-				   $('.mSli').css('display','none');
-				   $('#hideMinMax').css('display','block');
-				}
-			else {
-					$('.mSli').css('display','block');
-					$('#hideMinMax').css('display','none');
-				}
-			};
 		});
 
 	</script>
-
-
-
-
-
-
+	<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 	<style type="text/css">
 		.modal-backdrop.fade, .modal-backdrop.show  {
@@ -66,7 +42,7 @@
 	</style>
 	<div class="bg row" id="quizImg" style="margin-top: 50px;">
 		<div class="col-md-6" id="img">
-			<img src="gif/flydog.gif" class="quizImg" id="OptionImg" style="width: 100%;height: 100%;">
+			
 		</div>
 		<div class="col-md-6" id="question">
 			<div class="qa">
@@ -138,13 +114,10 @@
 						</div>
 						<div class="row" id="slider-panel" typeZ="SLI" style="display: none;text-align: center;">
 							<div class="range-slider">
-								<div id="hideMinMax" style="display: none;">
-									<span class="minslider"></span><span> to </span><span class="maxslider"></span>
-								</div>
 								<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
-									<div class="col-md-2"><span class="minslider mSli"></span></div>
-							 		<div class="col-md-7"><input class="range-slider__range" id="slider-bar" type="range"  value=0 min=0 max=1000000 step=1000 ></div>
-							 		<div class="col-md-3"><span class="maxslider mSli"></span></div>
+									<div class="col-md-2"><span id="minslider"></span></div>
+							 		<div class="col-md-8"><input class="range-slider__range" id="slider-bar" type="range"  value=0 min=0 max=1000000 step=1000 ></div>
+							 		<div class="col-md-2"><span id="maxslider"></span></div>
 							 	</div>
 							  <div style="text-align: center;margin-top: 30px;">
 							  	<span id="disValueSli" style="padding: 15px;" class="range-slider__value" style="width: 20%">

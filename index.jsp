@@ -54,26 +54,67 @@
 		  //   		}, 10);
 	   //  		}, 350);
 			});
-			if ($(window).width() < 1200) {
-			   $('.mana').css('display','none');
-			   $('#xs-slide').css('display','block');
-			}
-			else {
-				$('.mana').css('display','block');
-				$('#xs-slide').css('display','none');
-			}
+			document.body.style.maxWidth = $(window).width();
+			validWindowSize();
 			window.onresize = function(event) {
-			   if ($(window).width() < 1200) {
-				   $('.mana').css('display','none');
-				   $('#xs-slide').css('display','block');
-				}
-			else {
-					$('.mana').css('display','block');
-					$('#xs-slide').css('display','none');
-				}
+			   validWindowSize();
 			};
 		});
+		function validWindowSize(){
+			if ($(window).width() <= 1200) {
+			   // $('.btn_center').removeClass('col-md-10 col-sm-10 col-xs-10');
+				}
+			else {
+				// $('.btn_center').addClass('col-md-10 col-sm-10 col-xs-10');
+				}
+			if ($(window).width() > 1024) {
+			   $('.swiper-pagination').css('display','none');
+			}
+			else {
+				$('.swiper-pagination').css('display','block');
+				$('.mana').css('display','none');
+			}
+			// if ($(window).width() < 350) {
+			// 	$('.btn_center').removeClass('col-md-10 col-sm-10 col-xs-10');
+			// 	$('.leftP').css('display','none');
+			//    	$('.rightP').css('display','none');
+			// }else{
+			// 	$('.btn_center').addClass('col-md-10 col-sm-10 col-xs-10');
+			// 	$('.leftP').css('display','block');
+			//     $('.rightP').css('display','block');
+			// }
+		}
 	</script>
+	<link rel="stylesheet" href="css/swiper.min.css">
+	<style>
+		 .swiper-container {
+		      width: 60%;
+		      height: 60%;
+		    }
+		    .swiper-slide {
+		      text-align: center;
+		      font-size: 18px;
+		      background: #fff;
+
+		      /* Center slide text vertically */
+		      display: -webkit-box;
+		      display: -ms-flexbox;
+		      display: -webkit-flex;
+		      display: flex;
+		      -webkit-box-pack: center;
+		      -ms-flex-pack: center;
+		      -webkit-justify-content: center;
+		      justify-content: center;
+		      -webkit-box-align: center;
+		      -ms-flex-align: center;
+		      -webkit-align-items: center;
+		      align-items: center;
+		    }
+		    .swiper-pagination{
+		    	position: relative;
+		    }
+	</style>
+	
 	<div class="container" style="margin-top: 50px;">
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-6">
@@ -96,6 +137,7 @@
 				</div> -->
 			</div>
 		</div>
+		
 		<div class="row node" >
 			<div class="col-md-12 col-sm-12 col-xs-12" >
 				<div class="prog-bar">
@@ -106,45 +148,31 @@
 		<div class="row qlist-locate">
 			<div class="col-md-10 offset-md-1 col-xs-10 offset-xs-1 col-sm-10 offset-sm-1">
 				<div class="row">
-					<div class="col-md-1 col-sm-1 col-xs-1">
+					<div class="col-md-1 col-sm-1 col-xs-1 leftP">
 						<button class="btn-slide mana btn-pre" id=""  style="display: block;cursor: pointer;"> <img class="slide-img" src="img/prev.png"> </button>
 					</div>
-					<div class="col-md-10 col-sm-10 col-xs-10">
+					<div class="col-md-10 col-sm-10 col-xs-10 btn_center">
 						<center>
-							<div class="" id="qlist" style="width: 315px;height: 340px;">
+							<div class="swiper-container" id="wipp_con">
+							    <div class="swiper-wrapper" id="wipp_wrap">
 
-							</div>
+							    </div>
+							    <!-- Add Pagination -->
+							    <div class="swiper-pagination"></div>
+							  </div>
+							  <div id="quizlist">
+							    
+							  </div>
+							  <script src="js/swiper.min.js"></script>
 						</center>
 					</div>
-					<div class="col-md-1 col-sm-1 col-xs-1">
+					<div class="col-md-1 col-sm-1 col-xs-1 rightP">
 						<button class="btn-slide mana btn-next" id=""  style="display: block;cursor: pointer;"><img class="slide-img" src="img/next.png"></button>
 					</div>
 				</div>
-				<center>
-				<div class="row" id="xs-slide" style="display: none;width: 292px;">
+				
 					
-					<div class="col-md-1 col-sm-1 col-xs-1">
-						
-					</div>
-					<div class="col-md-10 col-sm-10 col-xs-10">
-						
-						<div class="input-group" style="background-color: #8D81CD;border-radius: 4px;"">
-								<button class="form-control btn-slide btn-pre" id=""  style="display: block;cursor: pointer;border-right: solid 1px white"> 
-									<img class="slide-img" src="img/prev.png"> 
-								</button>
-					
-								<button class="form-control btn-slide btn-next" id=""  style="display: block;cursor: pointer;border-left: solid 1px white">
-									<img class="slide-img" src="img/next.png">
-								</button>
-						</div>
-
-					</div>
-					<div class="col-md-1 col-sm-1 col-xs-1">
-						
-					</div>
-					
-				</div>
-				</center>
+				
 			</div>
 		</div>
 	</div>
@@ -164,4 +192,5 @@
 
     </div>
   </div>
+
 <%@include file="bottom.jsp" %>
