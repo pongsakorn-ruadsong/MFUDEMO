@@ -30,6 +30,14 @@
 			   sessionStorage['ans_no'] = "no";
 		    });
 		   // $('#Other').click(function(){ console.log("Success")});
+		   $('#0085').bind('click', function(){
+			  $(this).toggleClass('active');
+			  if ($('#CHK_0085').prop( "checked" )) {
+			  	$('#CHK_0085').prop("checked",true);
+			  }else{
+			  	$('#CHK_0085').prop("checked",false);
+			  }
+			});
 		});
 
 	</script>
@@ -38,6 +46,56 @@
 	<style type="text/css">
 		.modal-backdrop.fade, .modal-backdrop.show  {
 		    opacity: 0.5;
+		}
+		.wrap{
+		  margin: 0 auto;
+		  width: 160px;
+		}
+		.btnB{
+		  position: relative;
+		  float: left;
+		  margin-left: 30px;
+		  width: 50px;
+		  height: 50px;
+		  border-radius: 50%;
+		  background: rgb(151,202,218);
+		  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzk3Y2FkYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2OGI2ZDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		  box-shadow: inset 0 5px 5px -2px #E1EFF4, 0 0 3px 2px #5A8491, inset 0 -3px 5px -2px #478BA0;
+		  color: #fff;
+		  color: transparent;
+		  text-align: center;
+		  font-size: 30px;
+		  line-height: 50px;
+		  cursor: pointer;
+		}
+
+		.btnB:after{
+		  position:absolute;
+		  top: -6px;
+		  left: -6px;
+		  z-index: -1;
+		  width: 62px;
+		  height: 62px;
+		  border-radius: 50%;
+		  background: #F9FDFD;
+		  box-shadow: 0 0 3px 0 #ABB0B2, 0 2px 5px -1px #787E80;
+		  content: "";
+		}
+
+
+
+		.btnB.active{
+		  background: rgb(84,143,163);
+		  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzU0OGZhMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3NDlkYWEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		  box-shadow: inset 0 4px 6px 2px #3B6B7A;
+		  color: #fff;
+		  text-shadow: 0 -1px 0 #757878;
+		}
+
+		.btnB.active:after{
+		  background: rgb(172,172,172);
+		  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2FjYWNhYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjcxJSIgc3RvcC1jb2xvcj0iI2Q2ZDZkNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		  box-shadow: none;
 		}
 	</style>
 	<div class="bg row" id="quizImg">
@@ -141,7 +199,11 @@
 			</div>
 		</div>
 	</div>
-
+<div class="wrap">
+  <div class="btnB" id="0085"><i class="glyphicon glyphicon-ok"><input id="CHK_0085" type="checkbox" value="1"></i></div>
+  <div class="btnB"><i class="icon-ok"><input type="checkbox" value="2">2</i></div>
+  <div class="btnB"><i class="icon-ok"><input type="checkbox" value="3">3</i></div>
+</div>
   <div id="modal_score">
 
   </div>

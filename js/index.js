@@ -214,7 +214,7 @@ function buildQuizList(callback){
 			setVisableAll_C(current);
 		}
 		// else if (sessionStorage['loginType'] == 'guest') {
-			
+
 		// }
 		else {
 			setPrevious(previous);
@@ -225,33 +225,24 @@ function buildQuizList(callback){
 }
 function initialSwipes(){
 	var swiper1 = new Swiper('.swiper1', {
-    	loop: true,
-    	centeredSlides: true,
     	slidesPerView: 3,
       spaceBetween: 8,
-      loopAdditionalSlides: 1,
       pagination: {
         el: '.swiper-pagination1',
         clickable: true,
       },
     });
     var swiper2 = new Swiper('.swiper2', {
-    	loop: true,
-    	centeredSlides: true,
     	slidesPerView: 3,
       spaceBetween: 8,
-      loopAdditionalSlides: 1,
       pagination: {
         el: '.swiper-pagination2',
         clickable: true,
       },
     });
     var swiper3 = new Swiper('.swiper3', {
-    	loop: true,
-    	centeredSlides: true,
     	slidesPerView: 3,
       spaceBetween: 8,
-      loopAdditionalSlides: 1,
       pagination: {
         el: '.swiper-pagination3',
         clickable: true,

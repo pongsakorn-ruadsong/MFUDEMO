@@ -357,7 +357,9 @@ function buildQuiz(callback){
 
 	    	}
 	    	else if(type == 'MULTI'){
-	    		text+=''
+	    		document.getElementById("4Play").style.display = "none";
+	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons">'
+	    		$("#nextBtn").prop('disabled', true);
 	    	}
 	    	else if(type == 'SLI'){
 	    		$("#slider-panel").addClass("inputTXT");
@@ -367,10 +369,10 @@ function buildQuiz(callback){
 	    		document.getElementById("slider-bar").setAttribute("min", a);
 	    		document.getElementById("slider-bar").setAttribute("max", b);
 	    		document.getElementById("slider-bar").setAttribute("step", c);
-	    		$('#disValueSli').html(nFormatter((b/2), 1)+" &#3647");
+	    		$('#disValueSli').html((b/2).toLocaleString()+" &#3647");
 	    		$('#hidSLIval').val(b/2);
-	    		$('.minslider').html(nFormatter(a, 1)+" &#3647");
-	    		$('.maxslider').html(nFormatter(b, 1)+" &#3647");
+	    		$('#minslider').html(nFormatter(a, 1)+" &#3647");
+	    		$('#maxslider').html(nFormatter(b, 1)+" &#3647");
 	    		select1 = Quiz01.response.result.options[0].option_id;
 	    	}
 	    	else if(type == 'SLI_S'){
@@ -830,6 +832,7 @@ function scorePop(a,b){
 	var gr_rank_img = a.rank_image;
 	var gr_grade = a.grade;
 	var img = '';
+	console.log(gr_rank+" "+max_score)
 	if (gr_rank == "" && max_score == 0) {
 		swal({
 		  title: "Completed",

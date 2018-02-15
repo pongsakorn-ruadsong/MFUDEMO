@@ -22,6 +22,11 @@
 					//
 				}
 			});
+			$('#loginModal').on('hidden.bs.modal', function () {
+			  $("#userType").prop("checked", false);
+			  $("#PlayerID").val('');
+			  $("#passWord").val('');
+			});
 		});
 	</script>
 	<link rel="stylesheet" href="css/swiper.min.css">
