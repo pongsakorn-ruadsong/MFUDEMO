@@ -7,6 +7,7 @@
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
 	<!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>  -->
 	<script src="js/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -25,7 +26,8 @@
 	<script src="js/slider.js"></script>
 	<script src="js/sweetalert.js"></script>
 	<script src="js/account.js"></script>
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+	<script src="js/rewardStore.js"></script>
+	<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet"> -->
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
@@ -140,35 +142,6 @@
 	}
 </style>
 <body>
-	<!-- <nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
-				  <div class="container-fluid">
-				    <div class="navbar-header">
-				      <button type="button" class="navbar-toggle myNavBtn" data-toggle="collapse" data-target="#myNavbar" style="margin-right: 22px;">
-				        <img src="img/ICON.png" style="max-width: 43.78px;max-height: 37px;">
-				      </button>
-				      <a class="navbar-brand userPhoto" href="#"><img src="img/default_user.png" style="width: 100%;height: 100%"></a>
-				      <p>Level: 20(Bar)</p>
-				      <p>Point: 500</p> 
-				    </div>
-				    <div class="collapse navbar-collapse" id="myNavbar">
-				      <ul class="nav navbar-nav">
-				        <li class="active" id="barHome"><a href="index.jsp">Home</a></li>
-				         <li class="dropdown" id="showUser">
-				          <a class="dropdown-toggle" data-toggle="modal" data-target="#userInfo" href="#">User </a>
-				        </li>
-				        <li id="anime" style="cursor: pointer;"><a data-toggle="modal" data-target="#animation-panel">Animation</a></li>
-				      </ul>
-				      <ul class="nav navbar-nav navbar-left" style="margin-right: 0px;">
-				      	Level: 0 <br>
-				      	Point: 50
-				       </ul>
-				      <ul class="nav navbar-nav navbar-right" style="margin-right: 0px;">
-				        <li id="showLang"><a href="#" data-toggle="modal" data-target="#langPanel"><span class="glyphicon glyphicon-globe"></span> Language </a></li>
-				        <li id="logOut"><a href="#" ><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-				      </ul>
-				    </div>
-				  </div>
-	</nav> -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
 		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;">
 			<div class="row">
