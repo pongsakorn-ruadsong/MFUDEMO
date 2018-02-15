@@ -32,6 +32,7 @@ var result = [];
 var quizStatus = [];
 var quizImg = [];
 var choicesTitle = [];
+var TTarray = [];
 function loadAnimation(a){
 	// var img = a.question_image;
 	// var text = '<div><img src="'+img+'" style="width:460px;height:460px;"></div>'
@@ -102,9 +103,10 @@ function getTopic(a){
 
 	// console.log('Enter if');
 	// console.log(type+" == \'SQ\' ?");
-	if (type == 'SQ' || type == 'YN' || type == 'SQ_S' || type == 'SQ_S_MULTI') {
-		// console.log('Enter if2');
+	if (type == 'SQ' || type == 'YN' || type == 'SQ_S' || type == 'SQ_S_MULTI' || type == 'MULTI') {
+		console.log('Enter if2');
 		for(var k=0;k<nn;k++){
+			console.log('Enter asdasdasd');
 			if (contentSummary[_qname.options[k].description] == undefined) {
 				continue;
 			}
@@ -112,7 +114,7 @@ function getTopic(a){
 			placeHolder.push(contentSummary[_qname.options[k].description+'_PH'])
 			choices.push(contentSummary[_qname.options[k].description]);
 			choicesTitle.push(contentTitle[_qname.options[k].description]);
-			// console.log(choices);
+			console.log(choices);
 			// console.log(placeHolder);
 		}
 
@@ -358,8 +360,17 @@ function buildQuiz(callback){
 	    	}
 	    	else if(type == 'MULTI'){
 	    		document.getElementById("4Play").style.display = "none";
-	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons">'
+	    		text += ''
 	    		$("#nextBtn").prop('disabled', true);
+	    		for (var i=0;i<option.length;i++) {
+		    		if (option[i].is_text_option) {
+		    			select1 = option[i].option_id;
+		    			continue;
+	    			}
+		    		text += '<input class="Input_checkbook" name="'+topic+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox"><span id="'+choices[i]+'">'+choices[i]+'</span><br>'
+		    		console.log(choices[i]);
+		    	}
+		    	text += '';
 	    	}
 	    	else if(type == 'SLI'){
 	    		$("#slider-panel").addClass("inputTXT");
@@ -455,6 +466,17 @@ function buildQuiz(callback){
 				  }
 				});
 		    });
+	    	 $('.Input_checkbook').click(function(){
+	    	 	TTarray = new Array();
+	    	 	$("input:checkbox[name='"+topic+"']:checked").each(function(){
+				    TTarray.push($(this).val());
+				});
+				if(TTarray.length == 0){
+					$("#nextBtn").prop('disabled', true);
+				} else {
+					$("#nextBtn").prop('disabled', false);
+				}
+	    	 });
 	    	 $('input:radio[name="'+topic+'"]').change(
 			    function(){
 			    	$("#nextBtn").prop('disabled', false);
@@ -677,8 +699,9 @@ function valid(){
 
 	}
 	else if(type == 'MULTI'){
-		inputType = 'MULTI';
-		validMU();
+		console.log(TTarray)
+		select1 = TTarray.join();
+		return true;
 	}
 
 }

@@ -149,7 +149,6 @@
 					<a class="navbar-brand userPhoto" href="#" style="padding: 5px 5px;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a>
 				</div>
 				<div class="col-6" style="padding: 15px 15px;">
-					<p>Level</p>
 				</div>
 			</div>
 		</ul>

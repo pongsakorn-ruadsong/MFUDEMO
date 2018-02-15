@@ -199,11 +199,11 @@
 			</div>
 		</div>
 	</div>
-<div class="wrap">
+<!-- <div class="wrap">
   <div class="btnB" id="0085"><i class="glyphicon glyphicon-ok"><input id="CHK_0085" type="checkbox" value="1"></i></div>
   <div class="btnB"><i class="icon-ok"><input type="checkbox" value="2">2</i></div>
   <div class="btnB"><i class="icon-ok"><input type="checkbox" value="3">3</i></div>
-</div>
+</div> -->
   <div id="modal_score">
 
   </div>
