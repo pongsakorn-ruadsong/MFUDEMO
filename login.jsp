@@ -11,15 +11,16 @@
 				window.location.replace("index.jsp");
 			}
 			$('#loginBtn').click(function(){
-				if (validLogin()) {
+				authPlayer();
+				if (validLogin() && sessionStorage['auth'] == "true") {
 					if($('#userType').prop('checked')) {
 	                    sessionStorage['isAdmin'] = 'true';
 	                } else {
 	                    sessionStorage['isAdmin'] = 'false';
 	                }
-					authPlayer();
+	                location.reload();
 				}else{
-					//
+					alert("fail log in")
 				}
 			});
 			$('#loginModal').on('hidden.bs.modal', function () {

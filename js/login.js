@@ -6,6 +6,7 @@ sessionStorage['isLast'] = "false";
 sessionStorage['subUrl'] = 'http://10.49.67.156/api/';
 sessionStorage['mainUrl'] = 'https://api.pbapp.net/';
 sessionStorage['loginType'];
+sessionStorage['auth'] = false;
 var Glob_Login;
 var contentData;
 function authPlayer(){
@@ -18,19 +19,22 @@ function authPlayer(){
         url: 'https://api.pbapp.net/Auth/player/'+playerId,
         data:data,
         dataType: "json",
+        async: false,
 	    success: function(d){
 			Glob_Login = d;
-	    	console.log(d)
 	    	if (d.success == false) {
-	    		
+	    		sessionStorage['auth'] = "false";
 	    	}else{
 	    		sessionStorage['player'] = playerId;
 	    		sessionStorage['loginType'] = 'user';
+	    		sessionStorage['auth'] = true;
 	    		// window.location.replace("index.jsp");
 	    	}
+	    	console.log(d)
 	    },
 	    error: function (xhr, textStatus, errorThrown){
 //          window.location.reload(true)
+			sessionStorage['auth'] = false;
             console.log(errorThrown);
             console.log("Failed : getContent() @ quiz.js");
         }	
@@ -68,7 +72,7 @@ function guestFunction(){
 	    	}else{
 	    		sessionStorage['player'] = guestID;
 	    		sessionStorage['loginType'] = 'guest';
-	    		// window.location.replace("index.jsp");
+	    		window.location.replace("index.jsp");
 	    	}
 	    },
 	    error: function (xhr, textStatus, errorThrown){
