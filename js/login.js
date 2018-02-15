@@ -19,14 +19,14 @@ function authPlayer(){
         data:data,
         dataType: "json",
 	    success: function(d){
-			// Glob_Login = d;
+			Glob_Login = d;
 	    	console.log(d)
 	    	if (d.success == false) {
 	    		
 	    	}else{
 	    		sessionStorage['player'] = playerId;
 	    		sessionStorage['loginType'] = 'user';
-	    		window.location.replace("index.jsp");
+	    		// window.location.replace("index.jsp");
 	    	}
 	    },
 	    error: function (xhr, textStatus, errorThrown){
@@ -68,7 +68,7 @@ function guestFunction(){
 	    	}else{
 	    		sessionStorage['player'] = guestID;
 	    		sessionStorage['loginType'] = 'guest';
-	    		window.location.replace("index.jsp");
+	    		// window.location.replace("index.jsp");
 	    	}
 	    },
 	    error: function (xhr, textStatus, errorThrown){

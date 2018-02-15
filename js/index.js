@@ -172,7 +172,7 @@ function buildQuizList(callback){
 	      	'<img src="'+img+'" style="height: auto;border-top-left-radius: 5px;border-top-right-radius: 5px;">'+
 	      	'<div class="overlay" style="height:100%;margin-top: 25px;border-radius: 5px;">'+
 		    	'<div class="text" style="display:none" id="overlay_lo_'+quiz_id+'">Locked</div>'+
-		    	'<div class="text" style="display:none" id="overlay_fi_'+quiz_id+'">Finnished</div>'+
+		    	'<div class="text" style="display:none" id="overlay_fi_'+quiz_id+'">Finished</div>'+
 	  		'</div>'+
 	    '</div>'+
 	    '<div style="background-color: white;" >'+values+
@@ -213,9 +213,11 @@ function buildQuizList(callback){
 			setVisableAll_P(previous);
 			setVisableAll_C(current);
 		}
-		// else if (sessionStorage['loginType'] == 'guest') {
-
-		// }
+		else if (sessionStorage['loginType'] == 'guest') {
+			setPrevious(previous);
+			setCurrent(current);
+			isFinnished();
+		}
 		else {
 			setPrevious(previous);
 			setCurrent(current);
