@@ -16,152 +16,152 @@
 // var contentAbbrev = [];
 // addHighLight = '<span class="testLoader" animated="fadeIn"></span>'; //by Dew
 // var mathRand = Math.floor(500 + Math.random() * 500);
-// function makeid() {
-//   var text = "";
-//   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-//   for (var i = 0; i < 40; i++)
-//     text += possible.charAt(Math.floor(Math.random() * possible.length));
+  for (var i = 0; i < 40; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-//   return text;
-// }
-// function nFormatter(num, digits) {
-//   var si = [
-//     { value: 1, symbol: "" },
-//     { value: 1E3, symbol: "k" },
-//     { value: 1E6, symbol: "M" },
-//     { value: 1E9, symbol: "G" },
-//     { value: 1E12, symbol: "T" },
-//     { value: 1E15, symbol: "P" },
-//     { value: 1E18, symbol: "E" }
-//   ];
-//   var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-//   var i;
-//   for (i = si.length - 1; i > 0; i--) {
-//     if (num >= si[i].value) {
-//       break;
-//     }
-//   }
-//   return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
-// }
-// function getUserInfo() {
-// 	var data = new Object();
-// 	data.token = sessionStorage['Token'];
-// 	$.ajax({
-//         	type: "POST",
-//             url: 'https://api.pbapp.net/Player/'+sessionStorage['player']+'/data/all',
-//             dataType: "json",
-//             data: data,
-// 	    	success: function(data){
-// 	    		Index05 = data;
-// 	    		console.log(data);
-// 	    		buildPlayer(data.response.player);
-// 	    // 		jQuery.each(data.response, function() {
-// 					// contentLang[this.language] = this.language;
-// 					// contentAbbrev[this.language] = this.abbreviation;
-// 	    //         });
-// 	    	},
-// 	    	error: function (xhr, textStatus, errorThrown){
-// //                window.location.reload(true)
-//                 console.log(errorThrown);
-//                 console.log("Failed : getLang() @ index.js");
-//             }
-//         });
-// }
-// function buildPlayer(a) {
-// 	// $('#playerPanel > div').remove();
-// 	var img = a.image;
-// 	var img_for_check = /[^/]*$/.exec(img)[0];
-// 	console.log(img_for_check)
-// 	if (img_for_check == 'default_profile.jpg') {
-// 		img = 'img/default_user.png'
-// 	}
-// 	var Fname = a.first_name;
-// 	var Lname = a.last_name;
-// 	var exp = a.exp;
-// 	var point = ''; //In points
-// 	var lv = a.level;
-// 	var badge = ''; //many in array
-// 	var gender = a.gender; // 1 or 2
-// 	var lv_percent = a.percent_of_level-15;
-// 	var regis_date = a.registered;
-// 	var username = a.username;
-// 	var phone_number = ''; //null
-// 	if (a.phone_number == null) {
-// 		phone_number = 'null';
-// 	}else{
-// 		phone_number = a.phone_number;
-// 	}
-// 	var email = a.email;
-// 	var birthDate = ''; //null
-// 	if (a.birth_date == null) {
-// 		birthDate = 'null';
-// 	}else{
-// 		birthDate = a.birth_date;
-// 	}
-// 	for(var i = 0; i<a.points.length;i++){
-// 		if (a.points[i].reward_name == "point") {
-// 			point = a.points[i].value;
-// 		}
-// 	}
-// 	$('#user_pic').attr("src",img);
-// 	$('#user_name').text(username);
-// 	$('#user_level').text(lv);
-// 	$('#user_exp').text(exp);
-// 	$('#user_point').text(point);
-// 	console.log(lv_percent)
-// 	document.getElementById("level_progress").style.width = lv_percent+'%';
-// }
-// function buildRewardList() {
-// 	$('#table_reward > tr').remove();
-// 	console.log("Enter build reward list")
-// 	var badges = Index05.response.player.badges;
-// 	var length = badges.length;
-// 	var k =1;
-// 	console.log(badges);
-// 	var text = '<tr><td>#</td><td>Image</td><td>Name</td><td>Amount</td><td>Action</td></tr>';
-// 	for (var i = 0; i < length; i++) {
-// 		if (badges[i].amount == 0) {
-// 			continue;
-// 		}
-// 		text += '<tr>'+
-// 		'<td>'+k+'</td>'+
-// 		'<td><img src='+badges[i].image+' style="width:50px;height:50px;"></td>'+
-// 		'<td>'+badges[i].name+'</td>'+
-// 		'<td>'+badges[i].amount+'</td>'+
-// 		'<td>'+
-// 		'</tr>'
-// 		k++;
-// 	}
-// 	$('#table_reward').append(text);
-// }
+  return text;
+}
+function nFormatter(num, digits) {
+  var si = [
+    { value: 1, symbol: "" },
+    { value: 1E3, symbol: "k" },
+    { value: 1E6, symbol: "M" },
+    { value: 1E9, symbol: "G" },
+    { value: 1E12, symbol: "T" },
+    { value: 1E15, symbol: "P" },
+    { value: 1E18, symbol: "E" }
+  ];
+  var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  var i;
+  for (i = si.length - 1; i > 0; i--) {
+    if (num >= si[i].value) {
+      break;
+    }
+  }
+  return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+}
+function getUserInfo() {
+	var data = new Object();
+	data.token = sessionStorage['Token'];
+	$.ajax({
+        	type: "POST",
+            url: 'https://api.pbapp.net/Player/'+sessionStorage['player']+'/data/all',
+            dataType: "json",
+            data: data,
+	    	success: function(data){
+	    		Index05 = data;
+	    		console.log(data);
+	    		buildPlayer(data.response.player);
+	    // 		jQuery.each(data.response, function() {
+					// contentLang[this.language] = this.language;
+					// contentAbbrev[this.language] = this.abbreviation;
+	    //         });
+	    	},
+	    	error: function (xhr, textStatus, errorThrown){
+//                window.location.reload(true)
+                console.log(errorThrown);
+                console.log("Failed : getLang() @ index.js");
+            }
+        });
+}
+function buildPlayer(a) {
+	// $('#playerPanel > div').remove();
+	var img = a.image;
+	var img_for_check = /[^/]*$/.exec(img)[0];
+	console.log(img_for_check)
+	if (img_for_check == 'default_profile.jpg') {
+		img = 'img/default_user.png'
+	}
+	var Fname = a.first_name;
+	var Lname = a.last_name;
+	var exp = a.exp;
+	var point = ''; //In points
+	var lv = a.level;
+	var badge = ''; //many in array
+	var gender = a.gender; // 1 or 2
+	var lv_percent = a.percent_of_level-15;
+	var regis_date = a.registered;
+	var username = a.username;
+	var phone_number = ''; //null
+	if (a.phone_number == null) {
+		phone_number = 'null';
+	}else{
+		phone_number = a.phone_number;
+	}
+	var email = a.email;
+	var birthDate = ''; //null
+	if (a.birth_date == null) {
+		birthDate = 'null';
+	}else{
+		birthDate = a.birth_date;
+	}
+	for(var i = 0; i<a.points.length;i++){
+		if (a.points[i].reward_name == "point") {
+			point = a.points[i].value;
+		}
+	}
+	$('#user_pic').attr("src",img);
+	$('#user_name').text(username);
+	$('#user_level').text(lv);
+	$('#user_exp').text(exp);
+	$('#user_point').text(point);
+	console.log(lv_percent)
+	document.getElementById("level_progress").style.width = lv_percent+'%';
+}
+function buildRewardList() {
+	$('#table_reward > tr').remove();
+	console.log("Enter build reward list")
+	var badges = Index05.response.player.badges;
+	var length = badges.length;
+	var k =1;
+	console.log(badges);
+	var text = '<tr><td>#</td><td>Image</td><td>Name</td><td>Amount</td><td>Action</td></tr>';
+	for (var i = 0; i < length; i++) {
+		if (badges[i].amount == 0) {
+			continue;
+		}
+		text += '<tr>'+
+		'<td>'+k+'</td>'+
+		'<td><img src='+badges[i].image+' style="width:50px;height:50px;"></td>'+
+		'<td>'+badges[i].name+'</td>'+
+		'<td>'+badges[i].amount+'</td>'+
+		'<td>'+
+		'</tr>'
+		k++;
+	}
+	$('#table_reward').append(text);
+}
 // function initialData(){
 
 // }
-// function changeLang(callback){
-// 	getContent();
-// 	callback();
-// }
-// function getLang() {
-// 	$.ajax({
-//         	type: "GET",
-//             url: sessionStorage['mainUrl']+'Language?api_key='+sessionStorage['api_key'],
-//             dataType: "json",
-// 	    	success: function(data){
-// 	    		console.log(data);
-// 	    		buildLangButton(data.response);
-// 	    // 		jQuery.each(data.response, function() {
-// 					// contentLang[this.language] = this.language;
-// 					// contentAbbrev[this.language] = this.abbreviation;
-// 	    //         });
-// 	    	},
-// 	    	error: function (xhr, textStatus, errorThrown){
-// //                window.location.reload(true)
-//                 console.log(errorThrown);
-//                 console.log("Failed : getLang() @ index.js");
-//             }
-//         });
-// }
+function changeLang(callback){
+	getContent();
+	callback();
+}
+function getLang() {
+	$.ajax({
+        	type: "GET",
+            url: sessionStorage['mainUrl']+'Language?api_key='+sessionStorage['api_key'],
+            dataType: "json",
+	    	success: function(data){
+	    		console.log(data);
+	    		buildLangButton(data.response);
+	    // 		jQuery.each(data.response, function() {
+					// contentLang[this.language] = this.language;
+					// contentAbbrev[this.language] = this.abbreviation;
+	    //         });
+	    	},
+	    	error: function (xhr, textStatus, errorThrown){
+//                window.location.reload(true)
+                console.log(errorThrown);
+                console.log("Failed : getLang() @ index.js");
+            }
+        });
+}
 // function buildLangButton(a) {
 // 	$('#langList > div').remove();
 // 	var text = '<div class="row"><div class="input-group">';
