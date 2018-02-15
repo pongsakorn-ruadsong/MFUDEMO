@@ -1,4 +1,7 @@
 var getQuizz = sessionStorage['mainUrl']+'Quiz/list?api_key='+sessionStorage['api_key'];
+var previous = '';
+var current = '';
+var current_Index = '';
 function getQuizData() {
         $.ajax({
         	type: "GET",
@@ -10,7 +13,7 @@ function getQuizData() {
 				getStatus(function(){
 					console.log('Finnished get status')
 					// console.log(sessionStorage[''])
-					// sortOrder();
+					sortOrder();
 					// buildProgBar(data);
 					setTimeout(function(){
 					buildQuizList(function(){
@@ -38,6 +41,77 @@ function getQuizData() {
             }
         });
 }
+function sortOrder(){
+	rawData = sessionStorage['quizStatus'];
+	cdata = JSON.parse(rawData);
+	fillColor(cdata);
+	for(var i=0;i<cdata.length;i++){
+		console.log("Quiz: "+cdata[i].id+" | Status: "+cdata[i].isFinnish);
+		if (cdata[0].isFinnish == false) {
+			previous = 'unassigned';
+			current = cdata[0].id;
+			current_Index = cdata[0].Order;
+		}else{
+			if (cdata[i].isFinnish) {
+				previous = cdata[i].id;
+				if ((i+1)<cdata.length) {
+					current = cdata[(i+1)].id;
+					current_Index = cdata[(i+1)].Order;
+				}
+			}
+		}
+	}
+}
+function isFinnished(){
+	console.log(" ")
+	// console.log("Enter isFinnish checking. . .")
+ 	rawData = sessionStorage['quizStatus'];
+ 	cdata = JSON.parse(rawData);
+ 	for(var i=0;i<cdata.length;i++){
+ 		// console.log("Enter For Loop. . . As: I = "+i+" | length = "+cdata.length+" | cdata"+i+" = "+cdata[i].id+" & "+cdata[i].isFinnish)
+ 		// console.log("Enter Else if in for loop as data id: "+cdata[i].id+' | sdasd: '+lockQuiz);
+		if (cdata[i].isFinnish == true) {
+			// console.log("Enter if in for loop as data id: "+cdata[i].id);
+			$('#overlay_lo_'+cdata[i].id).css('display',"none");
+			$('#overlay_fi_'+cdata[i].id).css('display',"block");
+			$('#btn_'+cdata[i].id+' > div').addClass('ggez');
+			$("#btn_"+cdata[i].id).prop("disabled",true);
+		}else if (cdata[i].isFinnish == false) {
+			// console.log("Enter Else if in for loop as data id: "+cdata[i].id);
+			if (cdata[i].id != current) {
+				$('#overlay_lo_'+cdata[i].id).css('display',"block");
+				$('#overlay_fi_'+cdata[i].id).css('display',"none");
+				$('#btn_'+cdata[i].id+' > div').addClass('ggez');
+				$('#progNode_'+cdata[i].id).css('background-color',"#d9d9d9"); 
+				$("#btn_"+cdata[i].id).prop("disabled",true);
+			}
+			else{
+				$('#btn_'+cdata[i].id+' > div').removeClass('ggez');
+				$("#btn_"+cdata[i].id).prop("disabled",false);
+			}
+ 		}
+ 	}
+ }
+function setPrevious(a){
+	// $("#btn_"+a).prop("disabled", true);
+	$("#btn_"+a).prop("disabled",true);
+	// $("#btn_"+a).css("display","none");
+	$("#btn_"+a).css("background-color", "gray");
+	$("#progNode_"+a).css("background-color", "red");
+}
+function setCurrent(a){
+	$("#btn_"+a).prop("disabled",false);
+	// $("#btn_"+a).prop("disabled", false);
+	$("#btn_"+a).css("display", "block");
+}
+function setVisableAll_P(a){
+	$("#btn_"+a).prop("disabled",false);
+}
+function setVisableAll_C(a){
+	$("#btn_"+a).prop("disabled",false);
+	// $("#btn_"+a).prop("disabled", false);
+	$("#btn_"+a).css("display", "block");
+}
 function buildQuizList(callback){
 	var length = Index01.response.result.length;
 	var qData = '';
@@ -57,6 +131,14 @@ function buildQuizList(callback){
 	    		QuestImg = rawData[k].Image;
 	    	}
 	    }
+	    var img_for_check = /[^/]*$/.exec(QuestImg)[0];
+	    if (img_for_check == 'no_image.jpg') {
+	    	QuestImg = 'img/Playbasis-logo.png';
+	    }
+	    // var img_for_check2 = /[^/]*$/.exec(img)[0];
+	    // if (img_for_check2 == 'no_image.jpg') {
+	    // 	img = 'img/Playbasis-logo.png';
+	    // }
 	    var weight = Index01.response.result[i].weight;
 	    var values = contentSummary[quiz_id];
 	    if (sessionStorage["isAdmin"] == 'false') {
@@ -80,16 +162,20 @@ function buildQuizList(callback){
 			// '</center>'+
 			// '</div>'
 	  //   }else{
-	    	text += '<button class="swiper-slide quizlist pre-box" order="'+btn_order+'" qId="'+quiz_id+'">'+
+	    	text += '<button class="swiper-slide quizlist pre-box" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
       	'<div style="width: 100%;height: 100%;">'+
       	'<center>'+
-      	'<div class="logo_preview">'+
+      	'<div class="logo_preview" style="z-index:1">'+
       		'<img src="'+QuestImg+'">'+
       	'</div>'+
-      	'<div>'+
-	      	'<img src="'+img+'" style="height: auto;margin-top: -30px;border-top-left-radius: 5px;border-top-right-radius: 5px;">'+
+      	'<div style="margin-top: -30px;">'+
+	      	'<img src="'+img+'" style="height: auto;border-top-left-radius: 5px;border-top-right-radius: 5px;">'+
+	      	'<div class="overlay" style="height:100%;margin-top: 25px;border-radius: 5px;">'+
+		    	'<div class="text" style="display:none" id="overlay_lo_'+quiz_id+'">Locked</div>'+
+		    	'<div class="text" style="display:none" id="overlay_fi_'+quiz_id+'">Finnished</div>'+
+	  		'</div>'+
 	    '</div>'+
-	    '<div style="background-color: white;">'+values+
+	    '<div style="background-color: white;" >'+values+
 	    '</div>'+
       	'</center>'+
       	'</div>'+
@@ -99,10 +185,10 @@ function buildQuizList(callback){
 	    qData += quiz_id+" ";
 	    }
 	    // initialBtnOrder();
-		// console.log(" ");
-		// console.log("previous: "+previous+" | current: "+current)
-		// // console.log("Type of previous: "+typeof(previous)+" | Type of current: "+typeof(current))
-		// console.log(" ");
+		console.log(" ");
+		console.log("previous: "+previous+" | current: "+current)
+		// console.log("Type of previous: "+typeof(previous)+" | Type of current: "+typeof(current))
+		console.log(" ");
 	    text += '';
 	    console.log(qData);
 	    // if ($(window).width() > 1024) {
@@ -111,7 +197,7 @@ function buildQuizList(callback){
 	    // 	$('#wipp_wrap').append(text);
 	    // }
 	    $('#swip_hot').append(text);
-	    $('.quizlist').click(function(){
+	    $('.swiper-slide').click(function(){
 	    	var quizOrder = this.getAttribute("order");
 	    	console.log(quizOrder)
 	   //  	if(quizOrder == 3 && sessionStorage['loginType'] == 'guest'){
@@ -123,14 +209,18 @@ function buildQuizList(callback){
 	   			sessionStorage['qId'] = this.getAttribute("qId");
 				window.location = 'quiz.jsp';
 		});
-		// if (sessionStorage["isAdmin"] == 'true') {
-		// 	setVisableAll_P(previous);
-		// 	setVisableAll_C(current);
-		// }else {
-		// 	setPrevious(previous);
-		// 	setCurrent(current);
-		// 	isFinnished();
+		if (sessionStorage["isAdmin"] == 'true') {
+			setVisableAll_P(previous);
+			setVisableAll_C(current);
+		}
+		// else if (sessionStorage['loginType'] == 'guest') {
+			
 		// }
+		else {
+			setPrevious(previous);
+			setCurrent(current);
+			isFinnished();
+		}
 		callback();
 }
 function initialSwipes(){
@@ -139,7 +229,7 @@ function initialSwipes(){
     	centeredSlides: true,
     	slidesPerView: 3,
       spaceBetween: 8,
-      loopAdditionalSlides: 10,
+      loopAdditionalSlides: 1,
       pagination: {
         el: '.swiper-pagination1',
         clickable: true,
@@ -150,7 +240,7 @@ function initialSwipes(){
     	centeredSlides: true,
     	slidesPerView: 3,
       spaceBetween: 8,
-      loopAdditionalSlides: 10,
+      loopAdditionalSlides: 1,
       pagination: {
         el: '.swiper-pagination2',
         clickable: true,
@@ -161,7 +251,7 @@ function initialSwipes(){
     	centeredSlides: true,
     	slidesPerView: 3,
       spaceBetween: 8,
-      loopAdditionalSlides: 10,
+      loopAdditionalSlides: 1,
       pagination: {
         el: '.swiper-pagination3',
         clickable: true,

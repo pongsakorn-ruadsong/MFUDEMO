@@ -16,6 +16,7 @@
 // var contentAbbrev = [];
 // addHighLight = '<span class="testLoader" animated="fadeIn"></span>'; //by Dew
 // var mathRand = Math.floor(500 + Math.random() * 500);
+
 function makeid() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -45,6 +46,12 @@ function nFormatter(num, digits) {
   return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 }
 function getUserInfo() {
+	if (sessionStorage['loginType'] == 'guest') {
+		console.log(guestImage)
+		var randomNum = Math.floor(Math.random() * guestImage.length);
+		console.log(randomNum)
+		$("#userPro").attr("src", guestImage[randomNum]);
+	}else{
 	var data = new Object();
 	data.token = sessionStorage['Token'];
 	$.ajax({
@@ -55,7 +62,7 @@ function getUserInfo() {
 	    	success: function(data){
 	    		Index05 = data;
 	    		console.log(data);
-	    		buildPlayer(data.response.player);
+	    		// buildPlayer(data.response.player);
 	    // 		jQuery.each(data.response, function() {
 					// contentLang[this.language] = this.language;
 					// contentAbbrev[this.language] = this.abbreviation;
@@ -67,8 +74,46 @@ function getUserInfo() {
                 console.log("Failed : getLang() @ index.js");
             }
         });
+	}
 }
 function buildPlayer(a) {
+	var img = a.image;
+	var img_for_check = /[^/]*$/.exec(img)[0];
+	console.log(img_for_check)
+	if (img_for_check == 'default_profile.jpg') {
+		img = 'img/default_user.png'
+	}
+	var Fname = a.first_name;
+	var Lname = a.last_name;
+	var exp = a.exp;
+	var point = ''; //In points
+	var lv = a.level;
+	var badge = ''; //many in array
+	var gender = a.gender; // 1 or 2
+	var lv_percent = a.percent_of_level-15;
+	var regis_date = a.registered;
+	var username = a.username;
+	var phone_number = ''; //null
+	if (a.phone_number == null) {
+		phone_number = 'null';
+	}else{
+		phone_number = a.phone_number;
+	}
+	var email = a.email;
+	var birthDate = ''; //null
+	if (a.birth_date == null) {
+		birthDate = 'null';
+	}else{
+		birthDate = a.birth_date;
+	}
+	for(var i = 0; i<a.points.length;i++){
+		if (a.points[i].reward_name == "point") {
+			point = a.points[i].value;
+		}
+	}
+
+}
+function buildPlayerFull(a) {
 	// $('#playerPanel > div').remove();
 	var img = a.image;
 	var img_for_check = /[^/]*$/.exec(img)[0];

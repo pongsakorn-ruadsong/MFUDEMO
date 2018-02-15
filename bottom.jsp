@@ -24,6 +24,9 @@
 	<!-- <div style="width: 80px;height: 120px;background-color: red;position: absolute;bottom: 50px;right: 50px;">
 		<p>BIN</p>
 	</div> -->
+	<div class="footer" style="text-align: center;margin-top: -20px;padding-top: 10px;padding-bottom: 10px;background-color: aqua;position: fixed;bottom: 0px;width: 100%;z-index: 99;background-color: rgba(146, 145, 145,0.4);border-color: rgba(241, 239, 239, 0.4);color: white;">
+		Powered by PlayBasis.co.th
+	</div>
 	<div id="animation-locate">
 		
 	</div>

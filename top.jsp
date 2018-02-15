@@ -43,6 +43,7 @@
 	<title>Demo v0.1</title>
 </head>
 <script type="text/javascript">
+	var guestImage = new Array("img/batman.png","img/flash.png","img/robin.png","img/superman.png","img/spiderman.png","img/punisher.png","img/wonderwoman.png","img/ironman.png")
 	$( function() {
     $( "#draggable" ).draggable();
   	} );
@@ -128,7 +129,7 @@
 		bottom: -2px !important;
 	}
 	.modal-dialog {
-		width: 70%;
+		width: 85%;
 		margin: 1.75rem auto;
 	}
 	@media (min-width: 576px){
@@ -171,17 +172,16 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
 		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;">
 			<div class="row">
-				<div class="col-6">
-					<a class="navbar-brand userPhoto" href="#"><img src="img/default_user.png" style="width: 100%;height: 100%"></a>
+				<div class="col-6" style="padding: 0px;">
+					<a class="navbar-brand userPhoto" href="#" style="padding: 5px 5px;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a>
 				</div>
 				<div class="col-6" style="padding: 15px 15px;">
 					<p>Level</p>
-					<p>Point</p>
 				</div>
 			</div>
 		</ul>
 		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;">
-				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel"><img src="img/icons.png" style="width: 100%;height: 100%"></a>
+				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 10px 10px;"><img src="img/icons.png" style="width: 100%;height: 100%"></a>
 		</ul>
 	</nav>
 	<div class="container-fluid">

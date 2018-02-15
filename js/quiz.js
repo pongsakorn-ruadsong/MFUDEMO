@@ -21,6 +21,7 @@ var answer, answer2,index,total;
 var value, a,b,c,d,e;
 var aa;
 var choices = [];
+var placeHolder = [];
 var contentSummary=[];
 var contentTitle =[];
 var unit = '';
@@ -101,15 +102,18 @@ function getTopic(a){
 
 	// console.log('Enter if');
 	// console.log(type+" == \'SQ\' ?");
-	if (type == 'SQ' || type == 'YN' || type == 'SQ_S') {
+	if (type == 'SQ' || type == 'YN' || type == 'SQ_S' || type == 'SQ_S_MULTI') {
 		// console.log('Enter if2');
 		for(var k=0;k<nn;k++){
 			if (contentSummary[_qname.options[k].description] == undefined) {
 				continue;
 			}
+			// console.log(_qname.options[k].description+'_PH');
+			placeHolder.push(contentSummary[_qname.options[k].description+'_PH'])
 			choices.push(contentSummary[_qname.options[k].description]);
 			choicesTitle.push(contentTitle[_qname.options[k].description]);
-			console.log(choices);
+			// console.log(choices);
+			// console.log(placeHolder);
 		}
 
 	}else if (type == 'TXT') {
@@ -256,9 +260,15 @@ function buildQuiz(callback){
 		}
 	    	document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	$('#topic').text(topic);
+	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button"  style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
+	    			'</button>'+
+					'<button class="btn btn-primary" id="nextBtn"  type="button">'+contentSummary['BTN_NEXT']+
+					'</button>'
+					$('#btn_NR').append(btn_text);
 	    	if (type == 'SQ') {
 	    		document.getElementById("4Play").style.display = "none";
 	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons" style="width:100%;">'
+	    		$("#nextBtn").prop('disabled', true);
 		    	for (var i=0;i<option.length;i++) {
 		    		text += '<label class="btn">'+
 			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ" valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
@@ -270,13 +280,33 @@ function buildQuiz(callback){
 	    	else if (type == 'SQ_S') {
 	    		document.getElementById("4Play").style.display = "none";
 	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons">'
+	    		$("#nextBtn").prop('disabled', true);
 		    	for (var i=0;i<option.length;i++) {
+		    		if (option[i].is_text_option) {
+		    			text+= '<input type="text" class="form-control inputTXT_S" id="other_input" idZ="'+option[i].option_id+'" style="display:none;width: 100%;font-size: 16px;margin-left:50px;">'
+		    			continue;
+	    			}
 		    		text += '<label class="btn">'+
 			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ_S" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
-			        if (option[i].is_text_option) {
-		    			text+= '<input type="text" class="form-control inputTXT_S" id="other_input" idZ="'+option[i].option_id+'" style="display:none;width: 100%;font-size: 16px;margin-left:50px;">'
+
+		    		console.log(choices[i]);
+		    	}
+		    	text += '</div>';
+	    	}
+	    	else if (type == 'SQ_S_MULTI') {
+	    		document.getElementById("4Play").style.display = "none";
+	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons">'
+	    		$("#nextBtn").prop('disabled', true);
+		    	for (var i=0;i<option.length;i++) {
+		    		if (option[i].is_text_option) {
+		    			select1 = option[i].option_id;
+		    			continue;
 	    			}
+		    		text += '<label class="btn">'+
+			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ_S" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+			        '</label>'+
+			        '<input type="text" class="form-control inputTXT_S inputSQ_S_MULTI" idZ="'+option[i].option_id+'" style="display:none;width: 100%;font-size: 16px;margin-left:50px;" placeholder="'+placeHolder[i]+'">'
 		    		console.log(choices[i]);
 		    	}
 		    	text += '</div>';
@@ -322,7 +352,7 @@ function buildQuiz(callback){
 
 	    	}
 	    	else if(type == 'TXT'){
-	    		text+='<textarea class="form-control inputTXT" rows="8" placeholder="'+ph+'" typeZ="TXT"></textarea>'
+	    		text+='<textarea class="form-control inputTXT" rows="4" placeholder="'+ph+'" typeZ="TXT"></textarea>'
 	    		select1 = Quiz01.response.result.options[0].option_id;
 
 	    	}
@@ -357,35 +387,32 @@ function buildQuiz(callback){
 	    		$('.maxslider').html(nFormatter(b, 1)+" &#3647");
 	    		select1 = Quiz01.response.result.options[2].option_id;
 	    	}
-	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button"  style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
-	    			'</button>'+
-					'<button class="btn btn-primary" id="nextBtn"  type="button">'+contentSummary['BTN_NEXT']+
-					'</button>'
+	    	
 	    	$('#choice').append(text);
 	    	image += '</center>';
 	    	$('#img').append(image);
-	    	$('#btn_NR').append(btn_text);
+	    	
 	    	 $("#nextBtn").click(function(){
 	    	 	$("#nextBtn").prop('disabled', true);
 	    	 	$("#resetQuiz").prop('disabled', true);
 		    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
-		    		getToastrOption();
+		    		
 					toastr["info"]("Please answer the question.", "Hint!");
 		    	}
 		    	else if(sessionStorage['type'] == 'SLI_S' && sessionStorage['ans_no'] == "null"){
-		    		getToastrOption();
+		    		
 					toastr["info"]("Please answer the question.", "Hint!");
 		    	}
 		    	else if (sessionStorage['ans_no'] == "no") {
 		    		if (valid()) {
 			    		nextQuestion();
 			    		if (isLastQuestion()) {
-					    		getToastrOption();
+					    		
 						    	// toastr["info"]("This is the last question. we're bringing you to index", "Successful");
 						    	setTimeout(function(){ window.location.replace("index.jsp"); }, mathRand);
 							}else{
 								savePrevious();
-								getToastrOption();
+								
 						    	// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
 						    	setTimeout(function(){ location.reload(); }, mathRand);
 							}
@@ -397,7 +424,7 @@ function buildQuiz(callback){
 		    	}else{
 			    if (valid()) {
 				    	nextQuestion();
-						getToastrOption();
+						
 				    }
 				    else{
 							$("#nextBtn").prop('disabled', false);
@@ -428,10 +455,29 @@ function buildQuiz(callback){
 		    });
 	    	 $('input:radio[name="'+topic+'"]').change(
 			    function(){
-			    	if ($(this).is(':checked')) {
-			    		$('.quizImg').css('display','none');
-			    		$('#img_'+$(this).attr('value')).css('display','block');
-			    		console.log($(this).attr('value'))
+			    	$("#nextBtn").prop('disabled', false);
+			    	// if ($(this).is(':checked')) {
+			    	// 	$('.quizImg').css('display','none');
+			    	// 	$('.quizImg_temp').css('display','none');
+			    	// 	$('#img_'+$(this).attr('value')).css('display','block');
+			    	// 	console.log($(this).attr('value'))
+			    	// }
+			    	if (type == 'SQ_S_MULTI') {
+			    		// console.log("Click!")
+			    		// console.log($(this).attr('value'))
+			    		// console.log($('.inputSQ_S_MULTI').val())
+			    		if ($(this).is(':checked')) {
+			    			var val = $(this).attr('value');
+			    			// console.log(val)
+			    			$('.inputSQ_S_MULTI').val('');
+			    			$('.inputSQ_S_MULTI').slideUp();
+				            $("[idZ="+val+"]").slideDown();
+				             console.log($("[idZ="+val+"]").val())
+				            console.log($(this).text())
+				            $('#aPrefix').val($(this).attr('valuez'))
+				            $('#aAnswer').val($(this).attr('value'))
+				            // $('#yourAns').text("Your answer = "+$(this).attr('valuez')+" : "+$("[idZ="+val+"]").val()+" select1: "+select1);
+				        }
 			    	}
 			        if ($(this).is(':checked') && $(this).attr('valueZ') == 'Other') {
 			            $('#other_input').slideDown();
@@ -463,7 +509,7 @@ function resetQuiz(){
 		dataType: "json",
 		data: data,
 		success: function(d) {
-			getToastrOption();
+			
 	    	// toastr["info"]("Please wait for 1-2 sec.", "Successful");
 	    	setTimeout(function(){ location.reload(); }, 1500);
 		},
@@ -490,11 +536,11 @@ function capitalizeFirstLetter(string) {
 function valid(){
 	if (type == 'TXT') {
 		if (isEmptyTXT()) {
-			getToastrOption();
+			
 	    	toastr["warning"]("Please put something in the box.", "Hint!");
 	    	return false;
 		}else if(isTooShortTXT()){
-			getToastrOption();
+			
 	    	toastr["warning"]("The text is too short.", "Hint!");
 	    	return false;
 		}else{
@@ -513,7 +559,7 @@ function valid(){
 		if (sessionStorage['ans_no'] == 'yes' || sessionStorage['ans_no'] == 'null') {
 			console.log("Enter ans_no");
 			if (!validSLI()) {
-				getToastrOption();
+				
 		    	toastr["warning"]("undefined", "Hint!");
 		    	return false;
 			}else{
@@ -549,7 +595,7 @@ function valid(){
 	}else if(type == 'RANGE' || type == 'RANGE_S'){
 		if (sessionStorage['ans_no'] == 'yes' || sessionStorage['ans_no'] == 'null') {
 			if (!validRANGE()) {
-				getToastrOption();
+				
 		    	toastr["warning"]("The gap between min and max must not more than 10% ("+percentage(b,10).toLocaleString()+").", "Hint!");
 		    	return false;
 			}else{
@@ -587,7 +633,7 @@ function valid(){
 	}else if(type == 'YN'){
 		inputType = 'YN';
 		if (!validYN()) {
-			getToastrOption();
+			
 	    	toastr["warning"]("Please select one of choices.", "Hint!");
 	    	return false;
 		}else{
@@ -595,7 +641,7 @@ function valid(){
 		}
 	}else if(type == 'SQ'){
 		if (!validSQ()) {
-			getToastrOption();
+			
 	    	toastr["warning"]("Please select one of choices.", "Hint!");
 	    	return false;
 		}else{
@@ -605,7 +651,7 @@ function valid(){
 	}else if(type == 'SQ_S'){
 		console.log("Enter SQ_S")
 		if (validSQ_S()) {
-			getToastrOption();
+			
 	    	toastr["warning"]("Invaild input data.", "Hint!");
 	    	return false;
 		}else{
@@ -613,11 +659,34 @@ function valid(){
 			return true;
 		}
 
-	}else if(type == 'MULTI'){
+	}
+	else if(type == 'SQ_S_MULTI'){
+		console.log("Enter SQ_S_MULTI")
+		if (!validSQ_S_MULTI()) {
+	    	toastr["warning"]("Invaild input data.", "Hint!");
+	    	return false;
+		}else{
+			var a = $('#aPrefix').val();
+			var b = $('#aAnswer').val();
+			$('#aAnswer').val()
+			answer = $('#aPrefix').val()+' : '+$("[idZ="+b+"]").val();
+			return true;
+		}
+
+	}
+	else if(type == 'MULTI'){
 		inputType = 'MULTI';
 		validMU();
 	}
 
+}
+function validSQ_S_MULTI(){
+	var b = $('#aAnswer').val();
+	if ($("[idZ="+b+"]").val() == "") {
+		return false;
+	}else{
+		return true;
+	}
 }
 function validSQ_S() {
 	var radios = document.getElementsByTagName('input');

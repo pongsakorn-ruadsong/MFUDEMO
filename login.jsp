@@ -29,6 +29,13 @@
 		 .swiper-container {
 		      width: 100%;
 		      height: 100%;
+		      max-height: 300px;
+		      margin-bottom: 50px;
+	    }
+	    @media (max-width: 320px){
+	    	.swiper-container {
+		      max-height: 250px !important;
+	   		}
 	    }
 	    .swiper-slide {
 	      text-align: center;
@@ -111,17 +118,23 @@
 	    freeMode: false,
 	    breakpoints: {
 	    // when window width is <= 320px
-	   	400: {
+	   	325: {
+	   		centeredSlides: true,
+	      slidesPerView: 1,
+	      width: 190,
+	      spaceBetween: 15
+	    },
+	    400: {
 	   		centeredSlides: true,
 	      slidesPerView: 1,
 	      width: 225,
-	      spaceBetween: 30
+	      spaceBetween: 15
 	    },
 	    770: {
 	    	centeredSlides: true,
 	      slidesPerView: 1,
-	      width: 250,
-	      spaceBetween: 30
+	      width: 240,
+	      spaceBetween: 20
 	    }
 		},
 	    pagination: {

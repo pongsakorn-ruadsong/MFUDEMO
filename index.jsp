@@ -6,6 +6,7 @@
 		}else{
 			translateContent();
 	    	getQuizData();
+	    	getUserInfo();
 			sessionStorage.removeItem("save_result");
 		}
 		
@@ -46,7 +47,7 @@
 		  -moz-background-size: cover;
 		  -o-background-size: cover;
 		  background-size: cover;
-		  height: 700px;
+		  height: 100%;
     }
     .card-preview{
     	width: 100%;
@@ -72,10 +73,11 @@
 	    width: 55px;
 	    height: 55px;
 	    border-radius: 50%;
-	    background-color: darksalmon;
+	    background-color: grey;
 	    padding: 8px;
 	    margin-top: 0%;
     	border: 4px solid white;
+    	overflow: hidden;
 	}
     .preview-name{
 
@@ -85,10 +87,38 @@
     	overflow: hidden !important;
     	border-radius: 5px;
     }
+    .annouce{
+    	width: 100%;
+    	height: 1%;
+    	min-height: 50px;
+    	max-height: 100px;
+    	margin-top: 66px;
+    	background-color: aqua;
+    	margin-bottom: -20px;
+    	text-align: center;
+    	padding-top: 20px;
+    	padding-bottom: 20px;
+    }
+    .img-container {
+    display: inline-block;
+    position: relative;
+	}
+	.positioning{
+	    position: absolute;
+	    right: 15px;
+	    bottom: 22px;
+	    background-color: red;
+	    color: white;
+	    padding: 4px;
+	    font-size: 17px;
+	    line-height: 18px;
+	}
 </style>
+<div class="annouce">
+	Annoucement
+</div>
 <!-- Swiper -->
 <div class="shelf">
-	<div style="margin-top: 85px;height: 100%;">
   <div class="swiper-container swiper1">
     <div class="swiper-wrapper" id="swip_hot">
       
@@ -132,7 +162,6 @@
     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination swiper-pagination3"></div>
-  </div>
   </div>
  </div>
  <div class="modal fade" id="myModal" role="dialog">

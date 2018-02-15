@@ -41,10 +41,12 @@
 		}
 	</style>
 	<div class="bg row" id="quizImg">
-		<div class="col-md-6" id="img" style="margin-top: 80px;">
-			
+		<div class="col-md-6" id="img" style="margin-top: 25px;">
+			<center>
+				<img src="img/Playbasis-logo.png" class="quizImg quizImg_temp" id="" style="display:none;">
+			</center>
 		</div>
-		<div class="col-md-6" id="question" style="margin-top: 80px;">
+		<div class="col-md-6" id="question" style="margin-top: 80px;margin-bottom: 100px;">
 			<div class="qa">
 				<div class="topic">
 					<p id="topic"></p>
@@ -130,6 +132,8 @@
 						</div>
 					</div>
 				</div>
+				<input type="hidden" id="aPrefix">
+				<input type="hidden" id="aAnswer">
 				<div class="button-group" id="btn_NR">
 
 

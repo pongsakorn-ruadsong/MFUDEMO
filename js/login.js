@@ -38,9 +38,12 @@ function authPlayer(){
 }
 function validLogin() {
 	if ($('#PlayerID').val() == '' || $('#passWord').val() == '') {
+		console.log('Return false')
 		return false;
+
 	}else {
 		return true;
+
 	}
 }
 function guestFunction(){
