@@ -40,11 +40,11 @@
 		    opacity: 0.5;
 		}
 	</style>
-	<div class="bg row" id="quizImg" style="margin-top: 50px;">
-		<div class="col-md-6" id="img">
+	<div class="bg row" id="quizImg">
+		<div class="col-md-6" id="img" style="margin-top: 80px;">
 			
 		</div>
-		<div class="col-md-6" id="question">
+		<div class="col-md-6" id="question" style="margin-top: 80px;">
 			<div class="qa">
 				<div class="topic">
 					<p id="topic"></p>

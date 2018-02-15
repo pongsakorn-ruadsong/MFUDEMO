@@ -182,7 +182,7 @@ function getQuestion(){
 			  }
 			});
 	    }else{
-	    $('#myModal').modal({backdrop: 'static', keyboard: false});
+	    // $('#myModal').modal({backdrop: 'static', keyboard: false});
 
 	    // --  ON TEST FUNCTION -- 
 	    // loadAnimation(data.response.result);
@@ -194,11 +194,11 @@ function getQuestion(){
 	    console.log(data);
 	    test = JSON.parse(cur_Quest);
 			getTopic(data);
-			setTimeout(function(){
+			
 				buildQuiz(function() {
 					$('#myModal').modal('hide');
 				});
-			},2000);
+			
 		    }
 		},
 	    error: function (xhr, textStatus, errorThrown){
@@ -215,7 +215,7 @@ function buildQuiz(callback){
 		var image = '<center>';
 		var btn_text = '';
 	    var option = Quiz01.response.result.options;
-	    var QuestImg = '';
+	    var QuestImg = Quiz01.response.result.question_image;
 	    questId = Quiz01.response.result.question_id;
 	    var rMin = Quiz01.response.result.options[0].range_min;
 	    var rMax = Quiz01.response.result.options[0].range_max;
@@ -240,11 +240,11 @@ function buildQuiz(callback){
 	    b = parseInt(rMax);
 	    c = parseInt(interval);
 	    // console.log(rMax+" "+b)
-	    for (var i = 0; i < rawData.length; i++) {
-	    	if (rawData[i].id == sessionStorage["qId"]) {
-	    		QuestImg = rawData[i].Image;
-	    	}
-	    }
+	    // for (var i = 0; i < rawData.length; i++) {
+	    // 	if (rawData[i].id == sessionStorage["qId"]) {
+	    // 		QuestImg = rawData[i].Image;
+	    // 	}
+	    // }
 	    for (var i = 0; i < option.length; i++) {
 	    	var op_img = option[i].option_image;
 	    	var img_for_check = /[^/]*$/.exec(op_img)[0];

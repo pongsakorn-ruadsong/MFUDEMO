@@ -8,13 +8,15 @@
 	 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
-	<script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
+	<!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>  -->
+	<script src="js/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
 	<link rel='stylesheet prefetch' href='http://www.justinaguilar.com/animations/css/animations.css'>
 	<script src="js/index.js"></script>
+	<script src="js/quizlist.js"></script>
 	<script src="js/quiz.js"></script>
 	<script src="js/bootstrap.bundle.js"></script>
 	<script src="js/toastr.min.js"></script>
@@ -96,41 +98,56 @@
 		$('#anime').click(function(){
 
 		});
+		window.onresize = function(event) {
+			   changeUI($(window).width());
+			   console.log($(window).width())
+		};
 	});
-
+		function changeUI(a){
+			console.log($(window).width())
+			if (a == 1024) {
+				console.log("reload")
+			   location.reload();
+			}
+		}
 </script>
 <style type="text/css">
-	.navbar-brand {
-    float: left;
-    height: 50px;
-    padding: 4px 0px 35px 15px;
-    font-size: 12px;
-    line-height: 20px;
-	}
 	.container-fluid > .navbar-collapse {
 	    margin-right: 0px;
 	     margin-left: 0px; 
 	}
 	.navbar-inverse{
-		background-color: rgba(34,34,34,0);
-		border: none;
+		background-color: rgba(146, 145, 145,0.4);
+		border-color: rgba(241, 239, 239, 0.4);
 		color: white;
 	}
 	.navbar-nav > li > a {
 		
 	}
 	.swiper-container-horizontal>.swiper-pagination-bullets{
-		bottom: -5px !important;
+		bottom: -2px !important;
+	}
+	.modal-dialog {
+		width: 70%;
+		margin: 1.75rem auto;
+	}
+	@media (min-width: 576px){
+		.modal-dialog {
+		    max-width: 400px;
+		    margin: 1.75rem auto;
+		}
 	}
 </style>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
+	<!-- <nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
 				  <div class="container-fluid">
 				    <div class="navbar-header">
-				      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="margin-right: 22px;">
-				        <img src="">
+				      <button type="button" class="navbar-toggle myNavBtn" data-toggle="collapse" data-target="#myNavbar" style="margin-right: 22px;">
+				        <img src="img/ICON.png" style="max-width: 43.78px;max-height: 37px;">
 				      </button>
-				      <a class="navbar-brand" href="#"><img src="img/playbasis_logo.png"></a>
+				      <a class="navbar-brand userPhoto" href="#"><img src="img/default_user.png" style="width: 100%;height: 100%"></a>
+				      <p>Level: 20(Bar)</p>
+				      <p>Point: 500</p> 
 				    </div>
 				    <div class="collapse navbar-collapse" id="myNavbar">
 				      <ul class="nav navbar-nav">
@@ -138,14 +155,34 @@
 				         <li class="dropdown" id="showUser">
 				          <a class="dropdown-toggle" data-toggle="modal" data-target="#userInfo" href="#">User </a>
 				        </li>
-				        <!-- <li id="anime" style="cursor: pointer;"><a data-toggle="modal" data-target="#animation-panel">Animation</a></li> -->
+				        <li id="anime" style="cursor: pointer;"><a data-toggle="modal" data-target="#animation-panel">Animation</a></li>
 				      </ul>
+				      <ul class="nav navbar-nav navbar-left" style="margin-right: 0px;">
+				      	Level: 0 <br>
+				      	Point: 50
+				       </ul>
 				      <ul class="nav navbar-nav navbar-right" style="margin-right: 0px;">
 				        <li id="showLang"><a href="#" data-toggle="modal" data-target="#langPanel"><span class="glyphicon glyphicon-globe"></span> Language </a></li>
 				        <li id="logOut"><a href="#" ><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 				      </ul>
 				    </div>
 				  </div>
+	</nav> -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
+		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;">
+			<div class="row">
+				<div class="col-6">
+					<a class="navbar-brand userPhoto" href="#"><img src="img/default_user.png" style="width: 100%;height: 100%"></a>
+				</div>
+				<div class="col-6" style="padding: 15px 15px;">
+					<p>Level</p>
+					<p>Point</p>
+				</div>
+			</div>
+		</ul>
+		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;">
+				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel"><img src="img/icons.png" style="width: 100%;height: 100%"></a>
+		</ul>
 	</nav>
 	<div class="container-fluid">
 		<input type="hidden" id="pageName" name="pageName" value="<%=pageName%>">
@@ -160,39 +197,39 @@
 		      <div class="modal-body" style="text-align: center;">
 		       	<div id="playerPanel">
 		       		<div class="row">
-		       			<div class="col-md-4 col-sm-4 col-xs-4 ">
+		       			<div class="col-md-4 col-sm-4 col-4 ">
 		       				<img src="" id="user_pic" style="max-width: 100px;max-height: 100px;">
 		       			</div>
-		       			<div class="col-md-8 col-sm-8 col-xs-8">
+		       			<div class="col-md-8 col-sm-8 col-8">
 		       				<div class="row myRow">
-		       					<div class="col-md-4 col-sm-4 col-xs-4 left">
+		       					<div class="col-md-4 col-sm-4 col-4 left">
 		       						Username:
 		       					</div>
-		       					<div class="col-md-8 col-sm-8 col-xs-8  center">
+		       					<div class="col-md-8 col-sm-8 col-8  center">
 		       						<span id="user_name"></span>
 		       					</div>
 		       				</div>
 		       				<div class="row myRow">
-		       					<div class="col-md-4 col-sm-4 col-xs-4 left">
+		       					<div class="col-md-4 col-sm-4 col-4 left">
 		       						Level:
 		       					</div>
-		       					<div class="col-md-8 col-sm-8 col-xs-8  center">
+		       					<div class="col-md-8 col-sm-8 col-8  center">
 		       						<span id="user_level"></span>
 		       					</div>
 		       				</div>
 		       				<div class="row myRow">
-		       					<div class="col-md-4 col-sm-4 col-xs-4 left">
+		       					<div class="col-md-4 col-sm-4 col-4 left">
 		       						EXP:
 		       					</div>
-		       					<div class="col-md-8 col-sm-8 col-xs-8  center">
+		       					<div class="col-md-8 col-sm-8 col-8  center">
 		       						<div class="level_bar"><div class="level_progress" id="level_progress"></div><span id="user_exp" style="position: relative;z-index: 0;"></span></div>
 		       					</div>
 		       				</div>
 		       				<div class="row myRow">
-		       					<div class="col-md-4 col-sm-4 col-xs-4 left">
+		       					<div class="col-md-4 col-sm-4 col-4 left">
 		       						Point:
 		       					</div>
-		       					<div class="col-md-8 col-sm-8 col-xs-8 center">
+		       					<div class="col-md-8 col-sm-8 col-8 center">
 		       						<span id="user_point"></span>
 		       					</div>
 		       				</div>
@@ -200,7 +237,7 @@
 		       		</div>
 		       		<br>
 		       		<div class="row">
-		       			<div class="col-md-12 col-sm-12 col-xs-12">
+		       			<div class="col-md-12 col-sm-12 col-12">
 		       				<div>
 		       					<ul class="nav nav-tabs">
 								    <li class="myTab active" id="info"><a data-toggle="tab" href="#home">Info</a></li>
@@ -241,7 +278,9 @@
 		<!-- <div id="draggable" class="ui-widget-content" style="position: absolute;top: 100px;z-index: 9999;">
 		  <p>Drag me around</p>
 		</div> -->
+
 		<!-- Modal -->
+
 		<div class="modal  fade" id="langPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
 		    <div class="modal-content mCustom">
@@ -259,6 +298,9 @@
 		    </div>
 		  </div>
 		</div>
+
+		<!-- Modal -->
+
 		<div class="modal  fade" id="animation-panel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
 		    <div class="modal-content mCustom">
@@ -272,6 +314,50 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn custom btn-primary" data-dismiss="modal" id="submitLang">Select</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- Modal -->
+
+		<div class="modal  fade" id="menuPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
+		    <div class="modal-content mCustom">
+		      <div class="modal-body" style="text-align: center;padding: 25px 25px 25px 25px;">
+		       	<div class="row">
+		       		<div class="col-4 right">
+		       			Menu1
+		       		</div>
+		       		<div class="col-4">
+
+		       		</div>
+		       		<div class="col-4 left">
+		       			Menu2
+		       		</div>
+		       	</div>
+		       	<div class="row">
+		       		<div class="col-4">
+
+		       		</div>
+		       		<div class="col-4">
+		       			<a href="index.jsp">Home</a>
+		       		</div>
+		       		<div class="col-4">
+
+		       		</div>
+		       	</div>
+		       	<div class="row">
+		       		<div class="col-4 right">
+		       			Menu4
+		       		</div>
+		       		<div class="col-4">
+
+		       		</div>
+		       		<div class="col-4 left" id="logOut">
+		       			Logout
+		       		</div>
+		       	</div>
 		      </div>
 		    </div>
 		  </div>

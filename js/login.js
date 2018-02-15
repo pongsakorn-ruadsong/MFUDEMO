@@ -5,9 +5,78 @@ sessionStorage['Token'];
 sessionStorage['isLast'] = "false";
 sessionStorage['subUrl'] = 'http://10.49.67.156/api/';
 sessionStorage['mainUrl'] = 'https://api.pbapp.net/';
+sessionStorage['loginType'];
+var Glob_Login;
 var contentData;
+function authPlayer(){
+	var playerId = $('#PlayerID').val();
+	var data = new Object();
+	data.api_key = sessionStorage['api_key'];
+	data.password = $('#passWord').val();
+	$.ajax({
+		type: "POST",
+        url: 'https://api.pbapp.net/Auth/player/'+playerId,
+        data:data,
+        dataType: "json",
+	    success: function(d){
+			// Glob_Login = d;
+	    	console.log(d)
+	    	if (d.success == false) {
+	    		
+	    	}else{
+	    		sessionStorage['player'] = playerId;
+	    		sessionStorage['loginType'] = 'user';
+	    		window.location.replace("index.jsp");
+	    	}
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+//          window.location.reload(true)
+            console.log(errorThrown);
+            console.log("Failed : getContent() @ quiz.js");
+        }	
+	});
+}
+function validLogin() {
+	if ($('#PlayerID').val() == '' || $('#passWord').val() == '') {
+		return false;
+	}else {
+		return true;
+	}
+}
+function guestFunction(){
+	var guestID = makeid();
+	console.log(guestID)
+	var data = new Object();
+	data.token = sessionStorage['Token'];
+	data.id = guestID;
+	data.username = guestID;
+	data.email = 'qa1+'+guestID+'@playbasis.com';
+	$.ajax({
+		type: "POST",
+		async: false,
+        url: 'https://api.pbapp.net/Player/'+guestID+'/register',
+        data:data,
+        dataType: "json",
+	    success: function(d){
+			Glob_Login = d;
+	    	console.log(d.success)
+	    	if (d.success == false) {
+	    		guestFunction();
+	    	}else{
+	    		sessionStorage['player'] = guestID;
+	    		sessionStorage['loginType'] = 'guest';
+	    		window.location.replace("index.jsp");
+	    	}
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+//          window.location.reload(true)
+            console.log(errorThrown);
+            console.log("Failed : getContent() @ quiz.js");
+        }	
+	});
+}
 function loginModal(){
-	$('#loginModal').modal({backdrop: "static"});
+	$('#loginModal').modal();
 }
 function getIdentifyKey(a){
 	  if (a === "") {
@@ -56,6 +125,33 @@ function getIdentifyKey(a){
 // 	  // }
 	  
 // 	});
+// function initialSwipeBox(){
+// 	var swiper = new Swiper('#wipp_con', {
+//       effect: 'cube',
+//       grabCursor: true,
+//       loop: true,
+//       cubeEffect: {
+//         shadow: true,
+//         slideShadows: true,
+//         shadowOffset: 20,
+//         shadowScale: 0.94,
+//       },
+//       pagination: {
+//         el: '.swiper-pagination',
+//       },
+//     });
+// }
+function initialSwipeCard(){
+	var swiper = new Swiper('#wipp_con', {
+      width:300,
+      spaceBetween: 50,
+      freeMode: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+}
 function checkUser(){
 	if (sessionStorage['player'] == "undefined" || sessionStorage['player'] == undefined) {
 		return true;
