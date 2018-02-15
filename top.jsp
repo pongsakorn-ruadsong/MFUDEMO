@@ -306,14 +306,14 @@
 
 		       		</div>
 		       		<div class="col-4 left">
-		       			Menu2
+		       			<a href="rewardStore.jsp">Reward Store<a>
 		       		</div>
 		       	</div>
 		       	<div class="row">
 		       		<div class="col-4">
 
 		       		</div>
-		       		<div class="col-4">
+		       		<div class="col-6">
 		       			<a href="index.jsp">Home</a>
 		       		</div>
 		       		<div class="col-4">
