@@ -7,6 +7,7 @@
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
 	<script src="js/jquery-3.2.1.min.js"></script>
@@ -23,7 +24,8 @@
 	<script src="js/slider.js"></script>
 	<script src="js/sweetalert.js"></script>
 	<script src="js/account.js"></script>
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+	<script src="js/rewardStore.js"></script>
+	<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet"> -->
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
@@ -124,7 +126,7 @@
 				         <li class="dropdown" id="showUser">
 				          <a class="dropdown-toggle" data-toggle="modal" data-target="#userInfo" href="#">User </a>
 				        </li>
-				        <!-- <li id="anime" style="cursor: pointer;"><a data-toggle="modal" data-target="#animation-panel">Animation</a></li> -->
+				        <li class="active" id="barHome"><a href="rewardStore.jsp">Reward store</a></li>
 				      </ul>
 				      <ul class="nav navbar-nav navbar-right">
 				        <li id="showLang"><a href="#" data-toggle="modal" data-target="#langPanel"><span class="glyphicon glyphicon-globe"></span> Language </a></li>
