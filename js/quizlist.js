@@ -152,10 +152,8 @@ function buildPlayerFull(a,callback) {
 			point = a.points[i].value;
 		}
 	}
-	
-	$('#userName').text(username);
 	$('#user_pic').attr("src",img);
-	$('#user_name').text(username);
+	$('#userName').text(username);
 	$('#user_level').text(lv);
 	$('#user_point').text(point);
 	$('#exp_progress').text(lv_percent+'%');
@@ -164,29 +162,23 @@ function buildPlayerFull(a,callback) {
 	callback();
 }
 function buildRewardList() {
-	$('#table_reward > div').remove();
-	$('#table_reward > br').remove();
+	$('#table_reward > tr').remove();
 	console.log("Enter build reward list")
 	var badges = Index05.response.player.badges;
 	var length = badges.length;
 	var k =1;
 	console.log(badges);
-	var text = '<div class="row">';
+	var text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
 	for (var i = 0; i < length; i++) {
-		console.log(k)
 		if (badges[i].amount == 0) {
 			continue;
 		}
-		text += '<div class="col-6">'+
-		'<div>'+
-			'<div class="amount-overlay">'+badges[i].amount+'</div>'+
-			'<img src="'+badges[i].image+'" style="width:50px;height:50px;">'+
-		'</div>'+
-		'</div>'
+		text += '<tr class="spaceUnder">'+
+		'<td><img src='+badges[i].image+' style="width:50px;height:50px;"></td>'+
+		'<td>'+badges[i].name+'</td>'+
+		'<td>'+badges[i].amount+'</td>'+
+		'</tr>'
 		k++;
-		if ((k+1)%2 == 0) {
-			text += '</div><br><div class="row">'
-		}
 	}
 	$('#table_reward').append(text);
 }

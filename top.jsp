@@ -154,6 +154,13 @@
 	.progress {
 		font-size: 1rem;
 	}
+	tr.spaceUnder>td {
+	  padding-bottom: 1em;
+	}
+	tr.tr-head>td{
+		font-size: 16px !important;
+		font-weight: bold;
+	}
 </style>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
@@ -181,7 +188,7 @@
 		<div class="modal  fade" id="menuPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
 		    <div class="modal-content mCustom">
-		      <div class="modal-body" style="text-align: center;padding: 25px 25px 25px 25px;">
+		      <div class="modal-body" style="text-align: center;padding: 3rem !important;">
 		       	<div class="row">
 		       		<div class="col-4 right">
 		       			<a href="#"><span class="glyphicon glyphicon-user" id="showUser"></span></a>
@@ -279,8 +286,10 @@
 								    <div id="menu2" class="tab-pane fade" style="padding: 20px 10px 10px 10px;">
 								    	<div class="panel panel-default">
 										  <!-- Default panel contents -->
-										  <div class="panel-heading" id="table_reward" style="padding: 20px 10px 15px 10px;">
-										  	
+										  <div class="panel-heading" style="padding: 20px 10px 15px 10px;">
+										  	<table id="table_reward">
+										  		
+										  	</table>
 										  </div>
 										</div>
 								    </div>
