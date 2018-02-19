@@ -63,7 +63,7 @@ function getUserInfo(callback) {
 	    		Index05 = data;
 	    		console.log(data);
 	    		buildPlayerFull(data.response.player,function(){
-	    			
+
 	    		});
 	    // 		jQuery.each(data.response, function() {
 					// contentLang[this.language] = this.language;
@@ -131,7 +131,7 @@ function buildPlayerFull(a,callback) {
 	var lv = a.level;
 	var badge = ''; //many in array
 	var gender = a.gender; // 1 or 2
-	var lv_percent = a.percent_of_level-15;
+	var lv_percent = a.percent_of_level;
 	var regis_date = a.registered;
 	var username = a.username;
 	var phone_number = ''; //null
@@ -152,35 +152,41 @@ function buildPlayerFull(a,callback) {
 			point = a.points[i].value;
 		}
 	}
+	
+	$('#userName').text(username);
 	$('#user_pic').attr("src",img);
 	$('#user_name').text(username);
 	$('#user_level').text(lv);
-	$('#user_exp').text(exp);
 	$('#user_point').text(point);
+	$('#exp_progress').text(lv_percent+'%');
 	console.log(lv_percent)
-	document.getElementById("level_progress").style.width = lv_percent+'%';
+	document.getElementById("exp_progress").style.width = lv_percent+'%';
 	callback();
 }
 function buildRewardList() {
-	$('#table_reward > tr').remove();
+	$('#table_reward > div').remove();
+	$('#table_reward > br').remove();
 	console.log("Enter build reward list")
 	var badges = Index05.response.player.badges;
 	var length = badges.length;
 	var k =1;
 	console.log(badges);
-	var text = '<tr><td>#</td><td>Image</td><td>Name</td><td>Amount</td><td>Action</td></tr>';
+	var text = '<div class="row">';
 	for (var i = 0; i < length; i++) {
+		console.log(k)
 		if (badges[i].amount == 0) {
 			continue;
 		}
-		text += '<tr>'+
-		'<td>'+k+'</td>'+
-		'<td><img src='+badges[i].image+' style="width:50px;height:50px;"></td>'+
-		'<td>'+badges[i].name+'</td>'+
-		'<td>'+badges[i].amount+'</td>'+
-		'<td>'+
-		'</tr>'
+		text += '<div class="col-6">'+
+		'<div>'+
+			'<div class="amount-overlay">'+badges[i].amount+'</div>'+
+			'<img src="'+badges[i].image+'" style="width:50px;height:50px;">'+
+		'</div>'+
+		'</div>'
 		k++;
+		if ((k+1)%2 == 0) {
+			text += '</div><br><div class="row">'
+		}
 	}
 	$('#table_reward').append(text);
 }

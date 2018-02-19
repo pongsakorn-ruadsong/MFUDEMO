@@ -143,6 +143,17 @@
 		    margin: 1.75rem auto;
 		}
 	}
+	@media (max-width: 320px){
+		.modal-body {
+		    padding: 1rem !important;
+		}
+		.modal-dialog {
+		    width: 95% !important;
+		}
+	}
+	.progress {
+		font-size: 1rem;
+	}
 </style>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
@@ -214,10 +225,8 @@
 		<div class="modal  fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog" role="document" style="margin-top: 10%;">
 		    <div class="modal-content mCustom">
-		      <div class="modal-header">
-		        <h3>User's Infomation</h3>
-		      </div>
 		      <div class="modal-body" style="text-align: center;">
+		      	<p id="userName" class="p-header"></p>
 		       	<div id="playerPanel">
 		       		<div class="row">
 		       			<div class="col-md-4 col-sm-4 col-4 ">
@@ -226,26 +235,10 @@
 		       			<div class="col-md-8 col-sm-8 col-8">
 		       				<div class="row myRow">
 		       					<div class="col-md-4 col-sm-4 col-4 left">
-		       						Username:
-		       					</div>
-		       					<div class="col-md-8 col-sm-8 col-8  center">
-		       						<span id="user_name"></span>
-		       					</div>
-		       				</div>
-		       				<div class="row myRow">
-		       					<div class="col-md-4 col-sm-4 col-4 left">
 		       						Level:
 		       					</div>
 		       					<div class="col-md-8 col-sm-8 col-8  center">
 		       						<span id="user_level"></span>
-		       					</div>
-		       				</div>
-		       				<div class="row myRow">
-		       					<div class="col-md-4 col-sm-4 col-4 left">
-		       						EXP:
-		       					</div>
-		       					<div class="col-md-8 col-sm-8 col-8  center">
-		       						<div class="level_bar"><div class="level_progress" id="level_progress"></div><span id="user_exp" style="position: relative;z-index: 0;"></span></div>
 		       					</div>
 		       				</div>
 		       				<div class="row myRow">
@@ -258,9 +251,17 @@
 		       				</div>
 		       			</div>
 		       		</div>
-		       		<br>
+		       		<dir class="row" style="padding-left: 0px;">
+		       			<dir class="col-12">
+				       		<div class="progress">
+							    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" id="exp_progress">
+							      
+							    </div>
+							</div>
+						</dir>
+					 </dir>
 		       		<div class="row">
-		       			<div class="col-md-12 col-sm-12 col-12">
+		       			<div class="col-md-12 col-sm-12 col-12" style="padding: 0px;">
 		       				<div>
 		       					<ul class="nav nav-tabs">
 								    <li class="myTab active" id="info"><a data-toggle="tab" href="#home">Info</a></li>
@@ -278,11 +279,8 @@
 								    <div id="menu2" class="tab-pane fade" style="padding: 20px 10px 10px 10px;">
 								    	<div class="panel panel-default">
 										  <!-- Default panel contents -->
-										  <div class="panel-heading">
-										  	<!-- Table -->
-										  	<table class="table" id="table_reward">
-
-										    </table>
+										  <div class="panel-heading" id="table_reward" style="padding: 20px 10px 15px 10px;">
+										  	
 										  </div>
 										</div>
 								    </div>
@@ -307,7 +305,7 @@
 		      <div class="modal-header">
 		         <h3>Language Selection</h3>
 		      </div>
-		      <div class="modal-body" style="text-align: center;padding: 25px 70px 25px 70px;">
+		      <div class="modal-body" style="text-align: center;padding: 25px 40px 25px 40px !important;">
 		       	<div id="langList">
 
 		       	</div>
