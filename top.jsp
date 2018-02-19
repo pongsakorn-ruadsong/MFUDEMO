@@ -156,10 +156,12 @@
 	}
 	tr.spaceUnder>td {
 	  padding-bottom: 1em;
+	  text-align: center;
 	}
 	tr.tr-head>td{
 		font-size: 16px !important;
 		font-weight: bold;
+		text-align: center;
 	}
 </style>
 <body>
@@ -287,9 +289,11 @@
 								    	<div class="panel panel-default">
 										  <!-- Default panel contents -->
 										  <div class="panel-heading" style="padding: 20px 10px 15px 10px;">
-										  	<table id="table_reward">
-										  		
-										  	</table>
+										  	<center>
+											  	<table id="table_reward">
+											  		
+											  	</table>
+										  	</center>
 										  </div>
 										</div>
 								    </div>
