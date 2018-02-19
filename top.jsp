@@ -74,6 +74,7 @@
 		// 	$('#userInfo').modal("hide");
 		// });
 		$('#submitLang').click(function(){
+
 			changeLang(function(){
 				location.reload();
 			});
@@ -253,46 +254,6 @@
 
 		<!-- Modal -->
 
-		<div class="modal  fade" id="langPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
-		    <div class="modal-content mCustom">
-		      <div class="modal-header">
-		         <h3>Language Selection</h3>
-		      </div>
-		      <div class="modal-body" style="text-align: center;padding: 25px 70px 25px 70px;">
-		       	<div id="langList">
-
-		       	</div>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn custom btn-primary" data-dismiss="modal" id="submitLang">Select</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-
-		<!-- Modal -->
-
-		<div class="modal  fade" id="animation-panel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
-		    <div class="modal-content mCustom">
-		      <div class="modal-header">
-		         <h3>Language Selection</h3>
-		      </div>
-		      <div class="modal-body" style="text-align: center;padding: 25px 70px 25px 70px;">
-		       	<div id="langList">
-
-		       	</div>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn custom btn-primary" data-dismiss="modal" id="submitLang">Select</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-
-		<!-- Modal -->
-
 		<div class="modal  fade" id="menuPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
 		    <div class="modal-content mCustom">
@@ -321,16 +282,56 @@
 		       	</div>
 		       	<div class="row">
 		       		<div class="col-4 right">
-		       			<span class="glyphicon glyphicon-globe"></span>
+		       			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
 		       		</div>
 		       		<div class="col-4">
 
 		       		</div>
 		       		<div class="col-4 left" id="logOut">
-		       			<span class="glyphicon glyphicon-off"></span>
+		       			<a href="#"><span class="glyphicon glyphicon-off"></span></a>
 		       		</div>
 		       	</div>
 		      </div>
 		    </div>
 		  </div>
 		</div>
+
+		<!-- Modal -->
+
+		<div class="modal  fade" id="langPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
+		    <div class="modal-content mCustom">
+		      <div class="modal-header">
+		         <h3>Language Selection</h3>
+		      </div>
+		      <div class="modal-body" style="text-align: center;padding: 25px 70px 25px 70px;">
+		       	<div id="langList">
+
+		       	</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn custom btn-primary" data-dismiss="modal" id="submitLang">Select</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- Modal -->
+
+		<!-- <div class="modal  fade" id="animation-panel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
+		    <div class="modal-content mCustom">
+		      <div class="modal-header">
+		         <h3>Language Selection</h3>
+		      </div>
+		      <div class="modal-body" style="text-align: center;padding: 25px 70px 25px 70px;">
+		       	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn custom btn-primary" data-dismiss="modal" id="submitLang">Select</button>
+		      </div>
+		    </div>
+		  </div>
+		</div> -->
+
+		

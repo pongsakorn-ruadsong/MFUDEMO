@@ -184,6 +184,7 @@ function buildRewardList() {
 
 // }
 function changeLang(callback){
+	$('#myModal').modal({backdrop: 'static', keyboard: false});
 	getContent();
 	callback();
 }
@@ -194,7 +195,9 @@ function getLang() {
             dataType: "json",
 	    	success: function(data){
 	    		console.log(data);
-	    		buildLangButton(data.response);
+	    		buildLangButton(data.response, function(){
+	    			$('#langPanel').modal();
+	    		});
 	    // 		jQuery.each(data.response, function() {
 					// contentLang[this.language] = this.language;
 					// contentAbbrev[this.language] = this.abbreviation;
@@ -207,47 +210,48 @@ function getLang() {
             }
         });
 }
-// function buildLangButton(a) {
-// 	$('#langList > div').remove();
-// 	var text = '<div class="row"><div class="input-group">';
-// 	var abbreviation = '';
-// 	// var element = document.getElementById('sliderUD'),
-//  //    style = window.getComputedStyle(element),
-//  //    top = style.getPropertyValue('top');
-//  //    var cc = top.match(/\d+/g).map(Number);
-//  //    var sa = parseInt(cc);
-//  //    var bba = sa;
-//  //    sessionStorage['top'] = bba;
-//  //    console.log(sa);
-//     text += '<button class="form-control chgLang" abbrev="us" lang="English"><img src="css/blank.gif" class="flag flag-us alt="English"/>EN</button>'
-// 	for(var i=0;i<a.length;i++){
-// 		if (a[i].abbreviation == 'en') {
-// 			abbreviation = 'us';
-// 		}else{
-// 			abbreviation = a[i].abbreviation;
-// 		}
-// 		text+='<button class="form-control chgLang" abbrev="'+abbreviation+'" lang="'+a[i].language+'")">'+
-// 		'<img src="css/blank.gif" class="flag flag-'+abbreviation+'" alt="'+a[i].language+'" />'+abbreviation.toUpperCase()+'</button>'
-// 		if ((i+1)%4 == 0) {
-// 			text+='</div></div> <div class="row" style="margin-top:10px;"><div class="input-group">'
-// 			// console.log("(i+1)%5 = "+(i+1)%5);
-// 			// bba = sa+=35;
-// 			// sessionStorage['top'] = bba;
-// 			// console.log("(i+1)%5 = "+(i+1)%5);
-// 			// document.getElementById('sliderUD').style.top = "-"+bba+"px";
-// 			}
-// 		}
-// 		$('#langList').append(text);
-// 		$('.chgLang').click(function(){
-// 			// $('#myModal').modal({backdrop: 'static', keyboard: false});
-// 		 //    changeLang(this.getAttribute("lang"), function(){
-// 		 //    	$('#myModal').modal('hide');
-// 		 //    });
-// 			sessionStorage['lang'] = this.getAttribute("lang");
-// 			$('.chgLang').css('background-color','white');
-// 			$(this).css('background-color','red');
-// 		});
-// 	}
+function buildLangButton(a,callback) {
+	$('#langList > div').remove();
+	var text = '<div class="row"><div class="input-group">';
+	var abbreviation = '';
+	// var element = document.getElementById('sliderUD'),
+ //    style = window.getComputedStyle(element),
+ //    top = style.getPropertyValue('top');
+ //    var cc = top.match(/\d+/g).map(Number);
+ //    var sa = parseInt(cc);
+ //    var bba = sa;
+ //    sessionStorage['top'] = bba;
+ //    console.log(sa);
+    text += '<button class="form-control chgLang" abbrev="us" lang="English"><img src="css/blank.gif" class="flag flag-us alt="English"/>EN</button>'
+	for(var i=0;i<a.length;i++){
+		if (a[i].abbreviation == 'en') {
+			abbreviation = 'us';
+		}else{
+			abbreviation = a[i].abbreviation;
+		}
+		text+='<button class="form-control chgLang" abbrev="'+abbreviation+'" lang="'+a[i].language+'")">'+
+		'<img src="css/blank.gif" class="flag flag-'+abbreviation+'" alt="'+a[i].language+'" />'+abbreviation.toUpperCase()+'</button>'
+		if ((i+1)%4 == 0) {
+			text+='</div></div> <div class="row" style="margin-top:10px;"><div class="input-group">'
+			// console.log("(i+1)%5 = "+(i+1)%5);
+			// bba = sa+=35;
+			// sessionStorage['top'] = bba;
+			// console.log("(i+1)%5 = "+(i+1)%5);
+			// document.getElementById('sliderUD').style.top = "-"+bba+"px";
+			}
+		}
+		$('#langList').append(text);
+		$('.chgLang').click(function(){
+			// $('#myModal').modal({backdrop: 'static', keyboard: false});
+		 //    changeLang(this.getAttribute("lang"), function(){
+		 //    	$('#myModal').modal('hide');
+		 //    });
+			sessionStorage['lang'] = this.getAttribute("lang");
+			$('.chgLang').css('background-color','white');
+			$(this).css('background-color','red');
+		});
+		callback();
+	}
 // function getToastrOption(){
 // 	var toastrOp = toastr.options = {
 // 		  "closeButton": true,
