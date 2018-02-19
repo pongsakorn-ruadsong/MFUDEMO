@@ -7,7 +7,6 @@
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
 	<!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>  -->
 	<script src="js/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -17,7 +16,6 @@
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
 	<link rel='stylesheet prefetch' href='http://www.justinaguilar.com/animations/css/animations.css'>
 	<script src="js/index.js"></script>
-	<script src="js/quizlist.js"></script>
 	<script src="js/quiz.js"></script>
 	<script src="js/bootstrap.bundle.js"></script>
 	<script src="js/toastr.min.js"></script>
@@ -27,7 +25,8 @@
 	<script src="js/sweetalert.js"></script>
 	<script src="js/account.js"></script>
 	<script src="js/rewardStore.js"></script>
-	<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet"> -->
+	<script src="js/quizlist.js"></script>
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
@@ -37,6 +36,7 @@
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="css/flags.min.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
+
 
 	<%
 		String uri = request.getRequestURI();
@@ -143,7 +143,7 @@
 </style>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
-		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;">
+		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;margin-left: 15px;">
 			<div class="row">
 				<div class="col-6" style="padding: 0px;">
 					<a class="navbar-brand userPhoto" href="#" style="padding: 5px 5px;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a>
@@ -299,21 +299,21 @@
 		      <div class="modal-body" style="text-align: center;padding: 25px 25px 25px 25px;">
 		       	<div class="row">
 		       		<div class="col-4 right">
-		       			Menu1
+		       			<span class="glyphicon glyphicon-user"></span>
 		       		</div>
 		       		<div class="col-4">
 
 		       		</div>
 		       		<div class="col-4 left">
-		       			<a href="rewardStore.jsp">Reward Store<a>
+		       			<a href="rewardStore.jsp"><span class="glyphicon glyphicon-gift"></span></a>
 		       		</div>
 		       	</div>
 		       	<div class="row">
 		       		<div class="col-4">
 
 		       		</div>
-		       		<div class="col-6">
-		       			<a href="index.jsp">Home</a>
+		       		<div class="col-4">
+		       			<a href="index.jsp"><span class="glyphicon glyphicon-home"></span></a>
 		       		</div>
 		       		<div class="col-4">
 
@@ -321,13 +321,13 @@
 		       	</div>
 		       	<div class="row">
 		       		<div class="col-4 right">
-		       			Menu4
+		       			<span class="glyphicon glyphicon-globe"></span>
 		       		</div>
 		       		<div class="col-4">
 
 		       		</div>
 		       		<div class="col-4 left" id="logOut">
-		       			Logout
+		       			<span class="glyphicon glyphicon-off"></span>
 		       		</div>
 		       	</div>
 		      </div>
