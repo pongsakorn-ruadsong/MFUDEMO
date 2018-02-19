@@ -45,7 +45,7 @@ function nFormatter(num, digits) {
   }
   return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 }
-function getUserInfo() {
+function getUserInfo(callback) {
 	if (sessionStorage['loginType'] == 'guest') {
 		console.log(guestImage)
 		var randomNum = Math.floor(Math.random() * guestImage.length);
@@ -62,7 +62,9 @@ function getUserInfo() {
 	    	success: function(data){
 	    		Index05 = data;
 	    		console.log(data);
-	    		// buildPlayer(data.response.player);
+	    		buildPlayerFull(data.response.player,function(){
+	    			
+	    		});
 	    // 		jQuery.each(data.response, function() {
 					// contentLang[this.language] = this.language;
 					// contentAbbrev[this.language] = this.abbreviation;
@@ -74,9 +76,10 @@ function getUserInfo() {
                 console.log("Failed : getLang() @ index.js");
             }
         });
+	callback();
 	}
 }
-function buildPlayer(a) {
+function buildPlayer(a,callback) {
 	var img = a.image;
 	var img_for_check = /[^/]*$/.exec(img)[0];
 	console.log(img_for_check)
@@ -111,9 +114,9 @@ function buildPlayer(a) {
 			point = a.points[i].value;
 		}
 	}
-
+	callback();
 }
-function buildPlayerFull(a) {
+function buildPlayerFull(a,callback) {
 	// $('#playerPanel > div').remove();
 	var img = a.image;
 	var img_for_check = /[^/]*$/.exec(img)[0];
@@ -156,6 +159,7 @@ function buildPlayerFull(a) {
 	$('#user_point').text(point);
 	console.log(lv_percent)
 	document.getElementById("level_progress").style.width = lv_percent+'%';
+	callback();
 }
 function buildRewardList() {
 	$('#table_reward > tr').remove();

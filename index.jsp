@@ -6,7 +6,9 @@
 		}else{
 			translateContent();
 	    	getQuizData();
-	    	getUserInfo();
+	    	getUserInfo(function(){
+	    		
+	    	});
 			sessionStorage.removeItem("save_result");
 		}
 		

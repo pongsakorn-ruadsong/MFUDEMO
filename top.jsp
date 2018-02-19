@@ -68,7 +68,9 @@
 			getLang();
 		});
 		$('#showUser').click(function(){
-			getUserInfo();
+			getUserInfo(function(){
+				$('#userInfo').modal();
+			});
 		});
 		// $('#closeUser').click(function(){
 		// 	$('#userInfo').modal("hide");
@@ -159,8 +161,56 @@
 	</nav>
 	<div class="container-fluid">
 		<input type="hidden" id="pageName" name="pageName" value="<%=pageName%>">
+		<!-- <div id="draggable" class="ui-widget-content" style="position: absolute;top: 100px;z-index: 9999;">
+		  <p>Drag me around</p>
+		</div> -->
 
 		<!-- Modal -->
+
+		<div class="modal  fade" id="menuPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
+		    <div class="modal-content mCustom">
+		      <div class="modal-body" style="text-align: center;padding: 25px 25px 25px 25px;">
+		       	<div class="row">
+		       		<div class="col-4 right">
+		       			<a href="#"><span class="glyphicon glyphicon-user" id="showUser"></span></a>
+		       		</div>
+		       		<div class="col-4">
+
+		       		</div>
+		       		<div class="col-4 left">
+		       			<a href="rewardStore.jsp"><span class="glyphicon glyphicon-gift"></span></a>
+		       		</div>
+		       	</div>
+		       	<div class="row">
+		       		<div class="col-4">
+
+		       		</div>
+		       		<div class="col-4">
+		       			<a href="index.jsp"><span class="glyphicon glyphicon-home"></span></a>
+		       		</div>
+		       		<div class="col-4">
+
+		       		</div>
+		       	</div>
+		       	<div class="row">
+		       		<div class="col-4 right">
+		       			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
+		       		</div>
+		       		<div class="col-4">
+
+		       		</div>
+		       		<div class="col-4 left" id="logOut">
+		       			<a href="#"><span class="glyphicon glyphicon-off"></span></a>
+		       		</div>
+		       	</div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- Modal -->
+
 		<div class="modal  fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog" role="document" style="margin-top: 10%;">
 		    <div class="modal-content mCustom">
@@ -244,53 +294,6 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn custom btn-primary" data-dismiss="modal" id="closeUser" modal>Close</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		<!-- <div id="draggable" class="ui-widget-content" style="position: absolute;top: 100px;z-index: 9999;">
-		  <p>Drag me around</p>
-		</div> -->
-
-		<!-- Modal -->
-
-		<div class="modal  fade" id="menuPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
-		    <div class="modal-content mCustom">
-		      <div class="modal-body" style="text-align: center;padding: 25px 25px 25px 25px;">
-		       	<div class="row">
-		       		<div class="col-4 right">
-		       			<span class="glyphicon glyphicon-user"></span>
-		       		</div>
-		       		<div class="col-4">
-
-		       		</div>
-		       		<div class="col-4 left">
-		       			<a href="rewardStore.jsp"><span class="glyphicon glyphicon-gift"></span></a>
-		       		</div>
-		       	</div>
-		       	<div class="row">
-		       		<div class="col-4">
-
-		       		</div>
-		       		<div class="col-4">
-		       			<a href="index.jsp"><span class="glyphicon glyphicon-home"></span></a>
-		       		</div>
-		       		<div class="col-4">
-
-		       		</div>
-		       	</div>
-		       	<div class="row">
-		       		<div class="col-4 right">
-		       			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
-		       		</div>
-		       		<div class="col-4">
-
-		       		</div>
-		       		<div class="col-4 left" id="logOut">
-		       			<a href="#"><span class="glyphicon glyphicon-off"></span></a>
-		       		</div>
-		       	</div>
 		      </div>
 		    </div>
 		  </div>
