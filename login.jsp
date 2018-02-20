@@ -8,7 +8,7 @@
 				getContent();
 				// initialSwipeCard();
 			}else{
-				window.location.replace("index");
+				window.location.replace("index.jsp");
 			}
 			$('#loginBtn').click(function(){
 				authPlayer();
@@ -134,23 +134,43 @@
 	      <div class="modal-header" style="border-bottom:0px">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
 	      </div>
-	      <div class="modal-body" style="text-align: center;">
-	      	<div>
-	        	<p>Enter your phone number to receive the OTP code</p>
-	        </div>
-	        <div>
-	        	<input type="" name="">
-	        </div>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" id="testClose">Close</button>
-	      </div>
+	      <div class="modal-body" style="text-align: center;margin-top: -25px;">
+	      	<center>
+		      	<div style="width: 100%;">
+			      	<div style="width: 100%;">
+			      			<img src="img/otp_logo.png" style="width: 50%;margin-right: 0px;">
+			      	</div>
+			      	<div style="width: 80%;margin: 20px;">
+			        	<p style="font-size: 17px;">Enter your phone number to receive the OTP code</p>
+			        </div>
+			        <div style="width: 80%;height: 40px;">
+			        	<div class="input-group">
+			        		<button>TH(+66)</button>
+			        		<input type="text" class="form-control phone_input" id="phone_input" onkeypress="validate(event)">
+			        	</div>
+			        </div>
+				</div>
+			</center>
+		  </div>
+		    <div class="modal-footer">
+		       <button type="button" class="btn btn-default" id="testClose">Close</button>
+		    </div>
 	    </div>
 	  </div>
 	</div>
 
 	<script src="js/swiper.min.js"></script>
 	<script>
+		function validate(evt) {
+		  var theEvent = evt || window.event;
+		  var key = theEvent.keyCode || theEvent.which;
+		  key = String.fromCharCode( key );
+		  var regex = /[0-9]|\./;
+		  if( !regex.test(key) ) {
+		    theEvent.returnValue = false;
+		    if(theEvent.preventDefault) theEvent.preventDefault();
+		  }
+		}
     var swiper = new Swiper('.swiper-container', {
 	    centeredSlides: true,
     	slidesPerView: 3,

@@ -2,7 +2,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			if (checkUser()) {
-				window.location.replace("login");
+				window.location.replace("login.jsp");
 			}else{
 				translateContent();
 				getQuestion();

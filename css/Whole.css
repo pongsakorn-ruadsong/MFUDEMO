@@ -1,6 +1,10 @@
 html, body, .container-fluid{
   height: 100%;
 }
+.phone_input{
+  border: 1.5px solid lightgrey;
+  border-radius: 4px;
+}
 .amount-overlay{
   position: absolute;
     top: 12.5px;
