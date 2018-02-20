@@ -3,7 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-	  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -92,8 +91,8 @@
 		$('#reward').click(function(){
 			$('.myTab').removeClass('active');
 			$('#reward').addClass('active');
-			$('.tab-content').css('height','100');
-			buildRewardList();
+			$('.tab-content').css('height','400');
+			buildUesrReward();
 		});
 		$('#badge').click(function(){
 			$('.myTab').removeClass('active');
@@ -232,7 +231,7 @@
 		<!-- Modal -->
 
 		<div class="modal  fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-		  <div class="modal-dialog" role="document" style="margin-top: 10%;">
+		  <div class="modal-dialog" role="document" style="margin-top: 5%;">
 		    <div class="modal-content mCustom">
 		      <div class="modal-body" style="text-align: center;">
 		      	<p id="userName" class="p-header"></p>
@@ -283,7 +282,14 @@
 
 								    </div>
 								    <div id="menu1" class="tab-pane fade" style="padding: 20px 10px 10px 10px;">
-								      	
+								      	<div class="panel panel-default">
+										  <!-- Default panel contents -->
+										  <div class="panel-heading" style="padding: 20px 10px 15px 10px;">
+										  	<table id="table_goods">
+										  		
+										  	</table>
+										  </div>
+										</div>
 								    </div>
 								    <div id="menu2" class="tab-pane fade" style="padding: 20px 10px 10px 10px;">
 								    	<div class="panel panel-default">
