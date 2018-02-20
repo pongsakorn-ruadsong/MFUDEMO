@@ -164,7 +164,7 @@ function buildQuizList(callback){
 	  //   }else{
 	  	// text += ' <div class="swiper-slide quizlist default-slide" style="display: inline-block;margin: auto;" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
     //   	'<div style="position: relative;width: 100%;height: 50%;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">'+
-    //   		'<img src="'+QuestImg+'">'+
+    //   		'<img src="'+img+'">'+
     //   	'</div>'+
     //   	'<div style="position: relative;width: 100%;height: 40%;background: aqua;">'+
     //   		'<div>'+values+'</div>'+
@@ -173,7 +173,7 @@ function buildQuizList(callback){
     //   	'<div style="position: absolute;bottom: 0px;width: 100%;text-align: center;"> Footer </div>'+
     //   '</div>'
 
-	    	text += '<button class="swiper-slide quizlist pre-box" >'+
+	    	text += '<button class="swiper-slide quizlist pre-box" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
       	'<div style="width: 100%;height: 100%;">'+
       	'<center>'+
       	'<div class="logo_preview" style="z-index:1">'+
