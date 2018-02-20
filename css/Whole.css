@@ -890,6 +890,7 @@ img{
   height: 300px;
   max-width: 500px;
   max-height: 400px;
+  height: 350px;
   margin-left: 20px;
   margin-bottom: 25px;
   margin-right: 20px;
@@ -953,65 +954,3 @@ hr {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     letter-spacing: 0.5px;
 }
-
-/*.max-lines {
-  display: block;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  overflow: hidden;
-  max-height: 3.6em;
-  line-height: 1.8em;
-}*/
-/*.couponDetail {
-    border: 5px;
-    width: 350px;
-    height: 350px; 
-    border-radius: 15px;
-    margin: 0 auto;
-    max-width: 600px;
-    box-shadow: 0 5px 8px rgba(0,0,0,0.3);
-}*/
-
-
-
-/*.couponContainer{
-    padding: 2px 16px; 
-    background-color: gray;
-}
-.couponPoint {
-    color: red;
-    font-size: 15px;
-}
-.couponStock{
-    font-size: 10px;
-}
-.couponTitel{
-    font-size: 17px;
-}
-.couponDes{
-    max-width: 400px;
-}*/
-
-
-
-/*.flip {
-  display:inline-block;
-  cursor:pointer;
-}
-
-.flipButton {
-  transition:0.8s;
-  transform:(0deg)
-}
-.flip:hover .flipButton{
-  z-index: 1;
-  transition:0.8s;
-  background-color: #ffc107;
-  transform:rotateY(180deg)
-}*/
-
-
-/*.flip:hover .flipButton div:last-child{
-  transition:0.8s;
-  transform:rotateY(180deg)
-}*/

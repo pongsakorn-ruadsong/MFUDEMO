@@ -63,7 +63,6 @@ function buildGoodsList(){
 '								</button>'+
 '							<div>'
 			}
-
 	}
 result = result+'</div>';
 	$("#display").append(result);
@@ -148,7 +147,7 @@ function receiveGoodsGroup(getGoodsName){
 	var data = new Object();
         data.token = sessionStorage['Token'];
         data.player_id = sessionStorage['player'];
-        data.group = getGoodsName;
+        data.getGoodsName = getGoodsName;
         console.log(getGoodsName)
         console.log("")
         console.log(data)
