@@ -66,7 +66,7 @@
 		$('#showLang').click(function(){
 			getLang();
 		});
-		$('#showUser').click(function(){
+		$('.showUser').click(function(){
 			getUserInfo(function(){
 				$('#userInfo').modal();
 			});
@@ -122,8 +122,9 @@
 	     margin-left: 0px; 
 	}
 	.navbar-inverse{
-		background-color: rgba(255,255,255,0);
+		/*background-color: rgba(255,255,255,0);*/
 		border-color: rgba(255,255,255,0);
+		background-color: #21252942;
 		color: black;
 	}
 	.navbar-nav > li > a {
@@ -164,15 +165,15 @@
 	}
 </style>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav" style="height: 10%;">
 		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;margin-left: 15px;">
 			<div class="row">
 
 			</div>
 		</ul>
 		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;padding: 5px 5px;">
-				<a class="navbar-brand userPhoto" href="#" style="padding: 0px;border: 3px solid green;border-radius: 50%;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a>
-				<!-- <a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 10px 10px;"><img src="img/icons.png" style="width: 100%;height: 100%"></a> -->
+				<!-- <a class="navbar-brand userPhoto" href="#" style="padding: 0px;border: 3px solid green;border-radius: 50%;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a> -->
+				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 10px 10px;"><img src="img/icons.png" style="width: 100%;height: 100%"></a>
 		</ul>
 	</nav>
 	<div class="container-fluid">
@@ -189,13 +190,13 @@
 		      <div class="modal-body" style="text-align: center;padding: 3rem !important;">
 		       	<div class="row">
 		       		<div class="col-4 right">
-		       			<a href="#"><span class="glyphicon glyphicon-user" id="showUser"></span></a>
+		       			<a href="#"><span class="glyphicon glyphicon-user showUser" id="showUser"></span></a>
 		       		</div>
 		       		<div class="col-4">
 
 		       		</div>
 		       		<div class="col-4 left">
-		       			<a href="rewardStore.jsp"><span class="glyphicon glyphicon-gift"></span></a>
+		       			<a href="rewardStore"><span class="glyphicon glyphicon-gift"></span></a>
 		       		</div>
 		       	</div>
 		       	<div class="row">
@@ -203,7 +204,7 @@
 
 		       		</div>
 		       		<div class="col-4">
-		       			<a href="index.jsp"><span class="glyphicon glyphicon-home"></span></a>
+		       			<a href="index"><span class="glyphicon glyphicon-home"></span></a>
 		       		</div>
 		       		<div class="col-4">
 

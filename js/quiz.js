@@ -269,12 +269,19 @@ function buildQuiz(callback){
 					$('#btn_NR').append(btn_text);
 	    	if (type == 'SQ') {
 	    		document.getElementById("4Play").style.display = "none";
-	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons" style="width:100%;">'
+	    		text += '<div class="btn-group-vertical" style="width:100%;">'
 	    		$("#nextBtn").prop('disabled', true);
+	    		var LR = 'left';
+	    		// if ((i+1)%2 != 0) {
+	    			// LR = 'right';
+	    		// }
 		    	for (var i=0;i<option.length;i++) {
-		    		text += '<label class="btn">'+
-			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ" valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+		    		text += '<label class="btn" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
+			          '<input class="inputTXT " name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
+			        // if ((i+1)%2==0) {
+			        // 	text += '</div></div><div class="row"><div class="btn-group btn-group-vertical" data-toggle="buttons" style="width:100%;">'
+			        // }
 		    		console.log(choices[i]);
 		    	}
 		    	text += '</div>';

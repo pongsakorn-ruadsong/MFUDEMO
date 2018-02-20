@@ -162,7 +162,18 @@ function buildQuizList(callback){
 			// '</center>'+
 			// '</div>'
 	  //   }else{
-	    	text += '<button class="swiper-slide quizlist pre-box" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
+	  	// text += ' <div class="swiper-slide quizlist default-slide" style="display: inline-block;margin: auto;" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
+    //   	'<div style="position: relative;width: 100%;height: 50%;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">'+
+    //   		'<img src="'+QuestImg+'">'+
+    //   	'</div>'+
+    //   	'<div style="position: relative;width: 100%;height: 40%;background: aqua;">'+
+    //   		'<div>'+values+'</div>'+
+    //   		'<div>Discription . . .</div>'+
+    //   	'</div>'+
+    //   	'<div style="position: absolute;bottom: 0px;width: 100%;text-align: center;"> Footer </div>'+
+    //   '</div>'
+
+	    	text += '<button class="swiper-slide quizlist pre-box" >'+
       	'<div style="width: 100%;height: 100%;">'+
       	'<center>'+
       	'<div class="logo_preview" style="z-index:1">'+
@@ -227,7 +238,7 @@ function buildQuizList(callback){
 }
 function initialSwipes(){
 	var swiper1 = new Swiper('.swiper1', {
-    	slidesPerView: 3,
+    	slidesPerView: 2,
       spaceBetween: 8,
       pagination: {
         el: '.swiper-pagination1',
@@ -235,7 +246,7 @@ function initialSwipes(){
       },
     });
     var swiper2 = new Swiper('.swiper2', {
-    	slidesPerView: 3,
+    	slidesPerView: 2,
       spaceBetween: 8,
       pagination: {
         el: '.swiper-pagination2',
@@ -243,7 +254,7 @@ function initialSwipes(){
       },
     });
     var swiper3 = new Swiper('.swiper3', {
-    	slidesPerView: 3,
+    	slidesPerView: 2,
       spaceBetween: 8,
       pagination: {
         el: '.swiper-pagination3',
