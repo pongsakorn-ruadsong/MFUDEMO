@@ -155,10 +155,12 @@
 	}
 	tr.spaceUnder>td {
 	  padding-bottom: 1em;
+	  text-align: center;
 	}
 	tr.tr-head>td{
 		font-size: 16px !important;
 		font-weight: bold;
+		text-align: center;
 	}
 </style>
 <body>
@@ -196,7 +198,7 @@
 
 		       		</div>
 		       		<div class="col-4 left">
-		       			<a href="rewardStore.jsp"><span class="glyphicon glyphicon-gift"></span></a>
+		       			<a href="rewardStore"><span class="glyphicon glyphicon-gift"></span></a>
 		       		</div>
 		       	</div>
 		       	<div class="row">
@@ -204,7 +206,7 @@
 
 		       		</div>
 		       		<div class="col-4">
-		       			<a href="index.jsp"><span class="glyphicon glyphicon-home"></span></a>
+		       			<a href="index"><span class="glyphicon glyphicon-home"></span></a>
 		       		</div>
 		       		<div class="col-4">
 
@@ -293,9 +295,11 @@
 								    	<div class="panel panel-default">
 										  <!-- Default panel contents -->
 										  <div class="panel-heading" style="padding: 20px 10px 15px 10px;">
-										  	<table id="table_reward">
-										  		
-										  	</table>
+										  	<center>
+											  	<table id="table_reward">
+											  		
+											  	</table>
+										  	</center>
 										  </div>
 										</div>
 								    </div>
