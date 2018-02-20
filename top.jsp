@@ -199,7 +199,7 @@
 
 		       		</div>
 		       		<div class="col-4 left">
-		       			<a href="rewardStore.jsp"><span class="glyphicon glyphicon-gift"></span></a>
+		       			<a href="rewardStore"><span class="glyphicon glyphicon-gift"></span></a>
 		       		</div>
 		       	</div>
 		       	<div class="row">
@@ -207,7 +207,7 @@
 
 		       		</div>
 		       		<div class="col-4">
-		       			<a href="index.jsp"><span class="glyphicon glyphicon-home"></span></a>
+		       			<a href="index"><span class="glyphicon glyphicon-home"></span></a>
 		       		</div>
 		       		<div class="col-4">
 

@@ -8,7 +8,7 @@
 				getContent();
 				// initialSwipeCard();
 			}else{
-				window.location.replace("index.jsp");
+				window.location.replace("index");
 			}
 			$('#loginBtn').click(function(){
 				authPlayer();
@@ -23,6 +23,28 @@
 					alert("fail log in")
 				}
 			});
+			$('#signUpBtn').click(function (e) {
+				e.preventDefault();
+				if($('#mySignUp').hasClass('fadeOutUpBig'))
+	                {   e.preventDefault();
+
+	                $('#mySignUp').removeClass('fadeOutUpBig').addClass('fadeInDownBig');
+
+	                setTimeout("$('#mySignUp').modal('show')", 550);}
+	                else{
+	                	$('#mySignUp').modal('show');
+	                }
+			});
+			$('#testClose').click(function(e){
+            	e.preventDefault();
+	                if($('#mySignUp').hasClass('fadeInDownBig'))
+	                {   e.preventDefault();
+	                $('#mySignUp').removeClass('fadeInDownBig').addClass('fadeOutUpBig');
+	                setTimeout("$('#mySignUp').modal('hide')", 550);}
+	                else{
+	                	$('#mySignUp').modal('hide');
+	                }
+	        });
 			$('#loginModal').on('hidden.bs.modal', function () {
 			  $("#userType").prop("checked", false);
 			  $("#PlayerID").val('');
@@ -63,24 +85,13 @@
 	      align-items: center;
 	  }
 	</style>
-	<!-- Modal -->
-	
 	<div class="card-box">
 	<div class="swiper-container" id="wipp_con">
 	    <div class="swiper-wrapper" id="wipp_userCard">
 	    	<button class="swiper-slide cctest" id="guestClick" onclick="guestFunction()" style="background-color: red;">Guest</button>
 	      <button class="swiper-slide" id="signInClick" style="background-color: blue;" onclick="loginModal()">Sign in</button>
-	      <button class="swiper-slide" style="background-color: green;">Sign up</button>
-	      <!-- <div class="swiper-slide">Slide 4</div>
-	      <div class="swiper-slide">Slide 5</div>
-	      <div class="swiper-slide">Slide 6</div>
-	      <div class="swiper-slide">Slide 7</div>
-	      <div class="swiper-slide">Slide 8</div>
-	      <div class="swiper-slide">Slide 9</div>
-	      <div class="swiper-slide">Slide 10</div> -->
+	      <button class="swiper-slide" id="signUpBtn" style="background-color: green;">Sign up</button>
 	    </div>
-    	<!-- Add Pagination -->
-    	
   </div>
   </div>
   <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -88,7 +99,6 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h1 class="modal-title" id="exampleModalLabel">Play's Log in</h1>
-	        
 	      </div>
 	      <div class="modal-body" style="text-align: center;">
 	       	<div class="row">
@@ -115,25 +125,27 @@
 	    </div>
 	  </div>
 	</div>
-
 	<!-- Modal -->
-	<div id="mySignUp" class="modal fade" role="dialog">
+	<div id="mySignUp" class="modal animated fadeInDownBig" role="dialog">
 	  <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;">
 
 	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
+	    <div class="modal-content" style="height: 100%;">
+	      <div class="modal-header" style="border-bottom:0px">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Modal Header</h4>
 	      </div>
-	      <div class="modal-body">
-	        <p>Some text in the modal.</p>
+	      <div class="modal-body" style="text-align: center;">
+	      	<div>
+	        	<p>Enter your phone number to receive the OTP code</p>
+	        </div>
+	        <div>
+	        	<input type="" name="">
+	        </div>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-default" id="testClose">Close</button>
 	      </div>
 	    </div>
-
 	  </div>
 	</div>
 
