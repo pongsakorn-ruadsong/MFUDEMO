@@ -63,12 +63,7 @@ function getUserInfo(callback) {
 	    		Index05 = data;
 	    		console.log(data);
 	    		buildPlayerFull(data.response.player,function(){
-
 	    		});
-	    // 		jQuery.each(data.response, function() {
-					// contentLang[this.language] = this.language;
-					// contentAbbrev[this.language] = this.abbreviation;
-	    //         });
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
@@ -181,6 +176,27 @@ function buildRewardList() {
 		k++;
 	}
 	$('#table_reward').append(text);
+}
+function buildUesrReward() {
+	$('#table_goods > tr').remove();
+	// console.log("Enter build reward list")
+	var goods = Index05.response.player.goods;
+	var length = goods.length;
+	var k =1;
+	// console.log(goods);
+	var text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
+	for (var i = 0; i < length; i++) {
+		if (goods[i].amount == 0) {
+			continue;
+		}
+		text += '<tr class="spaceUnder">'+
+		'<td><img src='+goods[i].image+' style="width:50px;height:50px;"></td>'+
+		'<td>'+goods[i].name+'</td>'+
+		'<td>'+goods[i].amount+'</td>'+
+		'</tr>'
+		k++;
+	}
+	$('#table_goods').append(text);
 }
 // function initialData(){
 
