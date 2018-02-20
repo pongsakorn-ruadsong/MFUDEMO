@@ -35,7 +35,7 @@
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="css/flags.min.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
-
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
 	<%
 		String uri = request.getRequestURI();
@@ -122,9 +122,9 @@
 	     margin-left: 0px; 
 	}
 	.navbar-inverse{
-		background-color: rgba(146, 145, 145,0.4);
-		border-color: rgba(241, 239, 239, 0.4);
-		color: white;
+		background-color: rgba(255,255,255,0);
+		border-color: rgba(255,255,255,0);
+		color: black;
 	}
 	.navbar-nav > li > a {
 		
@@ -167,15 +167,12 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
 		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;margin-left: 15px;">
 			<div class="row">
-				<div class="col-6" style="padding: 0px;">
-					<a class="navbar-brand userPhoto" href="#" style="padding: 5px 5px;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a>
-				</div>
-				<div class="col-6" style="padding: 15px 15px;">
-				</div>
+
 			</div>
 		</ul>
-		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;">
-				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 10px 10px;"><img src="img/icons.png" style="width: 100%;height: 100%"></a>
+		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;padding: 5px 5px;">
+				<a class="navbar-brand userPhoto" href="#" style="padding: 0px;border: 3px solid green;border-radius: 50%;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a>
+				<!-- <a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 10px 10px;"><img src="img/icons.png" style="width: 100%;height: 100%"></a> -->
 		</ul>
 	</nav>
 	<div class="container-fluid">

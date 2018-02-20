@@ -260,11 +260,11 @@ function buildQuiz(callback){
 	    	}
 		    image += '<img src="'+op_img+'" class="quizImg" id="img_'+option[i].option_id+'" style="display:none;">'
 		}
-	    	document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
+	    	// document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	$('#topic').text(topic);
-	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button"  style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
+	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button"  style="float:left;width:40%;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
-					'<button class="btn btn-primary" id="nextBtn"  type="button">'+contentSummary['BTN_NEXT']+
+					'<button class="btn btn-primary" id="nextBtn" style="float:right;width:40%;"  type="button">'+contentSummary['BTN_NEXT']+
 					'</button>'
 					$('#btn_NR').append(btn_text);
 	    	if (type == 'SQ') {

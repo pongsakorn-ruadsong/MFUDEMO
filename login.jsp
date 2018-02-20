@@ -144,8 +144,14 @@
 			        	<p style="font-size: 17px;">Enter your phone number to receive the OTP code</p>
 			        </div>
 			        <div style="width: 80%;height: 40px;">
-			        	<div class="input-group">
-			        		<button>TH(+66)</button>
+			        	<div class="input-group" style="height: 100%;">
+			        		<button class="country_number" id="country_number">TH(+66)</button>
+			        		<input type="text" class="form-control phone_input" id="phone_input" onkeypress="validate(event)">
+			        	</div>
+			        </div>
+			        <div style="width: 100%;">
+			        	<div class="input-group" style="height: 100%;">
+			        		<button class="" id="">TH(+66)</button>
 			        		<input type="text" class="form-control phone_input" id="phone_input" onkeypress="validate(event)">
 			        	</div>
 			        </div>
