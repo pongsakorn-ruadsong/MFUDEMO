@@ -486,7 +486,9 @@ function buildQuiz(callback){
 	    	 });
 	    	 $('.btn-choices').click(function(){
 	    	 	$('.btn-choices').css("background-color","white");
+	    	 	$('.btn-choices').css("color","black");
 	    	 	$(this).css("background-color","mediumslateblue");
+	    	 	$(this).css("color","white");
 	    	 });
 	    	 $('input:radio[name="'+topic+'"]').change(
 			    function(){
