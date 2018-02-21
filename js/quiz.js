@@ -399,6 +399,8 @@ function buildQuiz(callback){
 
 	    	}
 	    	else if(type == 'SLI'){
+	    		console.log("Enter SLI")
+	    		console.log(a+' '+b+' '+c+' ')
 	    		$("#slider-panel").addClass("inputTXT");
 	    		document.getElementById("slider-panel").style.display = "block";
 	    		document.getElementById("realDeal").style.display = "block";
@@ -408,9 +410,9 @@ function buildQuiz(callback){
 	    		document.getElementById("slider-bar").setAttribute("step", c);
 	    		$('#disValueSli').html((b/2).toLocaleString()+" "+unit);
 	    		$('#hidSLIval').val(b/2);
-	    		$('#minslider').html(nFormatter(a, 1)+" "+unit);
-	    		$('#maxslider').html(nFormatter(b, 1)+" "+unit);
-	    		select1 = Quiz01.response.result.options[0].option_id;
+	    		$('#minslider').html(nFormatter(a, 1));
+	    		$('#maxslider').html(nFormatter(b, 1));
+	    		// select1 = Quiz01.response.result.options[0].option_id;
 	    	}
 	    	else if(type == 'SLI_S'){
 	    		console.log(a+' '+b+' '+c+' ')
@@ -538,7 +540,7 @@ function buildQuiz(callback){
 			    		if ($(this).is(':checked')) {
 			    			var val = $(this).attr('value');
 			    			// console.log(val)
-			    			$('.inputSQ_S_MULTI').val('');
+			    			$('.inputTXT_S').val('');
 			    			$('.inputSQ_S_MULTI').slideUp();
 				            $("[idZ="+val+"]").slideDown();
 				             console.log($("[idZ="+val+"]").val())
@@ -644,42 +646,28 @@ function valid(){
 			var e = c+" "+unit;
 			console.log(d);
 			console.log(e);
-		if (sessionStorage['ans_no'] == 'yes' || sessionStorage['ans_no'] == 'null') {
-			console.log("Enter ans_no");
-			if (!validSLI()) {
-				
-		    	toastr["warning"]("undefined", "Hint!");
-		    	return false;
-			}else{
-				console.log("Enter ans_no_for");
 				for(var i=0;i<Quiz01.response.result.options.length;i++){
 					if (Quiz01.response.result.options[i].is_text_option) {
 						console.log("Select"+i+" : "+i+" | C : "+c+" = "+Quiz01.response.result.options[i].option_id);
-
 							select1 = Quiz01.response.result.options[i].option_id;
 							console.log("Select1: "+select1);
-
 					}
 				}
 				if (type == 'SLI_S') {
-					answer = d;
-					console.log("d : "+d);
+					if (b == 'Yes') {
+						answer = d;
+						console.log("d : "+d);
+					}else if(b == 'No'){
+						answer = b;
+						console.log("b : "+b);
+					}
 				}
 				if (type == 'SLI') {
 					answer = e;
 					console.log("e : "+e);
 				}
 				return true;
-			}
-		}else{
-			for(var i=0;i<Quiz01.response.result.options.length;i++){
-				if (Quiz01.response.result.options[i].option != "") {
-					select1 = Quiz01.response.result.options[i].option_id;
-					console.log("select1: "+select1);
-					return true;
-				}
-			}
-		}
+
 	}else if(type == 'RANGE' || type == 'RANGE_S'){
 		if (sessionStorage['ans_no'] == 'yes' || sessionStorage['ans_no'] == 'null') {
 			if (!validRANGE()) {
@@ -879,37 +867,37 @@ function nextQuestion(){
 	       	console.log(data);
        	}
         tokenUrl = sessionStorage['mainUrl']+"Quiz/"+sessionStorage['qId']+"/answer"
-// 	$.ajax({
-// 		type: "POST",
-// 		url: tokenUrl,
-// 		content: "application/json; charset=utf-8",
-// 		dataType: "json",
-// 		data: data,
-// 		success: function(d) {
-// 			Gtemp_02 = d;
-// 			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
-// 			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
-// 			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
-// 			savePrevious();
-// 			if (Gtemp_02.response.result.is_last_question) {
-// 				$('#myModal').modal({backdrop: 'static', keyboard: false});
-// 				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
-// 				setTimeout(function(){
-// 					scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
-// 					console.log("Hey! it is the last now! check the console about reward!")
-// 					$('#myModal').modal("hide");
-// 				}, 1000);
-// 			}else{
-// 				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-// 				window.top.location = window.top.location;
-// 			}
-// 		},
-// 		error: function (xhr, textStatus, errorThrown){
-// //                window.location.reload(true)
-//                 console.log(errorThrown);
-//                 console.log("Failed : nextQuestion() @ quiz.js");
-//             }
-//         });
+	$.ajax({
+		type: "POST",
+		url: tokenUrl,
+		content: "application/json; charset=utf-8",
+		dataType: "json",
+		data: data,
+		success: function(d) {
+			Gtemp_02 = d;
+			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
+			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
+			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
+			savePrevious();
+			if (Gtemp_02.response.result.is_last_question) {
+				$('#myModal').modal({backdrop: 'static', keyboard: false});
+				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
+				setTimeout(function(){
+					scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
+					console.log("Hey! it is the last now! check the console about reward!")
+					$('#myModal').modal("hide");
+				}, 1000);
+			}else{
+				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+				window.top.location = window.top.location;
+			}
+		},
+		error: function (xhr, textStatus, errorThrown){
+//                window.location.reload(true)
+                console.log(errorThrown);
+                console.log("Failed : nextQuestion() @ quiz.js");
+            }
+        });
 }
 function scorePop(a,b){
 	// var get_grade = JSON.parse(sessionStorage['graded']);

@@ -11,13 +11,20 @@
 			}
 		    $('.range-slider__range').on('input', function(){
 		    	$("#nextBtn").prop('disabled', false);
-		    	var val = parseInt($('.range-slider__range').val());
-		    	var vaule = val.toLocaleString()
-			    $('.range-slider__value').html(vaule+" "+sessionStorage['unit']);
-			    $('#hidSLIval').val($('.range-slider__range').val());
+		    	if (type == 'SLI') {
+		    		var val = parseInt($('#slider-bar').val());
+		    		var vaule = val.toLocaleString()
+		    		console.log(vaule)
+		    		$('.range-slider__value').html(vaule+" "+sessionStorage['unit']);
+			    	$('#hidSLIval').val($('#slider-bar').val());
+		    	}else if(type == 'SLI_S'){
+		    		var val = parseInt($('#slider-bar_S').val());
+		    		var vaule = val.toLocaleString()
+		    		console.log(vaule)
+		    		$('.range-slider__value').html(vaule+" "+sessionStorage['unit']);
+			    	$('#hidSLIval_S').val($('#slider-bar_S').val());
+		    	}
 			});
-
-
 		    $('.dropdown-menu > .dropdown-item').click(function(){
 		    	$('#showCurren').remove();
 		    	$('#chgCurren').text($(this).attr('value'));
@@ -148,7 +155,7 @@
 						</div>
 						<div id="spece-for-S" style="display: none;">
 											
-											<div class="row" id="slider-panel_S" typeZ="SLI" style="display: block;text-align: center;margin-bottom: 20px;">
+											<div class="row" id="slider-panel_S" typeZ="SLI" style="display: none;text-align: center;margin-bottom: 20px;">
 												<div class="range-slider">
 													<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
 														<div class="col-2" style="padding: 0px;"><span id="minslider_S"></span></div>
@@ -234,7 +241,7 @@
 							<div class="range-slider">
 								<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
 									<div class="col-2" style="padding: 0px;"><span id="minslider"></span></div>
-							 		<div class="col-8" style="padding: 0px;"><input class="range-slider__range" id="slider-bar" type="range" style="width: 80%"  value=0 min=0 max=1000000 step=1000 ></div>
+							 		<div class="col-8" style="padding: 0px;"><input class="range-slider__range" id="slider-bar" type="range" style="width: 80%"></div>
 							 		<div class="col-2" style="padding: 0px;"><span id="maxslider"></span></div>
 							 	</div>
 							  <div style="text-align: center;margin-top: 30px;">

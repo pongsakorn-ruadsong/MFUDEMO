@@ -127,6 +127,8 @@ function buildQuizList(callback){
 	    var img = Index01.response.result[i].image;
 	    var btn_order = Index01.response.result[i].weight;
 	    var QuestImg = '';
+	    var desciption = Index01.response.result[i].description;
+	    console.log(desciption)
 	    for (var k = 0; k < rawData.length; k++) {
 	    	if (rawData[k].id == quiz_id) {
 	    		QuestImg = rawData[k].Image;
@@ -166,12 +168,12 @@ function buildQuizList(callback){
 	  	text += ' <div class="swiper-slide quizlist default-slide" style="display: inline-block;margin: auto;" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
       	'<div style="position: relative;width: 100%;height: 50%;overflow: hidden;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">'+
       		'<img src="'+img+'">'+
-      		'<div style="position: absolute;bottom: 0px;width: 100%;background-color: #00ffff5c">Overlay'+
+      		'<div style="position: absolute;bottom: 0px;width: 100%;background-color: #00ffff25">Overlay'+
       		'</div>'+
       	'</div>'+
       	'<div style="position: relative;width: 100%;height: 36%;background: aqua;padding: 10px;">'+
       		'<div style="font-size:16px;font-weight:bolder;">'+values+'</div>'+
-      		'<div style="font-size:11px;">Discription . . .</div>'+
+      		'<div style="font-size:11px;">'+desciption+'</div>'+
       	'</div>'+
       	'<div style="position: absolute;bottom: 0px;width: 100%;text-align: center;"> Footer </div>'+
       '</div>'
@@ -195,7 +197,7 @@ function buildQuizList(callback){
       	'</div>'+
       '</button>'
 	    // }
-	    console.log($(window).width())
+	    // console.log($(window).width())
 	    qData += quiz_id+" ";
 	    }
 	    // initialBtnOrder();
