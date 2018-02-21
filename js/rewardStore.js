@@ -59,7 +59,7 @@ function buildGoodsList(){
 '										<label type="text" class="" style="text-align: center;"><h4>'+title+'</h4></label>'+
 '										<hr>'+
 '										<img class="col-sm-4" src="'+image+'">'+
-'											<div class="col-sm-6" style="width: 300px; text-align: left;">'+detail+'</div>'+
+'											<div class="col-sm-6" style="width: 300px; text-align: left; font-size: 12px;">'+detail+'</div>'+
 '								</button>'+
 '							<div>'
 			}

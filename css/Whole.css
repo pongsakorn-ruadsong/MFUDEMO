@@ -975,3 +975,174 @@ hr {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     letter-spacing: 0.5px;
 }
+.contianerCycle{
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  position: relative;
+  background-color: red;
+}
+  .cycle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 15;
+    top: 0;
+    left: 0;
+    background-color: white;
+    transform: 3s;
+  }
+  .oldNumber{
+    width: 100%;
+    height: 100%;
+    top: 30%;
+    font-size: 65px;
+    color: black;
+    position: absolute;
+    text-align: center;
+  }
+      .deg0 {
+        transform:rotate(0deg);
+        position: absolute;
+        background-color: white;
+        height: 100%;
+        width: 4%;
+        display: block;
+        margin-left: -3%;
+        left: 50%;
+        border-radius: 15px; 
+        position: absolute;
+      }
+      .deg35 {
+        transform:rotate(35deg);
+        position: absolute;
+        background-color: white;
+        height: 100%;
+        width: 4%;
+        display: block;
+        margin-left: -3%;
+        left: 50%;
+        border-radius: 15px; 
+        position: absolute;
+      }
+      .deg45 {
+        transform:rotate(70deg);
+        position: absolute;
+        background-color: white;
+        height: 100%;
+        width: 4%;
+        display: block;
+        margin-left: -3%;
+        left: 50%;
+        border-radius: 15px; 
+        position: absolute;
+      }
+      .deg90 {
+        transform:rotate(105deg);
+        background-color: white;
+        height: 100%;
+        width: 4%;
+        display: block;
+        margin-left: -3%;
+        left: 50%;
+        border-radius: 15px; 
+        position: absolute;
+      }
+      .deg135 {
+        transform:rotate(140deg);
+        background-color: white;
+        height: 100%;
+        width: 4%;
+        display: block;
+        margin-left: -3%;
+        left: 50%;
+        border-radius: 15px; 
+        position: absolute;
+      }
+.roll{
+  width: 90%;
+  height: 90%;
+  margin-top: 14px;
+  left: 14px;
+  position: absolute;
+  z-index: 15;
+  background-color: gray;
+}
+
+.holeInside{
+  width: 85%;
+  height: 85%;
+  margin-top: 20px;
+  margin-left: 20px;
+  position: absolute;
+  background-color: white;
+  /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);*/
+}
+.rotateSelect{
+  width: 13%;
+  height: 13%;
+  left: 43%;
+  border-radius: 15px;  
+  position: absolute;
+  background-color: #00cc00;
+}
+.rotateSelectSecond{
+  width: 60%;
+  height: 60%;
+  margin-top: 6px;
+  margin-left: 7px;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+.selectOld{
+  width: 250px;
+  height: 8px;
+  border-radius: 20px; 
+  background-color: black;
+}
+.selectOldInside{
+  width: 85%;
+  margin-left: 7%;
+  border-radius: 10px; 
+  background-color: gray;
+}
+.selector{
+  border: 1px solid;
+    padding: .5em;
+    width: 5em;
+    height: 5em;
+  }
+.buttonAge{
+  margin-left: 19px;
+  height: 30px;
+  border-radius: 10px; 
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+.dot{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 15;
+  -webkit-animation-name: fullRotate; 
+  -webkit-animation-duration: 3.5s;
+}
+@-webkit-keyframes fullRotate {
+    0% {
+      transform:rotate(0deg);
+    }
+    100% {
+      transform:rotate(360deg);
+    }
+}
+}
+.slider {
+    width: 100%;
+    height: 25px;
+    border-radius: 50%; 
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}

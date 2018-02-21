@@ -177,7 +177,7 @@ function buildRewardList() {
 	}
 	$('#table_reward').append(text);
 }
-function buildUesrReward() {
+function buildUserReward() {
 	$('#table_goods > tr').remove();
 	// console.log("Enter build reward list")
 	var goods = Index05.response.player.goods;
