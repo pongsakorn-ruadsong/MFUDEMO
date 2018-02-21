@@ -25,6 +25,7 @@
 	<script src="js/account.js"></script>
 	<script src="js/rewardStore.js"></script>
 	<script src="js/quizlist.js"></script>
+	<script src="js/testType.js"></script>
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
