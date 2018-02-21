@@ -10,9 +10,10 @@
 				sessionStorage['type'] = null;
 			}
 		    $('.range-slider__range').on('input', function(){
+		    	$("#nextBtn").prop('disabled', false);
 		    	var val = parseInt($('.range-slider__range').val());
 		    	var vaule = val.toLocaleString()
-			    $('.range-slider__value').text(vaule);
+			    $('.range-slider__value').html(vaule+" "+sessionStorage['unit']);
 			    $('#hidSLIval').val($('.range-slider__range').val());
 			});
 
@@ -22,22 +23,32 @@
 		    	$('#chgCurren').text($(this).attr('value'));
 		    });
 		    $('#yesi').click(function(){
-		    	$('#realDeal').slideDown();
-		    	sessionStorage['ans_no'] = "yes";
+		    	$("#nextBtn").prop('disabled', true);
+		    	$('.yesi').css("background-color","mediumslateblue");
+		    	$('.noi').css("background-color","white");
+		    	$('.yesi').css("color","white");
+		    	$('.noi').css("color","black");
+		    	$('#spece-for-S').slideDown();
+		    	sessionStorage['ans_no'] = "Yes";
 		    });
 		    $('#noi').click(function(){
-			   $('#realDeal').slideUp();
-			   sessionStorage['ans_no'] = "no";
+		    	$("#nextBtn").prop('disabled', false);
+		    	$('.yesi').css("background-color","white");
+		    	$('.noi').css("background-color","mediumslateblue");
+		    	$('.yesi').css("color","black");
+		    	$('.noi').css("color","white");
+			   $('#spece-for-S').slideUp();
+			   sessionStorage['ans_no'] = "No";
 		    });
 		   // $('#Other').click(function(){ console.log("Success")});
-		   $('#0085').bind('click', function(){
-			  $(this).toggleClass('active');
-			  if ($('#CHK_0085').prop( "checked" )) {
-			  	$('#CHK_0085').prop("checked",true);
-			  }else{
-			  	$('#CHK_0085').prop("checked",false);
-			  }
-			});
+		 //   $('#0085').bind('click', function(){
+			//   $(this).toggleClass('active');
+			//   if ($('#CHK_0085').prop( "checked" )) {
+			//   	$('#CHK_0085').prop("checked",true);
+			//   }else{
+			//   	$('#CHK_0085').prop("checked",false);
+			//   }
+			// });
 		});
 
 	</script>
@@ -98,9 +109,10 @@
 		  box-shadow: 0 0 3px 0 #ABB0B2, 0 2px 5px -1px #787E80;
 		  content: "";
 		}
-
-
-
+		.highligt-choice{
+			background-color: mediumslateblue;
+			color: white;
+		}
 		.btnB.active{
 		  background: rgb(84,143,163);
 		  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzU0OGZhMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3NDlkYWEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -120,8 +132,8 @@
 		<div class="topic" style="position: fixed;top: 15%;z-index: 1040;">
 			<p id="topic"></p>
 		</div>
-		<div class="row" style="margin-top: 25%;margin-bottom: 10%;">
-		<div class="col-md-6 qa" id="img">
+		<div class="row" style="margin-top: 20%;margin-bottom: 20%;">
+		<div class="col-md-6 qa" id="img" style="display: none;">
 			<center style="height: 0px;overflow: hidden;">
 				<img src="img/Playbasis-logo.png" class="quizImg quizImg_temp" id="" style="display:block;">
 			</center>
@@ -129,8 +141,36 @@
 		<div class="col-md-6" id="question" style="margin-top: 80px;padding-right: 0px;padding-left: 0px;">
 				<div id="choice">
 					<div id="4Play" style="display: none;">
-						<input type="button" id="yesi" value="Yes"><br>
-						<input type="button" id="noi" value="No"><br>
+						<div class="btn-group-vertical" style="width:100%;">
+							<label class="btn btn-choices-multi yesi" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;">
+								<input id="yesi" style="visibility:hidden;" type="radio" value="Yes">Yes<br>
+							</label>
+						</div>
+						<div id="spece-for-S" style="display: none;">
+											
+											<div class="row" id="slider-panel_S" typeZ="SLI" style="display: block;text-align: center;margin-bottom: 20px;">
+												<div class="range-slider">
+													<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
+														<div class="col-2" style="padding: 0px;"><span id="minslider_S"></span></div>
+												 		<div class="col-8" style="padding: 0px;"><input class="range-slider__range" id="slider-bar_S" type="range" style="width: 80%"  ></div>
+												 		<div class="col-2" style="padding: 0px;"><span id="maxslider_S"></span></div>
+												 	</div>
+												  <div style="text-align: center;margin-top: 30px;">
+												  	<span id="disValueSli_S" style="padding: 15px;" class="range-slider__value" style="width: 20%">
+
+													</span>
+													<span id="unit_S" style="margin-left: 10px;display: none;"></span>
+													<input type="hidden" id="hidSLIval_S" value="">
+												  </div>
+												</div>
+											</div>
+
+						</div>
+						<div class="btn-group-vertical" style="width:100%;">
+							<label class="btn btn-choices-multi noi" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;">
+								<input id="noi" style="visibility:hidden;" type="radio" value="No">No<br>
+							</label>
+						</div>
 					</div>
 					<div id="realDeal" style="display: none;">
 						<div id="range-panel" typeZ="RANGE" style="display: none;margin-bottom: 50px;margin-top: 70px;">
@@ -193,9 +233,9 @@
 						<div class="row" id="slider-panel" typeZ="SLI" style="display: none;text-align: center;">
 							<div class="range-slider">
 								<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
-									<div class="col-md-2"><span id="minslider"></span></div>
-							 		<div class="col-md-8"><input class="range-slider__range" id="slider-bar" type="range"  value=0 min=0 max=1000000 step=1000 ></div>
-							 		<div class="col-md-2"><span id="maxslider"></span></div>
+									<div class="col-2" style="padding: 0px;"><span id="minslider"></span></div>
+							 		<div class="col-8" style="padding: 0px;"><input class="range-slider__range" id="slider-bar" type="range" style="width: 80%"  value=0 min=0 max=1000000 step=1000 ></div>
+							 		<div class="col-2" style="padding: 0px;"><span id="maxslider"></span></div>
 							 	</div>
 							  <div style="text-align: center;margin-top: 30px;">
 							  	<span id="disValueSli" style="padding: 15px;" class="range-slider__value" style="width: 20%">

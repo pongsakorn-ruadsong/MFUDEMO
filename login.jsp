@@ -37,11 +37,11 @@
 			});
 			$('#testClose').click(function(e){
             	e.preventDefault();
-	                if($('#mySignUp').hasClass('fadeInDownBig'))
-	                {   e.preventDefault();
-	                $('#mySignUp').removeClass('fadeInDownBig').addClass('fadeOutUpBig');
-	                setTimeout("$('#mySignUp').modal('hide')", 550);}
-	                else{
+	                if($('#mySignUp').hasClass('fadeInDownBig')){   
+	                	e.preventDefault();
+	                	$('#mySignUp').removeClass('fadeInDownBig').addClass('fadeOutUpBig');
+	                	setTimeout("$('#mySignUp').modal('hide')", 550);
+	                }else{
 	                	$('#mySignUp').modal('hide');
 	                }
 	        });
