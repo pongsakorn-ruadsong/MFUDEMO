@@ -13,7 +13,7 @@
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
-	<link rel='stylesheet prefetch' href='http://www.justinaguilar.com/animations/css/animations.css'>
+	<!-- <link rel='stylesheet prefetch' href='http://www.justinaguilar.com/animations/css/animations.css'> -->
 	<script src="js/index.js"></script>
 	<script src="js/quiz.js"></script>
 	<script src="js/bootstrap.bundle.js"></script>
@@ -53,9 +53,12 @@
 		console.log(sessionStorage['pageName']);
 		if (sessionStorage['pageName'] == 'login' || sessionStorage['pageName'] == 'login.jsp') {
 			$('#myNav').hide();
+			$('.footer').css('display','none');
+			
 		}
 		else{
 			$('#myNav').show();
+			$('.footer').css('display','block');
 		}
 		if (sessionStorage['pageName'] != 'index.jsp') {
 			$('#barHome').removeClass('active');
@@ -165,7 +168,7 @@
 	}
 </style>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav" style="height: 10%;">
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav" style="height: 8%;">
 		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;margin-left: 15px;">
 			<div class="row">
 
@@ -173,7 +176,7 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;padding: 5px 5px;">
 				<!-- <a class="navbar-brand userPhoto" href="#" style="padding: 0px;border: 3px solid green;border-radius: 50%;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a> -->
-				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 10px 10px;"><img src="img/icons.png" style="width: 100%;height: 100%"></a>
+				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 0px;float: right;"><img src="img/playlist_app_icon.png" style="width: 100%;height: 100%"></a>
 		</ul>
 	</nav>
 	<div class="container-fluid">

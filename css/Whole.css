@@ -45,8 +45,8 @@ html, body, .container-fluid{
   margin-top: 200px;
 }
 .userPhoto{
-  width: 65px;
-  height: 65px;
+  width: 20%;
+  height: 100%;
 }
 .myNavBtn{
     margin-right: 22px;
@@ -336,10 +336,10 @@ p.dropdown-item:hover{
     height: 80px !important;
 }
 .quizlist{
-	border: none !important;
+	/*border: none !important;
 	background: none !important;
 	padding: 0px !important; 
-	transition: all 300ms;
+	transition: all 300ms;*/
 }
 .languagepicker {
 	background-color: #FFF;

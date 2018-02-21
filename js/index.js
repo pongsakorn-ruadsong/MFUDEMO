@@ -116,6 +116,7 @@ function buildQuizList(callback){
 	var length = Index01.response.result.length;
 	var qData = '';
 	var text = '';
+	var text2 = '';
 	// rawData = sessionStorage['quizStatus'];
 	// cdata = JSON.parse(rawData);
 	var disable = '';
@@ -162,18 +163,20 @@ function buildQuizList(callback){
 			// '</center>'+
 			// '</div>'
 	  //   }else{
-	  	// text += ' <div class="swiper-slide quizlist default-slide" style="display: inline-block;margin: auto;" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
-    //   	'<div style="position: relative;width: 100%;height: 50%;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">'+
-    //   		'<img src="'+img+'">'+
-    //   	'</div>'+
-    //   	'<div style="position: relative;width: 100%;height: 40%;background: aqua;">'+
-    //   		'<div>'+values+'</div>'+
-    //   		'<div>Discription . . .</div>'+
-    //   	'</div>'+
-    //   	'<div style="position: absolute;bottom: 0px;width: 100%;text-align: center;"> Footer </div>'+
-    //   '</div>'
+	  	text += ' <div class="swiper-slide quizlist default-slide" style="display: inline-block;margin: auto;" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
+      	'<div style="position: relative;width: 100%;height: 50%;overflow: hidden;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">'+
+      		'<img src="'+img+'">'+
+      		'<div style="position: absolute;bottom: 0px;width: 100%;background-color: #00ffff5c">Overlay'+
+      		'</div>'+
+      	'</div>'+
+      	'<div style="position: relative;width: 100%;height: 36%;background: aqua;padding: 10px;">'+
+      		'<div style="font-size:16px;font-weight:bolder;">'+values+'</div>'+
+      		'<div style="font-size:11px;">Discription . . .</div>'+
+      	'</div>'+
+      	'<div style="position: absolute;bottom: 0px;width: 100%;text-align: center;"> Footer </div>'+
+      '</div>'
 
-	    	text += '<button class="swiper-slide quizlist pre-box" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
+	    text2 += '<button class="swiper-slide quizlist pre-box" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
       	'<div style="width: 100%;height: 100%;">'+
       	'<center>'+
       	'<div class="logo_preview" style="z-index:1">'+
@@ -208,6 +211,7 @@ function buildQuizList(callback){
 	    // 	$('#wipp_wrap').append(text);
 	    // }
 	    $('#swip_hot').append(text);
+	    $('#swip_old').append(text2);
 	    $('.swiper-slide').click(function(){
 	    	var quizOrder = this.getAttribute("order");
 	    	console.log(quizOrder)
@@ -218,7 +222,7 @@ function buildQuizList(callback){
 				// window.location = 'quiz.jsp';
 	   //  	}
 	   			sessionStorage['qId'] = this.getAttribute("qId");
-				window.location = 'quiz.jsp';
+				window.location = 'quiz';
 		});
 		if (sessionStorage["isAdmin"] == 'true') {
 			setVisableAll_P(previous);

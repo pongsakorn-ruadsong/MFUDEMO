@@ -8,7 +8,7 @@
 				getContent();
 				// initialSwipeCard();
 			}else{
-				window.location.replace("index.jsp");
+				window.location.replace("index");
 			}
 			$('#loginBtn').click(function(){
 				authPlayer();
@@ -49,6 +49,10 @@
 			  $("#userType").prop("checked", false);
 			  $("#PlayerID").val('');
 			  $("#passWord").val('');
+			});
+			$('.telNumber').click(function(){
+				var phone_num;
+				$('#phone_input').val($(this).text());
 			});
 		});
 	</script>
@@ -132,15 +136,15 @@
 	    <!-- Modal content-->
 	    <div class="modal-content" style="height: 100%;">
 	      <div class="modal-header" style="border-bottom:0px">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close" id="testClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
 	      <div class="modal-body" style="text-align: center;margin-top: -25px;">
 	      	<center>
 		      	<div style="width: 100%;">
 			      	<div style="width: 100%;">
-			      			<img src="img/otp_logo.png" style="width: 50%;margin-right: 0px;">
+			      			<img src="img/otp_logo.png" style="width: 40%;margin-right: 0px;">
 			      	</div>
-			      	<div style="width: 80%;margin: 20px;">
+			      	<div style="width: 80%;margin: 15px;">
 			        	<p style="font-size: 17px;">Enter your phone number to receive the OTP code</p>
 			        </div>
 			        <div style="width: 80%;height: 40px;">
@@ -149,18 +153,74 @@
 			        		<input type="text" class="form-control phone_input" id="phone_input" onkeypress="validate(event)">
 			        	</div>
 			        </div>
-			        <div style="width: 100%;">
-			        	<div class="input-group" style="height: 100%;">
-			        		<button class="" id="">TH(+66)</button>
-			        		<input type="text" class="form-control phone_input" id="phone_input" onkeypress="validate(event)">
+			        <style type="text/css">
+			        	.gest{
+			        		font-size: 22px;
+    						padding: 10px;
+			        	}
+			        	.btn-send-otp{
+			        		background-color: #45a1bc;
+						    border-radius: 20px;
+						    width: 100%;
+						    height: 100%;
+						    font-size: 20px;
+						    color: white;
+						    padding: 5px;
+						    font-weight: lighter;
+			        	}
+			        </style>
+			        <div style="width: 70%;margin-top: 20px;">
+			        	<button class="btn-send-otp" id="">Send</button>
+			        </div>
+			        <div style="width: 90%;margin-top: 10px;">
+			        	<div class="row" style="">
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">1</button>
+			        		</div>
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">2</button>
+			        		</div>
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">3</button>
+			        		</div>
+			        	</div>
+			        	<div class="row" style="">
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">4</button>
+			        		</div>
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">5</button>
+			        		</div>
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">6</button>
+			        		</div>
+			        	</div>
+			        	<div class="row" style="">
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">7</button>
+			        		</div>
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">8</button>
+			        		</div>
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">9</button>
+			        		</div>
+			        	</div>
+			        	<div class="row" style="">
+			        		<div class="col-4 gest">
+			        			<button class="" id=""></button>
+			        		</div>
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">0</button>
+			        		</div>
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" id="">DEL</button>
+			        		</div>
 			        	</div>
 			        </div>
 				</div>
 			</center>
 		  </div>
-		    <div class="modal-footer">
-		       <button type="button" class="btn btn-default" id="testClose">Close</button>
-		    </div>
 	    </div>
 	  </div>
 	</div>
