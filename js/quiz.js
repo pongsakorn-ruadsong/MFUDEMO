@@ -260,36 +260,43 @@ function buildQuiz(callback){
 	    	}
 		    image += '<img src="'+op_img+'" class="quizImg" id="img_'+option[i].option_id+'" style="display:none;">'
 		}
-	    	document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
+	    	// document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	$('#topic').text(topic);
-	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button"  style="margin-right: 40px;">'+contentSummary['BTN_RESET']+
+	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button"  style="float:left;width:40%;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
-					'<button class="btn btn-primary" id="nextBtn"  type="button">'+contentSummary['BTN_NEXT']+
+					'<button class="btn btn-primary" id="nextBtn" style="float:right;width:40%;"  type="button">'+contentSummary['BTN_NEXT']+
 					'</button>'
 					$('#btn_NR').append(btn_text);
 	    	if (type == 'SQ') {
 	    		document.getElementById("4Play").style.display = "none";
-	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons" style="width:100%;">'
+	    		text += '<div class="btn-group-vertical" style="width:100%;">'
 	    		$("#nextBtn").prop('disabled', true);
+	    		var LR = 'left';
+	    		// if ((i+1)%2 != 0) {
+	    			// LR = 'right';
+	    		// }
 		    	for (var i=0;i<option.length;i++) {
-		    		text += '<label class="btn">'+
-			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ" valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
+			          '<input class="inputTXT " name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
+			        // if ((i+1)%2==0) {
+			        // 	text += '</div></div><div class="row"><div class="btn-group btn-group-vertical" data-toggle="buttons" style="width:100%;">'
+			        // }
 		    		console.log(choices[i]);
 		    	}
 		    	text += '</div>';
 	    	}
 	    	else if (type == 'SQ_S') {
 	    		document.getElementById("4Play").style.display = "none";
-	    		text += '<div class="btn-group btn-group-vertical" data-toggle="buttons">'
+	    		text += '<div class="btn-group-vertical" style="width:100%;">'
 	    		$("#nextBtn").prop('disabled', true);
 		    	for (var i=0;i<option.length;i++) {
 		    		if (option[i].is_text_option) {
 		    			text+= '<input type="text" class="form-control inputTXT_S" id="other_input" idZ="'+option[i].option_id+'" style="display:none;width: 100%;font-size: 16px;margin-left:50px;">'
 		    			continue;
 	    			}
-		    		text += '<label class="btn">'+
-			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ_S" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
+			          '<input class="inputTXT " name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
 
 		    		console.log(choices[i]);
@@ -305,7 +312,7 @@ function buildQuiz(callback){
 		    			select1 = option[i].option_id;
 		    			continue;
 	    			}
-		    		text += '<label class="btn">'+
+		    		text += '<label class="btn btn-choices">'+
 			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ_S" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" type="radio"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'+
 			        '<input type="text" class="form-control inputTXT_S inputSQ_S_MULTI" idZ="'+option[i].option_id+'" style="display:none;width: 100%;font-size: 16px;margin-left:50px;" placeholder="'+placeHolder[i]+'">'
@@ -476,6 +483,12 @@ function buildQuiz(callback){
 				} else {
 					$("#nextBtn").prop('disabled', false);
 				}
+	    	 });
+	    	 $('.btn-choices').click(function(){
+	    	 	$('.btn-choices').css("background-color","white");
+	    	 	$('.btn-choices').css("color","black");
+	    	 	$(this).css("background-color","mediumslateblue");
+	    	 	$(this).css("color","white");
 	    	 });
 	    	 $('input:radio[name="'+topic+'"]').change(
 			    function(){

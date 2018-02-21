@@ -44,6 +44,11 @@
 	<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 	<style type="text/css">
+		@media (max-width: 374px){
+			.bg{
+				padding: 20px;
+			}
+		}
 		.modal-header {
 		    padding: 5px;
 		}
@@ -110,17 +115,18 @@
 		  box-shadow: none;
 		}
 	</style>
-	<div class="bg row" id="quizImg">
-		<div class="col-md-6" id="img" style="margin-top: 25px;">
-			<center>
-				<img src="img/Playbasis-logo.png" class="quizImg quizImg_temp" id="" style="display:none;">
+
+	<div class="bg" id="quizImg">
+		<div class="topic" style="position: fixed;top: 15%;z-index: 1040;">
+			<p id="topic"></p>
+		</div>
+		<div class="row" style="margin-top: 25%;margin-bottom: 10%;">
+		<div class="col-md-6 qa" id="img">
+			<center style="height: 0px;overflow: hidden;">
+				<img src="img/Playbasis-logo.png" class="quizImg quizImg_temp" id="" style="display:block;">
 			</center>
 		</div>
-		<div class="col-md-6" id="question" style="margin-top: 80px;margin-bottom: 100px;">
-			<div class="qa">
-				<div class="topic">
-					<p id="topic"></p>
-				</div>
+		<div class="col-md-6" id="question" style="margin-top: 80px;padding-right: 0px;padding-left: 0px;">
 				<div id="choice">
 					<div id="4Play" style="display: none;">
 						<input type="button" id="yesi" value="Yes"><br>
@@ -204,13 +210,13 @@
 				</div>
 				<input type="hidden" id="aPrefix">
 				<input type="hidden" id="aAnswer">
-				<div class="button-group" id="btn_NR">
+			<div class="button-group" id="btn_NR">
 
 
 				</div>
-			</div>
 		</div>
 	</div>
+</div>
 <!-- <div class="wrap">
   <div class="btnB" id="0085"><i class="glyphicon glyphicon-ok"><input id="CHK_0085" type="checkbox" value="1"></i></div>
   <div class="btnB"><i class="icon-ok"><input type="checkbox" value="2">2</i></div>

@@ -320,7 +320,7 @@ function getToken() {
 // }
 function Logout() {
 	sessionStorage.clear();
-	window.location = 'login.jsp';
+	window.location = 'login';
 }
 // function previousSlide(a){
 // 	console.log(a);

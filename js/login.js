@@ -72,7 +72,7 @@ function guestFunction(){
 	    	}else{
 	    		sessionStorage['player'] = guestID;
 	    		sessionStorage['loginType'] = 'guest';
-	    		window.location.replace("index.jsp");
+	    		window.location.replace("index");
 	    	}
 	    },
 	    error: function (xhr, textStatus, errorThrown){

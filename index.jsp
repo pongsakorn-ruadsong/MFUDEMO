@@ -2,7 +2,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		if (checkUser()) {
-				window.location.replace("login.jsp");
+				window.location.replace("login");
 		}else{
 			translateContent();
 	    	getQuizData();
@@ -19,16 +19,13 @@
 	.swiper-container {
       width: 100%;
       padding: 8px;
-      height: 50vw;
-      max-height: 350px;
+      height: 70vw;
       margin: 20px 0;
     }
     .swiper-slide {
       text-align: center;
       font-size: 18px;
       background: #fff;
-      max-width: 300px;
-      max-height: 300px;
       /* Center slide text vertically */
       display: -webkit-box;
       display: -ms-flexbox;
@@ -40,11 +37,11 @@
       justify-content: center;
       -webkit-box-align: center;
       -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
+      /*-webkit-align-items: center;
+      align-items: center;*/
     }
     .shelf{
-    	background: url('img/shelf.jpg') no-repeat center center fixed; 
+    	/*background: url('img/shelf.jpg') no-repeat center center fixed; */
 		  -webkit-background-size: cover;
 		  -moz-background-size: cover;
 		  -o-background-size: cover;
@@ -94,7 +91,7 @@
     	height: 1%;
     	min-height: 50px;
     	max-height: 100px;
-    	margin-top: 66px;
+    	margin-top: 75px;
     	background-color: aqua;
     	margin-bottom: -20px;
     	text-align: center;
@@ -125,45 +122,57 @@
     <div class="swiper-wrapper" id="swip_hot">
       
     </div>
-    <!-- Add Pagination -->
-    <br><br><br>
-    <div class="swiper-pagination swiper-pagination1"></div>
   </div>
 
   <!-- Swiper -->
   <div class="swiper-container swiper2">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">Slide 1</div>
-      <div class="swiper-slide">Slide 2</div>
-      <div class="swiper-slide">Slide 3</div>
-      <div class="swiper-slide">Slide 4</div>
-      <div class="swiper-slide">Slide 5</div>
-      <div class="swiper-slide">Slide 6</div>
-      <div class="swiper-slide">Slide 7</div>
-      <div class="swiper-slide">Slide 8</div>
-      <div class="swiper-slide">Slide 9</div>
-      <div class="swiper-slide">Slide 10</div>
+    <div class="swiper-wrapper" id="swip_old">
+      
     </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination swiper-pagination2"></div>
   </div>
 
   <!-- Swiper -->
-  <div class="swiper-container swiper3">
+   <div class="swiper-container swiper3">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">Slide 1</div>
-      <div class="swiper-slide">Slide 2</div>
-      <div class="swiper-slide">Slide 3</div>
-      <div class="swiper-slide">Slide 4</div>
-      <div class="swiper-slide">Slide 5</div>
-      <div class="swiper-slide">Slide 6</div>
-      <div class="swiper-slide">Slide 7</div>
-      <div class="swiper-slide">Slide 8</div>
-      <div class="swiper-slide">Slide 9</div>
-      <div class="swiper-slide">Slide 10</div>
+      <div class="swiper-slide default-slide">
+      	<div class="swiper-slide default-slide" style="display: inline-block;margin: auto;">
+      	<div style="position: relative;width: 100%;height: 50%;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">
+      		<div style="width: 100%;">
+      			<div style="left: 50%;position: absolute;height: 50px;width: 50px;">
+	      			<div style="width: 20%;position: relative;left: -50%;top: -12px;background-color: darkkhaki;width: 100%;height: 100%;border-radius: 50%;border: 4px solid white;">
+	      				Logo
+	      			</div>
+      			</div>
+      		</div>
+      		Picture
+      		<div style="position: absolute;bottom: 0px;width: 100%;background-color: #00ffff5c">
+      			Overlay
+      		</div>
+      	</div>
+      	<div style="position: relative;width: 100%;height: 40%;background: aqua;">
+      		<div>
+      			Title
+      		</div>
+      		<div>
+      			EXAMPLE LAYOUT
+      		</div>
+      	</div>
+      	<div style="position: absolute;bottom: 0px;width: 100%;text-align: center;">
+      		Footer
+      	</div>
+      </div>
+      </div>
+      <div class="swiper-slide default-slide">Slide 2</div>
+      <div class="swiper-slide default-slide">Slide 3</div>
+      <div class="swiper-slide default-slide">Slide 4</div>
+      <div class="swiper-slide default-slide">Slide 5</div>
+      <div class="swiper-slide default-slide">Slide 6</div>
+      <div class="swiper-slide default-slide">Slide 7</div>
+      <div class="swiper-slide default-slide">Slide 8</div>
+      <div class="swiper-slide default-slide">Slide 9</div>
+      <div class="swiper-slide default-slide">Slide 10</div>
     </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination swiper-pagination3"></div>
+    <div class="swiper-pagination swiper-pagination2"></div>
   </div>
  </div>
  <div class="modal fade" id="myModal" role="dialog">

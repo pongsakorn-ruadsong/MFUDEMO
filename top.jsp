@@ -13,7 +13,7 @@
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
-	<link rel='stylesheet prefetch' href='http://www.justinaguilar.com/animations/css/animations.css'>
+	<!-- <link rel='stylesheet prefetch' href='http://www.justinaguilar.com/animations/css/animations.css'> -->
 	<script src="js/index.js"></script>
 	<script src="js/quiz.js"></script>
 	<script src="js/bootstrap.bundle.js"></script>
@@ -35,7 +35,7 @@
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="css/flags.min.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
-
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
 	<%
 		String uri = request.getRequestURI();
@@ -53,9 +53,12 @@
 		console.log(sessionStorage['pageName']);
 		if (sessionStorage['pageName'] == 'login' || sessionStorage['pageName'] == 'login.jsp') {
 			$('#myNav').hide();
+			$('.footer').css('display','none');
+			
 		}
 		else{
 			$('#myNav').show();
+			$('.footer').css('display','block');
 		}
 		if (sessionStorage['pageName'] != 'index.jsp') {
 			$('#barHome').removeClass('active');
@@ -66,7 +69,7 @@
 		$('#showLang').click(function(){
 			getLang();
 		});
-		$('#showUser').click(function(){
+		$('.showUser').click(function(){
 			getUserInfo(function(){
 				$('#userInfo').modal();
 			});
@@ -122,9 +125,10 @@
 	     margin-left: 0px; 
 	}
 	.navbar-inverse{
-		background-color: rgba(146, 145, 145,0.4);
-		border-color: rgba(241, 239, 239, 0.4);
-		color: white;
+		/*background-color: rgba(255,255,255,0);*/
+		border-color: rgba(255,255,255,0);
+		background-color: #21252942;
+		color: black;
 	}
 	.navbar-nav > li > a {
 		
@@ -164,18 +168,15 @@
 	}
 </style>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav" style="height: 8%;">
 		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;margin-left: 15px;">
 			<div class="row">
-				<div class="col-6" style="padding: 0px;">
-					<a class="navbar-brand userPhoto" href="#" style="padding: 5px 5px;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a>
-				</div>
-				<div class="col-6" style="padding: 15px 15px;">
-				</div>
+
 			</div>
 		</ul>
-		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;">
-				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 10px 10px;"><img src="img/icons.png" style="width: 100%;height: 100%"></a>
+		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;padding: 5px 5px;">
+				<!-- <a class="navbar-brand userPhoto" href="#" style="padding: 0px;border: 3px solid green;border-radius: 50%;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a> -->
+				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 0px;float: right;"><img src="img/playlist_app_icon.png" style="width: 100%;height: 100%"></a>
 		</ul>
 	</nav>
 	<div class="container-fluid">
@@ -192,13 +193,13 @@
 		      <div class="modal-body" style="text-align: center;padding: 3rem !important;">
 		       	<div class="row">
 		       		<div class="col-4 right">
-		       			<a href="#"><span class="glyphicon glyphicon-user" id="showUser"></span></a>
+		       			<a href="#"><span class="glyphicon glyphicon-user showUser" id="showUser"></span></a>
 		       		</div>
 		       		<div class="col-4">
 
 		       		</div>
 		       		<div class="col-4 left">
-		       			<a href="rewardStore.jsp"><span class="glyphicon glyphicon-gift"></span></a>
+		       			<a href="rewardStore"><span class="glyphicon glyphicon-gift"></span></a>
 		       		</div>
 		       	</div>
 		       	<div class="row">
@@ -206,7 +207,7 @@
 
 		       		</div>
 		       		<div class="col-4">
-		       			<a href="index.jsp"><span class="glyphicon glyphicon-home"></span></a>
+		       			<a href="index"><span class="glyphicon glyphicon-home"></span></a>
 		       		</div>
 		       		<div class="col-4">
 
