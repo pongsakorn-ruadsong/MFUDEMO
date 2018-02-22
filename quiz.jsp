@@ -154,7 +154,7 @@
 		<div class="topic" style="position: fixed;top: 15%;z-index: 1040;">
 			<p id="topic"></p>
 		</div>
-		<div class="row" style="margin-top: 20%;margin-bottom: 20%;">
+		<div class="row" style="margin-top: 20%;margin-bottom: 30%;">
 		<div class="col-md-6 qa" id="img" style="display: none;">
 			<center style="height: 0px;overflow: hidden;">
 				<img src="img/Playbasis-logo.png" class="quizImg quizImg_temp" id="" style="display:block;">
