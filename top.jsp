@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
 	<!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>  -->
 	<script src="js/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<script src="js/jquery-3.2.1.min.js"></script>
+
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
@@ -26,6 +26,8 @@
 	<script src="js/rewardStore.js"></script>
 	<script src="js/quizlist.js"></script>
 	<script src="js/testType.js"></script>
+	<script src="js/intlTelInput.min.js"></script>
+	<link rel="stylesheet" href="css/intlTelInput.css" />
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -169,7 +171,7 @@
 	}
 </style>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav" style="height: 8%;">
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav" style="height: 60px;">
 		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;margin-left: 15px;">
 			<div class="row">
 
@@ -191,7 +193,7 @@
 		<div class="modal  fade" id="menuPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
 		    <div class="modal-content mCustom">
-		      <div class="modal-body" style="text-align: center;padding: 3rem !important;">
+		      <div class="modal-body" style="text-align: center;padding: 1rem !important;">
 		       	<div class="row">
 		       		<div class="col-4 right">
 		       			<a href="#"><span class="glyphicon glyphicon-user showUser" id="showUser"></span></a>

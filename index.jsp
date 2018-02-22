@@ -41,12 +41,14 @@
       align-items: center;*/
     }
     .shelf{
-    	/*background: url('img/shelf.jpg') no-repeat center center fixed; */
-		  -webkit-background-size: cover;
-		  -moz-background-size: cover;
-		  -o-background-size: cover;
-		  background-size: cover;
-		  height: 100%;
+    	margin-top: 0px;
+    	padding-top: 60px;
+    	background-image: url('img/temp_bg_01.jpg');
+   		background-repeat: no-repeat;
+   		background-attachment: scroll;
+    	background-size: cover;
+    	overflow: scroll;
+		height: 125%;
     }
     .card-preview{
     	width: 100%;
@@ -87,20 +89,21 @@
     	border-radius: 5px;
     }
     .annouce{
-    	width: 100%;
-    	height: 1%;
-    	min-height: 50px;
-    	max-height: 100px;
-    	margin-top: 75px;
-    	background-color: aqua;
-    	margin-bottom: -20px;
-    	text-align: center;
-    	padding-top: 20px;
-    	padding-bottom: 20px;
-    }
+    	position: fixed;
+	    display: none;
+	    top: 60px;
+	    width: 100%;
+	    min-height: 50px;
+	    max-height: 100px;
+	    background-color: #00ffff59;
+	    text-align: center;
+	    padding-top: 20px;
+	    z-index: 2;
+	    padding-bottom: 20px;
+	}
     .img-container {
-    display: inline-block;
-    position: relative;
+	    display: inline-block;
+	    position: relative;
 	}
 	.positioning{
 	    position: absolute;
@@ -112,12 +115,39 @@
 	    font-size: 17px;
 	    line-height: 18px;
 	}
+	.parallax {
+	    height: 100vh;
+	    overflow-x: hidden;
+	    overflow-y: auto;
+	    -webkit-perspective: 1px;
+	    perspective: 1px;
+	  }
+	.parallax__layer {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    height: 100%;
+	  }
+	.parallax__layer--base {
+	  	-webkit-transform: translateZ(0);
+    	transform: translateZ(0);
+	}
+	.parallax__layer--back {
+	  	-webkit-transform: translateZ(-1px) scale(2);
+    	transform: translateZ(-1px) scale(2);
+	}
 </style>
 <div class="annouce">
 	Annoucement
 </div>
 <!-- Swiper -->
-<div class="shelf">
+<div class="parallax">
+	<div class="parallax__layer parallax__layer--back">
+		<div class="shelf"></div>
+	</div>
+<div class="parallax__layer parallax__layer--base" style="margin-top: 70px;">
   <div class="swiper-container swiper1">
     <div class="swiper-wrapper" id="swip_hot">
       
@@ -132,14 +162,14 @@
   </div>
 
   <!-- Swiper -->
-   <div class="swiper-container swiper3">
+   <div class="swiper-container swiper3" style="margin-bottom: 70px;">
     <div class="swiper-wrapper">
       <div class="swiper-slide default-slide">
       	<div class="swiper-slide default-slide" style="display: inline-block;margin: auto;">
       	<div style="position: relative;width: 100%;height: 50%;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">
       		<div style="width: 100%;">
       			<div style="left: 50%;position: absolute;height: 50px;width: 50px;">
-	      			<div style="width: 20%;position: relative;left: -50%;top: -12px;background-color: darkkhaki;width: 100%;height: 100%;border-radius: 50%;border: 4px solid white;">
+	      			<div style="width: 20%;position: relative;left: -50%;top: -8px;background-color: darkkhaki;width: 100%;height: 100%;border-radius: 50%;border: 4px solid white;">
 	      				Logo
 	      			</div>
       			</div>
@@ -172,8 +202,11 @@
       <div class="swiper-slide default-slide">Slide 9</div>
       <div class="swiper-slide default-slide">Slide 10</div>
     </div>
-    <div class="swiper-pagination swiper-pagination2"></div>
+   
   </div>
+
+  
+ </div>
  </div>
  <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">

@@ -148,6 +148,10 @@ function getIdentifyKey(a){
 //       },
 //     });
 // }
+function phoneFormat(text){
+	text = text.replace(/(\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3");
+        return text;
+}
 function initialSwipeCard(){
 	var swiper = new Swiper('#wipp_con', {
       width:300,

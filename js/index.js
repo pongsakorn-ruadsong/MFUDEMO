@@ -128,7 +128,7 @@ function buildQuizList(callback){
 	    var btn_order = Index01.response.result[i].weight;
 	    var QuestImg = '';
 	    var desciption = Index01.response.result[i].description;
-	    console.log(desciption)
+	    // console.log(desciption)
 	    for (var k = 0; k < rawData.length; k++) {
 	    	if (rawData[k].id == quiz_id) {
 	    		QuestImg = rawData[k].Image;

@@ -1,6 +1,9 @@
 <%@include file="top.jsp" %>
-	<script type="text/javascript">
+<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+<script type="text/javascript">
 		$(document).ready(function(){
+			var full_num = [];
 			$('[data-toggle="tooltip"]').tooltip();
 			sessionStorage['lang'] = 'English';
 			if (checkUser()) {
@@ -51,9 +54,85 @@
 			  $("#passWord").val('');
 			});
 			$('.telNumber').click(function(){
-				var phone_num;
-				$('#phone_input').val($(this).text());
+				var phone_num = $(this).text();
+				full_num.push(phone_num);
+				var half_num = full_num.join("");
+				console.log(phone_num)
+				console.log(full_num)
+				var final_num = phoneFormat(half_num)
+				$('#phone_input').val(half_num);
 			});
+			$('#del-phone').click(function(){
+				full_num.pop();
+				var half_num = full_num.join("");
+				var final_num = phoneFormat(half_num)
+				$('#phone_input').val(half_num);
+			});
+			$('#reset-phone').click(function(){
+				full_num = [];
+				var half_num = full_num.join("");
+				var final_num = phoneFormat(half_num)
+				$('#phone_input').val(half_num);
+			});
+			$('#sendOtp').click(function(){
+				var number = '';
+				sendOtp(number);
+			});
+			$('.country_number').click(function(){
+
+			});
+			$('#contactForm')
+	        .find('[name="phoneNumber"]')
+	            .intlTelInput({
+	                utilsScript: 'js/utils.js',
+	                autoPlaceholder: true,
+	                preferredCountries: ['fr', 'us', 'gb','th','kr','jp']
+	            });
+
+	    $('#contactForm')
+	        .formValidation({
+	            framework: 'bootstrap',
+	            icon: {
+	                valid: 'glyphicon glyphicon-ok',
+	                invalid: 'glyphicon glyphicon-remove',
+	                validating: 'glyphicon glyphicon-refresh'
+	            },
+	            fields: {
+	                phoneNumber: {
+	                    validators: {
+	                        callback: {
+	                            message: 'The phone number is not valid',
+	                            callback: function(value, validator, $field) {
+	                                return {
+	                                    valid: value === '' || $field.intlTelInput('isValidNumber'),
+	                                    type: $field.intlTelInput('getNumberType')
+	                                };
+	                            }
+	                        }
+	                    }
+	                }
+	            }
+	        })
+	        .on('success.validator.fv', function(e, data) {
+	            if (data.field === 'phoneNumber' && data.validator === 'callback' && data.element.val() !== '') {
+	                // You can see type of phone number by printing out data.result.type
+	                // console.log(data.result.type);
+	                if (data.result.type !== intlTelInputUtils.numberType.MOBILE) {
+	                    data.fv
+	                        // Mark the field as invalid
+	                        .updateStatus('phoneNumber', 'INVALID', 'callback')
+	                        // Update the message
+	                        .updateMessage('phoneNumber', 'callback', 'We accept the mobile numbers only');
+	                } else {
+	                    // Reset the message
+	                    data.fv.updateMessage('phoneNumber', 'callback', 'The phone number is not valid');
+	                }
+	            }
+	        })
+	        // Revalidate the number when changing the country
+	        .on('click', '.country-list', function() {
+	            $('#contactForm').formValidation('revalidateField', 'phoneNumber');
+	        });
 		});
 	</script>
 	<link rel="stylesheet" href="css/swiper.min.css">
@@ -89,6 +168,7 @@
 	      align-items: center;
 	  }
 	</style>
+	
 	<div class="card-box">
 	<div class="swiper-container" id="wipp_con">
 	    <div class="swiper-wrapper" id="wipp_userCard">
@@ -131,7 +211,7 @@
 	</div>
 	<!-- Modal -->
 	<div id="mySignUp" class="modal animated fadeInDownBig" role="dialog">
-	  <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;">
+	  <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;margin:0px;">
 
 	    <!-- Modal content-->
 	    <div class="modal-content" style="height: 100%;">
@@ -139,8 +219,8 @@
 	        <button type="button" class="close" id="testClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
 	      <div class="modal-body" style="text-align: center;margin-top: -25px;">
-	      	<center>
 		      	<div style="width: 100%;">
+		      		<center>
 			      	<div style="width: 100%;">
 			      			<img src="img/otp_logo.png" style="width: 40%;margin-right: 0px;">
 			      	</div>
@@ -148,10 +228,15 @@
 			        	<p style="font-size: 17px;">Enter your phone number to receive the OTP code</p>
 			        </div>
 			        <div style="width: 80%;height: 40px;">
-			        	<div class="input-group" style="height: 100%;">
-			        		<button class="country_number" id="country_number">TH(+66)</button>
-			        		<input type="text" class="form-control phone_input" id="phone_input" onkeypress="validate(event)">
-			        	</div>
+			        	
+			        		<form id="contactForm" class="form-horizontal">
+							    <div class="form-group">
+							        <div class="col-xs-5">
+							            <input type="text" class="form-control phone_input" id="phone_input" name="phoneNumber"  onkeypress="validate(event)">
+							        </div>
+							    </div>
+							</form>
+			        	
 			        </div>
 			        <style type="text/css">
 			        	.gest{
@@ -170,56 +255,57 @@
 			        	}
 			        </style>
 			        <div style="width: 70%;margin-top: 20px;">
-			        	<button class="btn-send-otp" id="">Send</button>
+			        	<button class="btn-send-otp" id="sendOtp">Send</button>
 			        </div>
-			        <div style="width: 90%;margin-top: 10px;">
+			        </center>
+			        <div style="width: 100%;margin-top: 10px;padding-left: 2.5%;padding-right: 2.5%;">
+			        	
 			        	<div class="row" style="">
 			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">1</button>
+			        			<button class="telNumber" >1</button>
 			        		</div>
 			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">2</button>
+			        			<button class="telNumber" >2</button>
 			        		</div>
 			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">3</button>
+			        			<button class="telNumber" >3</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
 			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">4</button>
+			        			<button class="telNumber" >4</button>
 			        		</div>
 			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">5</button>
+			        			<button class="telNumber" >5</button>
 			        		</div>
 			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">6</button>
-			        		</div>
-			        	</div>
-			        	<div class="row" style="">
-			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">7</button>
-			        		</div>
-			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">8</button>
-			        		</div>
-			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">9</button>
+			        			<button class="telNumber" >6</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
 			        		<div class="col-4 gest">
-			        			<button class="" id=""></button>
+			        			<button class="telNumber" >7</button>
 			        		</div>
 			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">0</button>
+			        			<button class="telNumber" >8</button>
 			        		</div>
 			        		<div class="col-4 gest">
-			        			<button class="telNumber" id="">DEL</button>
+			        			<button class="telNumber" >9</button>
+			        		</div>
+			        	</div>
+			        	<div class="row" style="">
+			        		<div class="col-4 gest">
+			        			<button class="reset-phone" id="reset-phone">Reset</button>
+			        		</div>
+			        		<div class="col-4 gest">
+			        			<button class="telNumber" >0</button>
+			        		</div>
+			        		<div class="col-4 gest">
+			        			<button class="del-phone" id="del-phone">DEL</button>
 			        		</div>
 			        	</div>
 			        </div>
 				</div>
-			</center>
 		  </div>
 	    </div>
 	  </div>
