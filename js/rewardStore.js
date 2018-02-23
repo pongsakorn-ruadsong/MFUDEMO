@@ -29,14 +29,16 @@ function buildGoodsList(){
 	var length = gobal.response.goods_list.length;
 	var data = gobal.response.goods_list;
 	if(length>0){
-		// $("#display>div").remove();
+		$("#display>div").remove();
 		for(let i=0;i<length;i++){ 
 			var goodsId = data[i].goods_id;
 			var title = data[i].name;
 			var description = data[i].description;
 			var image = data[i].image;
 			var goodsType = data[i].is_group;
-			var Stock = data[i].quantity;	
+			var Stock = data[i].quantity;
+			var expire = data[i].date_expire;
+			var start = data[i].date_start;	
 			var icon = '';
 			var detail = '';
 			var point = '';
@@ -52,19 +54,17 @@ function buildGoodsList(){
 					point = contentValue[goodsId][k].value;
 				}
 				}
-		result +=		
-'							<div class="">'+							
-'       						<button class="animated fadeInLeft btn-sm btn-default col-sm-5 btnListReward" data-toggle="modal" style="border-radius: 15px; overflow: hidden;" goodsTypeId="'+goodsType+'" goodsId="'+goodsId+'" detailId="'+detail+'" imgId="'+image+'" pointId="'+point+'" titleId="'+title+'" iconId="'+icon+'" stockId="'+Stock+'" type="button">'+
-'									<div class="ribbon-container"><div class="ribbon" style="color: #3B3738; font-size: 14px"><b>'+point+'</b></div></div>'+
-'										<label type="text" class="" style="text-align: center;"><h4>'+title+'</h4></label>'+
-'										<hr>'+
-'										<img class="col-sm-4" src="'+image+'">'+
-'											<div class="col-sm-6" style="width: 300px; text-align: left; font-size: 12px;">'+detail+'</div>'+
-'								</button>'+
-'							<div>'
+		result +=								
+'				<button class="couponCard btnListReward" type="button" style="background-image: url('+image+');" data-toggle="modal" goodsTypeId="'+goodsType+'" goodsId="'+goodsId+'" detailId="'+detail+'" imgId="'+image+'" pointId="'+point+'" titleId="'+title+'" iconId="'+icon+'" stockId="" type="button">'+
+'					<div class="boxInsideCoupon">'+
+'						<div class="textInCoupon">'+title+'</div>'+
+'							<div class="showPoint">'+point+'</div>'+
+'					</div>'+
+'				</button>'	
 			}
 	}
-result = result+'</div>';
+	result = result+'</div>';
+
 	$("#display").append(result);
 	$(".btnListReward").click(function(){
 		var a = $(this).attr('imgId');
@@ -173,3 +173,7 @@ function receiveGoodsGroup(getGoodsName){
 	            }
 	        });
  }
+
+ function ddsad(){
+		$('#111').modal();
+	}

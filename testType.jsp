@@ -2,9 +2,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		buildDate();
-		buildProvince();
+
 	});	
+
+
 </script>
 <div class="container" style="margin-top: 10%;">
 
@@ -40,44 +41,65 @@
 		<span id="unit" style="margin-left: 10px;display: none;"></span>
 		<input type="hidden" id="hidSLIval" value="">
 	</div>
-</form> -->
-
-
-  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-
+</form>
+ -->
 
 <div class="contianerCycle">
+	<!-- <div style="position: absolute; left: 47%;">36</div>
+	<div style="position: absolute;left: 75%;top: 8%;transform: rotate(35deg);">37</div>
+	<div style="position: absolute;left: 16%;top: 10%;transform: rotate(-35deg);">45</div>
+	<div style="position: absolute;left: 93%;top: 30%;transform: rotate(70deg);">38</div>
+	<div style="position: absolute;left: 1%;top: 36%;transform: rotate(-70deg);">44</div>
+	<div style="position: absolute;left: 94%;top: 60%;transform: rotate(105deg);">39</div>
+	<div style="position: absolute;left: 2%;top: 64%;transform: rotate(-105deg);">43</div>
+	<div style="position: absolute;left: 78%;top: 85%;transform: rotate(140deg);">40</div>
+	<div style="position: absolute;left: 19%;top: 87%;transform: rotate(-150deg);">42</div>
+	<div style="position: absolute;left: 47%;top: 95%;transform: rotate(-180deg);">41</div>
+	<div style="position: absolute;left: 75%;top: 8%;transform: rotate(35deg);">37</div>
+	<div style="position: absolute;left: 16%;top: 10%;transform: rotate(-35deg);">45</div>
+	<div style="position: absolute;left: 93%;top: 30%;transform: rotate(70deg);">38</div>
+	<div style="position: absolute;left: 1%;top: 36%;transform: rotate(-70deg);">44</div>
+	<div style="position: absolute;left: 94%;top: 60%;transform: rotate(105deg);">39</div>
+	<div style="position: absolute;left: 2%;top: 64%;transform: rotate(-105deg);">43</div>
+	<div style="position: absolute;left: 78%;top: 85%;transform: rotate(140deg);">40</div>
+	<div style="position: absolute;left: 19%;top: 87%;transform: rotate(-150deg);">42</div>
+	<div style="position: absolute;left: 47%;top: 95%;transform: rotate(-180deg);">41</div>
+	<div style="position: absolute;left: 75%;top: 8%;transform: rotate(35deg);">37</div>
+	<div style="position: absolute;left: 16%;top: 10%;transform: rotate(-35deg);">45</div>
+	<div style="position: absolute;left: 93%;top: 30%;transform: rotate(70deg);">38</div>
+	<div style="position: absolute;left: 1%;top: 36%;transform: rotate(-70deg);">44</div>
+	<div style="position: absolute;left: 94%;top: 60%;transform: rotate(105deg);">39</div>
+	<div style="position: absolute;left: 2%;top: 64%;transform: rotate(-105deg);">43</div>
+	<div style="position: absolute;left: 78%;top: 85%;transform: rotate(140deg);">40</div>
+	<div style="position: absolute;left: 19%;top: 87%;transform: rotate(-150deg);">42</div>
+	<div style="position: absolute;left: 47%;top: 95%;transform: rotate(-180deg);">41</div>
+	<div style="position: absolute;left: 94%;top: 60%;transform: rotate(105deg);">39</div>
+	<div style="position: absolute;left: 2%;top: 64%;transform: rotate(-105deg);">43</div>
+	<div style="position: absolute;left: 78%;top: 85%;transform: rotate(140deg);">40</div>
+	<div style="position: absolute;left: 19%;top: 87%;transform: rotate(-150deg);">42</div>
+	<div style="position: absolute;left: 47%;top: 95%;transform: rotate(-180deg);">41</div> -->
 	<div class="cycle" style="border-radius: 50%">
-		<div class="roll" style="border-radius: 50%">
-				<span class="deg0"></span>
-				<span class="deg35"></span>
-				<span class="deg45"></span>
-				<span class="deg90"></span>
-				<span class="deg135"></span>
-				<div class="holeInside" style="border-radius: 50%">
-			</div>
-				<div class="dot">
-					<div class="rotateSelect" style="border-radius: 50%">
-						<div class="rotateSelectSecond" style="border-radius: 50%"></div>
-					</div>	
-				</div>
+		<div class="circle-range-select-wrapper">
+			<input type="text" name="" class="circle-range-select">
+			<div class="handle" style="left: 50%; top: -1px;"></div>
+			<div class="value">0</div>
+		</div>
 		</div>
 	</div>
 </div>
 <div class="container" style="margin-top: 5%;">
-	<!-- <div class="selector"> -->
 		
-		<div class="selectOld">
+		 <circle id="mask" class="circle" cx="50%" cy="50%" >aaaaaaaaaaaa</circle>
+       
 			<button class="btn btn-default buttonAge" style="padding: 5px; background-color: #e6e6e6;"><span class="glyphicon glyphicon-triangle-bottom"></span></button>
 			<div class="selectOldInside">
-				<a class="btn btn-default buttonAge"></a>
-				<a class="btn btn-default buttonAge"></a>
-				<a class="btn btn-default buttonAge"></a>
-				<a class="btn btn-default buttonAge"></a>
-				<a class="btn btn-default buttonAge"></a>
+				<button class="btn btn-default buttonAge" onclick="selectAge()"></button>
+				<button class="btn btn-default buttonAge" onclick="selectAge2()"></button>
+				<button class="btn btn-default buttonAge"></button>
+				<button class="btn btn-default buttonAge"></button>
+				<button class="btn btn-default buttonAge"></button>
 			</div> 
-		</div>
-		<!-- </div> -->
+		</div> 
 </div>
 </div>
 <%@include file="bottom.jsp" %>
