@@ -1224,19 +1224,13 @@ function swalReward(b){
 					imgss = imgr;
 				}
 				text += '<div class="modal fade" id="myScore" role="dialog">'+
-			    '<div class="modal-dialog">'+
+			    '<div class="modal-dialog" style="width:100% !important;top: 0%;margin: 0px;">'+
 			      '<!-- Modal content-->'+
-			      '<div class="modal-content" style="background-color: #ffffffba;border:0px;">'+
-			        '<div class="modal-header">'+
-					    '<h3>'+imgee+'</h3>'+
-					    '<h4>'+got+'</h4>'+
-					'</div>'+
+			      '<div class="modal-content" style="background-color: #1f1511eb;border:0px;">'+
 			        '<div class="modal-body" style="text-align: center;">'+
-			          	'<img src="'+imgss+'">'+
+			          	'<img src="'+imgss+'" style="width:25%;">'+
 			        '</div>'+
-			        '<div class="modal-footer">'+
-			          ' <button type="submit" class="btn btn-primary closeM">Ok!'+
-			        '</div>'+
+			        
 			      '</div>'+
 			    '</div>'+
 			  '</div> '

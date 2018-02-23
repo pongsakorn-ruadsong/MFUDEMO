@@ -175,7 +175,7 @@
 				<div id="choice">
 					<div id="4Play" style="display: none;">
 						<div class="btn-group-vertical" style="width:100%;">
-							<label class="btn btn-choices-multi yesi" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;">
+							<label class="btn btn-choices yesi" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;">
 								<input id="yesi" style="visibility:hidden;" type="radio" value="Yes">Yes<br>
 							</label>
 						</div>
@@ -200,7 +200,7 @@
 
 						</div>
 						<div class="btn-group-vertical" style="width:100%;">
-							<label class="btn btn-choices-multi noi" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;">
+							<label class="btn btn-choices noi" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;">
 								<input id="noi" style="visibility:hidden;" type="radio" value="No">No<br>
 							</label>
 						</div>
