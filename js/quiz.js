@@ -306,6 +306,10 @@ function buildQuiz(callback){
 
 	    	else if(type == 'MULTI_S'){
 	    		document.getElementById("4Play").style.display = "block";
+	    		$('#nextBtn').css('display','block')
+	    		$('#nextBtn').text('Next')
+	    		$('#nextBtn').removeClass('normal-form-next').addClass('btn-primary')
+	    		$('#resetQuiz').css('display','block')
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
 	    		// $("#nextBtn").prop('disabled', true);
 	    		for (var i=0;i<option.length;i++) {
@@ -314,8 +318,8 @@ function buildQuiz(callback){
 		    			continue;
 	    			}
 	    			text += '<div style="width:100%;margin: 8px;"><span class="glyphicon glyphicon-plus" style="float: left;margin-right: 10px;margin-left: 10px;font-size: 13px;margin-top: 7px;"></span>'+
-	    			'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
-			          		'<input class="inputTXT_MULTI_S Input_checkbook" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox" style="visibility:hidden;">'+
+	    			'<label class="btn btn-choices" style="display:inline;border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;padding-right: 15px;">'+
+			          		'<input class="inputTXT Input_checkbook" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox" style="visibility:hidden;">'+
 			          			'<span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			          
 			        '</label></div>'
@@ -478,7 +482,7 @@ function buildQuiz(callback){
 	    	});
 	    	$('#nextBtn').click(function() {
 		    	console.log("ENTER")
-		    	if (type == 'SLI' || type == 'SLI_S') {
+		    	if (type == 'SLI' || type == 'SLI_S' || type == 'MULTI_S') {
 		    		autoNext();
 		    	}else{
 		    	var remain = parseInt(sessionStorage['pause_num']);
@@ -562,6 +566,8 @@ function buildQuiz(callback){
 	    	 });
 	    	 $('.inputTXT_SQ_S').click(function(){
 	    	 	showButtons()
+	    	 	$(this).parent().css("background-color","mediumslateblue");
+	    	 	$(this).parent().css("color","white");
 		    	 setTimeout(function(){
 						timerasdsd(3);
 						$('#nextBtn').addClass("countDown-btn");
@@ -1224,16 +1230,22 @@ function swalReward(b){
 					imgss = imgr;
 				}
 				text += '<div class="modal fade" id="myScore" role="dialog">'+
-			    '<div class="modal-dialog" style="width:100% !important;top: 0%;margin: 0px;">'+
-			      '<!-- Modal content-->'+
-			      '<div class="modal-content" style="background-color: #1f1511eb;border:0px;">'+
-			        '<div class="modal-body" style="text-align: center;">'+
-			          	'<img src="'+imgss+'" style="width:25%;">'+
-			        '</div>'+
-			        
-			      '</div>'+
-			    '</div>'+
-			  '</div> '
+                '<div class="modal-dialog">'+
+                  '<!-- Modal content-->'+
+                  '<div class="modal-content" style="background-color: #ffffffc7;border:0px;">'+
+                    '<div class="modal-header">'+
+                        '<h3>'+imgee+'</h3>'+
+                        '<h4>'+got+'</h4>'+
+                    '</div>'+
+                    '<div class="modal-body" style="text-align: center;">'+
+                          '<img src="'+imgss+'">'+
+                    '</div>'+
+                    '<div class="modal-footer">'+
+                      '<button type="submit" class="btn btn-primary closeM">Ok!'+
+                    '</div>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'
 			  $('#modal_score').append(text);
 			  $('.closeM').click(function(){
 			  	$("#myScore").modal("hide");
