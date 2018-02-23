@@ -978,37 +978,37 @@ function nextQuestion(){
 	       	console.log(data);
        	}
         tokenUrl = sessionStorage['mainUrl']+"Quiz/"+sessionStorage['qId']+"/answer"
-// 	$.ajax({
-// 		type: "POST",
-// 		url: tokenUrl,
-// 		content: "application/json; charset=utf-8",
-// 		dataType: "json",
-// 		data: data,
-// 		success: function(d) {
-// 			Gtemp_02 = d;
-// 			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
-// 			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
-// 			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
-// 			savePrevious();
-// 			if (Gtemp_02.response.result.is_last_question) {
-// 				$('#myModal').modal({backdrop: 'static', keyboard: false});
-// 				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
-// 				setTimeout(function(){
-// 					scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
-// 					console.log("Hey! it is the last now! check the console about reward!")
-// 					$('#myModal').modal("hide");
-// 				}, 1000);
-// 			}else{
-// 				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-// 				window.top.location = window.top.location;
-// 			}
-// 		},
-// 		error: function (xhr, textStatus, errorThrown){
-// //                window.location.reload(true)
-//                 console.log(errorThrown);
-//                 console.log("Failed : nextQuestion() @ quiz.js");
-//             }
-//         });
+	$.ajax({
+		type: "POST",
+		url: tokenUrl,
+		content: "application/json; charset=utf-8",
+		dataType: "json",
+		data: data,
+		success: function(d) {
+			Gtemp_02 = d;
+			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
+			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
+			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
+			savePrevious();
+			if (Gtemp_02.response.result.is_last_question) {
+				$('#myModal').modal({backdrop: 'static', keyboard: false});
+				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
+				setTimeout(function(){
+					scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
+					console.log("Hey! it is the last now! check the console about reward!")
+					$('#myModal').modal("hide");
+				}, 1000);
+			}else{
+				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+				window.top.location = window.top.location;
+			}
+		},
+		error: function (xhr, textStatus, errorThrown){
+//                window.location.reload(true)
+                console.log(errorThrown);
+                console.log("Failed : nextQuestion() @ quiz.js");
+            }
+        });
 }
 function scorePop(a,b){
 	// var get_grade = JSON.parse(sessionStorage['graded']);
