@@ -909,26 +909,30 @@ img{
   }
 }
 .couponCard{
-  /*background: linear-gradient(to bottom right, blue,red);*/
+  background: linear-gradient(to bottom right, red, yellow);
   width: 100%;
   height: 150px;
   margin-bottom: 15px;
   border-radius: 10px;
+  position: relative;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .boxInsideCoupon{
-  width: 35%;
-  height: 25%;
+  width: 50%;
+  height: 74px;
+  left: 53%;
   border-radius: 10px; 
   position: absolute;
   background-color: #ffffff69;
 }
 .textInCoupon{
-  font-size: 20px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 18px;
 }
 .showPoint{
   text-align: right;
-  font-size: 10px;
+  font-size: 15px;
   color: orange;
 }
 .couponPoint{

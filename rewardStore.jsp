@@ -107,7 +107,7 @@
 <br>
 <br>
 <div class="goodsStore"></div>
-	<div class="shelf" style="background-color: gray;">
+	<div class="shelf" style="background-color: white;">
 		<div class="swiper-container">
 			<div class="swiper-wrapper col-md-12" id="display">
 
@@ -157,13 +157,11 @@
 </div> -->
 
 
-
-
 <div class="modal fadeIn" id="rewardDetail" role="dialog">
     <div class="modal-dialog" style="top: 15%">    
         <div class="modal-content" style="height: auto; width: auto; border-radius: 10px; background-color: white;">
         <div class="header couponTop">Coupon</div>		
-			<div class="container modalCoupon" style="margin: 5px; width: 100%; height: 100%;">
+			<div class="container modalCoupon" style="width: 100%; height: 100%;">
 				<img src="" class="img-circle" id="disIcon" style="width: 75px; height: 45px; margin-bottom: 10px">
 				<div class="textInCoupon" type="text" id="disTitle"></div>			      					
 				<hr>

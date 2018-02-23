@@ -55,10 +55,19 @@ function buildGoodsList(){
 				}
 				}
 		result +=								
-'				<button class="couponCard btnListReward" type="button" style="background-image: url('+image+');" data-toggle="modal" goodsTypeId="'+goodsType+'" goodsId="'+goodsId+'" detailId="'+detail+'" imgId="'+image+'" pointId="'+point+'" titleId="'+title+'" iconId="'+icon+'" stockId="" type="button">'+
-'					<div class="boxInsideCoupon">'+
-'						<div class="textInCoupon">'+title+'</div>'+
-'							<div class="showPoint">'+point+'</div>'+
+'				<button class="couponCard btnListReward" type="button" style="background-image: url('+image+'); background-size: cover;" data-toggle="modal" goodsTypeId="'+goodsType+'" goodsId="'+goodsId+'" detailId="'+detail+'" imgId="'+image+'" pointId="'+point+'" titleId="'+title+'" iconId="'+icon+'" stockId="" type="button">'+
+'				<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:-6px;left: -7px; background-color: white;">'+
+'					<img src="'+icon+'">'+
+'				</div>'+
+'					<div class="row">'+
+'						<div class="col-md-4">'+
+'							</div>'+
+'							<div class="col-md-8">'+
+'								<div class="boxInsideCoupon">'+
+'								<div class="textInCoupon">'+title+'</div>'+
+'								<div class="showPoint">'+point+'</div>'+
+'							</div>'+
+'						<div>'+
 '					</div>'+
 '				</button>'	
 			}
