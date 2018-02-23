@@ -138,8 +138,11 @@
 			animation-duration: 0.5s;
   			/*-vendor-animation-delay: 2s;*/
 		}
-		#stopCount{
+		.bounceInLeft{
 			animation-duration: 1.5s;
+		}
+		#stopCount{
+			animation-duration: 0.5s;
 		}
 		.choice-overlay{
 			animation-duration: 0.5s;

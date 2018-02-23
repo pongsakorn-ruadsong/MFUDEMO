@@ -166,9 +166,17 @@ function buildQuizList(callback){
 			// '</center>'+
 			// '</div>'
 	  //   }else{
-	  	text += ' <div class="swiper-slide quizlist default-slide" style="display: inline-block;margin: auto;" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
-      	'<div style="position: relative;width: 100%;height: 50%;overflow: hidden;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">'+
-      		'<img src="'+img+'">'+
+	  	text += '<div class="swiper-slide default-slide" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
+      	'<div class="swiper-slide default-slide" style="display: inline-block;margin: auto;">'+
+      	'<div style="position: relative;width: 100%;height: 50%;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">'+
+      		'<div style="width: 100%;">'+
+      			'<div style="left: 50%;position: absolute;height: 50px;width: 50px;">'+
+	      			'<div style="width: 20%;position: relative;left: -50%;top: -8px;background-color: darkkhaki;width: 100%;height: 100%;border-radius: 50%;border: 4px solid white;">'+
+	      			'<img src="'+QuestImg+'">'+
+	      			'</div>'+
+      			'</div>'+
+      		'</div>'+
+      		'<img src="'+img+'" style="border-top-left-radius: 15px;border-top-right-radius: 15px;">'+
       		'<div style="position: absolute;bottom: 0px;width: 100%;background-color: #00ffff25">Overlay'+
       		'</div>'+
       	'</div>'+
@@ -177,6 +185,7 @@ function buildQuizList(callback){
       		'<div style="font-size:11px;">'+desc+'</div>'+
       	'</div>'+
       	'<div style="position: absolute;bottom: 0px;width: 100%;text-align: center;"> Footer </div>'+
+      '</div>'+
       '</div>'
 
 	    text2 += '<button class="swiper-slide quizlist pre-box" order="'+btn_order+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+

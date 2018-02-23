@@ -253,7 +253,7 @@ function buildQuiz(callback){
 		}
 	    	// document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	$('#topic').text(topic);
-	    	btn_text += '<button class="btn btn-primary" id="stopCount" type="button"  style="float:left;width:40%;display:none;" onclick="myStopFunction()">Stop</button>'+
+	    	btn_text += '<button class="btn btn-warning pause-btn" id="stopCount" type="button"  style="float:left;width:40%;display:none;" onclick="myStopFunction()">Pause</button>'+
 	    			'<button class="btn btn-danger" id="resetQuiz" type="button"  style="float:left;width:40%;display:none;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
 					'<button class="btn " id="nextBtn" style="float:right;width:40%;display:none;border: 1px solid rgb(221, 221, 221);color:white;padding-top: 8px;"  type="button"><span id="timer">Ready!</span>'+
@@ -266,14 +266,14 @@ function buildQuiz(callback){
 	    	if (type == 'SQ') {
 	    		document.getElementById("4Play").style.display = "none";
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
-	    		$("#nextBtn").prop('disabled', true);
+	    		// $("#nextBtn").prop('disabled', true);
 	    		var LR = 'left';
 	    		// if ((i+1)%2 != 0) {
 	    			// LR = 'right';
 	    		// }
 		    	for (var i=0;i<option.length;i++) {
 		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
-		    			'<label class="btn choice-overlay" style="position: absolute;border: 1px solid #ddd;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d1a1;display: none;opacity:0.5;"></label>'+
+		    			'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
 			          '<input class="inputTXT_SQ" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			          
 			        '</label>'
@@ -290,7 +290,7 @@ function buildQuiz(callback){
 	    	else if(type == 'MULTI'){
 	    		document.getElementById("4Play").style.display = "none";
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
-	    		$("#nextBtn").prop('disabled', true);
+	    		// $("#nextBtn").prop('disabled', true);
 	    		for (var i=0;i<option.length;i++) {
 		    		if (option[i].is_text_option) {
 		    			select1 = option[i].option_id;
@@ -307,7 +307,7 @@ function buildQuiz(callback){
 	    	else if(type == 'MULTI_S'){
 	    		document.getElementById("4Play").style.display = "block";
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
-	    		$("#nextBtn").prop('disabled', true);
+	    		// $("#nextBtn").prop('disabled', true);
 	    		for (var i=0;i<option.length;i++) {
 		    		if (option[i].is_text_option) {
 		    			select1 = option[i].option_id;
@@ -327,7 +327,7 @@ function buildQuiz(callback){
 	    	else if (type == 'SQ_S') {
 	    		document.getElementById("4Play").style.display = "none";
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
-	    		$("#nextBtn").prop('disabled', true);
+	    		// $("#nextBtn").prop('disabled', true);
 		    	for (var i=0;i<option.length;i++) {
 		    		if (option[i].is_text_option) {
 		    			text+= '<input type="text" class="form-control inputTXT_S" id="other_input" idZ="'+option[i].option_id+'" style="display:none;width: 100%;font-size: 16px;margin-left:50px;">'
@@ -344,7 +344,7 @@ function buildQuiz(callback){
 	    	else if (type == 'SQ_S_MULTI') {
 	    		document.getElementById("4Play").style.display = "none";
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
-	    		$("#nextBtn").prop('disabled', true);
+	    		// $("#nextBtn").prop('disabled', true);
 		    	for (var i=0;i<option.length;i++) {
 		    		if (option[i].is_text_option) {
 		    			select1 = option[i].option_id;
@@ -444,8 +444,22 @@ function buildQuiz(callback){
 	    	$('#stopCount').click(function(){
 	    		sessionStorage['pause_num'] = $('#timer').text();
 	    		$('#stopCount').removeClass("bounceInLeft");
-	    	 	$('#stopCount').addClass("animated zoomOut");
 	    	 	$('#stopCount').css("display","none");
+	    	 	if (!$(this).hasClass('animated')) {
+	    	 		$(this).addClass("animated");
+	    	 	}
+	    	 	if ($(this).hasClass('zoomIn')) {
+	    	 		$(this).removeClass('zoomIn').addClass("zoomOut");
+	    	 		$('#resetQuiz').removeClass('zoomOut').addClass("zoomIn");
+	    	 		$(this).css('display','none')
+	    	 		$('#resetQuiz').css('display','block')
+	    	 	}
+	    	 	else if ($(this).hasClass('zoomOut')){
+	    	 		$(this).removeClass('zoomOut').addClass("zoomIn");
+	    	 		$('#resetQuiz').removeClass('zoomIn').addClass("zoomOut");
+	    	 		$(this).css('display','block')
+	    	 		$('#resetQuiz').css('display','none')
+	    	 	}
 	    		$('#resetQuiz').css("display","block");
 	    	 	$('#resetQuiz').addClass("animated zoomIn");
 	    	 	$('#timer').text("");
@@ -459,10 +473,17 @@ function buildQuiz(callback){
 		    		console.log("Has class countDown-btn")
 		    		if ($(this).hasClass('stop')) {
 		    			console.log("Has class stop")
+		    			$('#resetQuiz').css("display","none");
+	    	 			$('#resetQuiz').removeClass("zoomIn").addClass("zoomOut");
+	    	 			$('#stopCount').css("display","block");
+	    	 			$('#stopCount').removeClass("zoomOut").addClass("zoomIn");
 		    			$('#timer').removeClass("glyphicon glyphicon-play");
 		    			$('#nextBtn').removeClass("stop");
 			    		$('#timer').text(sessionStorage['pause_num']);
 			    		timerasdsd(remain);
+		    		}
+		    		else{
+		    			autoNext();
 		    		}
 		    	}
 			    // $(this).removeClass("glyphicon glyphicon-play");
@@ -505,7 +526,7 @@ function buildQuiz(callback){
 		    	 	$('#'+Idd).parent().addClass('highligt-choice');
 		    	 }
 		    	 if(TTarray.length == 0){
-					$("#nextBtn").prop('disabled', true);
+					// $("#nextBtn").prop('disabled', true);
 				} else {
 					$("#nextBtn").prop('disabled', false);
 				}
@@ -513,14 +534,12 @@ function buildQuiz(callback){
 	    	 $('.btn-choices').click(function(){
 	    	 	console.log("ADADAD")
 	    	 	$('.choice-overlay').css('display','block');
-	    	 	$('.choice-overlay').addClass('animated fadeInDown');
-	    	 	
-				$('#nextBtn').css("display","block");
-				
-				$('#nextBtn').addClass("animated bounceInRight");
-				
+	    	 	$("#nextBtn").prop('disabled', false);
+	    	 	// $('.choice-overlay').addClass('animated fadeInDown');
 	    	 });
 	    	 $('.inputTXT_SQ').click(function(){
+	    	 	$('#nextBtn').css("display","block");
+				$('#nextBtn').addClass("animated bounceInRight");
 	    	 	$('#resetQuiz').css("display","none");
 	    	 	$('#stopCount').css("display","block");
 	    	 	$('#stopCount').addClass("animated bounceInLeft");
@@ -633,8 +652,9 @@ function myStopFunction() {
 }
 function autoNext(){
     	 	console.log("Auto Next")
-    	 	$("#nextBtn").prop('disabled', true);
-    	 	$("#resetQuiz").prop('disabled', true);
+    	 	// $("#nextBtn").prop('disabled', true);
+    	 	// $("#resetQuiz").prop('disabled', true);
+    	 	// $("#stopCount").prop('disabled', true);
 	    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
 	    		
 				toastr["info"]("Please answer the question.", "Hint!");
