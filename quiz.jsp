@@ -147,7 +147,7 @@
 		.choice-overlay{
 			animation-duration: 0.5s;
 		}
-		#nextBtn{
+		.normal-form-next{
 			background: linear-gradient(to right, #007bff 50%, gray 50%);
 		    background-size: 200% 100%;
 		    background-position:right bottom;
@@ -302,7 +302,7 @@
     <div class="modal-dialog">
 
       <!-- Modal content-->
-      <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;">
+      <div class="modal-content" style="background-color: #fff0;border:0px;">
         <CENTER>
         <div class="modal-body" style="position: fixed;top: 80px;left: 0px;">
           <div class="" style="">

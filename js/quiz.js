@@ -256,7 +256,7 @@ function buildQuiz(callback){
 	    	btn_text += '<button class="btn btn-warning pause-btn" id="stopCount" type="button"  style="float:left;width:40%;display:none;" onclick="myStopFunction()">Pause</button>'+
 	    			'<button class="btn btn-danger" id="resetQuiz" type="button"  style="float:left;width:40%;display:none;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
-					'<button class="btn " id="nextBtn" style="float:right;width:40%;display:none;border: 1px solid rgb(221, 221, 221);color:white;padding-top: 8px;"  type="button"><span id="timer">Ready!</span>'+
+					'<button class="btn normal-form-next" id="nextBtn" style="float:right;width:40%;display:none;border: 1px solid rgb(221, 221, 221);color:white;padding-top: 8px;"  type="button"><span id="timer">Ready!</span>'+
 					'</button>'
 					$('#btn_NR').append(btn_text);
 
@@ -314,7 +314,7 @@ function buildQuiz(callback){
 		    			continue;
 	    			}
 	    			text += '<div style="width:100%;margin: 8px;"><span class="glyphicon glyphicon-plus" style="float: left;margin-right: 10px;margin-left: 10px;font-size: 13px;margin-top: 7px;"></span>'+
-	    			'<label class="btn btn-choices" style="display:inline;border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;padding-right: 15px;">'+
+	    			'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
 			          		'<input class="inputTXT_MULTI_S Input_checkbook" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox" style="visibility:hidden;">'+
 			          			'<span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			          
@@ -334,6 +334,7 @@ function buildQuiz(callback){
 		    			continue;
 	    			}
 		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
+		    		'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
 			          '<input class="inputTXT_SQ_S" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
 
@@ -351,6 +352,7 @@ function buildQuiz(callback){
 		    			continue;
 	    			}
 		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
+		    		'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
 			          '<input class="inputTXT_SQ_S_MULTI" name="'+topic+'" typeZ="SQ_S" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" style="visibility:hidden;" type="radio"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'+
 			        '<div class="inputSQ_S_MULTI" idZ="'+option[i].option_id+'" style="display:none;"><span class="glyphicon glyphicon-plus" style="float: left;margin-right: 10px;margin-left: 10px;font-size: 13px;margin-top: 7px;"></span><input type="text" class="form-control inputTXT_S" idX="'+option[i].option_id+'" style="border: 1px solid #ddd;border-radius: 30px;text-align:center;width: 80%;font-size: 16px;margin-bottom: 5px;" placeholder="'+placeHolder[i]+'"></div>'
@@ -406,6 +408,10 @@ function buildQuiz(callback){
 	    	else if(type == 'SLI'){
 	    		console.log("Enter SLI")
 	    		console.log(a+' '+b+' '+c+' ')
+	    		$('#nextBtn').css('display','block')
+	    		$('#nextBtn').text('Next')
+	    		$('#nextBtn').removeClass('normal-form-next').addClass('btn-primary')
+	    		$('#resetQuiz').css('display','block')
 	    		$("#slider-panel").addClass("inputTXT");
 	    		document.getElementById("slider-panel").style.display = "block";
 	    		document.getElementById("realDeal").style.display = "block";
@@ -421,6 +427,10 @@ function buildQuiz(callback){
 	    	}
 	    	else if(type == 'SLI_S'){
 	    		console.log(a+' '+b+' '+c+' ')
+	    		$('#nextBtn').css('display','block')
+	    		$('#nextBtn').text('Next')
+	    		$('#nextBtn').removeClass('normal-form-next').addClass('btn-primary')
+	    		$('#resetQuiz').css('display','block')
 	    		$("#slider-panel_S").addClass("inputTXT");
 	    		document.getElementById("slider-panel_S").style.display = "block";
 	    		document.getElementById("4Play").style.display = "block";
@@ -468,6 +478,9 @@ function buildQuiz(callback){
 	    	});
 	    	$('#nextBtn').click(function() {
 		    	console.log("ENTER")
+		    	if (type == 'SLI' || type == 'SLI_S') {
+		    		autoNext();
+		    	}else{
 		    	var remain = parseInt(sessionStorage['pause_num']);
 		    	if ($(this).hasClass('countDown-btn')) {
 		    		console.log("Has class countDown-btn")
@@ -486,6 +499,7 @@ function buildQuiz(callback){
 		    			autoNext();
 		    		}
 		    	}
+		    }
 			    // $(this).removeClass("glyphicon glyphicon-play");
 			    // $('#timer').text(sessionStorage['pause_num']);
 			  }
@@ -538,37 +552,39 @@ function buildQuiz(callback){
 	    	 	// $('.choice-overlay').addClass('animated fadeInDown');
 	    	 });
 	    	 $('.inputTXT_SQ').click(function(){
-	    	 	$('#nextBtn').css("display","block");
-				$('#nextBtn').addClass("animated bounceInRight");
-	    	 	$('#resetQuiz').css("display","none");
-	    	 	$('#stopCount').css("display","block");
-	    	 	$('#stopCount').addClass("animated bounceInLeft");
+	    	 	showButtons()
 	    	 	$(this).parent().css("background-color","mediumslateblue");
 	    	 	$(this).parent().css("color","white");
 		    	 setTimeout(function(){
-						timerasdsd(10);
+						timerasdsd(3);
 						$('#nextBtn').addClass("countDown-btn");
 					},600);
 	    	 });
 	    	 $('.inputTXT_SQ_S').click(function(){
+	    	 	showButtons()
 		    	 setTimeout(function(){
 						timerasdsd(3);
 						$('#nextBtn').addClass("countDown-btn");
 					},600);
 	    	 });
 	    	 $('.inputTXT_SQ_S_MULTI').click(function(){
+	    	 	showButtons()
+	    	 	$(this).parent().css("background-color","mediumslateblue");
+	    	 	$(this).parent().css("color","white");
 		    	 setTimeout(function(){
-						timerasdsd(3);
+						timerasdsd(6);
 						$('#nextBtn').addClass("countDown-btn");
 					},600);
 	    	 });
 	    	 $('.inputTXT_MULTI').click(function(){
+	    	 	showButtons()
 		    	 setTimeout(function(){
 						timerasdsd(3);
 						$('#nextBtn').addClass("countDown-btn");
 					},600);
 	    	 });
 	    	 $('.inputTXT_MULTI_S').click(function(){
+	    	 	showButtons()
 		    	 setTimeout(function(){
 						timerasdsd(3);
 						$('#nextBtn').addClass("countDown-btn");
@@ -580,7 +596,7 @@ function buildQuiz(callback){
 	    	 	$('#resetQuiz').addClass("animated bounceInLeft");
 				$('#nextBtn').addClass("animated bounceInRight");
 		    	 setTimeout(function(){
-						timerasdsd(3);
+						timerasdsd(10);
 						$('#nextBtn').addClass("countDown-btn");
 					},1000);
 	    	 });
@@ -620,6 +636,13 @@ function buildQuiz(callback){
 			    });
 					callback();
 }
+function showButtons(){
+	$('#nextBtn').css("display","block");
+	$('#nextBtn').addClass("animated bounceInRight");
+	$('#resetQuiz').css("display","none");
+	$('#stopCount').css("display","block");
+	$('#stopCount').addClass("animated bounceInLeft");
+}
 var timeOut;
 function timerasdsd(a){
 	 var timeleft = a;
@@ -628,6 +651,7 @@ function timerasdsd(a){
 	 // justquick();
 	 console.log(timeleft)
 		   timeOut = setInterval(function(){
+		   	 --timeleft;
 		   		console.log(timeleft)
 				   if (timeleft<=0) {
 			           document.getElementById("timer").textContent = "Next";
@@ -637,8 +661,8 @@ function timerasdsd(a){
 			           		autoNext();
 			           	},600);
 			       }else{
-				   document.getElementById("timer").textContent = (timeleft-1);
-				   timeleft--;
+				   document.getElementById("timer").textContent = timeleft;
+				  
 				  //  	if (timeleft>=0) {
 				 	// 	justquick();
 				 	// }
@@ -1032,13 +1056,14 @@ function nextQuestion(){
 }
 function scorePop(a,b){
 	// var get_grade = JSON.parse(sessionStorage['graded']);
+	console.log("Enter scorePop");
 	var total_score = a.total_score;
 	var max_score = a.total_max_score;
 	var gr_rank = a.rank;
 	var gr_rank_img = a.rank_image;
 	var gr_grade = a.grade;
 	var img = '';
-	console.log(gr_rank+" "+max_score)
+	console.log("Rank: "+gr_rank+" | Max score: "+max_score)
 	if (gr_rank == "" && max_score == 0) {
 		swal({
 		  title: "Completed",
@@ -1053,6 +1078,9 @@ function scorePop(a,b){
 				window.location.replace("index.jsp");
 			},500)
 		});
+	}
+	else if(gr_rank == "" && max_score != 0){
+		swalReward(b);
 	}
 	else if (max_score == 0 && gr_rank != "") {
 		swalRank(a,b);
@@ -1184,7 +1212,7 @@ function swalReward(b){
 				text += '<div class="modal fade" id="myScore" role="dialog">'+
 			    '<div class="modal-dialog">'+
 			      '<!-- Modal content-->'+
-			      '<div class="modal-content">'+
+			      '<div class="modal-content" style="background-color: #ffffffba;border:0px;">'+
 			        '<div class="modal-header">'+
 					    '<h3>'+imgee+'</h3>'+
 					    '<h4>'+got+'</h4>'+
