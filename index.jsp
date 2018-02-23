@@ -43,7 +43,7 @@
     .shelf{
     	margin-top: 0px;
     	padding-top: 60px;
-    	background-image: url('img/temp_bg_01.jpg');
+    	background-image: url('img/BG.jpg');
    		background-repeat: no-repeat;
    		background-attachment: scroll;
     	background-size: cover;
@@ -205,7 +205,7 @@
    
   </div>
 
-  
+
  </div>
  </div>
  <div class="modal fade" id="myModal" role="dialog">

@@ -179,7 +179,7 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;padding: 5px 5px;">
 				<!-- <a class="navbar-brand userPhoto" href="#" style="padding: 0px;border: 3px solid green;border-radius: 50%;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a> -->
-				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 0px;float: right;"><img src="img/playlist_app_icon.png" style="width: 100%;height: 100%"></a>
+				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 0px;float: right;"><img src="img/iconplaylist.png" style="width: 100%;height: 100%"></a>
 		</ul>
 	</nav>
 	<div class="container-fluid">

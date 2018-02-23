@@ -134,8 +134,11 @@
 		  box-shadow: none;
 		}
 		#resetQuiz{
-			animation-duration: 1.5s;
+			animation-duration: 0.5s;
   			/*-vendor-animation-delay: 2s;*/
+		}
+		#stopCount{
+			animation-duration: 1.5s;
 		}
 		#nextBtn{
 			background: linear-gradient(to right, #007bff 50%, gray 50%);

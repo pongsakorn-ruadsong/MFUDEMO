@@ -33,6 +33,7 @@ var quizStatus = [];
 var quizImg = [];
 var choicesTitle = [];
 var TTarray = [];
+sessionStorage['active'] = 'false';
 function loadAnimation(a){
 	// var img = a.question_image;
 	// var text = '<div><img src="'+img+'" style="width:460px;height:460px;"></div>'
@@ -252,9 +253,10 @@ function buildQuiz(callback){
 		}
 	    	// document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	$('#topic').text(topic);
-	    	btn_text += '<button class="btn btn-danger" id="resetQuiz" type="button"  style="float:left;width:40%;display:none;">'+contentSummary['BTN_RESET']+
+	    	btn_text += '<button class="btn btn-primary" id="stopCount" type="button"  style="float:left;width:40%;display:none;">Stop</button>'+
+	    			'<button class="btn btn-danger" id="resetQuiz" type="button"  style="float:left;width:40%;display:none;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
-					'<button class="btn " id="nextBtn" style="float:right;width:40%;display:none;border: 1px solid rgb(221, 221, 221);color:white;padding-top: 8px;"  type="button"><span id="timer">3</span>'+
+					'<button class="btn " id="nextBtn" style="float:right;width:40%;display:none;border: 1px solid rgb(221, 221, 221);color:white;padding-top: 8px;"  type="button"><span id="timer">Ready!</span>'+
 					'</button>'
 					$('#btn_NR').append(btn_text);
 
@@ -271,7 +273,9 @@ function buildQuiz(callback){
 	    		// }
 		    	for (var i=0;i<option.length;i++) {
 		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
-			          '<input class="inputTXT " name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+		    			'<label class="btn choice-overlay" style="position: absolute;border: 1px solid #ddd;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d1a1;display: none;opacity:0.5;"></label>'+
+			          '<input class="inputTXT_SQ" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+			          
 			        '</label>'
 			        // if ((i+1)%2==0) {
 			        // 	text += '</div></div><div class="row"><div class="btn-group btn-group-vertical" data-toggle="buttons" style="width:100%;">'
@@ -292,8 +296,8 @@ function buildQuiz(callback){
 		    			select1 = option[i].option_id;
 		    			continue;
 	    			}
-	    			text += '<label class="btn btn-choices-multi" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;">'+
-			          '<input class="inputTXT Input_checkbook" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+	    			text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;">'+
+			          '<input class="inputTXT_MULTI Input_checkbook" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
 		    		console.log(choices[i]);
 		    	}
@@ -310,8 +314,8 @@ function buildQuiz(callback){
 		    			continue;
 	    			}
 	    			text += '<div style="width:100%;margin: 8px;"><span class="glyphicon glyphicon-plus" style="float: left;margin-right: 10px;margin-left: 10px;font-size: 13px;margin-top: 7px;"></span>'+
-	    			'<label class="btn btn-choices-multi" style="display:inline;border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;padding-right: 15px;">'+
-			          		'<input class="inputTXT Input_checkbook" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox" style="visibility:hidden;">'+
+	    			'<label class="btn btn-choices" style="display:inline;border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;padding-right: 15px;">'+
+			          		'<input class="inputTXT_MULTI_S Input_checkbook" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox" style="visibility:hidden;">'+
 			          			'<span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			          
 			        '</label></div>'
@@ -330,7 +334,7 @@ function buildQuiz(callback){
 		    			continue;
 	    			}
 		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
-			          '<input class="inputTXT " name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+			          '<input class="inputTXT_SQ_S" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
 
 		    		console.log(choices[i]);
@@ -347,7 +351,7 @@ function buildQuiz(callback){
 		    			continue;
 	    			}
 		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
-			          '<input class="inputTXT" name="'+topic+'" typeZ="SQ_S" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" style="visibility:hidden;" type="radio"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+			          '<input class="inputTXT_SQ_S_MULTI" name="'+topic+'" typeZ="SQ_S" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" style="visibility:hidden;" type="radio"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'+
 			        '<div class="inputSQ_S_MULTI" idZ="'+option[i].option_id+'" style="display:none;"><span class="glyphicon glyphicon-plus" style="float: left;margin-right: 10px;margin-left: 10px;font-size: 13px;margin-top: 7px;"></span><input type="text" class="form-control inputTXT_S" idX="'+option[i].option_id+'" style="border: 1px solid #ddd;border-radius: 30px;text-align:center;width: 80%;font-size: 16px;margin-bottom: 5px;" placeholder="'+placeHolder[i]+'"></div>'
 		    		console.log(choices[i]);
@@ -395,7 +399,7 @@ function buildQuiz(callback){
 
 	    	}
 	    	else if(type == 'TXT'){
-	    		text+='<textarea class="form-control inputTXT" rows="4" placeholder="'+ph+'" typeZ="TXT"></textarea>'
+	    		text+='<textarea class="form-control inputTXT_TXT" rows="4" placeholder="'+ph+'" typeZ="TXT"></textarea>'
 	    		select1 = Quiz01.response.result.options[0].option_id;
 
 	    	}
@@ -437,48 +441,15 @@ function buildQuiz(callback){
 	    	}
 	    	image += '</center>';
 	    	$('#img').append(image);
-	    	
-	    	 function autoNext(){
-	    	 	console.log("Auto Next")
-	    	 	$("#nextBtn").prop('disabled', true);
-	    	 	$("#resetQuiz").prop('disabled', true);
-		    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
-		    		
-					toastr["info"]("Please answer the question.", "Hint!");
-		    	}
-		    	else if(sessionStorage['type'] == 'SLI_S' && sessionStorage['ans_no'] == "null"){
-		    		
-					toastr["info"]("Please answer the question.", "Hint!");
-		    	}
-		    	else if (sessionStorage['ans_no'] == "no") {
-		    		if (valid()) {
-			    		nextQuestion();
-			    		if (isLastQuestion()) {
-					    		
-						    	// toastr["info"]("This is the last question. we're bringing you to index", "Successful");
-						    	setTimeout(function(){ window.location.replace("index.jsp"); }, mathRand);
-							}else{
-								savePrevious();
-								
-						    	// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-						    	setTimeout(function(){ location.reload(); }, mathRand);
-							}
-						}
-						else{
-							// $("#nextBtn").prop('disabled', false);
-	    	 // 				$("#resetQuiz").prop('disabled', false);
-						}
-		    	}else{
-			    if (valid()) {
-				    	nextQuestion();
-				    }
-				    else{
-							// $("#nextBtn").prop('disabled', false);
-	    	 // 				$("#resetQuiz").prop('disabled', false);
-					}
-				}
-			}
-	    	 $('#resetQuiz').click(function(){
+	    	$('#stopCount').click(function(){
+	    		$('#stopCount').removeClass("bounceInLeft");
+	    	 	$('#stopCount').addClass("animated zoomOut");
+	    	 	$('#stopCount').css("display","none");
+	    		$('#resetQuiz').css("display","block");
+	    	 	$('#resetQuiz').addClass("animated zoomIn");
+
+	    	});
+	    	$('#resetQuiz').click(function(){
 		    	swal({
 				  title: "Are you sure?",
 				  text: "You will not be able to recover your answered data",
@@ -520,42 +491,58 @@ function buildQuiz(callback){
 				}
 	    	  });
 	    	 $('.btn-choices').click(function(){
-	    	 	$('.btn-choices').css("background-color","white");
-	    	 	$('.btn-choices').css("color","black");
-	    	 	$(this).css("background-color","mediumslateblue");
-	    	 	$(this).css("color","white");
+	    	 	console.log("ADADAD")
+	    	 	$('.choice-overlay').css('display','block');
+	    	 	$('.choice-overlay').addClass('animated fadeInDown');
+	    	 	$('#resetQuiz').css("display","none");
+				$('#nextBtn').css("display","block");
+				$('#stopCount').css("display","block");
+	    	 	$('#stopCount').addClass("animated bounceInLeft");
+				$('#nextBtn').addClass("animated bounceInRight");
+				
+	    	 });
+	    	 $('.inputTXT_SQ').click(function(){
+	    	 	$(this).parent().css("background-color","mediumslateblue");
+	    	 	$(this).parent().css("color","white");
+		    	 setTimeout(function(){
+						timerasdsd(3);
+						$('#nextBtn').addClass("countDown-btn");
+					},600);
+	    	 });
+	    	 $('.inputTXT_SQ_S').click(function(){
+		    	 setTimeout(function(){
+						timerasdsd(3);
+						$('#nextBtn').addClass("countDown-btn");
+					},600);
+	    	 });
+	    	 $('.inputTXT_SQ_S_MULTI').click(function(){
+		    	 setTimeout(function(){
+						timerasdsd(3);
+						$('#nextBtn').addClass("countDown-btn");
+					},600);
+	    	 });
+	    	 $('.inputTXT_MULTI').click(function(){
+		    	 setTimeout(function(){
+						timerasdsd(3);
+						$('#nextBtn').addClass("countDown-btn");
+					},600);
+	    	 });
+	    	 $('.inputTXT_MULTI_S').click(function(){
+		    	 setTimeout(function(){
+						timerasdsd(3);
+						$('#nextBtn').addClass("countDown-btn");
+					},600);
+	    	 });
+	    	 $('.inputTXT_TXT').focus(function(){
 	    	 	$('#resetQuiz').css("display","block");
 				$('#nextBtn').css("display","block");
 	    	 	$('#resetQuiz').addClass("animated bounceInLeft");
 				$('#nextBtn').addClass("animated bounceInRight");
-				setTimeout(function(){
-					timerasdsd(3);
-					$('#nextBtn').addClass("countDown-btn");
-				},600);
+		    	 setTimeout(function(){
+						timerasdsd(3);
+						$('#nextBtn').addClass("countDown-btn");
+					},1000);
 	    	 });
-	    	 function timerasdsd(a){
-				 var timeleft = a;
-				 var i = a;
-				 document.getElementById("timer").textContent = timeleft;
-				 justquick();
-					function justquick(){
-					   setTimeout(function(){
-					   		console.log(timeleft)
-							   if (timeleft==0) {
-						           document.getElementById("timer").textContent = "Next";
-						           	console.log("Called ")
-						           	autoNext();
-						       }else{
-							   document.getElementById("timer").textContent = timeleft;
-							   timeleft--;
-							   	if (timeleft>=0) {
-							 		justquick();
-							 	}
-							}
-							   console.log(timeleft)
-							},1000);
-					}
-				}
 	    	 $('input:radio[name="'+topic+'"]').change(
 			    function(){
 			    	$("#nextBtn").prop('disabled', false);
@@ -592,6 +579,76 @@ function buildQuiz(callback){
 			    });
 					callback();
 }
+var timeOut;
+function timerasdsd(a){
+	 var timeleft = a;
+	 document.getElementById("timer").textContent = timeleft;
+
+	 // justquick();
+	 console.log(timeleft)
+		   timeOut = setInterval(function(){
+		   		console.log(timeleft)
+				   if (timeleft<=0) {
+			           document.getElementById("timer").textContent = "Next";
+			           	console.log("Called ")
+			           	clearInterval(timeOut);
+			           	setTimeout(function(){
+			           		autoNext();
+			           	},600);
+			       }else{
+				   document.getElementById("timer").textContent = (timeleft-1);
+				   timeleft--;
+				  //  	if (timeleft>=0) {
+				 	// 	justquick();
+				 	// }
+				}
+				console.log(timeleft)
+				},1000);
+		
+	}
+function myStopFunction() {
+    clearInterval(timeOut);
+}
+function autoNext(){
+    	 	console.log("Auto Next")
+    	 	$("#nextBtn").prop('disabled', true);
+    	 	$("#resetQuiz").prop('disabled', true);
+	    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
+	    		
+				toastr["info"]("Please answer the question.", "Hint!");
+	    	}
+	    	else if(sessionStorage['type'] == 'SLI_S' && sessionStorage['ans_no'] == "null"){
+	    		
+				toastr["info"]("Please answer the question.", "Hint!");
+	    	}
+	    	else if (sessionStorage['ans_no'] == "no") {
+	    		if (valid()) {
+		    		nextQuestion();
+		    		if (isLastQuestion()) {
+				    		
+					    	// toastr["info"]("This is the last question. we're bringing you to index", "Successful");
+					    	setTimeout(function(){ window.location.replace("index.jsp"); }, mathRand);
+						}else{
+							savePrevious();
+							
+					    	// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+					    	setTimeout(function(){ location.reload(); }, mathRand);
+						}
+					}
+					else{
+						// $("#nextBtn").prop('disabled', false);
+    	 // 				$("#resetQuiz").prop('disabled', false);
+					}
+	    	}else{
+		    if (valid()) {
+			    	nextQuestion();
+			    }
+			    else{
+						// $("#nextBtn").prop('disabled', false);
+    	 // 				$("#resetQuiz").prop('disabled', false);
+				}
+			}
+		}
 function chkIndex(){
 	console.log(index+" / "+total);
 	if (index == total) {
@@ -647,7 +704,7 @@ function valid(){
 	    	toastr["warning"]("The text is too short.", "Hint!");
 	    	return false;
 		}else{
-			answer = $('.inputTXT').val();
+			answer = $('.inputTXT_TXT').val();
 			return true;
 		}
 	}
@@ -828,7 +885,7 @@ function isEmptyTXT(){
 	}
 }
 function isTooShortTXT(){
-	if ($('.inputTXT').val().length < 2) {
+	if ($('.inputTXT_TXT').val().length < 2) {
 		return true;
 	}else{
 		return false;
@@ -899,37 +956,37 @@ function nextQuestion(){
 	       	console.log(data);
        	}
         tokenUrl = sessionStorage['mainUrl']+"Quiz/"+sessionStorage['qId']+"/answer"
-	$.ajax({
-		type: "POST",
-		url: tokenUrl,
-		content: "application/json; charset=utf-8",
-		dataType: "json",
-		data: data,
-		success: function(d) {
-			Gtemp_02 = d;
-			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
-			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
-			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
-			savePrevious();
-			if (Gtemp_02.response.result.is_last_question) {
-				$('#myModal').modal({backdrop: 'static', keyboard: false});
-				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
-				setTimeout(function(){
-					scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
-					console.log("Hey! it is the last now! check the console about reward!")
-					$('#myModal').modal("hide");
-				}, 1000);
-			}else{
-				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-				window.top.location = window.top.location;
-			}
-		},
-		error: function (xhr, textStatus, errorThrown){
-//                window.location.reload(true)
-                console.log(errorThrown);
-                console.log("Failed : nextQuestion() @ quiz.js");
-            }
-        });
+// 	$.ajax({
+// 		type: "POST",
+// 		url: tokenUrl,
+// 		content: "application/json; charset=utf-8",
+// 		dataType: "json",
+// 		data: data,
+// 		success: function(d) {
+// 			Gtemp_02 = d;
+// 			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
+// 			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
+// 			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
+// 			savePrevious();
+// 			if (Gtemp_02.response.result.is_last_question) {
+// 				$('#myModal').modal({backdrop: 'static', keyboard: false});
+// 				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
+// 				setTimeout(function(){
+// 					scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
+// 					console.log("Hey! it is the last now! check the console about reward!")
+// 					$('#myModal').modal("hide");
+// 				}, 1000);
+// 			}else{
+// 				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+// 				window.top.location = window.top.location;
+// 			}
+// 		},
+// 		error: function (xhr, textStatus, errorThrown){
+// //                window.location.reload(true)
+//                 console.log(errorThrown);
+//                 console.log("Failed : nextQuestion() @ quiz.js");
+//             }
+//         });
 }
 function scorePop(a,b){
 	// var get_grade = JSON.parse(sessionStorage['graded']);
