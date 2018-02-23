@@ -253,7 +253,7 @@ function buildQuiz(callback){
 		}
 	    	// document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	$('#topic').text(topic);
-	    	btn_text += '<button class="btn btn-primary" id="stopCount" type="button"  style="float:left;width:40%;display:none;">Stop</button>'+
+	    	btn_text += '<button class="btn btn-primary" id="stopCount" type="button"  style="float:left;width:40%;display:none;" onclick="myStopFunction()">Stop</button>'+
 	    			'<button class="btn btn-danger" id="resetQuiz" type="button"  style="float:left;width:40%;display:none;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
 					'<button class="btn " id="nextBtn" style="float:right;width:40%;display:none;border: 1px solid rgb(221, 221, 221);color:white;padding-top: 8px;"  type="button"><span id="timer">Ready!</span>'+
@@ -442,13 +442,33 @@ function buildQuiz(callback){
 	    	image += '</center>';
 	    	$('#img').append(image);
 	    	$('#stopCount').click(function(){
+	    		sessionStorage['pause_num'] = $('#timer').text();
 	    		$('#stopCount').removeClass("bounceInLeft");
 	    	 	$('#stopCount').addClass("animated zoomOut");
 	    	 	$('#stopCount').css("display","none");
 	    		$('#resetQuiz').css("display","block");
 	    	 	$('#resetQuiz').addClass("animated zoomIn");
-
+	    	 	$('#timer').text("");
+			    $('#timer').addClass("glyphicon glyphicon-play");
+	    	 	$('#nextBtn').addClass("stop");
 	    	});
+	    	$('#nextBtn').click(function() {
+		    	console.log("ENTER")
+		    	var remain = parseInt(sessionStorage['pause_num']);
+		    	if ($(this).hasClass('countDown-btn')) {
+		    		console.log("Has class countDown-btn")
+		    		if ($(this).hasClass('stop')) {
+		    			console.log("Has class stop")
+		    			$('#timer').removeClass("glyphicon glyphicon-play");
+		    			$('#nextBtn').removeClass("stop");
+			    		$('#timer').text(sessionStorage['pause_num']);
+			    		timerasdsd(remain);
+		    		}
+		    	}
+			    // $(this).removeClass("glyphicon glyphicon-play");
+			    // $('#timer').text(sessionStorage['pause_num']);
+			  }
+			);
 	    	$('#resetQuiz').click(function(){
 		    	swal({
 				  title: "Are you sure?",
@@ -494,18 +514,20 @@ function buildQuiz(callback){
 	    	 	console.log("ADADAD")
 	    	 	$('.choice-overlay').css('display','block');
 	    	 	$('.choice-overlay').addClass('animated fadeInDown');
-	    	 	$('#resetQuiz').css("display","none");
+	    	 	
 				$('#nextBtn').css("display","block");
-				$('#stopCount').css("display","block");
-	    	 	$('#stopCount').addClass("animated bounceInLeft");
+				
 				$('#nextBtn').addClass("animated bounceInRight");
 				
 	    	 });
 	    	 $('.inputTXT_SQ').click(function(){
+	    	 	$('#resetQuiz').css("display","none");
+	    	 	$('#stopCount').css("display","block");
+	    	 	$('#stopCount').addClass("animated bounceInLeft");
 	    	 	$(this).parent().css("background-color","mediumslateblue");
 	    	 	$(this).parent().css("color","white");
 		    	 setTimeout(function(){
-						timerasdsd(3);
+						timerasdsd(10);
 						$('#nextBtn').addClass("countDown-btn");
 					},600);
 	    	 });
@@ -956,37 +978,37 @@ function nextQuestion(){
 	       	console.log(data);
        	}
         tokenUrl = sessionStorage['mainUrl']+"Quiz/"+sessionStorage['qId']+"/answer"
-	$.ajax({
-		type: "POST",
-		url: tokenUrl,
-		content: "application/json; charset=utf-8",
-		dataType: "json",
-		data: data,
-		success: function(d) {
-			Gtemp_02 = d;
-			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
-			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
-			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
-			savePrevious();
-			if (Gtemp_02.response.result.is_last_question) {
-				$('#myModal').modal({backdrop: 'static', keyboard: false});
-				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
-				setTimeout(function(){
-					scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
-					console.log("Hey! it is the last now! check the console about reward!")
-					$('#myModal').modal("hide");
-				}, 1000);
-			}else{
-				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-				window.top.location = window.top.location;
-			}
-		},
-		error: function (xhr, textStatus, errorThrown){
-//                window.location.reload(true)
-                console.log(errorThrown);
-                console.log("Failed : nextQuestion() @ quiz.js");
-            }
-        });
+// 	$.ajax({
+// 		type: "POST",
+// 		url: tokenUrl,
+// 		content: "application/json; charset=utf-8",
+// 		dataType: "json",
+// 		data: data,
+// 		success: function(d) {
+// 			Gtemp_02 = d;
+// 			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
+// 			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
+// 			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
+// 			savePrevious();
+// 			if (Gtemp_02.response.result.is_last_question) {
+// 				$('#myModal').modal({backdrop: 'static', keyboard: false});
+// 				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
+// 				setTimeout(function(){
+// 					scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
+// 					console.log("Hey! it is the last now! check the console about reward!")
+// 					$('#myModal').modal("hide");
+// 				}, 1000);
+// 			}else{
+// 				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
+// 				window.top.location = window.top.location;
+// 			}
+// 		},
+// 		error: function (xhr, textStatus, errorThrown){
+// //                window.location.reload(true)
+//                 console.log(errorThrown);
+//                 console.log("Failed : nextQuestion() @ quiz.js");
+//             }
+//         });
 }
 function scorePop(a,b){
 	// var get_grade = JSON.parse(sessionStorage['graded']);

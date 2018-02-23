@@ -144,6 +144,7 @@ function buildQuizList(callback){
 	    // }
 	    var weight = Index01.response.result[i].weight;
 	    var values = contentSummary[quiz_id];
+	    var desc = contentSummary[desciption]
 	    if (sessionStorage["isAdmin"] == 'false') {
 	    	disable = 'disabled';
 	    }
@@ -173,7 +174,7 @@ function buildQuizList(callback){
       	'</div>'+
       	'<div style="position: relative;width: 100%;height: 36%;background: aqua;padding: 10px;">'+
       		'<div style="font-size:16px;font-weight:bolder;">'+values+'</div>'+
-      		'<div style="font-size:11px;">'+desciption+'</div>'+
+      		'<div style="font-size:11px;">'+desc+'</div>'+
       	'</div>'+
       	'<div style="position: absolute;bottom: 0px;width: 100%;text-align: center;"> Footer </div>'+
       '</div>'

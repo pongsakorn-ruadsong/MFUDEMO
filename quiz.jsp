@@ -47,6 +47,7 @@
 			   $('#spece-for-S').slideUp();
 			   sessionStorage['ans_no'] = "No";
 		    });
+		    
 		   // $('#Other').click(function(){ console.log("Success")});
 		 //   $('#0085').bind('click', function(){
 			//   $(this).toggleClass('active');
@@ -140,6 +141,9 @@
 		#stopCount{
 			animation-duration: 1.5s;
 		}
+		.choice-overlay{
+			animation-duration: 0.5s;
+		}
 		#nextBtn{
 			background: linear-gradient(to right, #007bff 50%, gray 50%);
 		    background-size: 200% 100%;
@@ -151,6 +155,7 @@
 		.countDown-btn{
 			background-position:left bottom !important;
 		}
+
 	</style>
 
 	<div class="bg" id="quizImg">

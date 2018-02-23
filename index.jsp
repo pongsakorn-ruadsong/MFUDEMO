@@ -48,7 +48,7 @@
    		background-attachment: scroll;
     	background-size: cover;
     	overflow: scroll;
-		height: 125%;
+		height: 130%;
     }
     .card-preview{
     	width: 100%;
@@ -144,10 +144,10 @@
 </div>
 <!-- Swiper -->
 <div class="parallax">
-	<div class="parallax__layer parallax__layer--back">
+	<div class="parallax__layer parallax__layer--back" style="position: relative;">
 		<div class="shelf"></div>
 	</div>
-<div class="parallax__layer parallax__layer--base" style="margin-top: 70px;">
+<div class="parallax__layer parallax__layer--base" style="top: 70px;">
   <div class="swiper-container swiper1">
     <div class="swiper-wrapper" id="swip_hot">
       
