@@ -591,14 +591,28 @@ function buildQuiz(callback){
 					},600);
 	    	 });
 	    	 $('.inputTXT_TXT').focus(function(){
-	    	 	$('#resetQuiz').css("display","block");
-				$('#nextBtn').css("display","block");
-	    	 	$('#resetQuiz').addClass("animated bounceInLeft");
-				$('#nextBtn').addClass("animated bounceInRight");
-		    	 setTimeout(function(){
+	    	 	showButtons()
+	    	 	var remain = parseInt(sessionStorage['pause_num']);
+		    	if ($('#nextBtn').hasClass('countDown-btn')) {
+		    		console.log("Has class countDown-btn")
+		    		if ($('#nextBtn').hasClass('stop')) {
+		    			console.log("Has class stop")
+		    			$('#resetQuiz').css("display","none");
+	    	 			$('#resetQuiz').removeClass("zoomIn").addClass("zoomOut");
+	    	 			$('#stopCount').css("display","block");
+	    	 			$('#stopCount').removeClass("zoomOut").addClass("zoomIn");
+		    			$('#timer').removeClass("glyphicon glyphicon-play");
+		    			$('#nextBtn').removeClass("stop");
+			    		$('#timer').text(sessionStorage['pause_num']);
+			    		timerasdsd(remain);
+		    		}
+		    	}else{
+		    		setTimeout(function(){
 						timerasdsd(10);
 						$('#nextBtn').addClass("countDown-btn");
 					},1000);
+		    	}
+		    	 
 	    	 });
 	    	 $('input:radio[name="'+topic+'"]').change(
 			    function(){
