@@ -695,6 +695,9 @@ function timerasdsd(a){
 			           	console.log("Called ")
 			           	clearInterval(timeOut);
 			           	setTimeout(function(){
+			           		$("#resetQuiz").prop('disabled', true);
+    	 					$("#stopCount").prop('disabled', true);
+    	 					$("#nextBtn").prop('disabled', true);
 			           		autoNext();
 			           	},600);
 			       }else{
@@ -1239,6 +1242,9 @@ function rewardPop(grades, rewards){
 							console.log('Clear')
 							element.style.display = 'none';
 							clearInterval(interval_down);
+							setTimeout(function(){
+								window.location.replace("index");
+							},500);
 						}
 						console.log('K Outside')
 						// $('#animation-locate').addClass('');
