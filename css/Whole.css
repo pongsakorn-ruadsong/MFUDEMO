@@ -931,29 +931,86 @@ img{
     /* background-color: #ffffff69; */
 }
 .textInCoupon{
-  text-align: left;
-  font-weight: bold;
+  text-align: center;
   font-size: 13px;
+}
+.textCoupon{
+  text-align: center;
+  font-size: 13px;
+  margin-top: 20px;
 }
 .couponPoint{
   text-align: right;
   font-size: 10px;
   color: orange;
 }
+.CodeExpire{
+  color: red;
+  margin: 5px;
+  font-size: 10px;
+  text-align:center;
+}
 .couponTop{
   padding: 10px;
+  height: 130px;
   border-radius: 8px 8px 0px 0px;
+  background-size: cover;
+  /*background-image: url('');*/
   text-align: center;
-  font-size: 20px;
   color: #fff;
   background-color: #4dc3ff;
 }
-.modalCoupon{
-  padding-left: -10px;
-  border-radius: ;
-  border: 5px dotted #bbb;
+/*.footer {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+}*/
+/*.halfCricle:before{
+    content: '';
+    display: block;
+    position: absolute;
+    height: 48px;
+    width: 48px;
+    background: #808080;
+    border-radius: 50%;
+    overflow: hidden;
+    top: 67%;
+    left: -10%;
+    z-index: 1;
 }
-
+.halfCricle:after{
+    content: '';
+    display: block;
+    position: absolute;
+    height: 48px;
+    width: 48px;
+    background: #808080;
+    border-radius: 50%;
+    overflow: hidden;
+    top: 67%;
+    left: 90%;
+    z-index: 1;
+}*/
+.buttonRedeem{
+  margin: 10px; 
+  margin-left: 10%; 
+  top: 80%; 
+  padding-left: 50px; 
+  padding-right: 50px;
+}
+.couponDetail{
+  font-size: 8px;
+  color: #4d4d4d;
+}
+.couponId{
+  font-size: 7px;
+  margin-top: 3%;
+  margin-left: 30%;
+}
 hr {
     display:block;
     border: 0;
@@ -961,6 +1018,7 @@ hr {
     margin-right: auto;
     width: auto;
     max-width: 330px;
+    border: 1px dashed #d9d9d9;
     align-self: center;
 }
 .contianerCycle{
@@ -1042,6 +1100,11 @@ hr {
   border-radius: 10px; 
   background-color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+.modalGoodsCoupon{
+    top: 15%;
+    width: 70%;
+    height: 100%;
 }
 /*.dot{
   width: 100%;

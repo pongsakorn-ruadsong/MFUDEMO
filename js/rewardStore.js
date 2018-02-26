@@ -55,7 +55,7 @@ function buildGoodsList(){
 				}
 				}
 		result +=								
-'				<button class="couponCard btnListReward" type="button" style="background-image: url('+image+'); background-size: cover;" data-toggle="modal" goodsTypeId="'+goodsType+'" goodsId="'+goodsId+'" detailId="'+detail+'" imgId="'+image+'" pointId="'+point+'" titleId="'+title+'" iconId="'+icon+'" stockId="" type="button">'+
+'				<button class="couponCard btnListReward" type="button" style="background-image: url('+image+'); background-size: cover;" data-toggle="modal" goodsTypeId="'+goodsType+'" goodsId="'+goodsId+'" detailId="'+detail+'" imgId="'+image+'" pointId="'+point+'" titleId="'+title+'" iconId="'+icon+'" stockId="'+Stock+'" EXP="'+expire+'" type="button">'+
 '				<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:-6px;left: -7px; background-color: #cccccc;">'+
 '					<img src="'+icon+'">'+
 '				</div>'+
@@ -64,15 +64,11 @@ function buildGoodsList(){
 '							</div>'+
 '							<div class="col-md-8">'+
 '								<div class="boxInsideCoupon">'+
-'							<head>'+
 '								<div class="textInCoupon">'+title+'</div>'+
-'							</head>'+
-'							<body>'+
-'        						<div class="container" style="font-size: 8px; text-align: left;">'+detail+'</div>'+
-'							</body'+
-'							<footer>'+
-'								<div class="couponPoint">'+point+'</div>'+
-'							</footer>'+
+'        						<div class="container" style="font-size: 8px; text-align: left; padding: 10px;">'+
+'								<div>'+detail+'</div>'+
+'								</div>'+
+'								<div class="couponPoint"><p>'+point+'</p></div>'+
 '							</div>'+
 '						<div>'+
 '					</div>'+
@@ -99,12 +95,13 @@ function buildGoodsList(){
 		// console.log($(this).attr('iconId'))
 		$('#disTitle').text($(this).attr('titleId'));
 		// console.log($(this).attr('titleId'))
-		$('#disImgContent').attr("src", a);
+		$('#expirePeriod').text($(this).attr('EXP'));
+		$('#Image').css("background-image", "url("+a+")");
 		// console.log($(this).attr('imgId'))
 		$('#disDetail').text($(this).attr('detailId'));
 		// console.log($(this).attr('detailId'))
 		$('#btnId').text($(this).attr('goodsId'));
-		$('#hid-goodsId').text($(this).attr('goodsId'));
+		$('#goodsId').text("GoodsID :"+$(this).attr('goodsId'));
 		$('#hid-goodsType').text($(this).attr('goodsTypeId'));
 		// console.log($(this).attr('goodsTypeId'))
 		$('#rewardDetail').modal();
@@ -121,7 +118,7 @@ function buildGoodsList(){
 			},
 	 	function(){
 	 		if($('#hid-goodsType').text()=="false"){
-	 			receiveGoods($('#hid-goodsId').text());
+	 			receiveGoods($('#goodsId').text());
 	 	}else{
 	 		receiveGoodsGroup($('#disTitle').text());
 	 }  										
@@ -189,3 +186,31 @@ function receiveGoodsGroup(getGoodsName){
 	            }
 	        });
  }
+
+ function checkOutCoupon(){
+ 	alert('dddddd')
+ }
+
+function makeCode () { 
+	var qrcode = new QRCode("qrcode");     
+    var elText = document.getElementById("text");
+    
+    if (!elText.value) {
+        alert("Input a text");
+        elText.focus();
+        return;
+    }
+    
+    qrcode.makeCode(elText.value);
+}
+
+makeCode();
+
+$("#text").on("blur", function (){
+        makeCode();
+    }).
+    on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            makeCode();
+        }
+    });

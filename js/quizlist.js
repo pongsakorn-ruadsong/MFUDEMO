@@ -177,19 +177,41 @@ function buildRewardList() {
 	}
 	$('#table_reward').append(text);
 }
+// function buildUesrReward() {
+// 	$('#table_goods > tr').remove();
+// 	console.log("Enter build reward list")
+// 	var goods = Index05.response.player.goods;
+// 	// var length = goods.length;
+// 	var k =1;
+// 	console.log(goods);
+// 	var text = '<div class=""<div class="col-mg-4">Image</div><div class="col-mg-4">Name</div><div class="col-mg-4">Amount</div>';
+// 	for (var i = 0; i < goods.length; i++) {
+// 		if (goods[i].amount == 0) {
+// 			continue;
+// 		}
+// 		text += '<tr class="spaceUnder" onclick="checkOutCoupon">'+
+// 		'<td><img src='+goods[i].image+' style="width:50px;height:50px;"></td>'+
+// 		'<td>'+goods[i].name+'</td>'+
+// 		'<td>'+goods[i].amount+'</td>'+
+// 		'</tr>'
+// 		k++;
+// 	}
+// 	$('#table_goods').append(text);
+// }
+
 function buildUesrReward() {
 	$('#table_goods > tr').remove();
-	// console.log("Enter build reward list")
+	console.log("Enter build reward list")
 	var goods = Index05.response.player.goods;
-	var length = goods.length;
+	// var length = goods.length;
 	var k =1;
-	// console.log(goods);
+	console.log(goods);
 	var text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
-	for (var i = 0; i < length; i++) {
+	for (var i = 0; i < goods.length; i++) {
 		if (goods[i].amount == 0) {
 			continue;
 		}
-		text += '<tr class="spaceUnder">'+
+		text += '<tr class="spaceUnder" onclick="checkOutCoupon">'+
 		'<td><img src='+goods[i].image+' style="width:50px;height:50px;"></td>'+
 		'<td>'+goods[i].name+'</td>'+
 		'<td>'+goods[i].amount+'</td>'+
@@ -197,6 +219,18 @@ function buildUesrReward() {
 		k++;
 	}
 	$('#table_goods').append(text);
+	$('tr').click(function() {
+    	alert();
+    	var a = $(this).attr('imgId');
+		// console.log(a)
+		$('#disTitle').text($(this).attr('titleId'));
+		// console.log($(this).attr('titleId'))
+		$('#disImgContent').attr("src", a);
+		$('#disDetail').text($(this).attr('detailId'));
+		$('#hid-couponId').text($(this).attr('goodsId'));
+
+		$('#checkOutGoods').modal();
+	});
 }
 // function initialData(){
 
