@@ -1112,6 +1112,8 @@ function getRandomPosition(element) {
 function generatePoint(src, src2){
 	var img = document.createElement('img');
 	var img_blur = document.createElement('img');
+	var text = document.createElement('span');
+	// text.setAttribute("style", "position:absolute;");
 	img.setAttribute("style", "position:absolute;");
 	img.setAttribute("src", src);
 	img.setAttribute("class", "shine");
@@ -1141,6 +1143,8 @@ function generatePoint(src, src2){
 // Exp
 function generateExp(src){
 	var img = document.createElement('img');
+	var text = document.createElement('span');
+	// text.setAttribute("style", "position:absolute;");
 	img.setAttribute("style", "position:absolute;");
 	img.setAttribute("src", src);
 	img.setAttribute("class", "shine animated zoomInUp");
@@ -1151,12 +1155,27 @@ function generateExp(src){
 	img.style.height = '20%';
 	img.style.top = xy[0] + 'px';
 	img.style.left = xy[1] + 'px';
+	// text.style.width = '20%';
+	// text.style.zIndex = '2000';
+	// text.style.height = '20%';
+	// text.style.top = (xy[0]+50) + 'px';
+	// text.style.left = xy[1] + 'px';
 }
 
 // Badge
 function generateBadge(data){
-	var length = data.length;
-	
+    console.log(data)
+    var img = document.createElement('img');
+	img.setAttribute("style", "position:absolute;");
+	img.setAttribute("src", data);
+	img.setAttribute("class", "shine animated bounceIn");
+	document.getElementById("animation-locate").appendChild(img);
+	var xy = getRandomPosition(img);
+	img.style.width = '20%';
+	img.style.zIndex = '2000';
+	img.style.height = '20%';
+	img.style.top = xy[0] + 'px';
+	img.style.left = xy[1] + 'px';
 }
 
 function rewardPop(grades, rewards){
@@ -1184,7 +1203,9 @@ function rewardPop(grades, rewards){
 				}
 				else if(rewards[i].event_type == 'REWARD_RECEIVED' && rewards[i].reward_type == 'badge' && rewards[i].value > 0){
 					console.log("BADGE")
-					generateBadge(rewards[i].reward_data);
+					src = rewards[i].reward_data.image;
+					// console.log(rewards[i].reward_data.image)
+					generateBadge(src);
 				}
 				i++;
 			}else{
@@ -1201,6 +1222,11 @@ function rewardPop(grades, rewards){
 							}
 							else if($('.shine').hasClass('flip')){
 								element.children[k].classList.remove("flip");
+								element.children[k].classList.add("animated");
+								element.children[k].classList.add("fadeOutUp");
+							}
+							else if($('.shine').hasClass('bounceIn')){
+								element.children[k].classList.remove("bounceIn");
 								element.children[k].classList.add("animated");
 								element.children[k].classList.add("fadeOutUp");
 							}
