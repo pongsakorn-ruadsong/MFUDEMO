@@ -849,7 +849,7 @@
   }
 
   80% {
-    transform: perspective(400px) scale3d(.95, .95, .95);
+    transform: perspective(400px) scale3d(1.0, 1.0, 1.0);
     animation-timing-function: ease-in;
   }
 

@@ -457,8 +457,8 @@ function buildQuiz(callback){
 	    	$('#img').append(image);
 	    	$('#stopCount').click(function(){
 	    		sessionStorage['pause_num'] = $('#timer').text();
-	    		$('#stopCount').removeClass("bounceInLeft");
-	    	 	$('#stopCount').css("display","none");
+	    		$('.choice-overlay').css('display','none');
+	    		$('.btn-choices').addClass('last');
 	    	 	if (!$(this).hasClass('animated')) {
 	    	 		$(this).addClass("animated");
 	    	 	}
@@ -473,6 +473,9 @@ function buildQuiz(callback){
 	    	 		$('#resetQuiz').removeClass('zoomIn').addClass("zoomOut");
 	    	 		$(this).css('display','block')
 	    	 		$('#resetQuiz').css('display','none')
+	    	 	}else{
+	    	 		$('#stopCount').removeClass("bounceInLeft").addClass("zoomOut");
+	    	 		$('#stopCount').css("display","none");
 	    	 	}
 	    		$('#resetQuiz').css("display","block");
 	    	 	$('#resetQuiz').addClass("animated zoomIn");
@@ -557,12 +560,26 @@ function buildQuiz(callback){
 	    	 });
 	    	 $('.inputTXT_SQ').click(function(){
 	    	 	showButtons()
+	    	 	var remain = parseInt(sessionStorage['pause_num']);
+	    	 	$('.btn-choices').css("background-color","white")
+	    	 	$('.btn-choices').css("color","black")
 	    	 	$(this).parent().css("background-color","mediumslateblue");
 	    	 	$(this).parent().css("color","white");
-		    	 setTimeout(function(){
+	    	 	if ($('.btn-choices').hasClass('last')) {
+	    	 		console.log("Has class LAST")
+	    	 		$('#stopCount').css("display","none");
+	    	 		$('#resetQuiz').css("display","block");
+	    			$('#timer').removeClass("glyphicon glyphicon-play");
+	    			$('#nextBtn').removeClass("stop");
+		    		$('#timer').text(sessionStorage['pause_num']);
+		    		timerasdsd(0);
+	    	 	}else{
+	    	 		console.log("No have class last")
+	    	 		setTimeout(function(){
 						timerasdsd(3);
 						$('#nextBtn').addClass("countDown-btn");
 					},600);
+	    	 	}
 	    	 });
 	    	 $('.inputTXT_SQ_S').click(function(){
 	    	 	showButtons()
@@ -678,6 +695,9 @@ function timerasdsd(a){
 			           	console.log("Called ")
 			           	clearInterval(timeOut);
 			           	setTimeout(function(){
+			           		$("#resetQuiz").prop('disabled', true);
+    	 					$("#stopCount").prop('disabled', true);
+    	 					$("#nextBtn").prop('disabled', true);
 			           		autoNext();
 			           	},600);
 			       }else{
@@ -1050,18 +1070,17 @@ function nextQuestion(){
 		data: data,
 		success: function(d) {
 			Gtemp_02 = d;
-			sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
-			sessionStorage['isLast'] = Gtemp_02.response.result.is_last_question;
-			sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
-			savePrevious();
-			if (Gtemp_02.response.result.is_last_question) {
-				$('#myModal').modal({backdrop: 'static', keyboard: false});
-				sessionStorage.setItem("reward", JSON.stringify(Gtemp_02.response.result.rewards))
-				setTimeout(function(){
-					scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
+			// sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
+			sessionStorage['isLast'] = d.response.result.is_last_question;
+			// sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
+			// savePrevious();
+			if (d.response.result.is_last_question) {
+					sessionStorage.setItem("reward", JSON.stringify(d.response.result.rewards))
+					// scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
+					rewardPop(d.response.result.grade, d.response.result.rewards);
 					console.log("Hey! it is the last now! check the console about reward!")
-					$('#myModal').modal("hide");
-				}, 1000);
+					// $('#myModal').modal("hide");
+				
 			}else{
 				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
 				window.top.location = window.top.location;
@@ -1074,210 +1093,375 @@ function nextQuestion(){
             }
         });
 }
-function scorePop(a,b){
-	// var get_grade = JSON.parse(sessionStorage['graded']);
-	console.log("Enter scorePop");
-	var total_score = a.total_score;
-	var max_score = a.total_max_score;
-	var gr_rank = a.rank;
-	var gr_rank_img = a.rank_image;
-	var gr_grade = a.grade;
-	var img = '';
-	console.log("Rank: "+gr_rank+" | Max score: "+max_score)
-	if (gr_rank == "" && max_score == 0) {
-		swal({
-		  title: "Completed",
-		  text: "Thank you for your time!, we're bringing you to main menu!",
-		  type: "success",
-		  confirmButtonClass: "btn-primary",
-		  confirmButtonText: "Ok!",
-		  closeOnConfirm: false
-		},
-		function(){
-			setTimeout(function(){
-				window.location.replace("index.jsp");
-			},500)
-		});
-	}
-	else if(gr_rank == "" && max_score != 0){
-		swalReward(b);
-	}
-	else if (max_score == 0 && gr_rank != "") {
-		swalRank(a,b);
-	}
-	else if (max_score != 0 && gr_rank != "") {
-		swalRankWithScore(a,b);
-	}
+function getRandomPosition(element) {
+	var x = document.getElementById("animation-locate").offsetHeight; //-60
+	var y = document.getElementById("animation-locate").offsetWidth-100;
+	console.log("")
+	// console.log('X: '+x)
+	// console.log('Y: '+y)
+	console.log('X(height): '+x)
+	console.log('Y(width): '+y)
+	console.log('offsetHeight: '+document.getElementById("animation-locate").offsetHeight+' - clientHeight: '+element.clientHeight+' = '+x)
+	console.log('offsetWidth: '+document.getElementById("animation-locate").offsetWidth+' - clientWidth: '+element.clientWidth+' = '+y)
+	console.log("")
+	var randomX = Math.floor(Math.random()*x);
+	var randomY = Math.floor(Math.random()*y);
+	console.log(randomX)
+	console.log(randomY)
+	return [randomX,randomY];
 }
 
-function swalRank(a,b){
-	var total_score = a.total_score;
-	var max_score = a.total_max_score;
-	var gr_rank = a.rank;
-	var gr_rank_img = a.rank_image;
-	var gr_grade = a.grade;
-	swal({
-		title: "",
-		imageUrl: gr_rank_img,
-		confirmButtonText: "Ok!",
-  		closeOnConfirm: true
-  		},
-  		function(){
-  			if (b != []) {
-  				swalReward(b)
-			}
-  		});
+// Point 
+function generatePoint(src, src2){
+	var img = document.createElement('img');
+	var img_blur = document.createElement('img');
+	var text = document.createElement('span');
+	// text.setAttribute("style", "position:absolute;");
+	img.setAttribute("style", "position:absolute;");
+	img.setAttribute("src", src);
+	img.setAttribute("class", "shine");
+	// img.setAttribute("class", "animated flip");
+	img_blur.setAttribute("style", "position:absolute;");
+	img_blur.setAttribute("src", src2);
+	img_blur.setAttribute("class", "shine animated flip");
+	
+	document.getElementById("animation-locate").appendChild(img);
+	document.getElementById("animation-locate").appendChild(img_blur);
+
+	var xy = getRandomPosition(img);
+	img.style.width = '20%';
+	img.style.zIndex = '2000';
+	img.style.height = '20%';
+	img.style.top = xy[0] + 'px';
+	img.style.left = xy[1] + 'px';
+	img.style.display = 'none';
+
+	img_blur.style.width = '20%';
+	img_blur.style.zIndex = '2000';
+	img_blur.style.height = '20%';
+	img_blur.style.top = xy[0] + 'px';
+	img_blur.style.left = xy[1] + 'px';
+	img_blur.style.display = 'block';
 }
-function swalRankWithScore(a,b){
-	var total_score = a.total_score;
-	var max_score = a.total_max_score;
-	var gr_rank = a.rank;
-	var gr_rank_img = a.rank_image;
-	var gr_grade = a.grade;
-	swal({
-		title: total_score+" / "+max_score,
-		imageUrl: gr_rank_img,
-		confirmButtonText: "Ok!",
-  		closeOnConfirm: true
-  		},
-  		function(){
-  			if (b != []) {
-  				swalReward(b)
-			}
-  		});
+// Exp
+function generateExp(src){
+	var img = document.createElement('img');
+	var text = document.createElement('span');
+	// text.setAttribute("style", "position:absolute;");
+	img.setAttribute("style", "position:absolute;");
+	img.setAttribute("src", src);
+	img.setAttribute("class", "shine animated zoomInUp");
+	document.getElementById("animation-locate").appendChild(img);
+	var xy = getRandomPosition(img);
+	img.style.width = '20%';
+	img.style.zIndex = '2000';
+	img.style.height = '20%';
+	img.style.top = xy[0] + 'px';
+	img.style.left = xy[1] + 'px';
+	// text.style.width = '20%';
+	// text.style.zIndex = '2000';
+	// text.style.height = '20%';
+	// text.style.top = (xy[0]+50) + 'px';
+	// text.style.left = xy[1] + 'px';
 }
-function swalReward(b){
-			var i = 0;
-			initialProp();
-				function initialProp(){
-					console.log(i);
-					if (b[i].value >= 1) {
-						console.log(" ")
-						console.log("Enter if in for loop b["+i+"].value >= 1 | "+b[i].value)
-						console.log(" ")
-						var re_id = b[i].reward_id;
-						var re_type = b[i].reward_type;
-						var re_value = b[i].value;
-						var re_event = b[i].event_type;
-						console.log(" ")
-						console.log("re_id: "+re_id+" | re_type: "+re_type+" | re_value: "+re_value+" | re_event: "+re_event)
-						console.log(" ")
-						if (re_type == "badge") {
-							var badge_img = b[i].reward_data.image;
-							var badge_name = b[i].reward_data.name;
-							buildModal(re_type,re_value,badge_img,badge_name);
-							console.log(" ")
-							console.log("Enter re_type:"+re_type+" == badge | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
-							console.log(" ")
-						}else if (re_type == "exp"){
-							buildModal(re_type,re_value,null,null);
-							console.log(" ")
-							console.log("Enter re_type:"+re_type+" == exp | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
-							console.log(" ")
-					  	}
-					  	else if (re_type == "point"){
-							buildModal(re_type,re_value,null,null);
-							console.log(" ")
-							console.log("Enter re_type:"+re_type+" == point | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
-							console.log(" ")
-					  	}
-					  	else if(re_event == "LEVEL_UP"){
-					  		buildModal(re_event,re_value,null,null);
-							console.log(" ")
-							console.log("Enter re_type:"+re_type+" == point | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
-							console.log(" ")
-					  	}
-					  	$("#myScore").modal({backdrop: "static"});
-					}else{
-						if ((i+1) < b.length) {
-					  		i+=1;
-					  		initialProp();
-					  	}
-					  	else{
-						  	setTimeout(function(){
-						  		swal({
-								  title: "Completed",
-								  text: "That's all you got, we're bringing you to main menu!",
-								  type: "success",
-								  confirmButtonClass: "btn-primary",
-								  confirmButtonText: "Ok!",
-								  closeOnConfirm: false
-								},
-								function(){
-									setTimeout(function(){
-										window.location.replace("index.jsp");
-									},500)
-								});
-							},500)
-				  		}
+
+// Badge
+function generateBadge(data){
+    console.log(data)
+    var img = document.createElement('img');
+	img.setAttribute("style", "position:absolute;");
+	img.setAttribute("src", data);
+	img.setAttribute("class", "shine animated bounceIn");
+	document.getElementById("animation-locate").appendChild(img);
+	var xy = getRandomPosition(img);
+	img.style.width = '20%';
+	img.style.zIndex = '2000';
+	img.style.height = '20%';
+	img.style.top = xy[0] + 'px';
+	img.style.left = xy[1] + 'px';
+}
+
+function rewardPop(grades, rewards){
+	console.log(rewards.length)
+	var text = '';
+	var src = '';
+	var src2 = '';
+	var i = 0;
+	$('#animation-locate').css('display','block')
+		
+		var interval_up = setInterval(function(){
+			console.log('I: '+i)
+			console.log('Reward length: '+rewards.length)
+			if (i<rewards.length) {
+				if (rewards[i].event_type == 'REWARD_RECEIVED' && rewards[i].reward_type != 'badge' && rewards[i].value > 0) {
+					if (rewards[i].reward_type == 'exp') {
+						src = 'img/EXP.png'
+						generateExp(src);
 					}
-					// $("#myScore").modal({backdrop: "static"});
-			}
-			function buildModal(typer,valuer,imgr,badgeN,callback){
-				var imgss = '';
-				var text = '';
-				var got = 'You got <span class="highlight">'+valuer+'</span> '+typer;
-				var imgee = '<img src="img/con1.png">'
-				if (typer == 'exp') {
-					imgss = 'img/EXP.png';
-				}else if (typer == 'point') {
-					imgss = 'img/Mission_1.png';
-				}else if (typer == 'LEVEL_UP'){
-					imgss = 'img/Levelup.png';
+					else if (rewards[i].reward_type == 'point') {
+						src = 'img/coin_22.png'
+						src2 = 'img/coin_010.png'
+						generatePoint(src,src2);
+					}
 				}
-				else{
-					got = 'You got <span class="highlight">'+valuer+' '+badgeN+'</span> '+typer;
-					imgss = imgr;
+				else if(rewards[i].event_type == 'REWARD_RECEIVED' && rewards[i].reward_type == 'badge' && rewards[i].value > 0){
+					console.log("BADGE")
+					src = rewards[i].reward_data.image;
+					// console.log(rewards[i].reward_data.image)
+					generateBadge(src);
 				}
-				text += '<div class="modal fade" id="myScore" role="dialog">'+
-                '<div class="modal-dialog">'+
-                  '<!-- Modal content-->'+
-                  '<div class="modal-content" style="background-color: #ffffffc7;border:0px;">'+
-                    '<div class="modal-header">'+
-                        '<h3>'+imgee+'</h3>'+
-                        '<h4>'+got+'</h4>'+
-                    '</div>'+
-                    '<div class="modal-body" style="text-align: center;">'+
-                          '<img src="'+imgss+'">'+
-                    '</div>'+
-                    '<div class="modal-footer">'+
-                      '<button type="submit" class="btn btn-primary closeM">Ok!'+
-                    '</div>'+
-                  '</div>'+
-                '</div>'+
-              '</div>'
-			  $('#modal_score').append(text);
-			  $('.closeM').click(function(){
-			  	$("#myScore").modal("hide");
-			  	$("#modal_score > div").remove();
-			  	$(".modal-backdrop").remove();
-			  	if ((i+1) < b.length) {
-			  		console.log(i+" < "+b.length);
-			  		i+=1;
-			  		initialProp();
-			  	}
-			  	else{
-			  		swal({
-					  title: "Completed",
-					  text: "That's all you got, we're bringing you to main menu!",
-					  type: "success",
-					  confirmButtonClass: "btn-primary",
-					  confirmButtonText: "Ok!",
-					  closeOnConfirm: false
-					},
-					function(){
-						setTimeout(function(){
-							window.location.replace("index.jsp");
-						},500)
-					});
-			  	}
-			  });
+				i++;
+			}else{
+				clearInterval(interval_up);
+				var k = 0;
+				setTimeout(function(){
+					var interval_down = setInterval(function(){
+						console.log('K: '+k+' | '+(rewards.length-2))
+						var element = document.getElementById("animation-locate");
+						if (k<element.childElementCount) {
+							if ($('.shine').hasClass('zoomInUp')) {
+								element.children[k].classList.remove("zoomInUp");
+								element.children[k].classList.add("zoomOutUp");
+							}
+							else if($('.shine').hasClass('flip')){
+								element.children[k].classList.remove("flip");
+								element.children[k].classList.add("animated");
+								element.children[k].classList.add("fadeOutUp");
+							}
+							else if($('.shine').hasClass('bounceIn')){
+								element.children[k].classList.remove("bounceIn");
+								element.children[k].classList.add("animated");
+								element.children[k].classList.add("fadeOutUp");
+							}
+							// element.children[k].classList.remove("flip");
+							// element.children[k].classList.add("animated");
+							
+							++k;
+						}else{
+							console.log('K: '+k)
+							console.log('Clear')
+							element.style.display = 'none';
+							clearInterval(interval_down);
+							setTimeout(function(){
+								window.location.replace("index");
+							},500);
+						}
+						console.log('K Outside')
+						// $('#animation-locate').addClass('');
+						// $('#animation-locate').css('display','none')
+					},300);
+				},600);
 			}
-			// $("#myScore").modal("toggle");
-			// console.log(" ")
-			// console.log("Out of loop. . .")
-			// console.log(" ")
+			setTimeout(function(){
+				$( "img[src='img/coin_010.png']" ).css('display','none')
+				$( "img[src='img/coin_22.png']" ).css('display','block')
+			},600);
+		},200);
 }
+// function scorePop(a,b){
+// 	// var get_grade = JSON.parse(sessionStorage['graded']);
+// 	console.log("Enter scorePop");
+// 	var total_score = a.total_score;
+// 	var max_score = a.total_max_score;
+// 	var gr_rank = a.rank;
+// 	var gr_rank_img = a.rank_image;
+// 	var gr_grade = a.grade;
+// 	var img = '';
+// 	console.log("Rank: "+gr_rank+" | Max score: "+max_score)
+// 	if (gr_rank == "" && max_score == 0) {
+// 		swal({
+// 		  title: "Completed",
+// 		  text: "Thank you for your time!, we're bringing you to main menu!",
+// 		  type: "success",
+// 		  confirmButtonClass: "btn-primary",
+// 		  confirmButtonText: "Ok!",
+// 		  closeOnConfirm: false
+// 		},
+// 		function(){
+// 			setTimeout(function(){
+// 				window.location.replace("index.jsp");
+// 			},500)
+// 		});
+// 	}
+// 	else if(gr_rank == "" && max_score != 0){
+// 		swalReward(b);
+// 	}
+// 	else if (max_score == 0 && gr_rank != "") {
+// 		swalRank(a,b);
+// 	}
+// 	else if (max_score != 0 && gr_rank != "") {
+// 		swalRankWithScore(a,b);
+// 	}
+// }
+
+// function swalRank(a,b){
+// 	var total_score = a.total_score;
+// 	var max_score = a.total_max_score;
+// 	var gr_rank = a.rank;
+// 	var gr_rank_img = a.rank_image;
+// 	var gr_grade = a.grade;
+// 	swal({
+// 		title: "",
+// 		imageUrl: gr_rank_img,
+// 		confirmButtonText: "Ok!",
+//   		closeOnConfirm: true
+//   		},
+//   		function(){
+//   			if (b != []) {
+//   				swalReward(b)
+// 			}
+//   		});
+// }
+// function swalRankWithScore(a,b){
+// 	var total_score = a.total_score;
+// 	var max_score = a.total_max_score;
+// 	var gr_rank = a.rank;
+// 	var gr_rank_img = a.rank_image;
+// 	var gr_grade = a.grade;
+// 	swal({
+// 		title: total_score+" / "+max_score,
+// 		imageUrl: gr_rank_img,
+// 		confirmButtonText: "Ok!",
+//   		closeOnConfirm: true
+//   		},
+//   		function(){
+//   			if (b != []) {
+//   				swalReward(b)
+// 			}
+//   		});
+// }
+// function swalReward(b){
+// 			var i = 0;
+// 			initialProp();
+// 				function initialProp(){
+// 					console.log(i);
+// 					if (b[i].value >= 1) {
+// 						console.log(" ")
+// 						console.log("Enter if in for loop b["+i+"].value >= 1 | "+b[i].value)
+// 						console.log(" ")
+// 						var re_id = b[i].reward_id;
+// 						var re_type = b[i].reward_type;
+// 						var re_value = b[i].value;
+// 						var re_event = b[i].event_type;
+// 						console.log(" ")
+// 						console.log("re_id: "+re_id+" | re_type: "+re_type+" | re_value: "+re_value+" | re_event: "+re_event)
+// 						console.log(" ")
+// 						if (re_type == "badge") {
+// 							var badge_img = b[i].reward_data.image;
+// 							var badge_name = b[i].reward_data.name;
+// 							buildModal(re_type,re_value,badge_img,badge_name);
+// 							console.log(" ")
+// 							console.log("Enter re_type:"+re_type+" == badge | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
+// 							console.log(" ")
+// 						}else if (re_type == "exp"){
+// 							buildModal(re_type,re_value,null,null);
+// 							console.log(" ")
+// 							console.log("Enter re_type:"+re_type+" == exp | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
+// 							console.log(" ")
+// 					  	}
+// 					  	else if (re_type == "point"){
+// 							buildModal(re_type,re_value,null,null);
+// 							console.log(" ")
+// 							console.log("Enter re_type:"+re_type+" == point | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
+// 							console.log(" ")
+// 					  	}
+// 					  	else if(re_event == "LEVEL_UP"){
+// 					  		buildModal(re_event,re_value,null,null);
+// 							console.log(" ")
+// 							console.log("Enter re_type:"+re_type+" == point | sent to: buildModal("+re_type+","+re_value+","+badge_img+","+badge_name+")")
+// 							console.log(" ")
+// 					  	}
+// 					  	$("#myScore").modal({backdrop: "static"});
+// 					}else{
+// 						if ((i+1) < b.length) {
+// 					  		i+=1;
+// 					  		initialProp();
+// 					  	}
+// 					  	else{
+// 						  	setTimeout(function(){
+// 						  		swal({
+// 								  title: "Completed",
+// 								  text: "That's all you got, we're bringing you to main menu!",
+// 								  type: "success",
+// 								  confirmButtonClass: "btn-primary",
+// 								  confirmButtonText: "Ok!",
+// 								  closeOnConfirm: false
+// 								},
+// 								function(){
+// 									setTimeout(function(){
+// 										window.location.replace("index.jsp");
+// 									},500)
+// 								});
+// 							},500)
+// 				  		}
+// 					}
+// 					// $("#myScore").modal({backdrop: "static"});
+// 			}
+// 			function buildModal(typer,valuer,imgr,badgeN,callback){
+// 				var imgss = '';
+// 				var text = '';
+// 				var got = 'You got <span class="highlight">'+valuer+'</span> '+typer;
+// 				var imgee = '<img src="img/con1.png">'
+// 				if (typer == 'exp') {
+// 					imgss = 'img/EXP.png';
+// 				}else if (typer == 'point') {
+// 					imgss = 'img/Mission_1.png';
+// 				}else if (typer == 'LEVEL_UP'){
+// 					imgss = 'img/Levelup.png';
+// 				}
+// 				else{
+// 					got = 'You got <span class="highlight">'+valuer+' '+badgeN+'</span> '+typer;
+// 					imgss = imgr;
+// 				}
+// 				text += '<div class="modal fade" id="myScore" role="dialog">'+
+//                 '<div class="modal-dialog">'+
+//                   '<!-- Modal content-->'+
+//                   '<div class="modal-content" style="background-color: #ffffffc7;border:0px;">'+
+//                     '<div class="modal-header">'+
+//                         '<h3>'+imgee+'</h3>'+
+//                         '<h4>'+got+'</h4>'+
+//                     '</div>'+
+//                     '<div class="modal-body" style="text-align: center;">'+
+//                           '<img src="'+imgss+'">'+
+//                     '</div>'+
+//                     '<div class="modal-footer">'+
+//                       '<button type="submit" class="btn btn-primary closeM">Ok!'+
+//                     '</div>'+
+//                   '</div>'+
+//                 '</div>'+
+//               '</div>'
+// 			  $('#modal_score').append(text);
+// 			  $('.closeM').click(function(){
+// 			  	$("#myScore").modal("hide");
+// 			  	$("#modal_score > div").remove();
+// 			  	$(".modal-backdrop").remove();
+// 			  	if ((i+1) < b.length) {
+// 			  		console.log(i+" < "+b.length);
+// 			  		i+=1;
+// 			  		initialProp();
+// 			  	}
+// 			  	else{
+// 			  		swal({
+// 					  title: "Completed",
+// 					  text: "That's all you got, we're bringing you to main menu!",
+// 					  type: "success",
+// 					  confirmButtonClass: "btn-primary",
+// 					  confirmButtonText: "Ok!",
+// 					  closeOnConfirm: false
+// 					},
+// 					function(){
+// 						setTimeout(function(){
+// 							window.location.replace("index.jsp");
+// 						},500)
+// 					});
+// 			  	}
+// 			  });
+// 			}
+// 			// $("#myScore").modal("toggle");
+// 			// console.log(" ")
+// 			// console.log("Out of loop. . .")
+// 			// console.log(" ")
+// }
 function translateResult(a){
 	var data = JSON.parse(a);
 	return data;
