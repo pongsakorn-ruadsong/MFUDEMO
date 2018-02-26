@@ -56,7 +56,7 @@ function buildGoodsList(){
 				}
 		result +=								
 '				<button class="couponCard btnListReward" type="button" style="background-image: url('+image+'); background-size: cover;" data-toggle="modal" goodsTypeId="'+goodsType+'" goodsId="'+goodsId+'" detailId="'+detail+'" imgId="'+image+'" pointId="'+point+'" titleId="'+title+'" iconId="'+icon+'" stockId="" type="button">'+
-'				<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:-6px;left: -7px; background-color: white;">'+
+'				<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:-6px;left: -7px; background-color: #cccccc;">'+
 '					<img src="'+icon+'">'+
 '				</div>'+
 '					<div class="row">'+
@@ -64,8 +64,15 @@ function buildGoodsList(){
 '							</div>'+
 '							<div class="col-md-8">'+
 '								<div class="boxInsideCoupon">'+
+'							<head>'+
 '								<div class="textInCoupon">'+title+'</div>'+
-'								<div class="showPoint">'+point+'</div>'+
+'							</head>'+
+'							<body>'+
+'        						<div class="container" style="font-size: 8px; text-align: left;">'+detail+'</div>'+
+'							</body'+
+'							<footer>'+
+'								<div class="couponPoint">'+point+'</div>'+
+'							</footer>'+
 '							</div>'+
 '						<div>'+
 '					</div>'+
@@ -102,7 +109,7 @@ function buildGoodsList(){
 		// console.log($(this).attr('goodsTypeId'))
 		$('#rewardDetail').modal();
 	});
-	$(".receiveReward").click(function() {
+	$(".receiveReward").click(function(){
 			swal({
 			  title: "Confirm?",
 			  text: "Are you sure to recieve this reward?",
@@ -182,7 +189,3 @@ function receiveGoodsGroup(getGoodsName){
 	            }
 	        });
  }
-
- function ddsad(){
-		$('#111').modal();
-	}
