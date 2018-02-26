@@ -457,8 +457,8 @@ function buildQuiz(callback){
 	    	$('#img').append(image);
 	    	$('#stopCount').click(function(){
 	    		sessionStorage['pause_num'] = $('#timer').text();
-	    		$('#stopCount').removeClass("bounceInLeft");
-	    	 	$('#stopCount').css("display","none");
+	    		$('.choice-overlay').css('display','none');
+	    		$('.btn-choices').addClass('last');
 	    	 	if (!$(this).hasClass('animated')) {
 	    	 		$(this).addClass("animated");
 	    	 	}
@@ -473,6 +473,9 @@ function buildQuiz(callback){
 	    	 		$('#resetQuiz').removeClass('zoomIn').addClass("zoomOut");
 	    	 		$(this).css('display','block')
 	    	 		$('#resetQuiz').css('display','none')
+	    	 	}else{
+	    	 		$('#stopCount').removeClass("bounceInLeft").addClass("zoomOut");
+	    	 		$('#stopCount').css("display","none");
 	    	 	}
 	    		$('#resetQuiz').css("display","block");
 	    	 	$('#resetQuiz').addClass("animated zoomIn");
@@ -557,12 +560,26 @@ function buildQuiz(callback){
 	    	 });
 	    	 $('.inputTXT_SQ').click(function(){
 	    	 	showButtons()
+	    	 	var remain = parseInt(sessionStorage['pause_num']);
+	    	 	$('.btn-choices').css("background-color","white")
+	    	 	$('.btn-choices').css("color","black")
 	    	 	$(this).parent().css("background-color","mediumslateblue");
 	    	 	$(this).parent().css("color","white");
-		    	 setTimeout(function(){
+	    	 	if ($('.btn-choices').hasClass('last')) {
+	    	 		console.log("Has class LAST")
+	    	 		$('#stopCount').css("display","none");
+	    	 		$('#resetQuiz').css("display","block");
+	    			$('#timer').removeClass("glyphicon glyphicon-play");
+	    			$('#nextBtn').removeClass("stop");
+		    		$('#timer').text(sessionStorage['pause_num']);
+		    		timerasdsd(remain);
+	    	 	}else{
+	    	 		console.log("No have class last")
+	    	 		setTimeout(function(){
 						timerasdsd(3);
 						$('#nextBtn').addClass("countDown-btn");
 					},600);
+	    	 	}
 	    	 });
 	    	 $('.inputTXT_SQ_S').click(function(){
 	    	 	showButtons()
