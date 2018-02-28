@@ -17,11 +17,11 @@
 // addHighLight = '<span class="testLoader" animated="fadeIn"></span>'; //by Dew
 // var mathRand = Math.floor(500 + Math.random() * 500);
 
-function makeid() {
+function makeid(a) {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-  for (var i = 0; i < 40; i++)
+  for (var i = 0; i < a; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
 
   return text;

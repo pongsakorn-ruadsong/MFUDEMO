@@ -153,7 +153,7 @@ function getQuestion(){
 	    	sessionStorage.removeItem("save_result");
 	    	swal({
 			  title: "Oops!",
-			  text: "You has finnished all quiz! Do you need to reset it?",
+			  text: "You has finnished all question. Do you need to reset it?",
 			  type: "warning",
 			  showCancelButton: true,
 			  confirmButtonClass: "btn-primary",
@@ -583,21 +583,49 @@ function buildQuiz(callback){
 	    	 });
 	    	 $('.inputTXT_SQ_S').click(function(){
 	    	 	showButtons()
+	    	 	var remain = parseInt(sessionStorage['pause_num']);
+	    	 	$('.btn-choices').css("background-color","white")
+	    	 	$('.btn-choices').css("color","black")
 	    	 	$(this).parent().css("background-color","mediumslateblue");
 	    	 	$(this).parent().css("color","white");
-		    	 setTimeout(function(){
+	    	 	if ($('.btn-choices').hasClass('last')) {
+	    	 		console.log("Has class LAST")
+	    	 		$('#stopCount').css("display","none");
+	    	 		$('#resetQuiz').css("display","block");
+	    			$('#timer').removeClass("glyphicon glyphicon-play");
+	    			$('#nextBtn').removeClass("stop");
+		    		$('#timer').text(sessionStorage['pause_num']);
+		    		timerasdsd(0);
+	    	 	}else{
+	    	 		console.log("No have class last")
+	    	 		setTimeout(function(){
 						timerasdsd(3);
 						$('#nextBtn').addClass("countDown-btn");
 					},600);
+	    	 	}
 	    	 });
 	    	 $('.inputTXT_SQ_S_MULTI').click(function(){
 	    	 	showButtons()
+	    	 	var remain = parseInt(sessionStorage['pause_num']);
+	    	 	$('.btn-choices').css("background-color","white")
+	    	 	$('.btn-choices').css("color","black")
 	    	 	$(this).parent().css("background-color","mediumslateblue");
 	    	 	$(this).parent().css("color","white");
-		    	 setTimeout(function(){
+	    	 	if ($('.btn-choices').hasClass('last')) {
+	    	 		console.log("Has class LAST")
+	    	 		$('#stopCount').css("display","none");
+	    	 		$('#resetQuiz').css("display","block");
+	    			$('#timer').removeClass("glyphicon glyphicon-play");
+	    			$('#nextBtn').removeClass("stop");
+		    		$('#timer').text(sessionStorage['pause_num']);
+		    		timerasdsd(0);
+	    	 	}else{
+	    	 		console.log("No have class last")
+	    	 		setTimeout(function(){
 						timerasdsd(6);
 						$('#nextBtn').addClass("countDown-btn");
 					},600);
+	    	 	}
 	    	 });
 	    	 $('.inputTXT_MULTI').click(function(){
 	    	 	showButtons()

@@ -9,14 +9,66 @@ sessionStorage['loginType'];
 sessionStorage['auth'] = false;
 var Glob_Login;
 var contentData;
+function requestOtp(){
+	var data = new Object();
+	data.token = sessionStorage['Token'];
+
+}
+function requestOtpSetup(){
+	console.log("Entering . . .")
+	var data = new Object();
+	data.token = sessionStorage['Token'];
+	
+}
+function registerUser(code,number,callback){
+	var data = new Object();
+	var user_id = makeid(40);
+	data.token = sessionStorage['Token'];
+	data.id = user_id;
+	data.username = number;
+	data.email = number+'+qa@playbasis.com';
+	data.approve_status = 'pending';
+	$.ajax({
+		type: "POST",
+        url: 'https://api.pbapp.net/Player/'+user_id+'/register',
+        data:data,
+        dataType: "json",
+        async: false,
+	    success: function(d){
+			Glob_regis = d;
+	    	if (d.success == false) {
+	    		sessionStorage['auth'] = "false";
+	    		console.log("d")
+	    	}else{
+	    		sessionStorage['auth'] = "true";
+	    		sessionStorage['username'] = number;
+	    		console.log("e")
+	    	}
+	    	console.log(d);
+	    	callback();
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+         	window.location.reload(true)
+			sessionStorage['auth'] = false;
+            console.log(errorThrown);
+            console.log("Failed : getContent() @ quiz.js");
+        }	
+	});
+	// callback();
+	
+}
+function updateUser(){
+	var data = new Object();
+	data.token = sessionStorage['Token'];
+}
 function authPlayer(){
 	var playerId = $('#PlayerID').val();
 	var data = new Object();
-	data.api_key = sessionStorage['api_key'];
+	data.username = playerId;
 	data.password = $('#passWord').val();
 	$.ajax({
 		type: "POST",
-        url: 'https://api.pbapp.net/Auth/player/'+playerId,
+        url: 'https://api.pbapp.net/Player/auth',
         data:data,
         dataType: "json",
         async: false,
@@ -51,7 +103,7 @@ function validLogin() {
 	}
 }
 function guestFunction(){
-	var guestID = makeid();
+	var guestID = makeid(40);
 	console.log(guestID)
 	var data = new Object();
 	data.token = sessionStorage['Token'];
