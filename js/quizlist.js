@@ -219,18 +219,6 @@ function buildUesrReward() {
 		k++;
 	}
 	$('#table_goods').append(text);
-	$('tr').click(function() {
-    	alert();
-    	var a = $(this).attr('imgId');
-		// console.log(a)
-		$('#disTitle').text($(this).attr('titleId'));
-		// console.log($(this).attr('titleId'))
-		$('#disImgContent').attr("src", a);
-		$('#disDetail').text($(this).attr('detailId'));
-		$('#hid-couponId').text($(this).attr('goodsId'));
-
-		$('#checkOutGoods').modal();
-	});
 }
 // function initialData(){
 

@@ -187,30 +187,30 @@ function receiveGoodsGroup(getGoodsName){
 	        });
  }
 
- function checkOutCoupon(){
- 	alert('dddddd')
- }
+//  function checkOutCoupon(){
+//  	alert('dddddd')
+//  }
 
-function makeCode () { 
-	var qrcode = new QRCode("qrcode");     
-    var elText = document.getElementById("text");
+// function makeCode () { 
+// 	var qrcode = new QRCode("qrcode");     
+//     var elText = document.getElementById("text");
     
-    if (!elText.value) {
-        alert("Input a text");
-        elText.focus();
-        return;
-    }
+//     if (!elText.value) {
+//         alert("Input a text");
+//         elText.focus();
+//         return;
+//     }
     
-    qrcode.makeCode(elText.value);
-}
+//     qrcode.makeCode(elText.value);
+// }
 
-makeCode();
+// makeCode();
 
-$("#text").on("blur", function (){
-        makeCode();
-    }).
-    on("keydown", function (e) {
-        if (e.keyCode == 13) {
-            makeCode();
-        }
-    });
+// $("#text").on("blur", function (){
+//         makeCode();
+//     }).
+//     on("keydown", function (e) {
+//         if (e.keyCode == 13) {
+//             makeCode();
+//         }
+//     });

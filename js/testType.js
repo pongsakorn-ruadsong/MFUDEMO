@@ -42,3 +42,29 @@ function selectAge(){
 function selectAge2(){
   $(".dot").css('transform','rotate(45deg)');
 }
+
+
+
+
+function makeCode () {      
+    var elText = document.getElementById("text");
+    var qrcode = new QRCode("qrcode");
+    if (!elText.value) {
+        alert("Input a text");
+        elText.focus();
+        return;
+    }
+    
+    qrcode.makeCode(elText.value);
+    makeCode();
+}
+
+$("#text").
+    on("blur", function () {
+        makeCode();
+    }).
+    on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            makeCode();
+        }
+    });

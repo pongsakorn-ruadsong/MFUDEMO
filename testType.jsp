@@ -44,7 +44,7 @@
 </form>
  -->
 
-<div class="contianerCycle">
+<!-- <div class="contianerCycle"> -->
 	<!-- <div style="position: absolute; left: 47%;">36</div>
 	<div style="position: absolute;left: 75%;top: 8%;transform: rotate(35deg);">37</div>
 	<div style="position: absolute;left: 16%;top: 10%;transform: rotate(-35deg);">45</div>
@@ -78,7 +78,7 @@
 	<div style="position: absolute;left: 78%;top: 85%;transform: rotate(140deg);">40</div>
 	<div style="position: absolute;left: 19%;top: 87%;transform: rotate(-150deg);">42</div>
 	<div style="position: absolute;left: 47%;top: 95%;transform: rotate(-180deg);">41</div> -->
-	<div class="cycle" style="border-radius: 50%">
+<!-- 	<div class="cycle" style="border-radius: 50%">
 		<div class="circle-range-select-wrapper">
 			<input type="text" name="" class="circle-range-select">
 			<div class="handle" style="left: 50%; top: -1px;"></div>
@@ -100,7 +100,14 @@
 				<button class="btn btn-default buttonAge"></button>
 			</div> 
 		</div> 
-</div>
+</div> -->
+<input id="text" type="text" value="1549DASA3356" style="width:80%" /><br />
+<div id="qrcode" style="width:160px;height:160px;margin-top:15px;"></div>
+
+
+
+
+
 </div>
 <%@include file="bottom.jsp" %>
 

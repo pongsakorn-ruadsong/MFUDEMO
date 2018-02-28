@@ -190,7 +190,7 @@
 
 
 
-<!-- <div class="modal fadeIn" id="checkOutGoods" role="dialog">
+<div class="modal fadeIn" id="checkOutGoods" role="dialog">
     <div class="modal-dialog" style="top: 10%">    
         <div class="modal-content" style="border-radius: 10px; width: 75%; height: 100%; background-color: white; left: 13%;">
         <div class="header couponTop" id="Image"></div>		
@@ -215,7 +215,7 @@
   	</div>
 </div>
 <input type="hidden" id="hid-couponId">
-<input id="text" type="hidden"> -->
+<input id="text" type="hidden">
 
 
 
