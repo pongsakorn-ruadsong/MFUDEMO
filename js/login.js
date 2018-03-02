@@ -1,24 +1,94 @@
-sessionStorage['player'];
-sessionStorage['api_key'] = '141073538';
-sessionStorage['api_sec'] = '21e3386d7b6cc594784209af889063d2';
-sessionStorage['Token'];
-sessionStorage['isLast'] = "false";
-sessionStorage['subUrl'] = 'http://10.49.67.156/api/';
-sessionStorage['mainUrl'] = 'https://api.pbapp.net/';
-sessionStorage['loginType'];
-sessionStorage['auth'] = false;
 var Glob_Login;
 var contentData;
-function requestOtp(){
-	var data = new Object();
-	data.token = sessionStorage['Token'];
-
+sessionStorage['api_key'] = '141073538';
+sessionStorage['api_sec'] = '21e3386d7b6cc594784209af889063d2';
+sessionStorage['subUrl'] = 'http://10.49.67.156/api/';
+sessionStorage['mainUrl'] = 'https://api.pbapp.net/';
+sessionStorage['isLast'] = "false";
+sessionStorage['auth'] = 'false';
+function analyzePhonenum(code,numbers){
+	var number = numbers;
+	var n = number.indexOf("0");
+	console.log(number+' | '+n)
+	if (n == 0) {
+		var tempNum = number.substr(1);
+		number = code+tempNum;
+		console.log(tempNum+' | '+number)
+	}else{
+		console.log('N != 0 by n = '+n)
+		number = code+tempNum;
+		console.log(tempNum+' | '+number)
+	}
+	console.log('Out of if: return. . .')
+	return number;
 }
-function requestOtpSetup(){
-	console.log("Entering . . .")
+function requestOtp(player_id){
 	var data = new Object();
 	data.token = sessionStorage['Token'];
-	
+	data.id = player_id;
+	console.log(data)
+	$.ajax({
+		type: "POST",
+        url: 'https://api.pbapp.net/Player/auth/'+player_id+'/requestOTPCode',
+        data:data,
+        dataType: "json",
+        async: false,
+	    success: function(d){
+	    	if (d.success == false) {
+	    		// sessionStorage['auth'] = "false";
+	    		console.log("d")
+	    		// sessionStorage['player'] = null;
+	    	}else{
+	    		// sessionStorage['setupOtp_phonenum'] = phone_num;
+	    		// sessionStorage['auth'] = "true";
+	    		// sessionStorage['username'] = number;
+	    		// sessionStorage['player'] = player_id;
+	    		console.log("e")
+	    	}
+	    	console.log(d);
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+         	window.location.reload(true)
+			sessionStorage['auth'] = false;
+            console.log(errorThrown);
+            console.log("Failed : requestOtp() @ login.js");
+        }	
+	});
+}
+function requestOtpSetup(id,code,number){
+	console.log("Entering . . .")
+	console.log(id)
+	var phone_num = analyzePhonenum(code,number);
+	var data = new Object();
+	data.token = sessionStorage['Token'];
+	data.id = id;
+	data.phone_number = phone_num;
+	console.log(data)
+	$.ajax({
+		type: "POST",
+        url: 'https://api.pbapp.net/Player/auth/'+id+'/setupPhone',
+        data:data,
+        dataType: "json",
+        async: false,
+	    success: function(d){
+	    	if (d.success == false) {
+	    		// sessionStorage['auth'] = "false";
+	    		console.log("d")
+	    	}else{
+	    		sessionStorage['setupOtp_phonenum'] = phone_num;
+	    		// sessionStorage['auth'] = "true";
+	    		// sessionStorage['username'] = number;
+	    		console.log("e")
+	    	}
+	    	console.log(d);
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+         	window.location.reload(true)
+			sessionStorage['auth'] = false;
+            console.log(errorThrown);
+            console.log("Failed : getContent() @ quiz.js");
+        }	
+	});
 }
 function registerUser(code,number,callback){
 	var data = new Object();
@@ -26,8 +96,10 @@ function registerUser(code,number,callback){
 	data.token = sessionStorage['Token'];
 	data.id = user_id;
 	data.username = number;
-	data.email = number+'+qa@playbasis.com';
+	data.email = 'qa1+'+number+'@playbasis.com';
+	data.password = 'playbasis';
 	data.approve_status = 'pending';
+	console.log(data)
 	$.ajax({
 		type: "POST",
         url: 'https://api.pbapp.net/Player/'+user_id+'/register',
@@ -37,15 +109,17 @@ function registerUser(code,number,callback){
 	    success: function(d){
 			Glob_regis = d;
 	    	if (d.success == false) {
-	    		sessionStorage['auth'] = "false";
+	    		sessionStorage['regisStatus'] = "false";
 	    		console.log("d")
 	    	}else{
-	    		sessionStorage['auth'] = "true";
-	    		sessionStorage['username'] = number;
+	    		sessionStorage['regisStatus'] = "true";
+	    		// sessionStorage['username'] = number;
 	    		console.log("e")
 	    	}
 	    	console.log(d);
-	    	callback();
+	    	sessionStorage['regisUsername'] = number;
+	    	sessionStorage['regisID'] = user_id;
+	    	callback(user_id,code,number);
 	    },
 	    error: function (xhr, textStatus, errorThrown){
          	window.location.reload(true)
@@ -55,17 +129,90 @@ function registerUser(code,number,callback){
         }	
 	});
 	// callback();
-	
 }
-function updateUser(){
+function performOTP(code, player_id, from, callback){
 	var data = new Object();
 	data.token = sessionStorage['Token'];
+	data.id = player_id;
+	data.code = code;
+	$.ajax({
+		type: "POST",
+        url: 'https://api.pbapp.net/Player/auth/'+player_id+'/verifyOTPCode',
+        data:data,
+        dataType: "json",
+        async: false,
+	    success: function(d){
+			// Glob_regis = d;
+			var result = false;
+	    	if (d.success == false) {
+	    		console.log("d")
+	    		sessionStorage['player'] = undefined;
+	    	}else{
+	    		if (from == 'login') {
+	    			sessionStorage['player'] = player_id;
+	    			result = true;
+	    		}else if(from == 'regis'){
+	    			result = true;
+	    			updateUser(player_id);
+	    		}
+	    		// sessionStorage['auth'] = "true";
+	    		// sessionStorage['username'] = number;
+	    		console.log("e")
+	    	}
+	    	console.log(d);
+	    	// sessionStorage['regisID'] = user_id;
+	    	callback(result);
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+         	window.location.reload(true)
+			sessionStorage['auth'] = false;
+            console.log(errorThrown);
+            console.log("Failed : getContent() @ quiz.js");
+        }	
+	});
 }
-function authPlayer(){
-	var playerId = $('#PlayerID').val();
+function updateUser(a){
 	var data = new Object();
-	data.username = playerId;
-	data.password = $('#passWord').val();
+	data.token = sessionStorage['Token'];
+	data.id = a;
+	data.phone_number = sessionStorage['setupOtp_phonenum'];
+	data.approve_status = 'approved';
+	$.ajax({
+		type: "POST",
+        url: 'https://api.pbapp.net/Player/'+a+'/update',
+        data:data,
+        dataType: "json",
+        async: false,
+	    success: function(d){
+			// Glob_regis = d;
+	    	if (d.success == false) {
+	    		console.log("d")
+	    	}else{
+	    		sessionStorage['player'] = a;
+	    		sessionStorage['username'] = sessionStorage['regisUsername'];
+	    		window.location.replace("index");
+	    		// sessionStorage['auth'] = "true";
+	    		// sessionStorage['username'] = number;
+	    		console.log("e")
+	    	}
+	    	console.log(d);
+	    	// sessionStorage['regisID'] = user_id;
+	    	// callback(user_id,code,number);
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+         	window.location.reload(true)
+			sessionStorage['auth'] = false;
+            console.log(errorThrown);
+            console.log("Failed : getContent() @ quiz.js");
+        }	
+	});
+}
+function authPlayer(username, callback){
+	var data = new Object();
+	data.token = sessionStorage['Token'];
+	data.username = username;
+	data.password = 'playbasis';
+	console.log(data)
 	$.ajax({
 		type: "POST",
         url: 'https://api.pbapp.net/Player/auth',
@@ -73,16 +220,21 @@ function authPlayer(){
         dataType: "json",
         async: false,
 	    success: function(d){
-			Glob_Login = d;
+			// Glob_Login = d;
 	    	if (d.success == false) {
 	    		sessionStorage['auth'] = "false";
+	    		console.log(d.message);
 	    	}else{
-	    		sessionStorage['player'] = playerId;
+	    		var player_id = d.response.cl_player_id;
+	    		// sessionStorage['player'] = playerId;
+	    		sessionStorage['session_id'] = d.response.session_id;
+	    		sessionStorage['username'] = username;
 	    		sessionStorage['loginType'] = 'user';
-	    		sessionStorage['auth'] = true;
+	    		sessionStorage['auth'] = "true";
 	    		// window.location.replace("index.jsp");
 	    	}
 	    	console.log(d)
+	    	callback(player_id, d.error_code, d.message);
 	    },
 	    error: function (xhr, textStatus, errorThrown){
 //          window.location.reload(true)
@@ -133,9 +285,6 @@ function guestFunction(){
             console.log("Failed : getContent() @ quiz.js");
         }	
 	});
-}
-function loginModal(){
-	$('#loginModal').modal();
 }
 function getIdentifyKey(a){
 	  if (a === "") {

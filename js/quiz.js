@@ -761,7 +761,7 @@ function autoNext(){
 		    		if (isLastQuestion()) {
 				    		
 					    	// toastr["info"]("This is the last question. we're bringing you to index", "Successful");
-					    	setTimeout(function(){ window.location.replace("index.jsp"); }, mathRand);
+					    	setTimeout(function(){ window.location.replace("index"); }, mathRand);
 						}else{
 							savePrevious();
 							

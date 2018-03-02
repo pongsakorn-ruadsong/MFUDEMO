@@ -114,8 +114,8 @@ html, body, .container-fluid{
 }
 @media (max-width: 320px){
   .player_txt {
-    height: 30px !important;
-    font-size: 15px !important;
+    height: 40px !important;
+    font-size: 18px !important;
   }
   .card-box {
     margin-top: 120px;
@@ -452,6 +452,10 @@ p.dropdown-item:hover{
 .myRow{
 	padding: 5px 0px 5px 0px;
 }
+button:focus,button:active{
+  outline: none !important;
+   box-shadow: none;
+}
 .chgLang:focus,.chgLang:active {
    outline: none !important;
    box-shadow: none;
@@ -505,11 +509,22 @@ img{
   box-sizing: content-box;
 }
 .player_txt{
-	width: 100%;
-	height: 40px;
-	font-size: 18px;
-  text-align: center;
-  box-shadow: 1px 1px 1px 1px #aaaaaa;
+	    width: 100%;
+    border-radius: 6px;
+    padding: 5px;
+    font-size: 18px;
+    text-align: center;
+    border-style: none;
+}
+.btnLogin{
+    color: white;
+    width: 100%;
+    margin: 10px;
+    height: 40px;
+    border-radius: 30px;
+    box-shadow: 2px 4px 6px #aaaaaa;
+    background-color: #45a1bc;
+    width: 100%;
 }
 .trapezoid span { 
   position: absolute;
