@@ -55,10 +55,22 @@ function requestOtp(player_id){
         }	
 	});
 }
-function requestOtpSetup(id,code,number){
+function requestOtpSetup(id,code,number,fullnum){
 	console.log("Entering . . .")
-	console.log(id)
-	var phone_num = analyzePhonenum(code,number);
+	var player_id = id;
+	var tel_code = code;
+	var phone_num = '';
+	// console.log(player_id+' | '+tel_code)
+	// console.log(typeof(player_id)+' | '+typeof(tel_code))
+	if (code != null && number != null && fullnum == null) {
+		phone_num = analyzePhonenum(code,number);
+	}
+	else if(code == null && number == null && fullnum != null){
+		phone_num = fullnum;
+	}
+	else{
+		console.log('Error at login.js function: requestOtpSetup() by: phone_num = '+phone_num+" | "+code+' | '+number+' | '+id);
+	}
 	var data = new Object();
 	data.token = sessionStorage['Token'];
 	data.id = id;
@@ -75,12 +87,39 @@ function requestOtpSetup(id,code,number){
 	    		// sessionStorage['auth'] = "false";
 	    		console.log("d")
 	    	}else{
-	    		sessionStorage['setupOtp_phonenum'] = phone_num;
+	    		// sessionStorage['setupOtp_phonenum'] = phone_num;
 	    		// sessionStorage['auth'] = "true";
 	    		// sessionStorage['username'] = number;
 	    		console.log("e")
 	    	}
 	    	console.log(d);
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+         	window.location.reload(true)
+			sessionStorage['auth'] = false;
+            console.log(errorThrown);
+            console.log("Failed : getContent() @ quiz.js");
+        }	
+	});
+}
+function getUnverifyPlayer(id,callback){
+	var data = new Object();
+	data.id = id;
+	data.token = sessionStorage['Token'];
+	$.ajax({
+		type: "POST",
+        url: 'https://api.pbapp.net/Player/'+id,
+        data:data,
+        dataType: "json",
+        async: false,
+	    success: function(d){
+	    	if (d.success == false) {
+	    		console.log("d")
+	    	}else{
+	    		console.log("e")
+	    	}
+	    	console.log(d);
+	    	callback(d.response.player.phone_number);
 	    },
 	    error: function (xhr, textStatus, errorThrown){
          	window.location.reload(true)
@@ -97,6 +136,7 @@ function registerUser(code,number,callback){
 	data.id = user_id;
 	data.username = number;
 	data.email = 'qa1+'+number+'@playbasis.com';
+	data.phone_number = analyzePhonenum(code,number);
 	data.password = 'playbasis';
 	data.approve_status = 'pending';
 	console.log(data)
@@ -175,7 +215,6 @@ function updateUser(a){
 	var data = new Object();
 	data.token = sessionStorage['Token'];
 	data.id = a;
-	data.phone_number = sessionStorage['setupOtp_phonenum'];
 	data.approve_status = 'approved';
 	$.ajax({
 		type: "POST",
@@ -221,11 +260,15 @@ function authPlayer(username, callback){
         async: false,
 	    success: function(d){
 			// Glob_Login = d;
+			var player_id = '';
 	    	if (d.success == false) {
 	    		sessionStorage['auth'] = "false";
 	    		console.log(d.message);
+	    		if (d.error_code == '2425') {
+	    			player_id = d.response.cl_player_id;
+	    		}
 	    	}else{
-	    		var player_id = d.response.cl_player_id;
+	    		player_id = d.response.cl_player_id;
 	    		// sessionStorage['player'] = playerId;
 	    		sessionStorage['session_id'] = d.response.session_id;
 	    		sessionStorage['username'] = username;

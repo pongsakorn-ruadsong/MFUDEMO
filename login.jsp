@@ -73,13 +73,16 @@
 				}
 				if (otp.length == 6) {
 					$("#perform-otp").prop('disabled', false);
+					$('.telNumber-otp').prop('disabled', true);
 				}
 				else{
+					$('.telNumber-otp').prop('disabled', false);
 					$("#perform-otp").prop('disabled', true);
 				}
 				var index = otp.length-1;
 				var element = $('.input-otp-inFrame').children()[index]
 				$(element).children().text($(this).text())
+				console.log(otp.join(""))
 				// full_num.push(phone_num);
 				// var half_num = full_num.join("");
 				// console.log(index)
@@ -95,9 +98,11 @@
 					console.log('array empty')
 				}
 				if (otp.length == 6) {
+					$('.telNumber-otp').prop('disabled', true);
 					$("#perform-otp").prop('disabled', false);
 				}
 				else{
+					$('.telNumber-otp').prop('disabled', false);
 					$("#perform-otp").prop('disabled', true);
 				}
 				var index = otp.length;
@@ -108,6 +113,7 @@
 			$('#reset-phone-otp').click(function(){
 				otp = [];
 				$("#perform-otp").prop('disabled', true);
+				$('.telNumber-otp').prop('disabled', false);
 				$('.input-otp-p').text('');
 			});
 			$('#del-phone').click(function(){
@@ -170,7 +176,7 @@
 				else{
 					registerUser(code,number, function(a,b,c){
 						if (sessionStorage['regisStatus'] == 'true') {
-							requestOtpSetup(a,b,c);
+							requestOtpSetup(a,b,c,null);
 							$('#display_num').text(analyzePhonenum(b,c));
 							$('#performOtp').addClass('fadeInDownBig');
 							$('#perform-otp').attr('p_id',a);
@@ -202,33 +208,40 @@
 					}
 				});
 			});	
+			$("#PlayerID").keyup(function(event) {
+			    if (event.keyCode === 13) {
+			        $("#btnLogin").click();
+			    }
+			});
 			$('#btnLogin').click(function(){
 				var number = $('#PlayerID').val();
 				if (number.length < 4) {
 					alert("Temporary alert: not valid format !")
 				}else{
 					authPlayer(number, function(playerID, resultCode, message){
-						if (resultCode == '2406') {
-							alert('Temporary alert: '+message+'. Please verify your account first.');
+						if (resultCode == '2425') {
 							swal({
 							  title: "Temporary alert!",
-							  text: message+" Please verify your account first.",
+							  text: message+". Please verify your account first.",
 							  type: "warning",
 							  showCancelButton: true,
 							  confirmButtonClass: "btn-primary",
 							  confirmButtonText: "Verify now!",
 							  closeOnConfirm: true
-							},
-							function(){
-								requestOtpSetup(a,b,c);
-							  	if ($('#performOtp').hasClass('fadeOutUpBig')) {
-									{   e.preventDefault();
-					                $('#performOtp').removeClass('fadeOutUpBig').addClass('fadeInDownBig');
-					                setTimeout("$('#performOtp').modal('show')", 300);}
-								}else{
-									$('#performOtp').addClass('fadeInDownBig');
-									setTimeout("$('#performOtp').modal('show')", 300);}
-								}
+							},function(){
+								getUnverifyPlayer(playerID, function(phonenum){
+									requestOtpSetup(playerID,null,null,phonenum);
+									$('#perform-otp').attr('p_id',playerID);
+								  	if ($('#performOtp').hasClass('fadeOutUpBig')){
+								  	   	e.preventDefault();
+						                $('#performOtp').removeClass('fadeOutUpBig').addClass('fadeInDownBig');
+						                setTimeout("$('#performOtp').modal('show')", 300);
+						            }else{
+										$('#performOtp').addClass('fadeInDownBig');
+										setTimeout("$('#performOtp').modal('show')", 300);
+									}
+								});
+							}
 							);
 						}
 						else if(resultCode == '0200'){

@@ -27,8 +27,6 @@
 	<script src="js/quizlist.js"></script>
 	<script src="js/testType.js"></script>
 	<script src="js/qrcode.js"></script>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/intlTelInput.min.js"></script>
 	<script src="js/intlTelInput.js"></script>
 	<script src="js/utils.js"></script>
 	<link rel="stylesheet" href="css/intlTelInput.css" />
