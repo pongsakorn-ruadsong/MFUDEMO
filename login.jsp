@@ -222,7 +222,7 @@
 						if (resultCode == '2425') {
 							swal({
 							  title: "Temporary alert!",
-							  text: message+". Please verify your account first.",
+							  text: "Account is not activated yet. Please activate your account.",
 							  type: "warning",
 							  showCancelButton: true,
 							  confirmButtonClass: "btn-primary",
@@ -233,7 +233,6 @@
 									requestOtpSetup(playerID,null,null,phonenum);
 									$('#perform-otp').attr('p_id',playerID);
 								  	if ($('#performOtp').hasClass('fadeOutUpBig')){
-								  	   	e.preventDefault();
 						                $('#performOtp').removeClass('fadeOutUpBig').addClass('fadeInDownBig');
 						                setTimeout("$('#performOtp').modal('show')", 300);
 						            }else{
