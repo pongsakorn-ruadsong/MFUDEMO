@@ -232,8 +232,8 @@ body.stop-scrolling {
 .sweet-alert {
   background-color: #ffffff;
   width: 478px;
-  padding: 17px;
-  border-radius: 5px;
+  padding: 30px;
+  border-radius: 10px;
   text-align: center;
   position: fixed;
   left: 50%;
@@ -441,6 +441,7 @@ body.stop-scrolling {
   border: none;
   background-position: center center;
   background-repeat: no-repeat;
+  margin-bottom: 30px;
 }
 .sweet-alert .btn-default:focus {
   border-color: #cccccc;
