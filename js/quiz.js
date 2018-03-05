@@ -748,7 +748,7 @@ function autoNext(){
     	 	// $("#resetQuiz").prop('disabled', true);
     	 	// $("#stopCount").prop('disabled', true);
 	    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
-	    		
+	    		console.log("HAHAHA LOL")
 				toastr["info"]("Please answer the question.", "Hint!");
 	    	}
 	    	else if(sessionStorage['type'] == 'SLI_S' && sessionStorage['ans_no'] == "null"){
