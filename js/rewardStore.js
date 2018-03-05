@@ -100,8 +100,7 @@ function buildGoodsList(){
 		// console.log($(this).attr('imgId'))
 		$('#disDetail').text($(this).attr('detailId'));
 		// console.log($(this).attr('detailId'))
-		$('#btnId').text($(this).attr('goodsId'));
-		$('#goodsId').text("GoodsID :"+$(this).attr('goodsId'));
+		$('#goodsId').text($(this).attr('goodsId'));
 		$('#hid-goodsType').text($(this).attr('goodsTypeId'));
 		// console.log($(this).attr('goodsTypeId'))
 		$('#rewardDetail').modal();
@@ -187,30 +186,38 @@ function receiveGoodsGroup(getGoodsName){
 	        });
  }
 
-//  function checkOutCoupon(){
-//  	alert('dddddd')
-//  }
+ // function checkOutGoods(a){
+ // 	console.log(a)
+	// 	var goodsId = a.response.goods.goods_id;
+	// 	var title = a.name;
+	// 	var description = a.description;
+	// 	var image = a.image;
+	// 	var goodsType = a.is_group;
+	// 	var Stock = a.quantity;
+	// 	var expire = a.date_expire;
+	// 	var start = a.date_start;	
+	// 	var icon = '';
+	// 	var detail = '';
+	// 	var point = '';
+	// 	// var custom_lenght = contentValue[goodsId].length;
+	// 	// 	for (var k = 0; k < custom_lenght; k++) {
+	// 	// 		if (contentValue[goodsId][k].key == 'Detail') {
+	// 	// 			detail = contentValue[goodsId][k].value;
+	// 	// 		}
+	// 	// 		if (contentValue[goodsId][k].key == 'Icon') {
+	// 	// 			icon = contentValue[goodsId][k].value;
+	// 	// 		}
+	// 	// 		if (contentValue[goodsId][k].key == 'Points') {
+	// 	// 			point = contentValue[goodsId][k].value;
+	// 	// 		}
+	// 	// 	}
+	// 	$('#couponId').text(goodsId);
+	// 	console.log(goodsId)
+	// 	$('#couponName').text();
+	// 	$('#expire').text();
+	// 	$('#detailCoupon').text();
+	// 	$('#points').text();
+	// 	$('#qrcode').text();
 
-// function makeCode () { 
-// 	var qrcode = new QRCode("qrcode");     
-//     var elText = document.getElementById("text");
-    
-//     if (!elText.value) {
-//         alert("Input a text");
-//         elText.focus();
-//         return;
-//     }
-    
-//     qrcode.makeCode(elText.value);
-// }
-
-// makeCode();
-
-// $("#text").on("blur", function (){
-//         makeCode();
-//     }).
-//     on("keydown", function (e) {
-//         if (e.keyCode == 13) {
-//             makeCode();
-//         }
-//     });
+	// 	$('#checkOutGoods').modal();
+ // }

@@ -3,7 +3,12 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		getGoodList();
-	});	
+	$('#QRCode').click(function(){
+		var code = $('#code').text();
+			// buildQRcode(code);
+		});	
+	});
+
 </script>
 <style type="text/css">
 	.swiper-container {
@@ -110,52 +115,36 @@
 	<div class="shelf" style="background-color: white;">
 		<div class="swiper-container">
 			<div class="swiper-wrapper col-md-12" id="display">
+				<!-- <div id="qrcode" style="width: 30%;"></div> -->
+<script>
+	// new QRCode(document.getElementById("qrcode"), "TestQR");
 
-				<!-- <img src="img/KFC.png" style="width: 100%; height: 100%;" onclick="ddsad()" data-toggle="modal"> -->
+	// var  qrcode = new QRCode(document.getElementById("qrcode"),{
+	// 	text : 'testCode',
+	// 	width: 256,
+	// 	height: 256,
+	// 	colorDark: '#000',
+	// 	colorLight: '#fff',
+	// 	correctLevel : QRCode.correctLevel.H
+	// });
 
-				<!-- <button class="couponCard" type="button" style="background-image: url('');" data-toggle="modal" goodsTypeId="'+goodsType+'" goodsId="'+goodsId+'" detailId="'+detail+'" imgId="'+image+'" pointId="'+point+'" titleId="'+title+'" iconId="'+icon+'" stockId="" type="button">
-					<div class="boxInsideCoupon">
-						<div class="textInCoupon">BUY ONE GET ONE</div>
-							<div class="showPoint">30 Points</div>
-						
-					</div>
-				</button>	 -->
+	// 	function makeCode () {      
+	// 	    var elText = document.getElementById("text");
+		    
+	// 	    if (!elText.value) {
+	// 	        alert("Input a text");
+	// 	        elText.focus();
+	// 	        return;
+	// 	    }
+	// 	    qrcode.makeCode(elText.value);
+	// 	}
+	// 			qrcode.clear();
 
+	// 				qrcode.makeCode('1111');
+</script>
 			</div>
 		</div>
 	</div>	
-<!-- <div class="modal fadeIn" id="rewardDetail" role="dialog">
-    <div class="modal-dialog" style="top: 15%">    
-        <div class="modal-content" style="height: auto; width: auto; border-radius: 10px;">		
-			<div class="container" style="padding: 15px 0px; border-radius: 10px; background-color: white; width: auto; height: 100%;">			      					
-				<div class="row col-sm-12">
-					<div class="couponPoint col-ms-2" id="disPoint" style="margin-left: 11px; color: black;"></div>
-						<div class="couponStock" id="disStock" style=" color: blue; padding-bottom: 5%;"></div>
-				</div>
-					<div class="row col-sm-12" style="margin-top: 5%;">
-						<img src=" " class="img-circle col-sm-3" id="disIcon" style="width: 75px; height: 45px;">
-							<div class="couponTitel col-sm-7" id="disTitle" style="font-size: 18px;"><b> </b></div>	
-								<hr>
-					</div>
-						<div class="col-sm-12">
-							<hr>
-						</div>	
-							<div class="row col-sm-12" style="margin-left: 10px;">				
-								<img src=" " class="col-sm-5" id="disImgContent" style="width: 190px; height: 150px;">
-									<div class="couponDes col-sm-6" id="disDetail" style="font-size: 13px; text-align: center;"> </div>
-							</div>
-							<hr>
-								<div class="row col-sm-12" style="margin-top: 10%;">
-									<div class="col-sm-12">
-										<div class="couponPoint col-ms-2" id="disPoint" style="margin-left: 11px; color: #ffa31a; font-size: 25px;"> </div>
-										<button type="button" class="btn btn-primary receiveReward" style="box-shadow: 0 2px 8px rgba(0,0,0,0.3);">Redeem</button>
-									</div>
-								</div>
-			</div>
-     	</div>
-  	</div>
-</div> -->
-
 
 <div class="modal fadeIn" id="rewardDetail" role="dialog">
     <div class="modal-dialog" style="top: 10%">    
@@ -166,20 +155,21 @@
 					<img src="" class="img-circle" id="disIcon">
 				</div>
 				<div class="couponId" id="goodsId"> </div>
-				<div class="textCoupon" type="text" id="disTitle"></div>	
-				<div class="CodeExpire" id="expirePeriod"></div>
+				<div class="textCoupon" type="text" id="disTitle"> </div>	
+				<div class="CodeExpire" id="expirePeriod"> </div>
 				<div class="container">		      					
-					<div class="couponDetail" type="text" id="disDetail"></div>
+					<div class="couponDetail" type="text" id="disDetail"> </div>
 				</div>
 				<hr class="halfCricle">
 				<div class="row">
-					<div class="couponPoint" style="margin-left: 38%;" id="disPoint"></div>
+					<div class="couponPoint" style="margin-left: 38%;" id="disPoint"> </div>
 				</div>
 				<button class="btn-lg btn-primary receiveReward buttonRedeem">Redeem</button>
 			</div>
      	</div>
   	</div>
 </div>
+<input type="hidden" id="hid-couponId">
  <input type="hidden" id="hid-goodsType">
 
 
@@ -191,35 +181,34 @@
 
 
 <div class="modal fadeIn" id="checkOutGoods" role="dialog">
-    <div class="modal-dialog" style="top: 10%">    
-        <div class="modal-content" style="border-radius: 10px; width: 75%; height: 100%; background-color: white; left: 13%;">
-        <div class="header couponTop" id="Image"></div>		
-			<div class="container" id="imageIcon" style="border-radius: 10px background-image: url(); background-size: cover;">
-				<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:32%;left: 5%;">
-					<img src="" class="img-circle" id="disIcon">
-				</div>
-				<div class="couponId" id="goodsId"> </div>
-				<div class="textInCoupon" type="text" id="disTitle"></div>	
-				<div class="CodeExpire" id="expirePeriod"></div>
-				<div class="container">		      					
-					<div class="couponDetail" type="text" id="disDetail"></div>
-				</div>
-				<hr class="halfCricle">
-				<div class="row">
-					<div class="couponPoint" style="margin-left: 38%;" id="disPoint"></div>
-				</div>
-				<div id="qrcode"></div>
-				<button class="btn-lg btn-primary receiveReward buttonRedeem">Redeem</button>
-			</div>
-     	</div>
-  	</div>
+    
 </div>
-<input type="hidden" id="hid-couponId">
-<input id="text" type="hidden">
+</div>
+<!-- <input type="hidden" id="hid-couponId"> -->
+<!-- <script>
+	var  qrcode = new QRCode('qrcode',{
+		text : 'testCode',
+		width: 256,
+		height: 256,
+		colorDark: '#000',
+		colorLight: '#fff',
+		correctLevel : QRCode.correctLevel.H
+	});
 
-
-
-
+function makeCode () {      
+    var elText = document.getElementById("text");
+    
+    if (!elText.value) {
+        alert("Input a text");
+        elText.focus();
+        return;
+    }
+    
+    qrcode.makeCode(elText.value);
+}
+qrcode.clear();
+qrcode.makeCode('1111');
+</script> -->
 
 
 

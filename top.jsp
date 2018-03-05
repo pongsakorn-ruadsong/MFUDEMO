@@ -26,9 +26,12 @@
 	<script src="js/rewardStore.js"></script>
 	<script src="js/quizlist.js"></script>
 	<script src="js/testType.js"></script>
-	<script src="js/qrcode.js"></script>
+	<script src="js/intlTelInput.min.js"></script>
 	<script src="js/intlTelInput.js"></script>
 	<script src="js/utils.js"></script>
+	<script src="js/qrcode.min.js"></script>
+	<!-- <script src="js/jquery-1.3.2.min.js"></script>     -->
+	<script src="js/jquery-barcode.min.js"></script>  
 	<link rel="stylesheet" href="css/intlTelInput.css" />
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
@@ -100,7 +103,7 @@
 			$('.myTab').removeClass('active');
 			$('#reward').addClass('active');
 			$('.tab-content').css('height','400');
-			buildUesrReward();
+			getUserReward();
 		});
 		$('#badge').click(function(){
 			$('.myTab').removeClass('active');

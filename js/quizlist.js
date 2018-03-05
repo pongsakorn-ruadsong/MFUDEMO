@@ -177,57 +177,167 @@ function buildRewardList() {
 	}
 	$('#table_reward').append(text);
 }
-// function buildUesrReward() {
-// 	$('#table_goods > tr').remove();
-// 	console.log("Enter build reward list")
-// 	var goods = Index05.response.player.goods;
-// 	// var length = goods.length;
-// 	var k =1;
-// 	console.log(goods);
-// 	var text = '<div class=""<div class="col-mg-4">Image</div><div class="col-mg-4">Name</div><div class="col-mg-4">Amount</div>';
-// 	for (var i = 0; i < goods.length; i++) {
-// 		if (goods[i].amount == 0) {
-// 			continue;
-// 		}
-// 		text += '<tr class="spaceUnder" onclick="checkOutCoupon">'+
-// 		'<td><img src='+goods[i].image+' style="width:50px;height:50px;"></td>'+
-// 		'<td>'+goods[i].name+'</td>'+
-// 		'<td>'+goods[i].amount+'</td>'+
-// 		'</tr>'
-// 		k++;
-// 	}
-// 	$('#table_goods').append(text);
-// }
-
-function buildUesrReward() {
-	$('#table_goods > tr').remove();
+var contentGoods = [];
+function getUserReward() {
 	console.log("Enter build reward list")
-	var goods = Index05.response.player.goods;
-	// var length = goods.length;
-	var k =1;
-	console.log(goods);
-	var text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
-	for (var i = 0; i < goods.length; i++) {
-		if (goods[i].amount == 0) {
-			continue;
-		}
-		text += '<tr class="spaceUnder" onclick="checkOutCoupon">'+
-		'<td><img src='+goods[i].image+' style="width:50px;height:50px;"></td>'+
-		'<td>'+goods[i].name+'</td>'+
-		'<td>'+goods[i].amount+'</td>'+
-		'</tr>'
-		k++;
-	}
-	$('#table_goods').append(text);
-}
-// function initialData(){
+	var data = new Object();
+ 		$.ajax({
+        	type: "GET",
+            url: 'https://api.pbapp.net/Player/'+sessionStorage['player']+'/goods?status=active&api_key='+sessionStorage['api_key'],
+            dataType: "json",
+	    	success: function(data){
+	    		GoodsData = data;
+	    		jQuery.each(GoodsData.response.goods, function() {
+					contentGoods[this.goods_id] = this.custom_param;
+		        }
+		        );
+		        buildUserReward();
+	    		
+		        },
+	    	error: function (xhr, textStatus, errorThrown){
+//                window.location.reload(true)
+                console.log(errorThrown);
+                console.log("Failed : getLang() @ index.js");
+            }
 
-// }
+        });
+}
+var qrcode;
+function buildUserReward(){
+	var dataGoods = GoodsData.response.goods;
+	var length = dataGoods.length;
+		$('#table_goods > tr').remove();
+		console.log(length)
+		var icon = '';
+		var detail = '';
+		var point = '';
+		var text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
+		for(let i=0;i<length;i++){ 
+			console.log(i)
+				var goodsId = dataGoods[i].goods_id;
+				var custom_lenght = contentGoods[goodsId].length;
+				console.log(goodsId)
+				for (let k = 0; k < custom_lenght; k++) {
+					console.log("Enter for")
+					if (contentGoods[goodsId][k].key == 'Detail') {
+						console.log("detail")
+						detail = contentGoods[goodsId][k].value;
+					}
+					if (contentGoods[goodsId][k].key == 'Icon') {
+						console.log("icon")
+						icon = contentGoods[goodsId][k].value;
+					}
+					if (contentGoods[goodsId][k].key == 'Points') {
+						console.log("point")
+						point = contentGoods[goodsId][k].value;
+					}
+					}
+					console.log(dataGoods[i]);
+					if (dataGoods[i].amount == 0) {
+						continue;
+					}
+					text += '<tr class="spaceUnder goods-store" goodID="'+dataGoods[i].goods_id+'" icon="'+icon+'" detail="'+detail+'" point="'+point+'" nameID="'+dataGoods[i].name+'" imgID="'+dataGoods[i].image+'" expireID="'+dataGoods[i].date_expire+'" iconID="'+icon+'" codeID="'+dataGoods[i].code+'" detailID="'+detail+'">'+
+					'<td><img src='+dataGoods[i].image+' style="width:50px;height:50px;" class="img-circle"></td>'+
+					'<td>'+dataGoods[i].name+'</td>'+
+					'<td>'+dataGoods[i].amount+'</td>'+
+					'</tr>'
+					}
+
+	$('#table_goods').append(text);
+	$('.goods-store').click(function(){
+		$('#checkOutGoods > div').remove();
+		$("#barcode").barcode("1234567890128");     
+	// 	var a = $(this).attr('icon');
+	// 	var b = $(this).attr('imgID');
+	// 	$('#couponId').text($(this).attr('goodId'));
+	// 	$('#couponName').text($(this).attr('nameID'));
+	// 	$('#expire').text($(this).attr('expireID'));
+	// 	$('#detailCoupon').text($(this).attr('detailID'));
+	// 	$('#code').text($(this).attr('codeID'));
+	// 	$('#Icon').attr("src", a);
+	// 	$('#imageShow').css("background-image", "url("+b+")");
+
+		var text = '<div class="modal-dialog" style="top: 10%">  '+
+'        <div class="modal-content" style="border-radius: 10px; width: 75%; height: 100%; background-color: white; left: 13%;">'+
+'       <div class="header couponTop" id="imageShow" style="background-image: url('+$(this).attr('imgID')+');border-radius: 10px background-size: cover;"></div>'+		
+'			<div class="container">'+
+'				<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:27%;left: 5%;">'+
+'					<img src="'+$(this).attr('icon')+'" class="img-circle" id="Icon">'+
+'				</div>'+
+'				<div class="couponId" style="margin-bottom: 20px;" id="couponId">'+$(this).attr('goodId')+'</div>'+
+'				<div class="textInCoupon" type="text" id="couponName">'+$(this).attr('nameID')+'</div>'+	
+'				<div class="CodeExpire" id="expire">'+$(this).attr('expireID')+'</div>'+
+'				<div class="container">	'+	      					
+'					<div class="couponDetail" type="text" id="detailCoupon">'+$(this).attr('detailID')+'</div>'+
+'				</div>'+
+'				<hr class="halfCricle">'+
+'				<div class="row">'+
+'					<div class="couponPoint" style="margin-left: 38%;" id="points"> </div>'+
+'				</div>'+
+'				<div class="col-md-12" style="text-align: center;">'+
+'				<div style="text-align: center;  font-weight: bold;">Redeem code</div><br>	'+
+'					<ul class="nav nav-tabs" style="margin-left: 15%;">   '+
+'						<li class="myTab active" id="QRCode" style="width: 40%;">'+
+'							<a data-toggle="tab" id="QRCode1" href="#QR" style="border-right: 1px solid #000; padding: 0px; border-radius: 0px;"> <span class="glyphicon glyphicon-qrcode"></span>QRCode</a>'+
+'						</li>'+
+'						<li class="myTab active" id="Barcode" style="width: 40%;">'+
+'							<a data-toggle="tab" id="Barcode1" href="#barcode" style="padding: 0px;"> <span class="glyphicon glyphicon-barcode"></span>Barcode</a>'+
+'						</li>'+
+'					</ul><br>'+
+'						<code id="code" style="color: #4d4d4d; font-weight: bold; font-size: 30px;">'+$(this).attr('codeID')+'</code>'+						
+'						<div class="tab-content" style="height: 100%;">'+
+'							<div class="tab-pane" id="QR" >'+
+'								<center>'+
+'								<div id="qrcode" style="width: 50%; margin: 10px;" cID="'+$(this).attr('codeID')+'"></div>'
+'								</center>'+
+'							</div>'+
+'							<center>'+
+'							<div id="barcode" bcId="'+$(this).attr('codeID')+'">barcode</div>'+
+'							</center>'+
+'						</div>'+
+'						<a data-toggle="" href="#" style="text-align: center; margin-bottom: 10px;">Term&Condition</a>'+
+'				</div>'+
+'			</div>'+
+'    	</div>'
+		$('#checkOutGoods').append(text);
+		$('#QRcode').click(function(){
+			$('.myTab').removeClass('active');
+			$('#QRcode1').addClass('active');
+			$('.tab-content').css('height','400');
+			getUserReward();
+		});
+		setTimeout(function(){
+			console.log($('#qrcode').attr('cID'))
+			new QRCode(document.getElementById("qrcode"), $('#qrcode').attr('cID'));
+			$('#checkOutGoods').modal();
+		},500);
+	    	// checkOutGoods(GoodsData);
+
+	    	$('#Barcode').click(function(){
+	    		alet('Enter')
+					$('.myTab').removeClass('active');
+					$('#Barcode1').addClass('active');
+					$('.tab-content').css('height','400');
+					$('#qrcode').remove();
+					getUserReward();
+				});
+				setTimeout(function(){
+					console.log($('#barcode').attr($('#barcode').attr('bcId')))
+					$('#barcode').barcode($('#barcode').attr('bcId'));
+					// new QRCode(document.getElementById("qrcode"), $('#qrcode').attr('cID'));
+					$('#checkOutGoods').modal();
+				},500);
+			    	// checkOutGoods(GoodsData); 	 	
+	});
+}
+
+
 function changeLang(callback){
 	$('#myModal').modal({backdrop: 'static', keyboard: false});
 	getContent();
 	callback();
 }
+
 function getLang() {
 	$.ajax({
         	type: "GET",
@@ -250,6 +360,11 @@ function getLang() {
             }
         });
 }
+
+function buildBarcode(){
+	
+}
+
 function buildLangButton(a,callback) {
 	$('#langList > div').remove();
 	var text = '<div class="row"><div class="input-group">';

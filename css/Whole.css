@@ -982,6 +982,7 @@ img{
 .textInCoupon{
   text-align: center;
   font-size: 13px;
+  text-overflow: ellipsis; 
 }
 .textCoupon{
   text-align: center;
@@ -995,7 +996,7 @@ img{
 }
 .CodeExpire{
   color: red;
-  margin: 5px;
+  margin: 10px;
   font-size: 10px;
   text-align:center;
 }
