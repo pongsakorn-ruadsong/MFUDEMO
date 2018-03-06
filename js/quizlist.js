@@ -261,7 +261,7 @@ function buildUserReward(){
 '        				<div class="modal-content" style="border-radius: 10px; width: 75%; height: 100%; background-color: white; left: 13%;">'+
 '       					<div class="header couponTop" id="imageShow" style="background-image: url('+$(this).attr('imgID')+');border-radius: 10px background-size: cover;"></div>'+		
 '						<div class="container">'+
-'							<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:27%;left: 5%;">'+
+'							<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:100px;left: 5%;box-shadow: 1px 4px 5px #999999;">'+
 '								<img src="'+$(this).attr('icon')+'" class="img-circle" id="Icon">'+
 '							</div>'+
 '							<div class="couponId" style="margin-bottom: 20px;" id="couponId">'+$(this).attr('goodId')+'</div>'+
@@ -270,13 +270,18 @@ function buildUserReward(){
 '						<div class="container">	'+	      					
 '							<div class="couponDetail" type="text" id="detailCoupon">'+$(this).attr('detailID')+'</div>'+
 '						</div>'+
-'						<hr class="halfCricle">'+
+'						<div class="row">'+
+'							<div class="halfCricle-wrapper">'+
+'								<div class="halfCricle"></div>'+
+'							<hr>'+
+'							</div>'+
+'						</div>'+
 '						<div class="row">'+
 '							<div class="couponPoint" style="margin-left: 38%;" id="points"> </div>'+
 '						</div>'+
-'						<div class="col-md-12" style="text-align: center;">'+
-'							<div style="text-align: center;  font-weight: bold;">Method Code:</div><br>	'+
-'								<ul class="nav nav-tabs" style="margin-left: 15%;">   '+
+'						<div class="col-md-12" style="text-align: center; margin-top: 5%;">'+
+'							<div style="text-align: center;  font-weight: bold;">Method redeem:</div>'+
+'								<ul class="nav nav-tabs" style="margin-left: 15%; border-bottom: hidden;">   '+
 '									<li class="" id="QRCode" style="width: 40%;">'+
 '										<a data-toggle="tab"  href="#QR" style="border-right: 1px solid #000; padding: 0px; border-radius: 0px;"> <span class="glyphicon glyphicon-qrcode"></span>QRCode</a>'+
 '									</li>'+
@@ -285,7 +290,7 @@ function buildUserReward(){
 '									</li>'+
 '								</ul><br>'+
 '						<code id="code" style="color: #4d4d4d; font-weight: bold; font-size: 30px;">'+$(this).attr('codeID')+'</code>'+						
-'							<div class="tab-content" style="height: 100%;">'+
+'							<div class="tab-content increaseHeight" style="height: auto;">'+
 '								<div class="tab-pane fade" id="QR">'+
 '									<center>'+
 '										<div id="qrcode" style="width: 50%; margin: 10px;" cID="'+$(this).attr('codeID')+'"></div>'+
@@ -296,19 +301,22 @@ function buildUserReward(){
 '										<div id="displaybarcode"></div>'+
 '									</center>'+
 '								</div>'+
-'							</div>'+
-'						<a href="#" style="text-align: center; margin: 10px;">Term&Condition</a>'+
+'							</div><br>'+
+'						<a href="#" style="text-align: center; margin: 10px;">Term & Condition</a>'+
 '						</div>'+
 '					</div>'
 		$('#checkOutGoods').append(text);
 		$('#QRCode').click(function(){
 			$('.myTab').removeClass('active');
 			$('#QRcode1').addClass('active');
+			$('.increaseHeight').css('height','110')
 			getUserReward();
 		});
 		$('#Barcode').click(function(){
 			$('.myTab').removeClass('active');
 			$('#Barcode1').addClass('active');
+			$('.increaseHeight').css('height','70')
+
 			// $("#displaybarcode").barcode($('#qrcode').attr('cID'),"code128");
 			getUserReward();
 		});	

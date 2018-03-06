@@ -146,12 +146,12 @@
 		</div>
 	</div>	
 
-<div class="modal fadeIn" id="rewardDetail" role="dialog">
-    <div class="modal-dialog" style="top: 10%">    
-        <div class="modal-content" style="border-radius: 10px; width: 75%; height: 100%; background-color: white; left: 13%;">
+<div class="modal animated bounceInDown" id="rewardDetail" role="dialog">
+    	<div class="modal-dialog " style="top: 10%"> 
+        <div class="modal-content " style="border-radius: 10px; width: 75%; height: 100%; background-color: white; left: 13%;">
         <div class="header couponTop" id="Image"></div>		
 			<div class="container" id="imageIcon" style="border-radius: 10px background-image: url(); background-size: cover;">
-				<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:32%;left: 5%;">
+				<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:32%;left: 5%;box-shadow: 1px 4px 5px #999999;">
 					<img src="" class="img-circle" id="disIcon">
 				</div>
 				<div class="couponId" id="goodsId"> </div>
@@ -160,14 +160,17 @@
 				<div class="container">		      					
 					<div class="couponDetail" type="text" id="disDetail"> </div>
 				</div>
-				<hr class="halfCricle">
+				<div class="halfCricle-wrapper" style="top: 70%; height: 17%;">
+					<div class="halfCricle"></div>
+					<hr>
+				</div>
 				<div class="row">
-					<div class="couponPoint" style="margin-left: 38%;" id="disPoint"> </div>
+					<div class="couponPoint" style="margin-left: 38%; margin-top: 30px;" id="disPoint"> </div>
 				</div>
 				<button class="btn-lg btn-primary receiveReward buttonRedeem">Redeem</button>
 			</div>
      	</div>
-  	</div>
+     </div>
 </div>
 <input type="hidden" id="hid-couponId">
  <input type="hidden" id="hid-goodsType">
@@ -180,7 +183,7 @@
 
 
 
-<div class="modal fadeIn" id="checkOutGoods" role="dialog">
+<div class="modal animated bounceInDown" id="checkOutGoods" role="dialog">
     
 </div>
 </div>
