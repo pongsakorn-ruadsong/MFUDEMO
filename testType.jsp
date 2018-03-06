@@ -3,6 +3,9 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 
+		// JsBarcode("#Barcode", "Hi world!");
+		$("#Barcode").barcode("12QADS5", "code128");     
+
 	});	
 
 
@@ -101,8 +104,7 @@
 			</div> 
 		</div> 
 </div> -->
-<input id="text" type="text" value="1549DASA3356" style="width:80%" /><br />
-<div id="qrcode" style="width:160px;height:160px;margin-top:15px;"></div>
+<div id="Barcode"> Barcode</div>
 
 
 
