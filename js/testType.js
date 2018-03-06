@@ -18,7 +18,6 @@ function buildDate(){
 
 // function buildProvince(){
 //     var region=['Northern','Western','Central','Southern','Northeastern'];
-
 //     for(var i=0;i<region.length;i++){
 //       $(".months").append('<option value="'+region[i]+'">'+region[i]+'</option>');
 //     }

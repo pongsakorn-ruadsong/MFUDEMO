@@ -2,9 +2,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-
-		// JsBarcode("#Barcode", "Hi world!");
-		$("#Barcode").barcode("12QADS5", "code128");     
+		buildDate();
 
 	});	
 
@@ -12,17 +10,20 @@
 </script>
 <div class="container" style="margin-top: 10%;">
 
-<!--     <form>
-    	Day
-       <select class="days"></select>
-      Month
-      <select class="months"></select>
-      Year
-     <select class="years"></select>
-  </form>
+<div class="row">
+	Day Month Year
+</div>
+
+<div class="row">
+	<select class="days" style="background-color: gray;"></select> /
+    <select class="months"></select> /
+    <select class="years"></select>
+</div>    	
+       
+
 <br><br>
 
-<select class="province" placeholder="Select your region"></select> -->
+<!-- <select class="province" placeholder="Select your region"></select> -->
 
 <!-- <form>
 	<input type="checkbox"> Youth(18-23)
@@ -47,8 +48,8 @@
 </form>
  -->
 
-<!-- <div class="contianerCycle"> -->
-	<!-- <div style="position: absolute; left: 47%;">36</div>
+<!-- <div class="contianerCycle">
+	<div style="position: absolute; left: 47%;">36</div>
 	<div style="position: absolute;left: 75%;top: 8%;transform: rotate(35deg);">37</div>
 	<div style="position: absolute;left: 16%;top: 10%;transform: rotate(-35deg);">45</div>
 	<div style="position: absolute;left: 93%;top: 30%;transform: rotate(70deg);">38</div>
@@ -80,8 +81,8 @@
 	<div style="position: absolute;left: 2%;top: 64%;transform: rotate(-105deg);">43</div>
 	<div style="position: absolute;left: 78%;top: 85%;transform: rotate(140deg);">40</div>
 	<div style="position: absolute;left: 19%;top: 87%;transform: rotate(-150deg);">42</div>
-	<div style="position: absolute;left: 47%;top: 95%;transform: rotate(-180deg);">41</div> -->
-<!-- 	<div class="cycle" style="border-radius: 50%">
+	<div style="position: absolute;left: 47%;top: 95%;transform: rotate(-180deg);">41</div>
+	<div class="cycle" style="border-radius: 50%">
 		<div class="circle-range-select-wrapper">
 			<input type="text" name="" class="circle-range-select">
 			<div class="handle" style="left: 50%; top: -1px;"></div>
@@ -104,7 +105,6 @@
 			</div> 
 		</div> 
 </div> -->
-<div id="Barcode"> Barcode</div>
 
 
 

@@ -1228,6 +1228,16 @@ hr {
 }
 .circle-range-select{
   display: none;
+  background: gradient(
+            #b5b5b5, #8d8d8d, #838383, 
+            #ababab, #d7d7d7, #e3e3e3, 
+            #aeaeae, #8f8f8f, #878787, 
+            #acacac, #d7d7d7, #dddddd, 
+            #b8b8b8, #8e8e8e, #848484, 
+            #a6a6a6, #d8d8d8, #e3e3e3, 
+            #8e8e8e, #868686, #a8a8a8, 
+            #d5d5d5, #dedede, #b5b5b5)
+  background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
 }
 .handle{
     position:absolute;
