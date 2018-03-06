@@ -90,6 +90,35 @@ function fillColor(a){
 	// 	}
 
 	}
+function autoNext(){
+ 	console.log("Auto Next")
+    if (valid()) {
+		nextQuestion(function(data){
+			console.log(data)
+			if ($('#quizPanel').hasClass('zoomIn')) {
+				console.log('Has class zoomIn')
+				$('#quizPanel').removeClass('zoomIn').addClass('zoomOut');
+			}
+			else{
+				$('#quizPanel').addClass('zoomIn');
+			}
+			if ($('#in-scored').hasClass('flipInX')) {
+				console.log('Has class flipInX')
+				$('#in-scored').removeClass('flipInX').addClass('flipOutX');
+
+			}
+			topic = '';
+			title = '';
+			choices = [];
+			ph = '';
+			$('div#choice > div.btn-group-vertical').remove();
+			$('div#btn_NR > button').remove();
+			getQuestion(data, function(){
+				console.log('Successful')
+			});
+		});
+    }
+}
 function getTopic(a){
 	var content = JSON.parse(sessionStorage["contentData"]);
 	var n = content.response.result.length;
@@ -142,7 +171,7 @@ function getTopic(a){
 		}
 	}
 }
-function getQuestion(){
+function getQuestion(result, callback){
 	$.ajax({
 		type: "GET",
         url: getQuestUrl,
@@ -178,11 +207,6 @@ function getQuestion(){
 			  }
 			});
 	    }else{
-	    // $('#myModal').modal({backdrop: 'static', keyboard: false});
-
-	    // --  ON TEST FUNCTION -- 
-	    // loadAnimation(data.response.result);
-
 	    sessionStorage.setItem("cur_Quest", JSON.stringify(Quiz01));
 	    var cur_Quest = sessionStorage.getItem("cur_Quest");
 	    type = Quiz01.response.result.question_type;
@@ -190,12 +214,17 @@ function getQuestion(){
 	    console.log(data);
 	    test = JSON.parse(cur_Quest);
 			getTopic(data);
-			
-				buildQuiz(function() {
+				buildQuiz(result, function() {
+					callback();
+					if ($('#quizPanel').hasClass('zoomOut')) {
+						console.log('Has class zoomOut')
+						$('#quizPanel').removeClass('zoomOut').addClass('zoomIn');
+					}
+
 					$('#myModal').modal('hide');
 				});
-			
 		    }
+		    // $('div#choice > div.btn-group-vertical').remove();
 		},
 	    error: function (xhr, textStatus, errorThrown){
          window.location.reload(true)
@@ -204,8 +233,148 @@ function getQuestion(){
         }
 	});
 }
+function getFeed(callback){
+	$.ajax({
+		type: "GET",
+		url: sessionStorage['mainUrl']+'Service/recentActivities?offset=0&limit=20&mode=all&api_key=141073538',
+		content: "application/json; charset=utf-8",
+		dataType: "json",
+		success: function(d) {
+			// console.log(d)
+			if (d.success) {
+				console.log('Get feed Successful')
+				callback(d.response.activities);
+			}else{
+				console.log('Get feed Failed')
+				callback();
+			}
+		},
+		error: function (xhr, textStatus, errorThrown){
+//                window.location.reload(true)
+                console.log(errorThrown);
+                console.log("Failed : resetQuiz() @ quiz.js");
+            }
+	});
+}
+var TempFeed = [];
+// function getTime(JSONtime){
+// 	var ISOTime = new Date(JSONtime);
+// 	var dd = ISOTime.getDate();
+// 	var mm = ISOTime.getMonth()+1; //January is 0!
+// 	var yyyy = ISOTime.getFullYear();
+// 	var hh = ISOTime.getHours();
+// 	var min = ISOTime.getMinutes();
+// 	var sec = ISOTime.getSeconds();
+// 	// if(dd<10){
+// 	//     dd='0'+dd;
+// 	// } 
+// 	// if(mm<10){
+// 	//     mm='0'+mm;
+// 	// } 
+// 	console.log(dd+' | '+mm+' | '+yyyy+' | '+hh+' | '+min+' | '+sec)
+// 		getTimePass(dd, mm, yyyy, hh, min, sec, function(){
 
-function buildQuiz(callback){
+// 		});
+// 	}
+function get_time_diff( datetime )
+{
+    var datetime = typeof datetime !== 'undefined' ? datetime : "2014-01-01 01:02:03.123456";
+
+    var datetime = new Date( datetime ).getTime();
+    var now = new Date().getTime();
+
+    if( isNaN(datetime) )
+    {
+        return "";
+    }
+    // console.log( datetime + " " + now);
+    if (datetime < now) {
+        var milisec_diff = now - datetime;
+    }else{
+        var milisec_diff = datetime - now;
+    }
+	// console.log( milisec_diff);
+    var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+    var msec = milisec_diff;
+	var hh = Math.floor(msec / 1000 / 60 / 60);
+	msec -= hh * 1000 * 60 * 60;
+	var mm = Math.floor(msec / 1000 / 60);
+	msec -= mm * 1000 * 60;
+	var ss = Math.floor(msec / 1000);
+	msec -= ss * 1000;
+    var date_diff = new Date( milisec_diff );
+    // alert(hh + ":" + mm + ":" + ss);
+    // console.log(days+" days "+date_diff.getHours()+" Hours "+ date_diff.getMinutes()+" Minute "+date_diff.getSeconds()+" Second")
+    if (days >= 1) {
+    	if (days == 1) {
+    		return days + " day ago"
+    	}else{
+    		return days + " days ago"
+    	}
+    }
+    else if (days < 1 && hh >= 1) {
+    	if (date_diff.getHours() == 1) {
+    		return "about "+ hh + " hour ago"
+    	}else{
+    		return "about "+ hh + " hours ago"
+    	}
+    }
+    else if (days < 1 && hh < 1 && mm >= 1) {
+    	if (date_diff.getMinutes() == 1) {
+    		return "about "+ mm + " minute ago"
+    	}else{
+    		return "about "+ mm + " minutes ago"
+    	}
+    }else{
+    	if (ss < 1) {
+			return "less than a second";
+    	}
+    	else if (ss == 1) {
+    		return " about " + ss + " second ago";
+    	}else{
+    		return " about " + ss + " seconds ago";
+    	}
+	}
+}
+function buildFeed(data){
+	var text = '';
+	TempFeed = data;
+    console.log(data)
+    $('table#feed-content > tr').remove();
+    for (var i = 0; i < data.length; i++) {
+    	var img = '';
+    	var item_img = '';
+    	var img_for_check = /[^/]*$/.exec(data[i].player.image)[0];
+		// console.log(img_for_check)
+		if (img_for_check == 'default_profile.jpg') {
+			img = 'img/default_user.png'
+		}
+    	var time = get_time_diff(data[i].date_added);
+    	// console.log(time)
+    	if (data[i].reward_name == "badge") {
+    		item_img = data[i].badge.image;
+    	}
+    	else if(data[i].reward_name == "point"){
+    		item_img = 'img/coin_22.png';
+    	}
+    	else if(data[i].reward_name == "exp"){
+    		item_img = 'img/EXP.png';
+    	}
+    	text += '<tr class="tr-feed"><td class="feedRow activities-user-img"><img style="width:90%;" src="'+img+'"></td>'+
+    	'<td class="feedRow activities-info">'+
+    		'<table>'+
+	    	'<tr><span class="feed-user-name-hilight">'+data[i].player.first_name+'</span> '+data[i].message+'</tr>'+
+	    	'<tr>'+
+	    		'<td><span class="feed-user-time-hilight">'+time+'</span></td>'+
+	    	'</tr>'+
+	    	'</table>'+
+	    '</td>'+
+	    '<td class="feedRow activities-badge"><img style="width:80%;" src="'+item_img+'"></td>'+
+	    '</tr>'	
+    }
+    $('#feed-content').append(text);
+}
+function buildQuiz(result, callback){
 		var rawData = JSON.parse(sessionStorage['quizStatus']);
 		console.log(rawData);
 		var text = '';
@@ -220,19 +389,36 @@ function buildQuiz(callback){
 	     index = Quiz01.response.result.index;
 	     total = Quiz01.response.result.total;
 	    chkIndex();
-	    if (sessionStorage['save_result'] != undefined ) {
-	    	var a = JSON.parse(sessionStorage['save_result']);
-	    	var ans_result = a.response.result.explanation;
-	    	var get_score = a.response.result.grade.score;
-	    	var max_this_score = a.response.result.grade.score;
-	    	var cur_score = a.response.result.grade.total_score;
-	    	var max_score = a.response.result.grade.total_max_score;
+	    console.log(result)
+	    var cur_score = '';
+	    if (result != undefined) {
+	    	$('#scored').css('display','flex');
+	    	var ans_result = result.response.result.explanation;
+	    	var get_score = result.response.result.grade.score;
+	    	var max_this_score = result.response.result.grade.score;
+	    	cur_score = result.response.result.grade.total_score;
+	    	var max_score = result.response.result.grade.total_max_score;
 	    	console.log("")
-	    	console.log("Your answer is : "+a.response.result.explanation)
+	    	console.log("Your answer is : "+result.response.result.explanation)
 	    	console.log("Get :"+get_score+" score of "+max_this_score)
 	    	console.log("Total score: "+cur_score+" score of "+max_score)
 	    	console.log("")
 	    }
+	    else if(sessionStorage['save_result'] != undefined){
+	    	var a = JSON.parse(sessionStorage['save_result']);
+	    	cur_score = a.total_score;
+	    }
+	    else{
+	    	$('#scored').css('display','none');
+	    }
+			setTimeout(function(){
+				$('#in-scored').text(cur_score);
+				if ($('#in-scored').hasClass('flipOutX')) {
+						console.log('Has class flipOutX')
+						$('#in-scored').removeClass('flipOutX').addClass('flipInX');
+					}
+				},500);
+	    
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
 	    c = parseInt(interval);
@@ -667,6 +853,7 @@ function buildQuiz(callback){
 	    	 });
 	    	 $('input:radio[name="'+topic+'"]').change(
 			    function(){
+			    	console.log('Test')
 			    	$("#nextBtn").prop('disabled', false);
 			    	// if ($(this).is(':checked')) {
 			    	// 	$('.quizImg').css('display','none');
@@ -692,6 +879,7 @@ function buildQuiz(callback){
 				        }
 			    	}
 			        if ($(this).is(':checked') && $(this).attr('valueZ') == 'Other') {
+			        	console.log('Test')
 			            $('#other_input').slideDown();
 			            select1 = $('#other_input').attr('idZ');
 			        }
@@ -742,47 +930,6 @@ function timerasdsd(a){
 function myStopFunction() {
     clearInterval(timeOut);
 }
-function autoNext(){
-    	 	console.log("Auto Next")
-    	 	// $("#nextBtn").prop('disabled', true);
-    	 	// $("#resetQuiz").prop('disabled', true);
-    	 	// $("#stopCount").prop('disabled', true);
-	    	if (sessionStorage['type'] == 'RANGE_S' && sessionStorage['ans_no'] == "null") {
-	    		console.log("HAHAHA LOL")
-				toastr["info"]("Please answer the question.", "Hint!");
-	    	}
-	    	else if(sessionStorage['type'] == 'SLI_S' && sessionStorage['ans_no'] == "null"){
-	    		
-				toastr["info"]("Please answer the question.", "Hint!");
-	    	}
-	    	else if (sessionStorage['ans_no'] == "no") {
-	    		if (valid()) {
-		    		nextQuestion();
-		    		if (isLastQuestion()) {
-				    		
-					    	// toastr["info"]("This is the last question. we're bringing you to index", "Successful");
-					    	setTimeout(function(){ window.location.replace("index"); }, mathRand);
-						}else{
-							savePrevious();
-							
-					    	// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-					    	setTimeout(function(){ location.reload(); }, mathRand);
-						}
-					}
-					else{
-						// $("#nextBtn").prop('disabled', false);
-    	 // 				$("#resetQuiz").prop('disabled', false);
-					}
-	    	}else{
-		    if (valid()) {
-			    	nextQuestion();
-			    }
-			    else{
-						// $("#nextBtn").prop('disabled', false);
-    	 // 				$("#resetQuiz").prop('disabled', false);
-				}
-			}
-		}
 function chkIndex(){
 	console.log(index+" / "+total);
 	if (index == total) {
@@ -1057,7 +1204,7 @@ function validSQ(){
 		return false;
 	}
 }
-function nextQuestion(){
+function nextQuestion(callback){
 	var data = new Object();
         data.token = sessionStorage['Token'];
         data.player_id = sessionStorage['player'];
@@ -1098,7 +1245,7 @@ function nextQuestion(){
 		data: data,
 		success: function(d) {
 			Gtemp_02 = d;
-			// sessionStorage.setItem("save_result", JSON.stringify(Gtemp_02));
+			sessionStorage.setItem("save_result", JSON.stringify(d.response.result.grade));
 			sessionStorage['isLast'] = d.response.result.is_last_question;
 			// sessionStorage.setItem("graded", JSON.stringify(Gtemp_02.response.result.grade))
 			// savePrevious();
@@ -1111,7 +1258,7 @@ function nextQuestion(){
 				
 			}else{
 				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
-				window.top.location = window.top.location;
+				callback(d);
 			}
 		},
 		error: function (xhr, textStatus, errorThrown){

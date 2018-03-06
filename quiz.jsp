@@ -6,6 +6,11 @@
 			}else{
 				translateContent();
 				getQuestion();
+				getFeed(function(data){
+					if (data != undefined || data != null) {
+						buildFeed(data);
+					}
+				});
 				sessionStorage['ans_no'] = null;
 				sessionStorage['type'] = null;
 			}
@@ -47,7 +52,13 @@
 			   $('#spece-for-S').slideUp();
 			   sessionStorage['ans_no'] = "No";
 		    });
-		    
+		    $('#feed-refresh').click(function(){
+		    	getFeed(function(data){
+					if (data != undefined || data != null) {
+						buildFeed(data);
+					}
+				});
+		    });
 		   // $('#Other').click(function(){ console.log("Success")});
 		 //   $('#0085').bind('click', function(){
 			//   $(this).toggleClass('active');
@@ -57,6 +68,16 @@
 			//   	$('#CHK_0085').prop("checked",false);
 			//   }
 			// });
+			$('.live-box-header').click(function(){
+				console.log($('.live-box-content').height())
+				if ($('.live-box-content').height() > 50) {
+					// console.log($('.live-box-content').height())
+					$('.live-box-content').css('height', 0);
+				}else if($('.live-box-content').height() == 0){
+					// console.log($('.live-box-content').height())
+					$('.live-box-content').css('height', 250);
+				}
+			});
 		});
 
 	</script>
@@ -65,7 +86,7 @@
 	<style type="text/css">
 		@media (max-width: 374px){
 			.bg{
-				padding: 20px;
+				padding: 1px 20px 20px 20px;
 			}
 		}
 		.modal-header {
@@ -161,13 +182,67 @@
 		  from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
 		  to { -webkit-transform: rotateY(1980deg); -moz-transform: rotateY(1980deg); transform: rotateY(1980deg); }
 		}
+		.utilities-tab{
+			width: 100%;
+			height: 50px;
+			display: inline-block;
+			position: fixed;
+		    top: 73px;
+		    z-index: 1041;
+		}
+		.playCount{
+			float: left;
+		    width: 50%;
+    		height: 100%;
+    		display: flex;
+    		justify-content:center;
+    		align-items:center;
+    		background-color: #808a69;
+    		color: white;
+		}
+		.scored{
+			float: right;
+		    width: 50%;
+    		height: 100%;
+    		display: flex;
+    		justify-content:center;
+    		align-items:center;
+    		padding: 10px;
+    		background-color: #89b2dc;
+		}
+		.next-bg{
+			display: none;
+		}
+		.in-scored{
+			color: white;
+		    width: 40%;
+		    font-size: 26px;
+		    text-align: center;
+		    background-color: #ff002fa1;
+		}
+		div.cur-bg.zoomIn{
+			animation-duration: 0.4s;
+		}
+		div.in-scored.flipInX{
+			animation-duration: 1.5s;
+			animation-timing-function: cubic-bezier(0, 0.3, 0.2, 1);
+		}
 	</style>
-
-	<div class="bg" id="quizImg">
-		<div class="topic" style="position: fixed;top: 15%;z-index: 1040;">
-			<p id="topic"></p>
+	<div id="utilities_tab" class="utilities-tab">
+		<div id="playCount" class="playCount">
+			Played: 999
 		</div>
-		<div class="row" style="margin-top: 20%;margin-bottom: 30%;">
+		<div id="scored" class="scored">
+			<div class="in-scored animated flipInX" id="in-scored">
+				
+			</div>
+		</div>
+	</div>
+	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;">
+		<div class="topic" style="position: fixed;z-index: 1040;display: flex;padding-right: 20px;">
+			<p id="topic" style="align-self: center;margin-bottom: 0px;"></p>
+		</div>
+		<div class="row" style="margin-top: 100px;z-index: 1042;position: relative;">
 		<div class="col-md-6 qa" id="img" style="display: none;">
 			<center style="height: 0px;overflow: hidden;">
 				<img src="img/Playbasis-logo.png" class="quizImg quizImg_temp" id="" style="display:block;">
@@ -208,63 +283,6 @@
 						</div>
 					</div>
 					<div id="realDeal" style="display: none;">
-						<div id="range-panel" typeZ="RANGE" style="display: none;margin-bottom: 50px;margin-top: 70px;">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="wrapper">
-	  								<div class="containerG">
-									<div class="slider-wrapper">
-								      <div id="slider-range"></div>
-
-								      <div class="range-wrapper">
-								        <div class="range"></div>
-								        <div class="range-alert">+</div>
-
-								        <div class="gear-wrapper">
-								          <div class="gear-large gear-one">
-								            <div class="gear-tooth"></div>
-								            <div class="gear-tooth"></div>
-								            <div class="gear-tooth"></div>
-								            <div class="gear-tooth"></div>
-								          </div>
-								          <div class="gear-large gear-two">
-								            <div class="gear-tooth"></div>
-								            <div class="gear-tooth"></div>
-								            <div class="gear-tooth"></div>
-								            <div class="gear-tooth"></div>
-								          </div>
-								        </div>
-
-								      </div>
-
-								      <div class="marker marker-0"><sup>$</sup><span id="minsli"></span></div>
-								      <div class="marker marker-100"><sup>$</sup><span id="maxsli"></span></div>
-								    </div>
-								    </div>
-									</div>
-								</div>
-							</div>
-							<center>
-								<div class="row" style="padding-left: 4px;margin-top: 50px;">
-									<div class="col-md-12">
-										<div class="input-group " style="width: 70%">
-											<input type="text" class="form-control showMoney" id="showMin" readonly="true">
-												<span style="padding-top: 10px;">&nbsp&nbsp&nbsp&nbspTo&nbsp&nbsp&nbsp&nbsp</span>
-											<input type="text" class="form-control showMoney" id="showMax" readonly="true">
-										   <span class="input-group-btn" style="margin-left: 10px;">
-										       <div class="dropdown">
-													<button class="btn btn-default dropdown-toggle" type="button" id="chgCurren" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="float: right;width: 100px;"><img id="showCurren" style="margin-right: 0px;" src="img/currency.png"></button>
-													<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-														<p class="dropdown-item" id="CurrenTH" value="Baht"><img src="img/en.png"/>THB</p>
-													    <p class="dropdown-item" id="CurrenEN" value="Dollar"><img src="img/th.png"/>USD</p>
-												    </div>
-												</div>
-										   </span>
-										</div>
-									</div>
-								</div>
-							</center>
-						</div>
 						<div class="row" id="slider-panel" typeZ="SLI" style="display: none;text-align: center;">
 							<div class="range-slider">
 								<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
@@ -285,10 +303,91 @@
 				</div>
 				<input type="hidden" id="aPrefix">
 				<input type="hidden" id="aAnswer">
-			<div class="button-group" id="btn_NR">
-
+				<div class="button-group" id="btn_NR">
 
 				</div>
+		</div>
+	</div>
+</div>
+<div class="bg next-bg animated" style="flex: 0 1 auto;">
+	
+</div>
+<style type="text/css">
+	.liveFeed{
+		    width: 100%;
+		    /*height: 125px;
+		    position: fixed;
+		    bottom: 0px;
+		    display: flex;*/
+		    justify-content: center;
+		    text-align: center;
+		    flex: 1 1 auto;
+		    min-height: 100%;
+		    min-height: 150px;
+		    margin-bottom: 145px;
+	}
+	.live-box{
+		width: 90%;
+	    margin-left: auto;
+	    margin-right: auto;
+	    
+	}
+	.live-box-header{
+	    background-color: #d0bebe;
+	    text-align: left;
+	    padding: 5px 20px 1px 20px;
+	    border-top-left-radius: 6px;
+	    border-top-right-radius: 6px;
+	}
+	.live-box-content{
+		overflow-y: auto;
+		overflow-x: hidden;
+		max-height: 250px;
+		height: 250px;
+		transition: height 1s;
+	}
+	.activities-user-img{
+		width: 20%;
+	}
+	.activities-info{
+		width: 60%;
+	}
+	.activities-badge{
+		width: 20%;
+	}
+	.feedRow{
+		padding: 8px 0px 6px 10px;
+	}
+	.tr-feed{
+		border-bottom: 1.5px solid white;
+	}
+	.feed-user-name-hilight{
+		font-weight: 900;
+    	font-size: 15px;
+	}
+	.feed-user-time-hilight{
+		font-weight: bold;
+	    color: #8c8888d9;
+	    font-size: 11px;
+	}
+</style>
+<div class="liveFeed" id="liveFeed">
+	<div class="live-box">
+		<div class="live-box-header">
+			<h3 style="float: left;">
+				<i class="glyphicon glyphicon-comment"></i>
+				<span class="break"></span>
+				Live Feed
+			</h3>
+			<h3 style="float: right;" id="feed-refresh">
+				<i class="glyphicon glyphicon-refresh"></i>
+			</h3>
+			<div style="clear: both;"></div>
+		</div>
+		<div class="live-box-content">
+			<table id="feed-content" style="text-align: left;overflow-wrap: break-word;table-layout:fixed;width: 100%;background-color: #d6d6e091;">
+				
+			</table>
 		</div>
 	</div>
 </div>
