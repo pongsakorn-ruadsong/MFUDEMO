@@ -28,6 +28,7 @@
 	<!-- <script src="js/intlTelInput.min.js"></script> -->
 	<script src="js/intlTelInput.js"></script>
 	<script src="js/utils.js"></script>
+	<script src="js/Leader.js"></script>
 	<script src="js/qrcode.min.js"></script>
 	<!-- <script src="js/jquery-1.3.2.min.js"></script>     -->
 	<script src="js/jquery-barcode.min.js"></script>  
@@ -203,7 +204,7 @@
 		       			<a href="#"><span class="glyphicon glyphicon-user showUser" id="showUser"></span></a>
 		       		</div>
 		       		<div class="col-4">
-
+		       			<a href="Leader.jsp" style="font-size: 25px"><span class="glyphicon glyphicon-list-alt"></span></a>
 		       		</div>
 		       		<div class="col-4 left">
 		       			<a href="rewardStore"><span class="glyphicon glyphicon-gift"></span></a>
