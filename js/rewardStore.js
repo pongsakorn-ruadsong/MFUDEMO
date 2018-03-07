@@ -185,39 +185,3 @@ function receiveGoodsGroup(getGoodsName){
 	            }
 	        });
  }
-
- // function checkOutGoods(a){
- // 	console.log(a)
-	// 	var goodsId = a.response.goods.goods_id;
-	// 	var title = a.name;
-	// 	var description = a.description;
-	// 	var image = a.image;
-	// 	var goodsType = a.is_group;
-	// 	var Stock = a.quantity;
-	// 	var expire = a.date_expire;
-	// 	var start = a.date_start;	
-	// 	var icon = '';
-	// 	var detail = '';
-	// 	var point = '';
-	// 	// var custom_lenght = contentValue[goodsId].length;
-	// 	// 	for (var k = 0; k < custom_lenght; k++) {
-	// 	// 		if (contentValue[goodsId][k].key == 'Detail') {
-	// 	// 			detail = contentValue[goodsId][k].value;
-	// 	// 		}
-	// 	// 		if (contentValue[goodsId][k].key == 'Icon') {
-	// 	// 			icon = contentValue[goodsId][k].value;
-	// 	// 		}
-	// 	// 		if (contentValue[goodsId][k].key == 'Points') {
-	// 	// 			point = contentValue[goodsId][k].value;
-	// 	// 		}
-	// 	// 	}
-	// 	$('#couponId').text(goodsId);
-	// 	console.log(goodsId)
-	// 	$('#couponName').text();
-	// 	$('#expire').text();
-	// 	$('#detailCoupon').text();
-	// 	$('#points').text();
-	// 	$('#qrcode').text();
-
-	// 	$('#checkOutGoods').modal();
- // }
