@@ -68,14 +68,16 @@
 			//   	$('#CHK_0085').prop("checked",false);
 			//   }
 			// });
-			$('.live-box-header').click(function(){
+			$('#click-hide-feed').click(function(){
 				console.log($('.live-box-content').height())
 				if ($('.live-box-content').height() > 50) {
 					// console.log($('.live-box-content').height())
 					$('.live-box-content').css('height', 0);
+					$('.live-box').css('margin-top', 225);
 				}else if($('.live-box-content').height() == 0){
 					// console.log($('.live-box-content').height())
 					$('.live-box-content').css('height', 250);
+					$('.live-box').css('margin-top', 0);
 				}
 			});
 		});
@@ -322,7 +324,6 @@
 		    justify-content: center;
 		    text-align: center;
 		    flex: 1 1 auto;
-		    min-height: 100%;
 		    min-height: 150px;
 		    margin-bottom: 145px;
 	}
@@ -330,7 +331,8 @@
 		width: 90%;
 	    margin-left: auto;
 	    margin-right: auto;
-	    
+	    margin-top: 0px;
+	    transition: margin-top 1s;
 	}
 	.live-box-header{
 	    background-color: #d0bebe;
@@ -374,7 +376,7 @@
 <div class="liveFeed" id="liveFeed">
 	<div class="live-box">
 		<div class="live-box-header">
-			<h3 style="float: left;">
+			<h3 style="float: left;" id="click-hide-feed">
 				<i class="glyphicon glyphicon-comment"></i>
 				<span class="break"></span>
 				Live Feed
