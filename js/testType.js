@@ -18,7 +18,6 @@ function buildDate(){
 
 // function buildProvince(){
 //     var region=['Northern','Western','Central','Southern','Northeastern'];
-
 //     for(var i=0;i<region.length;i++){
 //       $(".months").append('<option value="'+region[i]+'">'+region[i]+'</option>');
 //     }
@@ -43,28 +42,3 @@ function selectAge2(){
   $(".dot").css('transform','rotate(45deg)');
 }
 
-
-
-
-function makeCode () {      
-    var elText = document.getElementById("text");
-    var qrcode = new QRCode("qrcode");
-    if (!elText.value) {
-        alert("Input a text");
-        elText.focus();
-        return;
-    }
-    
-    qrcode.makeCode(elText.value);
-    makeCode();
-}
-
-$("#text").
-    on("blur", function () {
-        makeCode();
-    }).
-    on("keydown", function (e) {
-        if (e.keyCode == 13) {
-            makeCode();
-        }
-    });
