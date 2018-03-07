@@ -33,6 +33,7 @@ var quizStatus = [];
 var quizImg = [];
 var choicesTitle = [];
 var TTarray = [];
+var quizType = [];
 sessionStorage['active'] = 'false';
 function loadAnimation(a){
 	// var img = a.question_image;
@@ -48,12 +49,14 @@ function getStatus(callback){
 		    success: function(data){
 		    	Quiz02 = data;
 			    jQuery.each(data.response.result, function() {
+			    	console.log('asdas')
 					quizStatus[this.quiz_id] = this.completed;
 					quizImg[this.quiz_id] = this.description_image;
+					quizType[this.quiz_id] = this.type;
 		        }
 		        );
 		        for (var i = 0; i < data.response.result.length; i++) {
-		        	qStatus.push({'id':data.response.result[i].quiz_id,'isFinnish':data.response.result[i].completed,'Order':data.response.result[i].weight,'Image':data.response.result[i].description_image});
+		        	qStatus.push({'id':data.response.result[i].quiz_id,'isFinnish':data.response.result[i].completed,'Order':data.response.result[i].weight,'Image':data.response.result[i].description_image,'Type':data.response.result[i].type});
 		        }
 			    sessionStorage.setItem('quizStatus', JSON.stringify(qStatus));
 			    callback();
@@ -102,10 +105,12 @@ function autoNext(){
 			else{
 				$('#quizPanel').addClass('zoomIn');
 			}
-			if ($('#in-scored').hasClass('flipInX')) {
-				console.log('Has class flipInX')
-				$('#in-scored').removeClass('flipInX').addClass('flipOutX');
+			if (quizType[sessionStorage['qId']] == 'quiz'){
+				if ($('#in-scored').hasClass('flipInX')) {
+					console.log('Has class flipInX')
+					$('#in-scored').removeClass('flipInX').addClass('flipOutX');
 
+				}
 			}
 			topic = '';
 			title = '';
@@ -214,14 +219,15 @@ function getQuestion(result, callback){
 	    console.log(data);
 	    test = JSON.parse(cur_Quest);
 			getTopic(data);
-				buildQuiz(result, function() {
+				getStatus(function(){
+					buildQuiz(result, function() {
 					callback();
 					if ($('#quizPanel').hasClass('zoomOut')) {
 						console.log('Has class zoomOut')
 						$('#quizPanel').removeClass('zoomOut').addClass('zoomIn');
 					}
-
-					$('#myModal').modal('hide');
+						$('#myModal').modal('hide');
+					});
 				});
 		    }
 		    // $('div#choice > div.btn-group-vertical').remove();
@@ -374,9 +380,18 @@ function buildFeed(data){
     }
     $('#feed-content').append(text);
 }
+var quiz_type = '';
+function getQuizType(){
+	var rawData = JSON.parse(sessionStorage['quizStatus']);
+	for (var i = 0; i < rawData.length; i++) {
+		if (rawData[i] == sessionStorage['qId']) {
+			quiz_type = rawData
+		}
+	}
+}
 function buildQuiz(result, callback){
-		var rawData = JSON.parse(sessionStorage['quizStatus']);
-		console.log(rawData);
+		// var rawData = JSON.parse(sessionStorage['quizStatus']);
+		// console.log(rawData);
 		var text = '';
 		var image = '<center>';
 		var btn_text = '';
@@ -390,27 +405,32 @@ function buildQuiz(result, callback){
 	     total = Quiz01.response.result.total;
 	    chkIndex();
 	    console.log(result)
+	    console.log(quizType[sessionStorage['qId']])
 	    var cur_score = '';
-	    if (result != undefined) {
-	    	$('#scored').css('display','flex');
-	    	var ans_result = result.response.result.explanation;
-	    	var get_score = result.response.result.grade.score;
-	    	var max_this_score = result.response.result.grade.score;
-	    	cur_score = result.response.result.grade.total_score;
-	    	var max_score = result.response.result.grade.total_max_score;
-	    	console.log("")
-	    	console.log("Your answer is : "+result.response.result.explanation)
-	    	console.log("Get :"+get_score+" score of "+max_this_score)
-	    	console.log("Total score: "+cur_score+" score of "+max_score)
-	    	console.log("")
-	    }
-	    else if(sessionStorage['save_result'] != undefined){
-	    	var a = JSON.parse(sessionStorage['save_result']);
-	    	cur_score = a.total_score;
-	    }
-	    else{
-	    	$('#scored').css('display','none');
-	    }
+	    if (quizType[sessionStorage['qId']] == 'poll') {
+	    	$('#in-scored').html('&#x0E3F;');
+	    }else if (quizType[sessionStorage['qId']] == 'quiz'){
+		    if (result != undefined) {
+		    	$('#in-scored').css('display','flex');
+		    	var ans_result = result.response.result.explanation;
+		    	var get_score = result.response.result.grade.score;
+		    	var max_this_score = result.response.result.grade.score;
+		    	cur_score = result.response.result.grade.total_score;
+		    	var max_score = result.response.result.grade.total_max_score;
+		    	console.log("")
+		    	console.log("Your answer is : "+result.response.result.explanation)
+		    	console.log("Get :"+get_score+" score of "+max_this_score)
+		    	console.log("Total score: "+cur_score+" score of "+max_score)
+		    	console.log("")
+		    }
+		    else if(sessionStorage['save_result'] != undefined){
+		    	var a = JSON.parse(sessionStorage['save_result']);
+		    	cur_score = a.total_score;
+		    }
+		    else{
+		    	cur_score = 0;
+		    }
+
 			setTimeout(function(){
 				$('#in-scored').text(cur_score);
 				if ($('#in-scored').hasClass('flipOutX')) {
@@ -418,7 +438,7 @@ function buildQuiz(result, callback){
 						$('#in-scored').removeClass('flipOutX').addClass('flipInX');
 					}
 				},500);
-	    
+	    }
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
 	    c = parseInt(interval);
@@ -450,6 +470,7 @@ function buildQuiz(result, callback){
 			// SQ
 
 	    	if (type == 'SQ') {
+	    		console.log('Type = SQ')
 	    		document.getElementById("4Play").style.display = "none";
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
 	    		// $("#nextBtn").prop('disabled', true);
