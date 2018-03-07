@@ -367,8 +367,8 @@
 	      <div class="modal-header" style="border-bottom:0px">
 	        <button type="button" class="testClose close" id="testClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
-	      <div class="modal-body" style="text-align: center;margin-top: -25px;">
-		      	<div style="width: 100%;">
+	      <div class="modal-body" style="text-align: center;margin-top: -25px;height: 100%;">
+		      	<div style="width: 100%;height: 100%;">
 		      		<center>
 			      	<div style="width: 100%;">
 			      			<img src="img/otp_logo.png" style="width: 40%;margin-right: 0px;">
@@ -468,8 +468,8 @@
 	      <div class="modal-header" style="border-bottom:0px">
 	        <button type="button" class="testClose close" id="testClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
-	      <div class="modal-body" style="text-align: center;margin-top: -25px;">
-		      	<div style="width: 100%;margin-top: 10px;">
+	      <div class="modal-body" style="text-align: center;margin-top: -25px;height: 100%;">
+		      	<div style="width: 100%;margin-top: 10px;height: 100%;">
 		      		<center>
 			      	<div style="width: 100%;">
 			      		<p style="font-size: 24px;">Enter OTP</p>
