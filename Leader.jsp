@@ -1,8 +1,8 @@
 <%@include file="top.jsp" %>
 <script type="text/javascript">
 	$(document).ready(function(){
-		getUserExp();
-		getUserPoints();
+			getUserExp();
+			getUserPoints();
 	});	
 </script>
 <link rel="stylesheet" href="css/swiper.min.css">
@@ -53,18 +53,18 @@
 	}
 </style>
 <div class="container" style="margin-top: 10%;">
-
+<label style="font-size: 30px; text-align: center;">Leader Board <span class="glyphicon glyphicon-tower"></span></label>
 <hr style="">
 
 		<div class="swiper-container swiperLog1">
+			<div class="" style="background-color: red; text-align: center;">Exp</div>
 			<div class="swiper-wrapper" id="expLeaderList">
-				<div class="boxLeader" style="background-color: red; text-align: center;">Exp</div>	
 			</div>
 		</div>
 <hr style="">
 		 <div class="swiper-container swiperLog2">
+		 	<div class="" style="background-color: blue; color: white; text-align: center;">Points</div>
 		    <div class="swiper-wrapper" id="pointsLeaderList">
-		      <div class="boxLeader" style="background-color: blue; color: white;">Points</div>
 		    </div>
 		  </div>
 <hr style="">
