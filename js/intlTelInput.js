@@ -338,9 +338,11 @@
             var label = this.telInput.closest("label");
             if (label.length) {
                 label.on("click" + this.ns, function(e) {
+                    console.log('Found')
                     // if the dropdown is closed, then focus the input, else ignore the click
                     if (that.countryList.hasClass("hide")) {
-                        that.telInput.focus();
+                        console.log('Found')
+                        // that.telInput.focus();
                     } else {
                         e.preventDefault();
                     }
@@ -349,25 +351,30 @@
             // toggle country dropdown on click
             var selectedFlag = this.selectedFlagInner.parent();
             selectedFlag.on("click" + this.ns, function(e) {
+                console.log('Found')
                 // only intercept this event if we're opening the dropdown
                 // else let it bubble up to the top ("click-off-to-close" listener)
                 // we cannot just stopPropagation as it may be needed to close another instance
                 if (that.countryList.hasClass("hide") && !that.telInput.prop("disabled") && !that.telInput.prop("readonly")) {
                     that._showDropdown();
+                    console.log('Found')
                 }
             });
             // open dropdown list if currently focused
             this.flagsContainer.on("keydown" + that.ns, function(e) {
                 var isDropdownHidden = that.countryList.hasClass("hide");
+                console.log('Found')
                 if (isDropdownHidden && (e.which == keys.UP || e.which == keys.DOWN || e.which == keys.SPACE || e.which == keys.ENTER)) {
                     // prevent form from being submitted if "ENTER" was pressed
                     e.preventDefault();
+                    console.log('Found')
                     // prevent event from being handled again by document
                     e.stopPropagation();
                     that._showDropdown();
                 }
                 // allow navigation from dropdown to input on TAB
                 if (e.which == keys.TAB) {
+                    console.log('Found')
                     that._closeDropdown();
                 }
             });
@@ -453,7 +460,7 @@
             var that = this;
             // mousedown decides where the cursor goes, so if we're focusing we must preventDefault as we'll be inserting the dial code, and we want the cursor to be at the end no matter where they click
             this.telInput.on("mousedown" + this.ns, function(e) {
-                //console.log("found!")
+                console.log("found!")
                 if (!that.telInput.is(":focus") && !that.telInput.val()) {
                     e.preventDefault();
                     // but this also cancels the focus, so we must trigger that manually
@@ -464,11 +471,14 @@
             this.telInput.on("focus" + this.ns, function(e) {
                 if (!that.telInput.val() && !that.telInput.prop("readonly") && that.selectedCountryData.dialCode) {
                     // insert the dial code
+                    console.log('Found')
                     that.telInput.val("+" + that.selectedCountryData.dialCode);
                     // after auto-inserting a dial code, if the first key they hit is '+' then assume they are entering a new number, so remove the dial code. use keypress instead of keydown because keydown gets triggered for the shift key (required to hit the + key), and instead of keyup because that shows the new '+' before removing the old one
                     that.telInput.one("keypress.plus" + that.ns, function(e) {
+                        console.log('Found')
                         //console.log("found!")
                         if (e.which == keys.PLUS) {
+                            console.log('Found')
                             that.telInput.val("");
                         }
                     });
@@ -564,13 +574,16 @@
             // listen for country selection
             this.countryList.on("click" + this.ns, ".country", function(e) {
                 that._selectListItem($(this));
+                console.log('Found')
             });
             // click off to close
             // (except when this initial opening click is bubbling up)
             // we cannot just stopPropagation as it may be needed to close another instance
             var isOpening = true;
             $("html").on("click" + this.ns, function(e) {
+                console.log('Found')
                 if (!isOpening) {
+                    console.log('Found')
                     that._closeDropdown();
                 }
                 isOpening = false;
@@ -788,7 +801,7 @@
             this._closeDropdown();
             this._updateDialCode(listItem.attr("data-dial-code"), true);
             // focus the input
-            this.telInput.focus();
+            // this.telInput.focus();
             // put cursor at end - this fix is required for FF and IE11 (with nationalMode=false i.e. auto inserting dial code), who try to put the cursor at the beginning the first time
             if (this.isGoodBrowser) {
                 var len = this.telInput.val().length;

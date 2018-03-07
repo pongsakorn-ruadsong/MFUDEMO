@@ -407,7 +407,7 @@
 			        	<button class="btn-send-otp" id="sendOtp">Send</button>
 			        </div>
 			        </center>
-			        <div style="width: 100%;margin-top: 10px;padding-left: 2.5%;padding-right: 2.5%;">
+			        <div style="width: 100%;margin-top: 10px;padding-left: 4.5%;padding-right: 4.5%;">
 			        	
 			        	<div class="row" style="">
 			        		<div class="col-4 gest">
@@ -525,6 +525,8 @@
 			        	.gest{
 			        		font-size: 22px;
     						padding: 10px;
+    						border: none;
+   							background-color: #faebd700;
 			        	}
 			        	.btn-send-otp{
 			        		background-color: #45a1bc;
