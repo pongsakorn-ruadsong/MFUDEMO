@@ -3,6 +3,11 @@ html, body, .container-fluid{
   font-family: 'Open Sans', sans-serif !important;
   overflow-y: auto;
 }
+.container-fluid{
+  padding-top: 73px;
+  display: flex;
+  flex-flow: column;
+}
 .tempUnused{
   content:'';
   top:0;
@@ -260,7 +265,9 @@ color: #30A91D;
 div[data-toggle="buttons"] label.active{
     color: #30A91D;
 }
-
+::-webkit-scrollbar { 
+    display: none; 
+}
 div[data-toggle="buttons"] label {
 display: inline-block;
 padding: 6px 12px;
@@ -301,6 +308,12 @@ box-shadow: none;
 .dropdown-toggle::after {
     display: none !important;
 }
+span.break{
+  border-left: 1px solid #fcfcfc;
+    border-right: 1px solid #ddd;
+    margin: -12px 10px -10px 10px;
+    padding: 3px 0px 6px 0px
+}
 .dropdown-menu{
 	min-width: 0rem; 
 }
@@ -316,8 +329,9 @@ p.dropdown-item:hover{
 }
 .bg{
 	background-color: white;
-	padding: 45px;
-  margin-top: 80px;
+	padding: 1px 45px 45px 45px;
+  margin-top: 50px;
+  position: relative;
 }
 #img{
 	/*padding: 100px;*/
@@ -326,6 +340,8 @@ p.dropdown-item:hover{
 .topic{
 	font-size: 36px;
 	font-weight: bold;
+  max-height: 100px;
+  height: 100px;
 }
 #choice{
 	font-size: 20px;

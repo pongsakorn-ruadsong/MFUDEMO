@@ -121,6 +121,7 @@
 	    overflow-y: auto;
 	    -webkit-perspective: 1px;
 	    perspective: 1px;
+	    margin-top: -73px;
 	  }
 	.parallax__layer {
 	    position: absolute;
