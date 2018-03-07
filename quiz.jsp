@@ -221,7 +221,7 @@
     		align-items:center;
     		padding: 10px;
     		background-color: #89b2dc;
-    		    width: 100%;
+    		width: 100%;
 		}
 		.timeleap_Count{
 			 width: 40%;
@@ -255,7 +255,7 @@
 		.playCount-in{
 			color: white;
 		    width: 80%;
-		    font-size: 21px;
+		    font-size: 16px;
 		    text-align: left;
 		     display: inherit;
 		}

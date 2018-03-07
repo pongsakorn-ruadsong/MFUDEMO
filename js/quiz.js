@@ -112,7 +112,13 @@ function genReward(a, b, callback){
 			console.log(d)
 			if (d.success) {
 				console.log('Get reward Successful')
+				getFeed(function(data){
+					if (data != undefined || data != null) {
+						buildFeed(data);
+					}
+				});
 				callback(d.response.events);
+
 			}else{
 				console.log('Get reward Failed')
 				callback(d.message);
@@ -1374,6 +1380,11 @@ function nextQuestion(callback){
 					// scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
 					rewardPop(d.response.result.grade, d.response.result.rewards);
 					console.log("Hey! it is the last now! check the console about reward!")
+					getFeed(function(data){
+					if (data != undefined || data != null) {
+						buildFeed(data);
+					}
+				});
 					// $('#myModal').modal("hide");
 				
 			}else{
