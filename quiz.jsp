@@ -186,7 +186,7 @@
 		}
 		.utilities-tab{
 			width: 100%;
-			height: 50px;
+			height: 40px;
 			display: inline-block;
 			position: fixed;
 		    top: 73px;
@@ -217,10 +217,24 @@
 		}
 		.in-scored{
 			color: white;
-		    width: 40%;
-		    font-size: 26px;
+		    width: 60%;
+		    font-size: 21px;
 		    text-align: center;
 		    background-color: #ff002fa1;
+		}
+		.in-scored-img{
+			color: white;
+		    width: 40%;
+		    font-size: 21px;
+		    text-align: center;
+		    /*background-color: #ff002fa1;*/
+		}
+		.playCount-in{
+			color: white;
+		    width: 80%;
+		    font-size: 21px;
+		    text-align: left;
+		     display: inherit;
 		}
 		div.cur-bg.zoomIn{
 			animation-duration: 0.4s;
@@ -230,15 +244,24 @@
 			animation-timing-function: cubic-bezier(0, 0.3, 0.2, 1);
 		}
 	</style>
+	<!-- .in-scored = reward label -->
 	<div id="utilities_tab" class="utilities-tab">
 		<div id="playCount" class="playCount">
-			Played: 999
+			<div class="playCount-in animated" id="playCount-in">
+				<span class="glyphicon glyphicon-play"></span>5,555
+			</div>
 		</div>
 		<div id="scored" class="scored">
+			<div class="in-scored-img animated flipInX" id="in-scored-img">
+				img
+			</div>
 			<div class="in-scored animated flipInX" id="in-scored">
 				
 			</div>
 		</div>
+	</div>
+	<div>
+		
 	</div>
 	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;">
 		<div class="topic" style="position: fixed;z-index: 1040;display: flex;padding-right: 20px;">
