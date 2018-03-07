@@ -186,15 +186,16 @@
 		}
 		.utilities-tab{
 			width: 100%;
-			height: 40px;
+			height: 45px;
 			display: inline-block;
 			position: fixed;
 		    top: 73px;
 		    z-index: 1041;
+		    padding-right: 40px;
 		}
-		.playCount{
+		.playCount,.quiz_label{
 			float: left;
-		    width: 50%;
+		    width: 40%;
     		height: 100%;
     		display: flex;
     		justify-content:center;
@@ -202,30 +203,52 @@
     		background-color: #808a69;
     		color: white;
 		}
-		.scored{
+		.quiz_label{
+			width: 60%;
+		    color: black;
+		    justify-content: left;
+		    padding: 5px 10px 5px 10px;
+		    background-color: unset;
+		}
+		#scored{
 			float: right;
-		    width: 50%;
+		    width: 60%;
+		}
+		.scored,.timeleap_Count{
     		height: 100%;
     		display: flex;
     		justify-content:center;
     		align-items:center;
     		padding: 10px;
     		background-color: #89b2dc;
+    		    width: 100%;
+		}
+		.timeleap_Count{
+			 width: 40%;
+			background-color: unset;
 		}
 		.next-bg{
 			display: none;
 		}
-		.in-scored{
+		.rw-event{
 			color: white;
 		    width: 60%;
-		    font-size: 21px;
+		    font-size: 10px;
 		    text-align: center;
 		    background-color: #ff002fa1;
 		}
-		.in-scored-img{
+		.in-scored{
+			color: white;
+		    width: 50%;
+		    font-size: 21px;
+		    text-align: center;
+		    background-color: #ff002fa1;
+		   /* margin-top: 90px;*/
+		}
+		.reward-feed-img{
 			color: white;
 		    width: 40%;
-		    font-size: 21px;
+		    font-size: 10px;
 		    text-align: center;
 		    /*background-color: #ff002fa1;*/
 		}
@@ -243,25 +266,47 @@
 			animation-duration: 1.5s;
 			animation-timing-function: cubic-bezier(0, 0.3, 0.2, 1);
 		}
+		.display-quiz-name{
+			width: 100%;
+			height: 40px;
+			position: fixed;
+			top: 113px;
+			z-index: 1041;
+			padding-right: 40px;
+		}
 	</style>
 	<!-- .in-scored = reward label -->
-	<div id="utilities_tab" class="utilities-tab">
-		<div id="playCount" class="playCount">
-			<div class="playCount-in animated" id="playCount-in">
-				<span class="glyphicon glyphicon-play"></span>5,555
+	<div class="" id="" style="margin-top: 0px;padding: 0px 20px 0px 20px;">
+		<div id="utilities_tab" class="utilities-tab">
+			<div id="playCount" class="playCount">
+				<div class="playCount-in animated" id="playCount-in">
+					<span class="glyphicon glyphicon-play" style="margin-right: 5px;"></span>5,555
+				</div>
+			</div>
+			<div id="scored" class="scored">
+				<div id="covered-rw-feed" class="scored" style="/*display: none;*/">
+					<div class="reward-feed-img animated flipInX" id="reward-feed-img">
+						reward's img
+					</div>
+					<div class="in-scored animated flipInX" id="in-scored">
+						0
+					</div>
+				</div>
 			</div>
 		</div>
-		<div id="scored" class="scored">
-			<div class="in-scored-img animated flipInX" id="in-scored-img">
-				img
+
+		<div class="display-quiz-name" id="disQuizName">
+			<div id="" class="quiz_label">
+				<div class="" id="quiz_label_dis">
+					Quiz's name
+				</div>
 			</div>
-			<div class="in-scored animated flipInX" id="in-scored">
-				
-			</div>
+			<div id="" class="timeleap_Count">
+				<div class="" id="time_remain">
+					time
+				</div>
+			</div>	
 		</div>
-	</div>
-	<div>
-		
 	</div>
 	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;">
 		<div class="topic" style="position: fixed;z-index: 1040;display: flex;padding-right: 20px;">

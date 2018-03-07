@@ -93,11 +93,99 @@ function fillColor(a){
 	// 	}
 
 	}
+function genReward(a, b, callback){
+	console.log(a+' | '+b)
+	var data = new Object();
+	data.token = sessionStorage['Token'];
+	data.action = 'answer';
+	data.player_id = sessionStorage['player'];
+	data.reward = a;
+	data.quantity = b;
+	console.log(data)
+	$.ajax({
+		type: "POST",
+		url: sessionStorage['mainUrl']+'Engine/rule',
+		content: "application/json; charset=utf-8",
+		data: data,
+		dataType: "json",
+		success: function(d) {
+			console.log(d)
+			if (d.success) {
+				console.log('Get reward Successful')
+				callback(d.response.events);
+			}else{
+				console.log('Get reward Failed')
+				callback(d.message);
+			}
+		},
+		error: function (xhr, textStatus, errorThrown){
+//                window.location.reload(true)
+                console.log(errorThrown);
+                console.log("Failed : resetQuiz() @ quiz.js");
+            }
+	});
+}
 function autoNext(){
  	console.log("Auto Next")
     if (valid()) {
 		nextQuestion(function(data){
 			console.log(data)
+			var full_reward = data.response.result.explanation;
+			var rewards = [];
+			var reward = [];
+			var key = [];
+			var val = [];
+			console.log(full_reward)
+			if (full_reward.indexOf(',') > -1) {
+				var k = 0;
+				var show_interval;
+				rewards = full_reward.split(',');
+				for (var i = 0; i < rewards.length; i++) {
+					// console.log('GG')
+					if (rewards[i].indexOf(':') > -1) {
+						reward.push(rewards[i].split(':'));
+					}else{
+						reward.push(rewards[i]);
+					}
+				}
+				show_interval = setInterval(function(){
+					if (k<reward.length) {
+						console.log(typeof(reward[k]));
+						if (typeof(reward[k]) == 'object') {
+							genReward(reward[k][0],reward[k][1], function(){
+								
+							});
+						}else if (typeof(reward[k]) == 'string') {
+							genReward(reward[k], 1, function(){
+								
+							});
+						}
+						k++;
+					}else{
+						clearInterval(show_interval);
+					}
+				},2000);
+			}else{
+				if (full_reward.indexOf(':') > -1) {
+					reward = full_reward.split(':');
+					genReward(reward[0], reward[1], function(){
+
+					});
+				}else{
+					genReward(full_reward, 1, function(){
+
+					});
+				}
+			}
+			console.log(rewards)
+			console.log(reward)
+			// if (reward.length > 0) {
+			// 	var reward.split(':');
+			// 	console.log()
+			// 	// genReward(reward, function(){
+
+			// 	// });
+			// }
 			if ($('#quizPanel').hasClass('zoomIn')) {
 				console.log('Has class zoomIn')
 				$('#quizPanel').removeClass('zoomIn').addClass('zoomOut');
@@ -177,6 +265,7 @@ function getTopic(a){
 	}
 }
 function getQuestion(result, callback){
+	$('#quiz_label_dis').text(sessionStorage['qName'])
 	$.ajax({
 		type: "GET",
         url: getQuestUrl,
@@ -212,6 +301,13 @@ function getQuestion(result, callback){
 			  }
 			});
 	    }else{
+	    var time_limit = Quiz01.response.result.timelimit;
+	    console.log('Time limited: '+time_limit.length)
+	    if (time_limit.length == 0) {
+	    	$('#time_remain').text('No time limited');
+	    }else{
+	    	$('#time_remain').text(time_limit);
+	    }
 	    sessionStorage.setItem("cur_Quest", JSON.stringify(Quiz01));
 	    var cur_Quest = sessionStorage.getItem("cur_Quest");
 	    type = Quiz01.response.result.question_type;
@@ -348,6 +444,9 @@ function buildFeed(data){
     console.log(data)
     $('table#feed-content > tr').remove();
     for (var i = 0; i < data.length; i++) {
+    	if (data[i].event_type == 'ACTION') {
+    		continue;
+    	}
     	var img = '';
     	var item_img = '';
     	var img_for_check = /[^/]*$/.exec(data[i].player.image)[0];
@@ -411,7 +510,7 @@ function buildQuiz(result, callback){
 	    	$('#in-scored').html('&#x0E3F;');
 	    }else if (quizType[sessionStorage['qId']] == 'quiz'){
 		    if (result != undefined) {
-		    	$('#in-scored').css('display','flex');
+		    	$('#in-scored').css('display','block');
 		    	var ans_result = result.response.result.explanation;
 		    	var get_score = result.response.result.grade.score;
 		    	var max_this_score = result.response.result.grade.score;
@@ -971,7 +1070,7 @@ function resetQuiz(){
 		dataType: "json",
 		data: data,
 		success: function(d) {
-			
+			sessionStorage.removeItem('save_result')
 	    	// toastr["info"]("Please wait for 1-2 sec.", "Successful");
 	    	setTimeout(function(){ location.reload(); }, 1500);
 		},
