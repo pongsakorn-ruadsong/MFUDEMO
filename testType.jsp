@@ -3,19 +3,18 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		buildDate();
-
 	});	
-
-
 </script>
 <div class="container" style="margin-top: 10%;">
 
 <div class="row">
-	Day Month Year
+	<label>Day</label> 
+	<label>Month</label> 
+	<label>Years</label>
 </div>
 
 <div class="row">
-	<select class="days" style="background-color: gray;"></select> /
+	<select class="days"></select> /
     <select class="months"></select> /
     <select class="years"></select>
 </div>    	
@@ -45,8 +44,8 @@
 		<span id="unit" style="margin-left: 10px;display: none;"></span>
 		<input type="hidden" id="hidSLIval" value="">
 	</div>
-</form>
- -->
+</form> -->
+
 
 <!-- <div class="contianerCycle">
 	<div style="position: absolute; left: 47%;">36</div>
@@ -92,9 +91,7 @@
 	</div>
 </div>
 <div class="container" style="margin-top: 5%;">
-		
 		 <circle id="mask" class="circle" cx="50%" cy="50%" >aaaaaaaaaaaa</circle>
-       
 			<button class="btn btn-default buttonAge" style="padding: 5px; background-color: #e6e6e6;"><span class="glyphicon glyphicon-triangle-bottom"></span></button>
 			<div class="selectOldInside">
 				<button class="btn btn-default buttonAge" onclick="selectAge()"></button>
@@ -104,8 +101,8 @@
 				<button class="btn btn-default buttonAge"></button>
 			</div> 
 		</div> 
-</div> -->
-
+</div>
+ -->
 
 
 
