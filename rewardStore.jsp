@@ -11,6 +11,13 @@
 
 </script>
 <style type="text/css">
+	.shelf{
+		background-image: url('img/BG.jpg');
+		background-repeat: no-repeat;
+   		background-attachment: scroll;
+    	background-size: cover;
+    	overflow: scroll;
+	}
 	.swiper-container {
       width: 100%;
       padding: 8px;
@@ -108,40 +115,10 @@
 	    line-height: 18px;
 	}
 </style>
-<br>
-<br>
-<br>
 <div class="goodsStore"></div>
 	<div class="shelf" style="background-color: white;">
 		<div class="swiper-container">
 			<div class="swiper-wrapper col-md-12" id="display">
-				<!-- <div id="qrcode" style="width: 30%;"></div> -->
-<script>
-	// new QRCode(document.getElementById("qrcode"), "TestQR");
-
-	// var  qrcode = new QRCode(document.getElementById("qrcode"),{
-	// 	text : 'testCode',
-	// 	width: 256,
-	// 	height: 256,
-	// 	colorDark: '#000',
-	// 	colorLight: '#fff',
-	// 	correctLevel : QRCode.correctLevel.H
-	// });
-
-	// 	function makeCode () {      
-	// 	    var elText = document.getElementById("text");
-		    
-	// 	    if (!elText.value) {
-	// 	        alert("Input a text");
-	// 	        elText.focus();
-	// 	        return;
-	// 	    }
-	// 	    qrcode.makeCode(elText.value);
-	// 	}
-	// 			qrcode.clear();
-
-	// 				qrcode.makeCode('1111');
-</script>
 			</div>
 		</div>
 	</div>	

@@ -257,7 +257,7 @@ function buildUserReward(){
 	// 	$('#Icon').attr("src", a);
 	// 	$('#imageShow').css("background-image", "url("+b+")");
 
-		var text = '<div class="modal-dialog" style="top: 10%">  '+
+		var text = '<div class="modal-dialog" style="top: 5%">  '+
 '        				<div class="modal-content" style="border-radius: 10px; width: 75%; height: 100%; background-color: white; left: 13%;">'+
 '       					<div class="header couponTop" id="imageShow" style="background-image: url('+$(this).attr('imgID')+');border-radius: 10px background-size: cover;"></div>'+		
 '						<div class="container">'+
@@ -306,6 +306,7 @@ function buildUserReward(){
 '						</div>'+
 '					</div>'
 		$('#checkOutGoods').append(text);
+		
 		$('#QRCode').click(function(){
 			$('.myTab').removeClass('active');
 			$('#QRcode1').addClass('active');
@@ -316,8 +317,6 @@ function buildUserReward(){
 			$('.myTab').removeClass('active');
 			$('#Barcode1').addClass('active');
 			$('.increaseHeight').css('height','70')
-
-			// $("#displaybarcode").barcode($('#qrcode').attr('cID'),"code128");
 			getUserReward();
 		});	
 		setTimeout(function(){
