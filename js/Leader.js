@@ -1,5 +1,6 @@
 var userExp = [];
 var userPoints = [];
+var userLevel= [];
 
 function getUserExp() {
         $.ajax({
@@ -37,6 +38,24 @@ function getUserPoints() {
         });
 }
 
+function getUserLevel() {
+        $.ajax({
+        	type: "GET",
+            url: 'https://api.pbapp.net/Player/rank/level/4?api_key='+sessionStorage['api_key'],
+            dataType: "json",
+	    	success: function(data){
+	        	userLevel = data;
+	        	buildLeaderLevel();
+	        	initialSwipes_leader();
+	    	},
+	    	error: function (xhr, textStatus, errorThrown){
+//                window.location.reload(true)
+                console.log(errorThrown);
+                console.log("Failed : getLang() @ index.js");
+            }
+        });
+}
+
 function buildLeaderExp(){
 	var length = userExp.response.length;
 	var data = userExp.response;
@@ -52,14 +71,14 @@ function buildLeaderExp(){
 			var exp = data[i].exp;
 		text +=								
 '					<div class="swiper-slide boxLeader animated fadeInRight" style="width:25%;height:150px;">'+
-'						<div class="logo_preview col-md-12" style="z-index:1; position: absolute;top:-10px;left:17px;background-color: #cccccc;">'+
+'						<div class="logo_preview col-md-12" style="z-index:1; position: absolute;top:2px;left:18px;background-color: #cccccc;">'+
 '						<img src="'+imageExp+'" style="background-size: cover;">'+
 '						</div>'+
 '						<div style="">'+number+'<span class=""></span></div>'+
-'						<div style="margin-top: 70%;">'+
-'							<div id="playerID">'+playerIdExp+'</div>'+
-'							<div id="fullName">'+playerFirstnameExp+' '+playerLastNameExp+'</div>'+
-'							<div id="userExp">'+exp+' exp</div>'+
+'						<div style="margin-top:70%; text-overflow:ellipsis; overflow:hidden;">'+
+'							<div id="" >'+playerIdExp+'</div>'+
+'							<div id="" >'+playerFirstnameExp+' '+playerLastNameExp+'</div>'+
+'							<div id="">'+exp+' exp</div>'+
 '						</div>'+
 '					</div>'+
 '					</div>'
@@ -84,15 +103,15 @@ function buildLeaderPoints(){
 			var playerIdPoints = data[i].player_id;
 			var points = data[i].point;
 		text1 +=								
-'					<div class="swiper-slide boxLeader animated fadeInRight" style="width:25%;height:150px;">'+
-'						<div class="logo_preview col-md-12" style="z-index:1; position: absolute;top:-10px;left:17px;background-color: #cccccc;">'+
+'					<div class="swiper-slide boxLeader animated fadeInRight" style="width:32%;height:140px;">'+
+'						<div class="logo_preview col-md-12" style="z-index:1; position: absolute;top:2px;left:18px;background-color: #cccccc;">'+
 '						<img src="'+imgPoints+'" style="background-size: cover;">'+
 '						</div>'+
 '						<label>'+number+'<span class=""></span></label>'+
-'						<div style="margin-top: 70%;">'+
-'							<div id="playerID">'+playerIdPoints+'</div>'+
-'							<div id="fullName">'+playerFirstnamePoints+' '+playerLastNamePoints+'</div>'+
-'							<div id="userExp">'+points+' points</div>'+
+'						<div style="margin-top:70%; text-overflow:ellipsis; overflow:hidden;">'+
+'							<div id="">'+playerIdPoints+'</div>'+
+'							<div id="">'+playerFirstnamePoints+' '+playerLastNamePoints+'</div>'+
+'							<div id="">'+points+' points</div>'+
 '						</div>'+
 '					</div>'+
 '					</div>'
@@ -102,6 +121,39 @@ function buildLeaderPoints(){
 	$("#pointsLeaderList").append(text1);
 	
 }
+
+function buildLeaderLevel(){
+	var length = userLevel.response.length;
+	var data = userLevel.response;
+	var text2 = '';
+	if(length>0){
+		$("#display>div").remove();
+		for(let i=0;i<length;i++){ 
+			var number= i+1;
+			var playerFirstnameLevel = data[i].first_name;
+			var playerLastNameLevel = data[i].last_name;
+			var imageLevel = data[i].image;
+			var playerIdLevel = data[i].player_id;
+			var level = data[i].level;
+		text2 +=								
+'					<div class="swiper-slide boxLeader animated fadeInRight" style="width:25%;height:150px;">'+
+'						<div class="logo_preview col-md-12" style="z-index:1; position: absolute;top:2px;left:18px;background-color: #cccccc;">'+
+'						<img src="'+imageLevel+'" style="background-size: cover;">'+
+'						</div>'+
+'						<div style="">'+number+'<span class=""></span></div>'+
+'						<div style="margin-top:70%; text-overflow:ellipsis; overflow:hidden;">'+
+'							<div id="">'+playerIdLevel+'</div>'+
+'							<div id="">'+playerFirstnameLevel+' '+playerLastNameLevel+'</div>'+
+'							<div id="">Level '+level+'</div>'+
+'						</div>'+
+'					</div>'+
+'					</div>'
+			}
+	}
+	text2 = text2+'</div>';
+	$("#levelLeaderList").append(text2);
+}
+
 function initialSwipes_leader(){
 	var dew_swiper1 = new Swiper('.swiperLog1', {
     	slidesPerView: 3,

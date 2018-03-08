@@ -3,10 +3,18 @@
 	$(document).ready(function(){
 			getUserExp();
 			getUserPoints();
+			getUserLevel();
 	});	
 </script>
 <link rel="stylesheet" href="css/swiper.min.css">
 <style type="text/css">
+	body{
+		background-image: url('img/BG.jpg');
+		background-repeat: no-repeat;
+   		background-attachment: scroll;
+    	background-size: cover;
+    	overflow: scroll;
+	}
     .swiper-slide {
       text-align: center;
       font-size: 18px;
@@ -68,7 +76,12 @@
 		    </div>
 		  </div>
 <hr style="border: 1px solid #d9d9d9;">
-
+		<div class="swiper-container swiperLog2">
+		 	<div class="" style="background-color: #ffcc00; color: black; text-align: center;">Level</div>
+		    <div class="swiper-wrapper" id="levelLeaderList">
+		    </div>
+		</div>
+<hr style="border: 1px solid #d9d9d9;">
 </div>
 <script src="js/swiper.min.js"></script>
 <%@include file="bottom.jsp" %>
