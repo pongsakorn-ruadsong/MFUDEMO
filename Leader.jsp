@@ -53,21 +53,21 @@
 	}
 </style>
 <div class="container" style="margin-top: 10%;">
-<label style="font-size: 30px; text-align: center;">Leader Board <span class="glyphicon glyphicon-tower"></span></label>
-<hr style="">
+<label style="font-size: 30px; text-align: center;	font-family: "Times New Roman", Times, serif;">Leader Board <span class="glyphicon glyphicon-tower"></span></label>
+<hr style="border: 1px solid #d9d9d9;">
 
 		<div class="swiper-container swiperLog1">
-			<div class="" style="background-color: red; text-align: center;">Exp</div>
+			<div class="" style="background-color: red; color: white; text-align: center;">Exp</div>
 			<div class="swiper-wrapper" id="expLeaderList">
 			</div>
 		</div>
-<hr style="">
+<hr style="border: 1px solid #d9d9d9;">
 		 <div class="swiper-container swiperLog2">
 		 	<div class="" style="background-color: blue; color: white; text-align: center;">Points</div>
 		    <div class="swiper-wrapper" id="pointsLeaderList">
 		    </div>
 		  </div>
-<hr style="">
+<hr style="border: 1px solid #d9d9d9;">
 
 </div>
 <script src="js/swiper.min.js"></script>
