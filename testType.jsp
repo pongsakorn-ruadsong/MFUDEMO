@@ -1,99 +1,253 @@
 <%@include file="top.jsp" %>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		buildDate();
+	$(document).ready(function() {
+		eventShow();
+	// 	reset();
+	// 	animateText();
+	// 	animateBlobs();
 
-		$('#percent').on('change', function(){
-			  var val = parseInt($(this).val());
-			  var $circle = $('#svg #bar');
-			  
-			  if (isNaN(val)) {
-			   val = 100; 
-			  }
-			  else{
-			    var r = $circle.attr('r');
-			    var c = Math.PI*(r*2);
-			   
-			    if (val < 0) { val = 0;}
-			    if (val > 100) { val = 100;}
-			    
-			    var pct = ((100-val)/100)*c;
-			    
-			    $circle.css({ strokeDashoffset: pct});
-			    
-			    $('#cont').attr('data-pct',val);
-			  }
-});
-	});	
+	// 	$(function() {
+	// 	  var numberOfStars = 20;
+		  
+	// 	  for (var i = 0; i < numberOfStars; i++) {
+	// 	    $('.congrats').append('<div class="blob fa fa-star ' + i + '"></div>');
+	// 	  } 
+	// 	  animateText();
+	// 	  animateBlobs();
+	// 	});
+
+	// 	$('.congrats').click(function() {
+	// 	  reset();
+	// 	  animateText();
+	// 	  animateBlobs();
+	// 	});
+	});
 </script>
 <style type="text/css">
+$color-violet: #492684;
+$color-purple: #bea4ff;
+$color-yellow: #feb535;
+$color-red: #ff6e83;
+$color-cyan: #58cafe;
+$animation-duration: 1.2s;
 
-#svg circle {
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 1s linear;
-  stroke: #666;
-  stroke-width: 1em;
-}
-#svg #bar {
-  stroke: #FF9F1E;
-}
-#cont {
-  display: block;
-  height: 200px;
-  width: 200px;
-  margin: 2em auto;
-  box-shadow: 0 0 1em black;
-  border-radius: 100%;
-  position: relative;
-}
-#cont:after {
-  position: absolute;
-  display: block;
-  height: 160px;
-  width: 160px;
-  left: 50%;
-  top: 50%;
-  box-shadow: inset 0 0 1em black;
-  content: attr(data-pct)"%";
-  margin-top: -80px;
-  margin-left: -80px;
-  border-radius: 100%;
-  line-height: 160px;
-  font-size: 2em;
-  text-shadow: 0 0 0.5em black;
+/* debug */
+$debug-animation-count: infinite; // infinite | 1
+
+.cannon__path {
+	// border-left: 2px dashed #fff; // uncomment to have a behind the scenes look
 }
 
-input {
-  color: #000;
+/* Cannon */
+.cannon {
+	height: 21vh;
+	width: 1px;
+	position: relative;
+	transform-origin: 50% 100%;
+	animation: cannon-explosion $animation-duration cubic-bezier(0.18, 0.89, 0.32, 1.28) both;
+	animation-iteration-count: $debug-animation-count;
+}	
+	/* Paths */
+	.path {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		transform-origin: 50% 100%;
+		padding-bottom: 30%;
+		display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+	}
+	
+	/* Confettis */
+	.confetti {
+		flex: 0 1 auto;
+		animation-duration: $animation-duration;
+		animation-timing-function: ease-out;
+		animation-fill-mode: both;
+		animation-iteration-count: $debug-animation-count;
+		
+		&:nth-child(even) {
+			animation-name: confetti-rotate-l;
+
+			@keyframes confetti-rotate-l {
+				0% {
+					transform: rotate(0) scaleY(1);
+				} 50% {
+					transform: rotate(2turn) scaleY(1.5);
+				} 100% {
+					transform: rotate(2.05turn) scaleY(1);
+				}
+			}
+		}
+
+		.nth-child(odd) {
+			animation-name: confetti-rotate-r;
+
+			@keyframes confetti-rotate-r {
+				0% {
+					transform: rotate(0) scaleY(1);
+				} 50% {
+					transform: rotate(-2turn) scaleY(1.5);
+				} 100% {
+					transform: rotate(-2.05turn) scaleY(1);
+				}
+			}
+		}
+		/* Colors */
+		color-1 {
+			background-color: $color-yellow;
+		}
+		
+		color-2 {
+			background-color: $color-purple;
+		}
+		
+		color-3 {
+			background-color: $color-red;
+		}
+		
+		color-4 {
+			background-color: $color-cyan;
+		}
+	}
+@keyframes cannon-explosion {
+		0% {
+			transform: scale(0);
+		}
+		80% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
+	}
+
+/* Demo styles */
+
+.party-popper {
+	position: absolute;
+	left: 50%;
+	bottom: 5vh;
+	font-size: 2em;
+	transform: translateX(-50%) rotate(-45deg);
 }
+
+.cannon {
+	position: absolute;
+	bottom: 5vh;
+	left: 50%;
+}
+
+.ribbon {
+	height: 1em;
+	width: .5em;
+	border-radius: .1em;
+}
+		
+.flake {
+	height: .5em;
+	width: .5em;
+	border-radius: 50%;
+}
+.deg45{
+	transform: rotate(45deg);
+}
+.deg90{
+
+}
+.deg135{
+
+}
+.deg180{
+
+}
+.deg225{
+
+}
+.confetti {
+    flex: 0 1 auto;
+    animation-duration: $animation-duration;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+    animation-iteration-count: $debug-animation-count;
+    animation-name: confetti-rotate;
+
+  }
+
+  @keyframes confetti-rotate {
+        0% {
+          transform: rotate(0) scaleY(1);
+        } 50% {
+          transform: rotate(2turn) scaleY(1.5);
+        } 100% {
+          transform: rotate(2.05turn) scaleY(1);
+        }
+      }
+
+      .nth-child(odd) {
+      animation-name: confetti-rotate-r;
+ }
+      @keyframes confetti-rotate-r {
+        0% {
+          transform: rotate(0) scaleY(1);
+        } 50% {
+          transform: rotate(-2turn) scaleY(1.5);
+        } 100% {
+          transform: rotate(-2.05turn) scaleY(1);
+        }
+      }
+
 </style>
 
 <div class="container" style="margin-top: 10%;">
 
-<!-- <div class="row">
-	<label>Day</label> 
-	<label>Month</label> 
-	<label>Years</label>
+<!-- <canvas id="confeti" class="active" width="100%" height="100vh"></canvas> -->
+
+<div class="party-popper"></div>
+<div class="cannon">
+	<div class="cannon__path cannon path deg45">
+		<div class="cannon__confetti cannon__confetti flake cannon__confetti color-3"></div>
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-1"></div>
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-2"></div>
+		<div class="cannon__confetti cannon__confetti flake cannon__confetti color-1"></div>
+		<div class="cannon__confetti-spacer"></div>
+	</div>
+	<div class="cannon__path cannon path ">
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-2"></div>
+		<div class="cannon__confetti cannon__confetti flake cannon__confetti color-2"></div>
+		<div class="cannon__confetti cannon__confetti flake cannon__confetti color-3"></div>
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-1"></div>
+		<div class="cannon__confetti cannon__confetti flake cannon__confetti color-4"></div>
+		<div class="cannon__confetti-spacer"></div>
+	</div>
+	<div class="cannon__path cannon path ">
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-1"></div>
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-4"></div>
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-2"></div>
+		<div class="cannon__confetti cannon__confetti flake cannon__confetti color-3"></div>
+		<div class="cannon__confetti-spacer"></div>
+	</div>
+	<div class="cannon__path cannon path ">
+		<div class="cannon__confetti cannon__confetti flake cannon__confetti color-3"></div>
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-1"></div>
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-4"></div>
+		<div class="cannon__confetti cannon__confetti flake cannon__confetti color-3"></div>
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-2"></div>
+		<div class="cannon__confetti-spacer"></div>
+	</div>
+	<div class="cannon__path cannon path ">
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-2"></div>
+		<div class="cannon__confetti cannon__confetti flake cannon__confetti color-3"></div>
+		<div class="cannon__confetti cannon__confetti flake cannon__confetti color-4"></div>
+		<div class="cannon__confetti cannon__confetti ribbon cannon__confetti color-1"></div>
+		<div class="cannon__confetti-spacer"></div>
+	</div>
 </div>
-
-<div class="row">
-	<select class="days"></select> /
-    <select class="months"></select> /
-    <select class="years"></select>
-</div>  -->   	
-       
-
-<br><br>
-
-<div id="cont" data-pct="100">
-<svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-  <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-</svg>
-</div>
-<label for="percent">Type a percent!</label>
-<input id="percent" name="percent">
 
 
 
