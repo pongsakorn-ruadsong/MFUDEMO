@@ -2,9 +2,10 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			if (checkUser()) {
-				window.location.replace("login.jsp");
+				window.location.replace("login");
 			}else{
 				translateContent();
+				getPlayCount();
 				getQuestion();
 				getFeed(function(data){
 					if (data != undefined || data != null) {
@@ -76,7 +77,7 @@
 					$('.live-box').css('margin-top', 225);
 				}else if($('.live-box-content').height() == 0){
 					// console.log($('.live-box-content').height())
-					$('.live-box-content').css('height', 250);
+					$('.live-box-content').css('height', 72);
 					$('.live-box').css('margin-top', 0);
 				}
 			});
@@ -186,46 +187,45 @@
 		}
 		.utilities-tab{
 			width: 100%;
-			height: 45px;
-			display: inline-block;
-			position: fixed;
-		    top: 73px;
+		    height: 50%;
+		    display: inline-block;
 		    z-index: 1041;
-		    padding-right: 40px;
 		}
 		.playCount,.quiz_label{
 			float: left;
-		    width: 40%;
-    		height: 100%;
-    		display: flex;
-    		justify-content:center;
-    		align-items:center;
-    		background-color: #808a69;
-    		color: white;
+		    width: 50%;
+		    height: 100%;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    color: black;
 		}
 		.quiz_label{
-			width: 60%;
-		    color: black;
+			width: 50%;
+		    background-color: #808a69;
+		    color: white;
 		    justify-content: left;
 		    padding: 5px 10px 5px 10px;
-		    background-color: unset;
 		}
 		#scored{
 			float: right;
-		    width: 60%;
+		    width: 50%;
 		}
 		.scored,.timeleap_Count{
     		height: 100%;
     		display: flex;
     		justify-content:center;
     		align-items:center;
-    		padding: 10px;
+    		/*padding: 10px;*/
     		background-color: #89b2dc;
-    		    width: 100%;
+    		width: 100%;
 		}
 		.timeleap_Count{
-			 width: 40%;
+			 width: 50%;
 			background-color: unset;
+		}
+		#quizPanel{
+			transition: height 1s;
 		}
 		.next-bg{
 			display: none;
@@ -253,9 +253,8 @@
 		    /*background-color: #ff002fa1;*/
 		}
 		.playCount-in{
-			color: white;
 		    width: 80%;
-		    font-size: 21px;
+		    font-size: 11px;
 		    text-align: left;
 		     display: inherit;
 		}
@@ -268,25 +267,25 @@
 		}
 		.display-quiz-name{
 			width: 100%;
-			height: 40px;
-			position: fixed;
-			top: 113px;
-			z-index: 1041;
-			padding-right: 40px;
+		    height: 50%;
+		    z-index: 1041;
+		}
+		.sams{
+			height: 15%;
 		}
 	</style>
 	<!-- .in-scored = reward label -->
-	<div class="" id="" style="margin-top: 0px;padding: 0px 20px 0px 20px;">
+	<div class="sams" id="" style="margin-top: 0px;padding: 0px 20px 0px 20px;">
 		<div id="utilities_tab" class="utilities-tab">
-			<div id="playCount" class="playCount">
-				<div class="playCount-in animated" id="playCount-in">
-					<span class="glyphicon glyphicon-play" style="margin-right: 5px;"></span>5,555
+			<div id="" class="quiz_label">
+				<div class="" id="quiz_label_dis">
+					Quiz's name
 				</div>
 			</div>
 			<div id="scored" class="scored">
 				<div id="covered-rw-feed" class="scored" style="/*display: none;*/">
-					<div class="reward-feed-img animated flipInX" id="reward-feed-img">
-						reward's img
+					<div class="reward-feed-img" id="reward-feed-img">
+						<img id="feed-reward-img" src="" class="animated fadeInDown">
 					</div>
 					<div class="in-scored animated flipInX" id="in-scored">
 						0
@@ -296,9 +295,10 @@
 		</div>
 
 		<div class="display-quiz-name" id="disQuizName">
-			<div id="" class="quiz_label">
-				<div class="" id="quiz_label_dis">
-					Quiz's name
+			<div id="playCount" class="playCount">
+				<div class="playCount-in animated" id="playCount-in">
+					<span class="glyphicon glyphicon-play" style="margin-right: 5px;"></span>
+					<span id="played"></span>
 				</div>
 			</div>
 			<div id="" class="timeleap_Count">
@@ -308,17 +308,19 @@
 			</div>	
 		</div>
 	</div>
-	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;">
-		<div class="topic" style="position: fixed;z-index: 1040;display: flex;padding-right: 20px;">
+	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;height: 55%;">
+		<div id="quizPanel" style="display: table;width: 100%;">
+		<!-- <div style="width: 100%;height: 100%;position: absolute;padding-right: 40px;"></div> -->
+		<div class="topic" style="display: flex;">
 			<p id="topic" style="align-self: center;margin-bottom: 0px;"></p>
 		</div>
-		<div class="row" style="margin-top: 100px;z-index: 1042;position: relative;">
+		<div class="row" style="z-index: 1042;position: relative;">
 		<div class="col-md-6 qa" id="img" style="display: none;">
 			<center style="height: 0px;overflow: hidden;">
 				<img src="img/Playbasis-logo.png" class="quizImg quizImg_temp" id="" style="display:block;">
 			</center>
 		</div>
-		<div class="col-md-6" id="question" style="margin-top: 80px;padding-right: 0px;padding-left: 0px;">
+		<div class="col-md-6" id="question" style="padding-right: 0px;padding-left: 0px;">
 				<div id="choice">
 					<div id="4Play" style="display: none;">
 						<div class="btn-group-vertical" style="width:100%;">
@@ -327,7 +329,6 @@
 							</label>
 						</div>
 						<div id="spece-for-S" style="display: none;">
-											
 											<div class="row" id="slider-panel_S" typeZ="SLI" style="display: none;text-align: center;margin-bottom: 20px;">
 												<div class="range-slider">
 													<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
@@ -378,6 +379,7 @@
 				</div>
 		</div>
 	</div>
+	</div>
 </div>
 <div class="bg next-bg animated" style="flex: 0 1 auto;">
 	
@@ -385,22 +387,20 @@
 <style type="text/css">
 	.liveFeed{
 		    width: 100%;
-		    /*height: 125px;
-		    position: fixed;
+		    height: 20%;
+		    /*position: fixed;
 		    bottom: 0px;
 		    display: flex;*/
 		    justify-content: center;
 		    text-align: center;
 		    flex: 1 1 auto;
-		    min-height: 150px;
-		    margin-bottom: 145px;
+		    min-height: 72px;
 	}
 	.live-box{
-		width: 90%;
+		width: 85%;
 	    margin-left: auto;
 	    margin-right: auto;
-	    margin-top: 0px;
-	    transition: margin-top 1s;
+	    /*transition: margin-top 1s;*/
 	}
 	.live-box-header{
 	    background-color: #d0bebe;
@@ -413,7 +413,6 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 		max-height: 250px;
-		height: 250px;
 		transition: height 1s;
 	}
 	.activities-user-img{
@@ -443,17 +442,17 @@
 </style>
 <div class="liveFeed" id="liveFeed">
 	<div class="live-box">
-		<div class="live-box-header">
-			<h3 style="float: left;" id="click-hide-feed">
+		<!-- <div class="live-box-header">
+			<h4 style="float: left;" id="click-hide-feed">
 				<i class="glyphicon glyphicon-comment"></i>
 				<span class="break"></span>
 				Live Feed
-			</h3>
-			<h3 style="float: right;" id="feed-refresh">
+			</h4>
+			<h4 style="float: right;" id="feed-refresh">
 				<i class="glyphicon glyphicon-refresh"></i>
-			</h3>
+			</h4>
 			<div style="clear: both;"></div>
-		</div>
+		</div> -->
 		<div class="live-box-content">
 			<table id="feed-content" style="text-align: left;overflow-wrap: break-word;table-layout:fixed;width: 100%;background-color: #d6d6e091;">
 				

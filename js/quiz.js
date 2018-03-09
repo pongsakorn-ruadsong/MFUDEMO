@@ -49,7 +49,6 @@ function getStatus(callback){
 		    success: function(data){
 		    	Quiz02 = data;
 			    jQuery.each(data.response.result, function() {
-			    	console.log('asdas')
 					quizStatus[this.quiz_id] = this.completed;
 					quizImg[this.quiz_id] = this.description_image;
 					quizType[this.quiz_id] = this.type;
@@ -100,7 +99,7 @@ function genReward(a, b, callback){
 	data.action = 'answer';
 	data.player_id = sessionStorage['player'];
 	data.reward = a;
-	data.quantity = b;
+	data.reward_custom_quantity = b;
 	console.log(data)
 	$.ajax({
 		type: "POST",
@@ -112,6 +111,11 @@ function genReward(a, b, callback){
 			console.log(d)
 			if (d.success) {
 				console.log('Get reward Successful')
+				getFeed(function(data){
+					if (data != undefined || data != null) {
+						buildFeed(data);
+					}
+				});
 				callback(d.response.events);
 			}else{
 				console.log('Get reward Failed')
@@ -152,58 +156,72 @@ function autoNext(){
 					if (k<reward.length) {
 						console.log(typeof(reward[k]));
 						if (typeof(reward[k]) == 'object') {
-							genReward(reward[k][0],reward[k][1], function(){
-								
+							genReward(reward[k][0],reward[k][1], function(data){
+								updateRewardFeed(data,function(){
+									if ($('#feed-reward-img').hasClass('fadeOutDown')) {
+										$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
+									}
+								});
 							});
 						}else if (typeof(reward[k]) == 'string') {
-							genReward(reward[k], 1, function(){
-								
+							genReward(reward[k], 1, function(data){
+								updateRewardFeed(data,function(){
+									if ($('#feed-reward-img').hasClass('fadeOutDown')) {
+										$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
+									}
+								});
 							});
 						}
 						k++;
 					}else{
 						clearInterval(show_interval);
 					}
+					if ($('#feed-reward-img').hasClass('fadeInDown')) {
+						$('#feed-reward-img').removeClass('fadeInDown').addClass('fadeOutDown')
+					}
 				},2000);
 			}else{
 				if (full_reward.indexOf(':') > -1) {
 					reward = full_reward.split(':');
-					genReward(reward[0], reward[1], function(){
-
+					genReward(reward[0], reward[1], function(data){
+						$('#feed-reward-img').removeClass('fadeInDown').addClass('fadeOutDown')
+								updateRewardFeed(data,function(){
+									$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
+								});
 					});
 				}else{
-					genReward(full_reward, 1, function(){
-
+					genReward(full_reward, 1, function(data){
+						$('#feed-reward-img').removeClass('fadeInDown').addClass('fadeOutDown')
+								updateRewardFeed(data,function(){
+									$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
+								});
 					});
 				}
 			}
 			console.log(rewards)
 			console.log(reward)
-			// if (reward.length > 0) {
-			// 	var reward.split(':');
-			// 	console.log()
-			// 	// genReward(reward, function(){
-
-			// 	// });
-			// }
-			if ($('#quizPanel').hasClass('zoomIn')) {
+			if ($('#quizPanel').hasClass('zoomIn') || $('#quizPanel').hasClass('fadeInRight')) {
 				console.log('Has class zoomIn')
-				$('#quizPanel').removeClass('zoomIn').addClass('zoomOut');
-			}
-			else{
-				$('#quizPanel').addClass('zoomIn');
+				$('#quizPanel').removeClass('zoomIn').addClass('fadeOutLeft');
 			}
 			if (quizType[sessionStorage['qId']] == 'quiz'){
 				if ($('#in-scored').hasClass('flipInX')) {
 					console.log('Has class flipInX')
 					$('#in-scored').removeClass('flipInX').addClass('flipOutX');
-
 				}
 			}
+			clearInterval(timeOut);
+			unit = [];
 			topic = '';
 			title = '';
 			choices = [];
 			ph = '';
+			if ($('.btn-choices').hasClass('last')) {
+				$('.btn-choices').removeClass('last');
+			}
+			$("#quizPanel").css('height', '55%');
+			$('#spece-for-S').css('display','none');
+			$('.inputTXT_TXT').remove();
 			$('div#choice > div.btn-group-vertical').remove();
 			$('div#btn_NR > button').remove();
 			getQuestion(data, function(){
@@ -211,6 +229,34 @@ function autoNext(){
 			});
 		});
     }
+}
+function updateRewardFeed(data, callback){
+	console.log(data)
+	console.log(data[0].reward_type)
+	for (var i = 0; i < data.length; i++) {
+		if(data[i].event_type != 'REWARD_RECEIVED'){
+			continue;
+		}
+		else{
+
+			if (data[i].reward_type == 'badge') {
+				$('#feed-reward-img').attr('src',data[i].reward_data.image)
+			}
+			else if (data[i].reward_type == 'point') {
+				$('#feed-reward-img').attr('src','img/coin_22.png')
+			}
+			else if (data[i].reward_type == 'exp') {
+				$('#feed-reward-img').attr('src','img/EXP.png')
+			}
+			// else if (data[i].reward_type == 'goods') {
+			// 	$('#feed-reward-img').attr('src',data[i].reward_data.image)
+			// }
+			else{
+				$('#feed-reward-img').attr('src','')
+			}
+		}
+	}
+	callback();
 }
 function getTopic(a){
 	var content = JSON.parse(sessionStorage["contentData"]);
@@ -264,6 +310,31 @@ function getTopic(a){
 		}
 	}
 }
+function getPlayCount(){
+	console.log('Enter play count');
+	$.ajax({
+		type: "GET",
+        url: sessionStorage['mainUrl']+'/Quiz/'+sessionStorage['qId']+'/completed?api_key='+sessionStorage['api_key'],
+        dataType: "json",
+	    success: function(data){
+	    	console.log(data);
+	    	$('#played').text(data.response.result);
+	    },
+	    error: function (xhr, textStatus, errorThrown){
+         window.location.reload(true)
+            console.log(errorThrown);
+            console.log("Failed : getQuestion() @ quiz.js");
+        }
+	});
+}
+function buildUNIQuiz(data, callback){
+	var text = '';
+	if (type == 'IMG_RANK') {
+		for (var i = 0; i < data.response.result.options.length; i++) {
+			// Things[i]
+		}
+	}
+}
 function getQuestion(result, callback){
 	$('#quiz_label_dis').text(sessionStorage['qName'])
 	$.ajax({
@@ -304,7 +375,7 @@ function getQuestion(result, callback){
 	    var time_limit = Quiz01.response.result.timelimit;
 	    console.log('Time limited: '+time_limit.length)
 	    if (time_limit.length == 0) {
-	    	$('#time_remain').text('No time limited');
+	    	$('#time_remain').text('Unlimited time');
 	    }else{
 	    	$('#time_remain').text(time_limit);
 	    }
@@ -316,14 +387,26 @@ function getQuestion(result, callback){
 	    test = JSON.parse(cur_Quest);
 			getTopic(data);
 				getStatus(function(){
-					buildQuiz(result, function() {
-					callback();
-					if ($('#quizPanel').hasClass('zoomOut')) {
-						console.log('Has class zoomOut')
-						$('#quizPanel').removeClass('zoomOut').addClass('zoomIn');
+					var c = sessionStorage['qCode']
+					if (c.indexOf('UNIQ') > -1) {
+						buildUNIQuiz(result, function(){
+							callback();
+							if ($('#quizPanel').hasClass('fadeOutLeft')) {
+								console.log('Has class fadeOutLeft')
+								$('#quizPanel').removeClass('fadeOutLeft').addClass('fadeInRight');
+							}
+								$('#myModal').modal('hide');
+						});
+					}else{
+						buildQuiz(result, function() {
+							callback();
+							if ($('#quizPanel').hasClass('fadeOutLeft')) {
+								console.log('Has class fadeOutLeft')
+								$('#quizPanel').removeClass('fadeOutLeft').addClass('fadeInRight');
+							}
+								$('#myModal').modal('hide');
+						});
 					}
-						$('#myModal').modal('hide');
-					});
 				});
 		    }
 		    // $('div#choice > div.btn-group-vertical').remove();
@@ -338,7 +421,7 @@ function getQuestion(result, callback){
 function getFeed(callback){
 	$.ajax({
 		type: "GET",
-		url: sessionStorage['mainUrl']+'Service/recentActivities?offset=0&limit=20&mode=all&api_key=141073538',
+		url: sessionStorage['mainUrl']+'Service/recentActivities?offset=0&limit=1&mode=all&event_type=reward%2Credeem%2Clevel&api_key=141073538',
 		content: "application/json; charset=utf-8",
 		dataType: "json",
 		success: function(d) {
@@ -444,9 +527,7 @@ function buildFeed(data){
     console.log(data)
     $('table#feed-content > tr').remove();
     for (var i = 0; i < data.length; i++) {
-    	if (data[i].event_type == 'ACTION') {
-    		continue;
-    	}
+    	
     	var img = '';
     	var item_img = '';
     	var img_for_check = /[^/]*$/.exec(data[i].player.image)[0];
@@ -562,7 +643,8 @@ function buildQuiz(result, callback){
 	    			'<button class="btn btn-danger" id="resetQuiz" type="button"  style="float:left;width:40%;display:none;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
 					'<button class="btn normal-form-next" id="nextBtn" style="float:right;width:40%;display:none;border: 1px solid rgb(221, 221, 221);color:white;padding-top: 8px;"  type="button"><span id="timer">Ready!</span>'+
-					'</button>'
+					'</button>'+
+					'<div style="clear: both;"></div>'
 					$('#btn_NR').append(btn_text);
 
 
@@ -571,6 +653,7 @@ function buildQuiz(result, callback){
 	    	if (type == 'SQ') {
 	    		console.log('Type = SQ')
 	    		document.getElementById("4Play").style.display = "none";
+	    		document.getElementById("realDeal").style.display = "none";
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
 	    		// $("#nextBtn").prop('disabled', true);
 	    		var LR = 'left';
@@ -578,7 +661,7 @@ function buildQuiz(result, callback){
 	    			// LR = 'right';
 	    		// }
 		    	for (var i=0;i<option.length;i++) {
-		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
+		    		text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
 		    			'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
 			          '<input class="inputTXT_SQ" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			          
@@ -595,6 +678,7 @@ function buildQuiz(result, callback){
 
 	    	else if(type == 'MULTI'){
 	    		document.getElementById("4Play").style.display = "none";
+	    		document.getElementById("realDeal").style.display = "none";
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
 	    		// $("#nextBtn").prop('disabled', true);
 	    		for (var i=0;i<option.length;i++) {
@@ -602,7 +686,7 @@ function buildQuiz(result, callback){
 		    			select1 = option[i].option_id;
 		    			continue;
 	    			}
-	    			text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;">'+
+	    			text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;">'+
 			          '<input class="inputTXT_MULTI Input_checkbook" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
 		    		console.log(choices[i]);
@@ -611,7 +695,9 @@ function buildQuiz(result, callback){
 	    	}
 
 	    	else if(type == 'MULTI_S'){
+	    		document.getElementById("slider-panel_S").style.display = "none";
 	    		document.getElementById("4Play").style.display = "block";
+	    		document.getElementById("realDeal").style.display = "none";
 	    		$('#nextBtn').css('display','block')
 	    		$('#nextBtn').text('Next')
 	    		$('#nextBtn').removeClass('normal-form-next').addClass('btn-primary')
@@ -623,8 +709,8 @@ function buildQuiz(result, callback){
 		    			select1 = option[i].option_id;
 		    			continue;
 	    			}
-	    			text += '<div style="width:100%;margin: 8px;"><span class="glyphicon glyphicon-plus" style="float: left;margin-right: 10px;margin-left: 10px;font-size: 13px;margin-top: 7px;"></span>'+
-	    			'<label class="btn btn-choices" style="display:inline;border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;padding-right: 15px;">'+
+	    			text += '<div style="width:100%;margin: 0px 0px 0px 8px;display: flex;"><span class="glyphicon glyphicon-plus" style="float: left;margin-right: 10px;margin-left: 10px;font-size: 13px;margin-top: 7px;"></span>'+
+	    			'<label class="btn btn-choices" style="font-size: 0px;width: 70%;border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;padding-right: 15px;">'+
 			          		'<input class="inputTXT Input_checkbook" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox" style="visibility:hidden;">'+
 			          			'<span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			          
@@ -636,6 +722,7 @@ function buildQuiz(result, callback){
 
 	    	else if (type == 'SQ_S') {
 	    		document.getElementById("4Play").style.display = "none";
+	    		document.getElementById("realDeal").style.display = "none";
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
 	    		// $("#nextBtn").prop('disabled', true);
 		    	for (var i=0;i<option.length;i++) {
@@ -643,7 +730,7 @@ function buildQuiz(result, callback){
 		    			text+= '<input type="text" class="form-control inputTXT_S" id="other_input" idZ="'+option[i].option_id+'" style="display:none;width: 100%;font-size: 16px;margin-left:50px;">'
 		    			continue;
 	    			}
-		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
+		    		text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
 		    		'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
 			          '<input class="inputTXT_SQ_S" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
@@ -654,6 +741,7 @@ function buildQuiz(result, callback){
 	    	}
 	    	else if (type == 'SQ_S_MULTI') {
 	    		document.getElementById("4Play").style.display = "none";
+	    		document.getElementById("realDeal").style.display = "none";
 	    		text += '<div class="btn-group-vertical" style="width:100%;">'
 	    		// $("#nextBtn").prop('disabled', true);
 		    	for (var i=0;i<option.length;i++) {
@@ -661,7 +749,7 @@ function buildQuiz(result, callback){
 		    			select1 = option[i].option_id;
 		    			continue;
 	    			}
-		    		text += '<label class="btn btn-choices" style="border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
+		    		text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
 		    		'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
 			          '<input class="inputTXT_SQ_S_MULTI" name="'+topic+'" typeZ="SQ_S" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" style="visibility:hidden;" type="radio"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'+
@@ -736,6 +824,7 @@ function buildQuiz(result, callback){
 	    		// select1 = Quiz01.response.result.options[0].option_id;
 	    	}
 	    	else if(type == 'SLI_S'){
+	    		document.getElementById("realDeal").style.display = "none";
 	    		console.log(a+' '+b+' '+c+' ')
 	    		$('#nextBtn').css('display','block')
 	    		$('#nextBtn').text('Next')
@@ -763,6 +852,7 @@ function buildQuiz(result, callback){
 	    	$('#img').append(image);
 	    	$('#stopCount').click(function(){
 	    		sessionStorage['pause_num'] = $('#timer').text();
+	    		$("#nextBtn").prop('disabled', false);
 	    		$('.choice-overlay').css('display','none');
 	    		$('.btn-choices').addClass('last');
 	    	 	if (!$(this).hasClass('animated')) {
@@ -791,7 +881,7 @@ function buildQuiz(result, callback){
 	    	});
 	    	$('#nextBtn').click(function() {
 		    	console.log("ENTER")
-		    	if (type == 'SLI' || type == 'SLI_S' || type == 'MULTI_S') {
+		    	if (type == 'SLI' || type == 'SLI_S' || type == 'MULTI_S' || type == 'MULTI') {
 		    		autoNext();
 		    	}else{
 		    	var remain = parseInt(sessionStorage['pause_num']);
@@ -799,14 +889,15 @@ function buildQuiz(result, callback){
 		    		console.log("Has class countDown-btn")
 		    		if ($(this).hasClass('stop')) {
 		    			console.log("Has class stop")
-		    			$('#resetQuiz').css("display","none");
-	    	 			$('#resetQuiz').removeClass("zoomIn").addClass("zoomOut");
-	    	 			$('#stopCount').css("display","block");
-	    	 			$('#stopCount').removeClass("zoomOut").addClass("zoomIn");
-		    			$('#timer').removeClass("glyphicon glyphicon-play");
-		    			$('#nextBtn').removeClass("stop");
-			    		$('#timer').text(sessionStorage['pause_num']);
-			    		timerasdsd(remain);
+		    			// $('#resetQuiz').css("display","none");
+	    	 		// 	$('#resetQuiz').removeClass("zoomIn").addClass("zoomOut");
+	    	 		// 	$('#stopCount').css("display","block");
+	    	 		// 	$('#stopCount').removeClass("zoomOut").addClass("zoomIn");
+		    			// $('#timer').removeClass("glyphicon glyphicon-play");
+		    			// $('#nextBtn').removeClass("stop");
+		    			autoNext();
+			    		// $('#timer').text(sessionStorage['pause_num']);
+			    		
 		    		}
 		    		else{
 		    			autoNext();
@@ -860,8 +951,14 @@ function buildQuiz(result, callback){
 	    	  });
 	    	 $('.btn-choices').click(function(){
 	    	 	console.log("ADADAD")
+	   //  	 	if ($('.live-box-content').height() > 50) {
+				// 	// console.log($('.live-box-content').height())
+				// 	$('.live-box-content').css('height', 0);
+				// 	$('.live-box').css('margin-top', 225);
+				// }
+				$("#quizPanel").css('height', '80%');
+				$("#nextBtn").prop('disabled', true);
 	    	 	$('.choice-overlay').css('display','block');
-	    	 	$("#nextBtn").prop('disabled', false);
 	    	 	// $('.choice-overlay').addClass('animated fadeInDown');
 	    	 });
 	    	 $('.inputTXT_SQ').click(function(){
@@ -872,7 +969,7 @@ function buildQuiz(result, callback){
 	    	 	$(this).parent().css("background-color","mediumslateblue");
 	    	 	$(this).parent().css("color","white");
 	    	 	if ($('.btn-choices').hasClass('last')) {
-	    	 		console.log("Has class LAST")
+	    	 		console.log("Has class LAST asdasdasdasdasdasdasdasdasdasdwqdqwdqwwqeqwdqwdqwdqwdqdsadawdawdqwdq")
 	    	 		$('#stopCount').css("display","none");
 	    	 		$('#resetQuiz').css("display","block");
 	    			$('#timer').removeClass("glyphicon glyphicon-play");
@@ -935,17 +1032,28 @@ function buildQuiz(result, callback){
 	    	 });
 	    	 $('.inputTXT_MULTI').click(function(){
 	    	 	showButtons()
-		    	 setTimeout(function(){
-						timerasdsd(3);
-						$('#nextBtn').addClass("countDown-btn");
-					},600);
+	    	 	$('#stopCount').css('display','none')
+	    	 	$('#nextBtn').css('display','block')
+	    		$('#nextBtn').text('Next')
+	    		$('#nextBtn').removeClass('normal-form-next').addClass('btn-primary')
+	    		$('#resetQuiz').addClass('animated bounceInLeft')
+	    		$('#resetQuiz').css('display','block')
+		   //  	 setTimeout(function(){
+					// 	timerasdsd(3);
+					// 	$('#nextBtn').addClass("countDown-btn");
+					// },600);
 	    	 });
 	    	 $('.inputTXT_MULTI_S').click(function(){
 	    	 	showButtons()
-		    	 setTimeout(function(){
-						timerasdsd(3);
-						$('#nextBtn').addClass("countDown-btn");
-					},600);
+	    	 	$('#stopCount').css('display','none')
+	    	 	$('#nextBtn').css('display','block')
+	    		$('#nextBtn').text('Next')
+	    		$('#nextBtn').removeClass('normal-form-next').addClass('btn-primary')
+	    		$('#resetQuiz').css('display','block')
+		   //  	 setTimeout(function(){
+					// 	timerasdsd(3);
+					// 	$('#nextBtn').addClass("countDown-btn");
+					// },600);
 	    	 });
 	    	 $('.inputTXT_TXT').focus(function(){
 	    	 	showButtons()
@@ -1096,18 +1204,24 @@ function capitalizeFirstLetter(string) {
 }
 function valid(){
 	if (type == 'TXT') {
-		if (isEmptyTXT()) {
+		// if (isEmptyTXT()) {
 			
-	    	toastr["warning"]("Please put something in the box.", "Hint!");
-	    	return false;
-		}else if(isTooShortTXT()){
-			
-	    	toastr["warning"]("The text is too short.", "Hint!");
-	    	return false;
-		}else{
+	 //    	toastr["warning"]("Please put something in the box.", "Hint!");
+	 //    	return false;
+		// }else if(isTooShortTXT()){
+	 //  //   	toastr["warning"]("The text is too short.", "Hint!");
+	 //  //   	$('#nextBtn').prop('disabled',false)
+	 //  //   	$('#resetQuiz').prop('disabled',false)
+	 //  //   	$('#stopCount').prop('disabled',false)
+	 //  //   	setTimeout(function(){
+		// 	// 	timerasdsd(10);
+		// 	// 	$('#nextBtn').addClass("countDown-btn");
+		// 	// },600);
+	 //    	return true;
+		// }else{
 			answer = $('.inputTXT_TXT').val();
 			return true;
-		}
+		// }
 	}
 	else if(type == 'MULTI_S'){
 		var b = sessionStorage['ans_no'];
@@ -1374,6 +1488,11 @@ function nextQuestion(callback){
 					// scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
 					rewardPop(d.response.result.grade, d.response.result.rewards);
 					console.log("Hey! it is the last now! check the console about reward!")
+					getFeed(function(data){
+					if (data != undefined || data != null) {
+						buildFeed(data);
+					}
+				});
 					// $('#myModal').modal("hide");
 				
 			}else{
