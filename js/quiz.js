@@ -34,6 +34,7 @@ var quizImg = [];
 var choicesTitle = [];
 var TTarray = [];
 var quizType = [];
+var feedQueue = [];
 sessionStorage['active'] = 'false';
 function loadAnimation(a){
 	// var img = a.question_image;
@@ -318,7 +319,8 @@ function getPlayCount(){
         dataType: "json",
 	    success: function(data){
 	    	console.log(data);
-	    	$('#played').text(data.response.result);
+	    	var played = data.response.result
+	    	$('#played').text(nFormatter(played,1));
 	    },
 	    error: function (xhr, textStatus, errorThrown){
          window.location.reload(true)
@@ -633,13 +635,13 @@ function buildQuiz(result, callback){
 		    	cur_score = 0;
 		    }
 
-			// setTimeout(function(){
-			// 	// $('#in-scored').text(cur_score);
-			// 	// if ($('#in-scored').hasClass('flipOutX')) {
-			// 	// 		console.log('Has class flipOutX')
-			// 	// 		$('#in-scored').removeClass('flipOutX').addClass('flipInX');
-			// 	// 	}
-			// 	// },500);
+			setTimeout(function(){
+				// $('#in-scored').text(cur_score);
+				if ($('#in-scored').hasClass('flipOutX')) {
+						console.log('Has class flipOutX')
+						$('#in-scored').removeClass('flipOutX').addClass('flipInX');
+					}
+				},500);
 	    }
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
@@ -662,7 +664,7 @@ function buildQuiz(result, callback){
 	    	// document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	// topic += type;
 	    	$('#topic').text(topic);
-	    	$('#topic').prepend('<span class="glyphicon glyphicon-ok" style="font-size:10px;"></span> ');
+	    	$('.topic').prepend('<span class="glyphicon glyphicon-ok" style="font-size:10px;margin-top:3px;margin-right:10px;"></span>');
 	    	btn_text += '<button class="btn btn-warning pause-btn" id="stopCount" type="button"  style="float:left;width:40%;display:none;" onclick="myStopFunction()">Pause</button>'+
 	    			'<button class="btn btn-danger" id="resetQuiz" type="button"  style="float:left;width:40%;display:none;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
@@ -828,7 +830,7 @@ function buildQuiz(result, callback){
 
 	    	}
 	    	else if(type == 'SLI'){
-	    		$("#quizPanel").css('height', '80%');
+	    		// $("#quizPanel").css('height', '60%');
 	    		console.log("Enter SLI")
 	    		console.log(a+' '+b+' '+c+' ')
 	    		$('#nextBtn').css('display','block')
@@ -849,7 +851,7 @@ function buildQuiz(result, callback){
 	    		// select1 = Quiz01.response.result.options[0].option_id;
 	    	}
 	    	else if(type == 'SLI_S'){
-	    		$("#quizPanel").css('height', '80%');
+	    		// $("#quizPanel").css('height', '60%');
 	    		document.getElementById("realDeal").style.display = "none";
 	    		console.log(a+' '+b+' '+c+' ')
 	    		$('#nextBtn').css('display','block')
@@ -982,7 +984,7 @@ function buildQuiz(result, callback){
 				// 	$('.live-box-content').css('height', 0);
 				// 	$('.live-box').css('margin-top', 225);
 				// }
-				$("#quizPanel").css('height', '80%');
+				$("#quizPanel").css('height', '60%');
 				$("#nextBtn").prop('disabled', true);
 	    	 	$('.choice-overlay').css('display','block');
 	    	 	// $('.choice-overlay').addClass('animated fadeInDown');

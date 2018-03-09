@@ -1,7 +1,7 @@
 html, body, .container-fluid{
   height: 100%;
   font-family: 'Open Sans', sans-serif !important;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 .container-fluid{
   padding-top: 73px;

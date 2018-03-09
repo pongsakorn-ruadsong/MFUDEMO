@@ -272,7 +272,7 @@
 	<div class="sams" id="" style="margin-top: 0px;"> <!-- padding: 0px 20px 0px 20px; -->
 		<div id="utilities_tab" class="utilities-tab" style="position: relative;">
 			<div id="" class="quiz_label" style="position: relative;">
-				<span class="glyphicon glyphicon-play" style="margin-right: 5px;font-size: 10px;"></span>
+				<span class="glyphicon glyphicon-play" style="margin-right: 5px;font-size: 10px;margin-bottom: 5px;"></span>
 					<span id="played" style="font-size: 14px;"></span>
 				<div class="" id="quiz_label_dis" style="padding-left: 8px;">
 					Quiz's name
@@ -287,16 +287,10 @@
 			<div id="scored" class="scored">
 				<div id="covered-rw-feed" class="scored" style="/*display: none;*/">
 					<div class="reward-feed-img" id="reward-feed-img">
-						<img id="feed-reward-img" src="img/EXP.png" class="animated fadeInDown" style="
-    margin-right: 0px;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: white;
-">
+						<img id="feed-reward-img" src="img/EXP.png" class="animated fadeInDown" style="margin-right: 0px;width: 100%;height: 100%;border-radius: 50%;background-color: white;">
 					</div>
 					<div class="in-scored animated flipInX" id="in-scored">
-						<div>3</div>
+						<div style="border-bottom: 1px solid white;">3</div>
 						<div>2,500,000</div>
 					</div>
 				</div>
@@ -317,7 +311,7 @@
 			</div>	
 		</div>
 	</div>
-	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;height: 80%;">
+	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;height: 55%;">
 		<div id="quizPanel" style="display: table;width: 100%;">
 		<!-- <div style="width: 100%;height: 100%;position: absolute;padding-right: 40px;"></div> -->
 		<div class="topic" style="display: flex;">
