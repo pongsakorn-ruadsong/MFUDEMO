@@ -150,41 +150,34 @@
 		.countDown-btn{
 			background-position:left bottom !important;
 		}
-		#coin {
-		  transition: -webkit-transform 1s ease-in;
-		  -webkit-transform-style: preserve-3d;
+		input[type=range]::-webkit-slider-thumb {
+		  -webkit-appearance: none;
+		  height: 36px;
+		  width: 36px;
+		  border-radius: 50%;
+		  cursor: pointer;
 		}
-		#coin div {
-		  position: absolute;
-		  -webkit-backface-visibility: hidden;
+		/* All the same stuff for Firefox */
+		/*input[type=range]::-moz-range-thumb {
+		  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+		  border: 1px solid #000000;
+		  height: 36px;
+		  width: 16px;
+		  border-radius: 3px;
+		  background: #ffffff;
+		  cursor: pointer;
 		}
-		.side-a {
-		  z-index: 100;
-		}
-		.side-b {
-		  -webkit-transform: rotateY(-180deg);
-		}
-		#coin.heads {
-		  -webkit-animation: flipHeads 3s ease-out forwards;
-		  -moz-animation: flipHeads 3s ease-out forwards;
-		    -o-animation: flipHeads 3s ease-out forwards;
-		       animation: flipHeads 3s ease-out forwards;
-		}
-		#coin.tails {
-		  -webkit-animation: flipTails 3s ease-out forwards;
-		  -moz-animation: flipTails 3s ease-out forwards;
-		    -o-animation: flipTails 3s ease-out forwards;
-		       animation: flipTails 3s ease-out forwards;
-		}
-
-		@-webkit-keyframes flipHeads {
-		  from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
-		  to { -webkit-transform: rotateY(1800deg); -moz-transform: rotateY(1800deg); transform: rotateY(1800deg); }
-		}
-		@-webkit-keyframes flipTails {
-		  from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
-		  to { -webkit-transform: rotateY(1980deg); -moz-transform: rotateY(1980deg); transform: rotateY(1980deg); }
-		}
+*/
+		/* All the same stuff for IE */
+		/*input[type=range]::-ms-thumb {
+		  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+		  border: 1px solid #000000;
+		  height: 36px;
+		  width: 16px;
+		  border-radius: 3px;
+		  background: #ffffff;
+		  cursor: pointer;
+		}*/
 		.utilities-tab{
 			width: 100%;
 		    height: 50%;
@@ -201,27 +194,26 @@
 		    color: black;
 		}
 		.quiz_label{
-			width: 50%;
-		    background-color: #808a69;
-		    color: white;
+			font-size: 16px;
+			width: 60%;
+		    color: black;
 		    justify-content: left;
 		    padding: 5px 10px 5px 10px;
 		}
 		#scored{
 			float: right;
-		    width: 50%;
+		    width: 40%;
 		}
 		.scored,.timeleap_Count{
     		height: 100%;
     		display: flex;
     		justify-content:center;
     		align-items:center;
-    		/*padding: 10px;*/
-    		background-color: #89b2dc;
     		width: 100%;
 		}
 		.timeleap_Count{
 			 width: 50%;
+			 display: unset;
 			background-color: unset;
 		}
 		#quizPanel{
@@ -239,18 +231,20 @@
 		}
 		.in-scored{
 			color: white;
-		    width: 50%;
-		    font-size: 21px;
+		    width: 65%;
+		    height: 100%;
+		    font-size: 13px;
 		    text-align: center;
 		    background-color: #ff002fa1;
 		   /* margin-top: 90px;*/
 		}
 		.reward-feed-img{
 			color: white;
-		    width: 40%;
+		    width: 35%;
+		    height: 100%;
 		    font-size: 10px;
 		    text-align: center;
-		    /*background-color: #ff002fa1;*/
+		    background-color: burlywood;
 		}
 		.playCount-in{
 		    width: 80%;
@@ -275,20 +269,35 @@
 		}
 	</style>
 	<!-- .in-scored = reward label -->
-	<div class="sams" id="" style="margin-top: 0px;padding: 0px 20px 0px 20px;">
-		<div id="utilities_tab" class="utilities-tab">
-			<div id="" class="quiz_label">
-				<div class="" id="quiz_label_dis">
+	<div class="sams" id="" style="margin-top: 0px;"> <!-- padding: 0px 20px 0px 20px; -->
+		<div id="utilities_tab" class="utilities-tab" style="position: relative;">
+			<div id="" class="quiz_label" style="position: relative;">
+				<span class="glyphicon glyphicon-play" style="margin-right: 5px;font-size: 10px;"></span>
+					<span id="played" style="font-size: 14px;"></span>
+				<div class="" id="quiz_label_dis" style="padding-left: 8px;">
 					Quiz's name
 				</div>
+				<!-- <div style="position: absolute;right: 0px;height: 100%;width: 20%;background-color: darkolivegreen;border: 1px solid white;/* top: 40px; */">
+					ICON
+				</div> -->
 			</div>
+			<!-- <div style="position: absolute;left: 50%;height: 100%;width: 15%;padding: 2px 0px 2px 0px;">
+				<div style="position: relative;left: -50%;border-radius: 50%;border:1px solid white;height: 100%;background-color:cadetblue;">Test</div>
+			</div> -->
 			<div id="scored" class="scored">
 				<div id="covered-rw-feed" class="scored" style="/*display: none;*/">
 					<div class="reward-feed-img" id="reward-feed-img">
-						<img id="feed-reward-img" src="" class="animated fadeInDown">
+						<img id="feed-reward-img" src="img/EXP.png" class="animated fadeInDown" style="
+    margin-right: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: white;
+">
 					</div>
 					<div class="in-scored animated flipInX" id="in-scored">
-						0
+						<div>3</div>
+						<div>2,500,000</div>
 					</div>
 				</div>
 			</div>
@@ -297,18 +306,18 @@
 		<div class="display-quiz-name" id="disQuizName">
 			<div id="playCount" class="playCount">
 				<div class="playCount-in animated" id="playCount-in">
-					<span class="glyphicon glyphicon-play" style="margin-right: 5px;"></span>
-					<span id="played"></span>
+					
 				</div>
 			</div>
 			<div id="" class="timeleap_Count">
-				<div class="" id="time_remain">
-					time
-				</div>
+				<div class="" id="time_remain" style="
+				    height: 100%;
+				    text-align: right;
+				">time</div>
 			</div>	
 		</div>
 	</div>
-	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;height: 55%;">
+	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;height: 80%;">
 		<div id="quizPanel" style="display: table;width: 100%;">
 		<!-- <div style="width: 100%;height: 100%;position: absolute;padding-right: 40px;"></div> -->
 		<div class="topic" style="display: flex;">
@@ -425,14 +434,17 @@
 		width: 20%;
 	}
 	.feedRow{
-		padding: 8px 0px 6px 10px;
+		padding: 5px 0px 5px 10px;
+		position: relative;
+		top: 0px;
+		transition: top 1s;
 	}
 	.tr-feed{
 		border-bottom: 1.5px solid white;
 	}
 	.feed-user-name-hilight{
 		font-weight: 900;
-    	font-size: 15px;
+    	font-size: 12px;
 	}
 	.feed-user-time-hilight{
 		font-weight: bold;
