@@ -416,32 +416,38 @@
 		transition: height 1s;
 	}
 	.activities-user-img{
-		width: 20%;
+		width: 15%;
 	}
 	.activities-info{
-		width: 60%;
+		width: 90%;
 	}
 	.activities-badge{
 		width: 20%;
 	}
 	.feedRow{
-		padding: 8px 0px 6px 10px;
+		padding: 2px 0px 2px 13px;
 	}
 	.tr-feed{
+		opacity: 0;
+		animation: fadeIn 0.9s 1;
+		animation-fill-mode: forwards;
 		border-bottom: 1.5px solid white;
+	}
+	.tr-feed:nth-child(5n+1){
+		animation-delay: 0.5s
 	}
 	.feed-user-name-hilight{
 		font-weight: 900;
-    	font-size: 15px;
+    	font-size: 11px;
 	}
 	.feed-user-time-hilight{
 		font-weight: bold;
 	    color: #8c8888d9;
-	    font-size: 11px;
+	    font-size: 8px;
 	}
 </style>
 <div class="liveFeed" id="liveFeed">
-	<div class="live-box">
+	<div class="live-box blink blinkAlert">
 		<!-- <div class="live-box-header">
 			<h4 style="float: left;" id="click-hide-feed">
 				<i class="glyphicon glyphicon-comment"></i>
@@ -454,7 +460,7 @@
 			<div style="clear: both;"></div>
 		</div> -->
 		<div class="live-box-content">
-			<table id="feed-content" style="text-align: left;overflow-wrap: break-word;table-layout:fixed;width: 100%;background-color: #d6d6e091;">
+			<table id="feed-content" style="text-align: left;overflow-wrap: break-word;table-layout:fixed;width: 100%;background-color: #ffffff29;">
 				
 			</table>
 		</div>

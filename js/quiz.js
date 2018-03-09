@@ -421,7 +421,7 @@ function getQuestion(result, callback){
 function getFeed(callback){
 	$.ajax({
 		type: "GET",
-		url: sessionStorage['mainUrl']+'Service/recentActivities?offset=0&limit=1&mode=all&event_type=reward%2Credeem%2Clevel&api_key=141073538',
+		url: sessionStorage['mainUrl']+'Service/recentActivities?offset=0&limit=2&mode=all&event_type=reward%2Credeem%2Clevel&api_key=141073538',
 		content: "application/json; charset=utf-8",
 		dataType: "json",
 		success: function(d) {
@@ -522,14 +522,15 @@ function get_time_diff( datetime )
 	}
 }
 function buildFeed(data){
-	var text = '';
+    var text = '';
 	TempFeed = data;
     console.log(data)
     $('table#feed-content > tr').remove();
     for (var i = 0; i < data.length; i++) {
-    	
     	var img = '';
     	var item_img = '';
+    	var items = '';
+    	var message = '';
     	var img_for_check = /[^/]*$/.exec(data[i].player.image)[0];
 		// console.log(img_for_check)
 		if (img_for_check == 'default_profile.jpg') {
@@ -537,28 +538,49 @@ function buildFeed(data){
 		}
     	var time = get_time_diff(data[i].date_added);
     	// console.log(time)
-    	if (data[i].reward_name == "badge") {
-    		item_img = data[i].badge.image;
+    	if (data[i].event_type == 'REWARD') {
+	    	if (data[i].reward_name == "badge") {
+	    		item_img = data[i].badge.image;
+	    		items = '<img style="width: 23px;height: 23px;" src="'+item_img+'">';
+	    	}
+	    	else if(data[i].reward_name == "point"){
+	    		item_img = 'img/coin_22.png';
+	    		items = '<img style="width: 23px;height: 23px;" src="'+item_img+'">';
+	    	}
+	    	else if(data[i].reward_name == "exp"){
+	    		item_img = 'img/EXP.png';
+	    		items = '<img style="width: 23px;height: 23px;" src="'+item_img+'">';
+	    	}
+	    	else if (data[i].reward_name == "Dollar(USD)") {
+	    		item_img = 'img/EXP.png';
+	    		items = '<p style="font-size: 20px;margin-bottom: 0px;text-align: center; margin-right: 20px;">&#x0024</p>';
+	    	}
+	    	else if (data[i].reward_name == "Baht(THB)") {
+	    		item_img = '<p style="font-size: 20px;margin-bottom: 0px;text-align: center; margin-right: 20px;">&#x0E3F</p>';
+	    	}
+	    	message = data[i].message;
     	}
-    	else if(data[i].reward_name == "point"){
-    		item_img = 'img/coin_22.png';
+    	else if(data[i].event_type == 'REDEEM'){
+    		message = 'got a coupon!!!'
     	}
-    	else if(data[i].reward_name == "exp"){
-    		item_img = 'img/EXP.png';
-    	}
-    	text += '<tr class="tr-feed"><td class="feedRow activities-user-img"><img style="width:90%;" src="'+img+'"></td>'+
+    	text +='<tr class="tr-feed"><td class="feedRow activities-user-img"><img src="'+img+'"></td>'+
     	'<td class="feedRow activities-info">'+
     		'<table>'+
-	    	'<tr><span class="feed-user-name-hilight">'+data[i].player.first_name+'</span> '+data[i].message+'</tr>'+
+	    	'<tr style="font-size: 10px;"><span class="feed-user-name-hilight">'+data[i].player.first_name+'</span> '+message+'</tr>'+
 	    	'<tr>'+
-	    		'<td><span class="feed-user-time-hilight">'+time+'</span></td>'+
+	    		// '<td><span class="feed-user-time-hilight">'+time+'</span></td>'+
 	    	'</tr>'+
 	    	'</table>'+
 	    '</td>'+
-	    '<td class="feedRow activities-badge"><img style="width:80%;" src="'+item_img+'"></td>'+
-	    '</tr>'	
+	    '<td class="feedRow activities-badge">'+items+'</td>'+
+	    '</tr>'
     }
     $('#feed-content').append(text);
+    $(".tr-feed").each(function(i) {
+    	$(".tr-feed").delay(100* i ).fadeIn(500);
+	});
+    // $('#feed-content').addClass('animated fadeInUp');
+    // $('#feed-content').addClass('animated fadeOutUp');
 }
 var quiz_type = '';
 function getQuizType(){
@@ -662,8 +684,8 @@ function buildQuiz(result, callback){
 	    		// }
 		    	for (var i=0;i<option.length;i++) {
 		    		text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
-		    			'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
-			          '<input class="inputTXT_SQ" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+		    			'<label class="btn choice-overlay " style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
+			          '<input class="inputTXT_SQ " name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			          
 			        '</label>'
 			        // if ((i+1)%2==0) {
@@ -1880,6 +1902,7 @@ function translateResult(a){
 	var data = JSON.parse(a);
 	return data;
 }
+
 function isLastQuestion(){
 	if (sessionStorage['isLast'] == "true") { //true == out *Default = false
 		return true;
@@ -1887,6 +1910,7 @@ function isLastQuestion(){
 		return false;
 	}
 }
+
 function percentage(num, per)
 {
   return (num/100)*per;
