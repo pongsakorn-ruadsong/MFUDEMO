@@ -247,6 +247,7 @@ function buildUserReward(){
 	$('#table_goods').append(text);
 	$('.goods-store').click(function(){
 		$('#checkOutGoods > div').remove();
+		var text1 = '';
 	// 	var a = $(this).attr('icon');
 	// 	var b = $(this).attr('imgID');
 	// 	$('#couponId').text($(this).attr('goodId'));
@@ -257,7 +258,7 @@ function buildUserReward(){
 	// 	$('#Icon').attr("src", a);
 	// 	$('#imageShow').css("background-image", "url("+b+")");
 
-		var text = '<div class="modal-dialog" style="top: 5%">  '+
+		var text1 = '<div class="modal-dialog" style="top: 5%">  '+
 '        				<div class="modal-content" style="border-radius: 10px; width: 75%; height: 100%; background-color: white; left: 13%;">'+
 '       					<div class="header couponTop" id="imageShow" style="background-image: url('+$(this).attr('imgID')+');border-radius: 10px background-size: cover;"></div>'+		
 '						<div class="container">'+
@@ -305,8 +306,7 @@ function buildUserReward(){
 '						<a href="#" style="text-align: center; margin: 10px;">Term & Condition</a>'+
 '						</div>'+
 '					</div>'
-		$('#checkOutGoods').append(text);
-		
+		$('#checkOutGoods').append(text1);
 		$('#QRCode').click(function(){
 			$('.myTab').removeClass('active');
 			$('#QRcode1').addClass('active');
@@ -320,15 +320,14 @@ function buildUserReward(){
 			getUserReward();
 		});	
 		setTimeout(function(){
+			console.log(text1)
 			console.log($('#qrcode').attr('cID'))
-			new QRCode(document.getElementById("qrcode"), $('#qrcode').attr('cID'));
 			$("#displaybarcode").barcode($('#qrcode').attr('cID'),"code128");
+			new QRCode(document.getElementById("qrcode"), $('#qrcode').attr('cID'));
 			$('#checkOutGoods').modal();
 		},500);
-		
 	});
 }
-
 
 function changeLang(callback){
 	$('#myModal').modal({backdrop: 'static', keyboard: false});

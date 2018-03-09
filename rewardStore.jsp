@@ -80,40 +80,6 @@
     	border: 4px solid white;
     	overflow: hidden;
 	}
-    .preview-name{
-
-    }
-    .pre-box{
-    	padding: 0px;
-    	overflow: hidden !important;
-    	border-radius: 5px;
-    }
-    .annouce{
-    	width: 100%;
-    	height: 1%;
-    	min-height: 50px;
-    	max-height: 100px;
-    	margin-top: 75px;
-    	background-color: aqua;
-    	margin-bottom: -20px;
-    	text-align: center;
-    	padding-top: 20px;
-    	padding-bottom: 20px;
-    }
-    .img-container {
-    display: inline-block;
-    position: relative;
-	}
-	.positioning{
-	    position: absolute;
-	    right: 15px;
-	    bottom: 22px;
-	    background-color: red;
-	    color: white;
-	    padding: 4px;
-	    font-size: 17px;
-	    line-height: 18px;
-	}
 </style>
 <div class="goodsStore"></div>
 	<div class="shelf" style="background-color: white;">

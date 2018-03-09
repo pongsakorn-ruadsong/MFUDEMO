@@ -76,7 +76,6 @@ function buildLeaderExp(){
 '						</div>'+
 '						<div style="">'+number+'<span class=""></span></div>'+
 '						<div style="margin-top:70%; text-overflow:ellipsis; overflow:hidden;">'+
-'							<div id="" >'+playerIdExp+'</div>'+
 '							<div id="" >'+playerFirstnameExp+' '+playerLastNameExp+'</div>'+
 '							<div id="">'+exp+' exp</div>'+
 '						</div>'+
@@ -109,7 +108,6 @@ function buildLeaderPoints(){
 '						</div>'+
 '						<label>'+number+'<span class=""></span></label>'+
 '						<div style="margin-top:70%; text-overflow:ellipsis; overflow:hidden;">'+
-'							<div id="">'+playerIdPoints+'</div>'+
 '							<div id="">'+playerFirstnamePoints+' '+playerLastNamePoints+'</div>'+
 '							<div id="">'+points+' points</div>'+
 '						</div>'+
@@ -142,7 +140,6 @@ function buildLeaderLevel(){
 '						</div>'+
 '						<div style="">'+number+'<span class=""></span></div>'+
 '						<div style="margin-top:70%; text-overflow:ellipsis; overflow:hidden;">'+
-'							<div id="">'+playerIdLevel+'</div>'+
 '							<div id="">'+playerFirstnameLevel+' '+playerLastNameLevel+'</div>'+
 '							<div id="">Level '+level+'</div>'+
 '						</div>'+
