@@ -42,3 +42,4 @@ function selectAge2(){
   $(".dot").css('transform','rotate(45deg)');
 }
 
+
