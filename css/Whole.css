@@ -341,7 +341,7 @@ p.dropdown-item:hover{
 	font-size: 36px;
 	font-weight: bold;
   max-height: 100px;
-  height: 65px;
+  /*height: 65px;*/
 }
 #choice{
 	font-size: 20px;
