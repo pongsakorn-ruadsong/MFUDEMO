@@ -16,7 +16,7 @@ function getQuizData() {
 					sortOrder();
 					// buildProgBar(data);
 					setTimeout(function(){
-					buildQuizList(function(){
+					buildQuizList(data, function(){
 						console.log('Finnished get buildQuizList')
 						initialSwipes();
 						$('#myModal').modal('hide');
@@ -112,8 +112,8 @@ function setVisableAll_C(a){
 	// $("#btn_"+a).prop("disabled", false);
 	$("#btn_"+a).css("display", "block");
 }
-function buildQuizList(callback){
-	var length = Index01.response.result.length;
+function buildQuizList(data, callback){
+	var length = data.response.result.length;
 	var qData = '';
 	var text = '';
 	var text2 = '';
@@ -122,12 +122,14 @@ function buildQuizList(callback){
 	var disable = '';
 	var rawData = JSON.parse(sessionStorage['quizStatus']);
 	for(var i = 0;i<length;i++) {
-	    var quiz_id = Index01.response.result[i].quiz_id;
-	    var quiz_name = Index01.response.result[i].name;
-	    var img = Index01.response.result[i].image;
-	    var btn_order = Index01.response.result[i].weight;
+	    var quiz_id = data.response.result[i].quiz_id;
+	    var quiz_name = data.response.result[i].name;
+	    var img = data.response.result[i].image;
+	    var btn_order = data.response.result[i].weight;
+	    var qName = data.response.result[i].name;
 	    var QuestImg = '';
-	    var desciption = Index01.response.result[i].description;
+
+	    var desciption = data.response.result[i].description;
 	    // console.log(desciption)
 	    for (var k = 0; k < rawData.length; k++) {
 	    	if (rawData[k].id == quiz_id) {
@@ -142,7 +144,7 @@ function buildQuizList(callback){
 	    // if (img_for_check2 == 'no_image.jpg') {
 	    // 	img = 'img/Playbasis-logo.png';
 	    // }
-	    var weight = Index01.response.result[i].weight;
+	    var weight = data.response.result[i].weight;
 	    var values = contentSummary[quiz_id];
 	    var desc = contentSummary[desciption]
 	    if (sessionStorage["isAdmin"] == 'false') {
@@ -166,7 +168,7 @@ function buildQuizList(callback){
 			// '</center>'+
 			// '</div>'
 	  //   }else{
-	  	text += '<div class="swiper-slide default-slide" order="'+btn_order+'" values_name="'+values+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
+	  	text += '<div class="swiper-slide default-slide" order="'+btn_order+'" values_name="'+values+'" qName="'+qName+'" qId="'+quiz_id+'" id="btn_'+quiz_id+'">'+
       	'<div class="swiper-slide default-slide" style="display: inline-block;margin: auto;">'+
       	'<div style="position: relative;width: 100%;height: 50%;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">'+
       		'<div style="width: 100%;">'+
@@ -235,6 +237,7 @@ function buildQuizList(callback){
 	   //  	}
 	   			sessionStorage['qId'] = this.getAttribute("qId");
 	   			sessionStorage['qName'] = this.getAttribute("values_name");
+	   			sessionStorage['qCode'] = this.getAttribute("qName");
 				window.location = 'quiz';
 		});
 		if (sessionStorage["isAdmin"] == 'true') {
