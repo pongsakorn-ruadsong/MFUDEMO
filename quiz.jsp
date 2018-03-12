@@ -7,13 +7,11 @@
 				translateContent();
 				getPlayCount();
 				getQuestion();
-				getFeed(function(data){
-					if (data != undefined || data != null) {
-						buildFeed(data);
-					}
-				});
 				sessionStorage['ans_no'] = null;
 				sessionStorage['type'] = null;
+				var updateFeedInterval = setInterval(function(){
+					checkFeed();
+				},10000);
 			}
 		    $('.range-slider__range').on('input', function(){
 		    	// $("#nextBtn").prop('disabled', false);
@@ -36,7 +34,7 @@
 		    	$('#chgCurren').text($(this).attr('value'));
 		    });
 		    $('#yesi').click(function(){
-		    	$("#nextBtn").prop('disabled', true);
+		    	// $("#nextBtn").prop('disabled', true);
 		    	$('.yesi').css("background-color","mediumslateblue");
 		    	$('.noi').css("background-color","white");
 		    	$('.yesi').css("color","white");
@@ -255,8 +253,8 @@
 		div.cur-bg.zoomIn{
 			animation-duration: 0.4s;
 		}
-		div.in-scored.flipInX{
-			animation-duration: 1.5s;
+		div.in-scored.flipInX,div.in-scored.flipOutX{
+			animation-duration: 1s;
 			animation-timing-function: cubic-bezier(0, 0.3, 0.2, 1);
 		}
 		.display-quiz-name{
@@ -266,6 +264,9 @@
 		}
 		.sams{
 			height: 15%;
+		}
+		#feed-reward-img.fadeInDown,#feed-reward-img.fadeOutUp{
+			animation-duration: 0.5s;
 		}
 	</style>
 	<!-- .in-scored = reward label -->
@@ -287,7 +288,7 @@
 			<div id="scored" class="scored">
 				<div id="covered-rw-feed" class="scored" style="/*display: none;*/">
 					<div class="reward-feed-img" id="reward-feed-img">
-						<img id="feed-reward-img" src="img/EXP.png" class="animated fadeInDown" style="margin-right: 0px;width: 100%;height: 100%;border-radius: 50%;background-color: white;">
+						<img id="feed-reward-img" src="img/EXP.png" class="animated fadeInDown" style="margin-right: 0px;width: 100%;height: 100%;border-radius: 50%;background-color: #ffffff00;">
 					</div>
 					<div class="in-scored animated flipInX" id="in-scored">
 						<div style="border-bottom: 1px solid white;">3</div>
@@ -434,13 +435,8 @@
 		transition: top 1s;
 	}
 	.tr-feed{
-		opacity: 0;
-		animation: fadeIn 0.9s 1;
-		animation-fill-mode: forwards;
+		
 		border-bottom: 1.5px solid white;
-	}
-	.tr-feed:nth-child(5n+1){
-		animation-delay: 0.5s
 	}
 	.feed-user-name-hilight{
 		font-weight: 900;
@@ -450,6 +446,8 @@
 		font-weight: bold;
 	    color: #8c8888d9;
 	    font-size: 8px;
+	}
+	#feed-content{
 	}
 </style>
 <div class="liveFeed" id="liveFeed">
