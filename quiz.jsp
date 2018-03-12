@@ -7,13 +7,11 @@
 				translateContent();
 				getPlayCount();
 				getQuestion();
-				getFeed(function(data){
-					if (data != undefined || data != null) {
-						buildFeed(data);
-					}
-				});
 				sessionStorage['ans_no'] = null;
 				sessionStorage['type'] = null;
+				var updateFeedInterval = setInterval(function(){
+					checkFeed();
+				},10000);
 			}
 		    $('.range-slider__range').on('input', function(){
 		    	// $("#nextBtn").prop('disabled', false);
@@ -36,7 +34,7 @@
 		    	$('#chgCurren').text($(this).attr('value'));
 		    });
 		    $('#yesi').click(function(){
-		    	$("#nextBtn").prop('disabled', true);
+		    	// $("#nextBtn").prop('disabled', true);
 		    	$('.yesi').css("background-color","mediumslateblue");
 		    	$('.noi').css("background-color","white");
 		    	$('.yesi').css("color","white");
@@ -255,8 +253,8 @@
 		div.cur-bg.zoomIn{
 			animation-duration: 0.4s;
 		}
-		div.in-scored.flipInX{
-			animation-duration: 1.5s;
+		div.in-scored.flipInX,div.in-scored.flipOutX{
+			animation-duration: 1s;
 			animation-timing-function: cubic-bezier(0, 0.3, 0.2, 1);
 		}
 		.display-quiz-name{
@@ -267,12 +265,15 @@
 		.sams{
 			height: 15%;
 		}
+		#feed-reward-img.fadeInDown,#feed-reward-img.fadeOutUp{
+			animation-duration: 0.5s;
+		}
 	</style>
 	<!-- .in-scored = reward label -->
 	<div class="sams" id="" style="margin-top: 0px;"> <!-- padding: 0px 20px 0px 20px; -->
 		<div id="utilities_tab" class="utilities-tab" style="position: relative;">
 			<div id="" class="quiz_label" style="position: relative;">
-				<span class="glyphicon glyphicon-play" style="margin-right: 5px;font-size: 10px;"></span>
+				<span class="glyphicon glyphicon-play" style="margin-right: 5px;font-size: 10px;margin-bottom: 5px;"></span>
 					<span id="played" style="font-size: 14px;"></span>
 				<div class="" id="quiz_label_dis" style="padding-left: 8px;">
 					Quiz's name
@@ -287,16 +288,10 @@
 			<div id="scored" class="scored">
 				<div id="covered-rw-feed" class="scored" style="/*display: none;*/">
 					<div class="reward-feed-img" id="reward-feed-img">
-						<img id="feed-reward-img" src="img/EXP.png" class="animated fadeInDown" style="
-    margin-right: 0px;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: white;
-">
+						<img id="feed-reward-img" src="img/EXP.png" class="animated fadeInDown" style="margin-right: 0px;width: 100%;height: 100%;border-radius: 50%;background-color: #ffffff00;">
 					</div>
 					<div class="in-scored animated flipInX" id="in-scored">
-						<div>3</div>
+						<div style="border-bottom: 1px solid white;">3</div>
 						<div>2,500,000</div>
 					</div>
 				</div>
@@ -317,7 +312,7 @@
 			</div>	
 		</div>
 	</div>
-	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;height: 80%;">
+	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;height: 55%;">
 		<div id="quizPanel" style="display: table;width: 100%;">
 		<!-- <div style="width: 100%;height: 100%;position: absolute;padding-right: 40px;"></div> -->
 		<div class="topic" style="display: flex;">
@@ -425,10 +420,10 @@
 		transition: height 1s;
 	}
 	.activities-user-img{
-		width: 20%;
+		width: 15%;
 	}
 	.activities-info{
-		width: 60%;
+		width: 90%;
 	}
 	.activities-badge{
 		width: 20%;
@@ -440,6 +435,7 @@
 		transition: top 1s;
 	}
 	.tr-feed{
+		
 		border-bottom: 1.5px solid white;
 	}
 	.feed-user-name-hilight{
@@ -449,11 +445,13 @@
 	.feed-user-time-hilight{
 		font-weight: bold;
 	    color: #8c8888d9;
-	    font-size: 11px;
+	    font-size: 8px;
+	}
+	#feed-content{
 	}
 </style>
 <div class="liveFeed" id="liveFeed">
-	<div class="live-box">
+	<div class="live-box blink blinkAlert">
 		<!-- <div class="live-box-header">
 			<h4 style="float: left;" id="click-hide-feed">
 				<i class="glyphicon glyphicon-comment"></i>
@@ -466,7 +464,7 @@
 			<div style="clear: both;"></div>
 		</div> -->
 		<div class="live-box-content">
-			<table id="feed-content" style="text-align: left;overflow-wrap: break-word;table-layout:fixed;width: 100%;background-color: #d6d6e091;">
+			<table id="feed-content" style="text-align: left;overflow-wrap: break-word;table-layout:fixed;width: 100%;background-color: #ffffff29;">
 				
 			</table>
 		</div>

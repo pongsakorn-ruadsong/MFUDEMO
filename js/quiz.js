@@ -34,6 +34,7 @@ var quizImg = [];
 var choicesTitle = [];
 var TTarray = [];
 var quizType = [];
+var feedQueue = [];
 sessionStorage['active'] = 'false';
 function loadAnimation(a){
 	// var img = a.question_image;
@@ -111,11 +112,8 @@ function genReward(a, b, callback){
 			console.log(d)
 			if (d.success) {
 				console.log('Get reward Successful')
-				getFeed(function(data){
-					if (data != undefined || data != null) {
-						buildFeed(data);
-					}
-				});
+				feedQueue.push(d)
+				console.log(feedQueue)
 				callback(d.response.events);
 			}else{
 				console.log('Get reward Failed')
@@ -129,77 +127,140 @@ function genReward(a, b, callback){
             }
 	});
 }
+var reward = [];
+function getReward(callback){
+	var rewards = [];
+	var key = [];
+	var val = [];
+	var show_interval;
+	if (full_reward.length > 0) {
+		for(var i = 0;i<full_reward.length;i++){
+			if (full_reward[i].indexOf(',') > -1) {
+				rewards = full_reward[i].split(',');
+				for (var c = 0; c < rewards.length; c++) {
+					if (rewards[c].indexOf(':') > -1) {
+						reward.push(rewards[c].split(':'));
+					}else{
+						reward.push(rewards[c]);
+					}
+				}
+			}
+			else{
+				reward.push(full_reward[i].split(':'));
+			}
+		}
+		full_reward.pop();
+	}
+	console.log("")
+	console.log(full_reward);
+	console.log(rewards);
+	console.log(reward);
+	console.log("")
+	for (var s = 0; s < reward.length; s++) {
+		genReward(reward[s][0],reward[s][1],function(data){
+			kop.push(data);
+
+		});
+	}
+	callback(reward,kop);
+}
+var kop = [];
+var full_reward = [];
 function autoNext(){
  	console.log("Auto Next")
     if (valid()) {
 		nextQuestion(function(data){
 			console.log(data)
-			var full_reward = data.response.result.explanation;
-			var rewards = [];
-			var reward = [];
-			var key = [];
-			var val = [];
-			console.log(full_reward)
-			if (full_reward.indexOf(',') > -1) {
+			full_reward.push(data.response.result.explanation);
+			getReward(function(reward, datas){
 				var k = 0;
-				var show_interval;
-				rewards = full_reward.split(',');
-				for (var i = 0; i < rewards.length; i++) {
-					// console.log('GG')
-					if (rewards[i].indexOf(':') > -1) {
-						reward.push(rewards[i].split(':'));
-					}else{
-						reward.push(rewards[i]);
-					}
-				}
+				console.log(datas)
 				show_interval = setInterval(function(){
-					if (k<reward.length) {
-						console.log(typeof(reward[k]));
-						if (typeof(reward[k]) == 'object') {
-							genReward(reward[k][0],reward[k][1], function(data){
-								updateRewardFeed(data,function(){
-									if ($('#feed-reward-img').hasClass('fadeOutDown')) {
-										$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
-									}
-								});
+					if (k<datas.length) {
+						$('#feed-reward-img').removeClass('fadeInDown')
+						$('#in-scored').removeClass('flipInX').addClass('flipOutX');
+						setTimeout(function(){
+							updateRewardFeed(datas[k],function(){
+								$('#feed-reward-img').removeClass('fadeOutUp').addClass('fadeInDown')
+								$('#in-scored').removeClass('flipOutX').addClass('flipInX');
+								k++;
+								reward.shift();
 							});
-						}else if (typeof(reward[k]) == 'string') {
-							genReward(reward[k], 1, function(data){
-								updateRewardFeed(data,function(){
-									if ($('#feed-reward-img').hasClass('fadeOutDown')) {
-										$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
-									}
-								});
-							});
-						}
-						k++;
+						},100);
 					}else{
 						clearInterval(show_interval);
 					}
-					if ($('#feed-reward-img').hasClass('fadeInDown')) {
-						$('#feed-reward-img').removeClass('fadeInDown').addClass('fadeOutDown')
-					}
-				},2000);
-			}else{
-				if (full_reward.indexOf(':') > -1) {
-					reward = full_reward.split(':');
-					genReward(reward[0], reward[1], function(data){
-						$('#feed-reward-img').removeClass('fadeInDown').addClass('fadeOutDown')
-								updateRewardFeed(data,function(){
-									$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
-								});
-					});
-				}else{
-					genReward(full_reward, 1, function(data){
-						$('#feed-reward-img').removeClass('fadeInDown').addClass('fadeOutDown')
-								updateRewardFeed(data,function(){
-									$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
-								});
-					});
-				}
-			}
-			console.log(rewards)
-			console.log(reward)
+				},800);
+			});
+			// var rewards = [];
+			// var reward = [];
+			// var key = [];
+			// var val = [];
+			// console.log(full_reward)
+			// if (full_reward.indexOf(',') > -1) {
+			// 	var k = 0;
+			// 	var show_interval;
+			// 	rewards = full_reward.split(',');
+			// 	for (var i = 0; i < rewards.length; i++) {
+			// 		// console.log('GG')
+			// 		if (rewards[i].indexOf(':') > -1) {
+			// 			reward.push(rewards[i].split(':'));
+			// 		}else{
+			// 			reward.push(rewards[i]);
+			// 		}
+			// 	}
+			// 	show_interval = setInterval(function(){
+			// 		if (k<reward.length) {
+			// 			console.log(typeof(reward[k]));
+			// 			if (typeof(reward[k]) == 'object') {
+			// 				genReward(reward[k][0],reward[k][1], function(data){
+			// 					updateRewardFeed(data,function(){
+			// 						if ($('#feed-reward-img').hasClass('fadeOutDown')) {
+			// 							$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
+			// 						}
+			// 					});
+			// 					checkFeed();
+			// 				});
+			// 			}else if (typeof(reward[k]) == 'string') {
+			// 				genReward(reward[k], 1, function(data){
+			// 					updateRewardFeed(data,function(){
+			// 						if ($('#feed-reward-img').hasClass('fadeOutDown')) {
+			// 							$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
+			// 						}
+			// 					});
+			// 					checkFeed();
+			// 				});
+			// 			}
+			// 			k++;
+			// 		}else{
+			// 			clearInterval(show_interval);
+			// 		}
+			// 		if ($('#feed-reward-img').hasClass('fadeInDown')) {
+			// 			$('#feed-reward-img').removeClass('fadeInDown').addClass('fadeOutDown')
+			// 		}
+			// 	},5000);
+			// }else{
+			// 	if (full_reward.indexOf(':') > -1) {
+			// 		reward = full_reward.split(':');
+			// 		genReward(reward[0], reward[1], function(data){
+			// 			$('#feed-reward-img').removeClass('fadeInDown').addClass('fadeOutDown')
+			// 					updateRewardFeed(data,function(){
+			// 						$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
+			// 					});
+			// 					checkFeed();
+			// 		});
+			// 	}else{
+			// 		genReward(full_reward, 1, function(data){
+			// 			$('#feed-reward-img').removeClass('fadeInDown').addClass('fadeOutDown')
+			// 					updateRewardFeed(data,function(){
+			// 						$('#feed-reward-img').removeClass('fadeOutDown').addClass('fadeInDown')
+			// 					});
+			// 					checkFeed();
+			// 		});
+			// 	}
+			// }
+			// console.log(rewards)
+			// console.log(reward)
 			if ($('#quizPanel').hasClass('zoomIn') || $('#quizPanel').hasClass('fadeInRight')) {
 				console.log('Has class zoomIn')
 				$('#quizPanel').removeClass('zoomIn').addClass('fadeOutLeft');
@@ -215,10 +276,12 @@ function autoNext(){
 			topic = '';
 			title = '';
 			choices = [];
+			placeHolder = [];
 			ph = '';
 			if ($('.btn-choices').hasClass('last')) {
 				$('.btn-choices').removeClass('last');
 			}
+			$('.topic > span').remove();
 			$("#quizPanel").css('height', '55%');
 			$('#spece-for-S').css('display','none');
 			$('.inputTXT_TXT').remove();
@@ -233,29 +296,33 @@ function autoNext(){
 function updateRewardFeed(data, callback){
 	console.log(data)
 	console.log(data[0].reward_type)
+	var a = $('.in-scored').children()[0]
+	var b = $('.in-scored').children()[1]
+	$(a).text($(b).text());
 	for (var i = 0; i < data.length; i++) {
 		if(data[i].event_type != 'REWARD_RECEIVED'){
 			continue;
 		}
 		else{
-
 			if (data[i].reward_type == 'badge') {
 				$('#feed-reward-img').attr('src',data[i].reward_data.image)
+				$(b).text(data[i].value+' badge');
 			}
 			else if (data[i].reward_type == 'point') {
 				$('#feed-reward-img').attr('src','img/coin_22.png')
+				$(b).text(data[i].value+' points');
 			}
 			else if (data[i].reward_type == 'exp') {
 				$('#feed-reward-img').attr('src','img/EXP.png')
+				$(b).text(data[i].value+' exp');
 			}
-			// else if (data[i].reward_type == 'goods') {
-			// 	$('#feed-reward-img').attr('src',data[i].reward_data.image)
-			// }
 			else{
 				$('#feed-reward-img').attr('src','')
+				$('.feed-reward-img').append('<span class="glyphicon glyphicon-usd"></span>');
 			}
 		}
 	}
+
 	callback();
 }
 function getTopic(a){
@@ -318,7 +385,8 @@ function getPlayCount(){
         dataType: "json",
 	    success: function(data){
 	    	console.log(data);
-	    	$('#played').text(data.response.result);
+	    	var played = data.response.result
+	    	$('#played').text(nFormatter(played,1));
 	    },
 	    error: function (xhr, textStatus, errorThrown){
          window.location.reload(true)
@@ -335,8 +403,92 @@ function buildUNIQuiz(data, callback){
 		}
 	}
 }
+var countFeed;
+var feedShow = [];
+var oldFeed;
+var newFeed;
+function checkFeed(){
+	var k = 0;
+	var i = 0;
+	var getFeed_delay;
+	var clearQueue;
+	clearQueue = setInterval(function(){
+		// if (feedQueue.length>0 || feedShow.length == 0) {
+			// console.log(feedQueue.length)
+				feedQueue.shift();
+				k = countFeed+1;
+				// console.log('K: '+k+' | countFeed: '+countFeed)
+				getFeed(1,function(data){
+						if (newFeed != undefined) {
+							oldFeed = newFeed;
+						}
+					 	newFeed = data[0].id;
+					 // console.log(oldFeed+' | '+newFeed)
+					if (oldFeed != newFeed) {
+						buildFeed(data, function(){
+							feedShow.push(data);
+							countFeed = k;
+							var b = $('#feed-content');
+							var c = b.children()[0];
+							var m = $(c).height()+1.5;
+							$(b).css('transition','all 1s');
+							$(b).css('margin-top',-(m));
+							(function(el) {
+							    setTimeout(function() {
+							      $(b).css('transition','unset');
+							      $(b).css('margin-top','0px');
+							      el.remove();
+							    }, 1000);
+							  })(c);
+						});
+						k++;
+						// console.log(k)
+					}else{
+						clearInterval(clearQueue);
+					}
+				});
+		// }else{
+		// 	clearInterval(clearQueue);
+		// }
+	},2000);
+		// for (var i = 10; i > feedQueue.length; i--) {
+		// 	getFeed(k,function(data){
+		// 		if (data != undefined || data != null) {
+		// 			buildFeed(data, function(){
+		// 				feedQueue.push(k);
+		// 				countFeed = k;
+		// 			});
+		// 		}
+		// 	});
+		// 	k++;
+		// }
+	}
 function getQuestion(result, callback){
+	var k = 2;
+	var i = 0;
+	var getFeed_delay;
 	$('#quiz_label_dis').text(sessionStorage['qName'])
+	if (feedShow.length == 0) {
+				getFeed_delay = setInterval(function(){
+					if (feedShow.length < 2) {
+						console.log('K: | '+k)
+						getFeed(k,function(data){
+							console.log(data)
+							oldFeed = data[0].id;
+							if (data != undefined || data != null) {
+								buildFeed(data, function(){
+									feedShow.push(data);
+									countFeed = k;
+								});
+							}
+							k--;
+						});
+					}else{
+						clearInterval(getFeed_delay);
+					}
+				},800);
+			}
+	
 	$.ajax({
 		type: "GET",
         url: getQuestUrl,
@@ -418,10 +570,11 @@ function getQuestion(result, callback){
         }
 	});
 }
-function getFeed(callback){
+function getFeed(ccaa,callback){
+	// console.log(ccaa)
 	$.ajax({
 		type: "GET",
-		url: sessionStorage['mainUrl']+'Service/recentActivities?offset=0&limit=2&mode=all&event_type=redeem%2Clevel%2Creward&api_key=141073538',
+		url: sessionStorage['mainUrl']+'Service/recentActivities?offset='+ccaa+'&limit=1&mode=all&event_type=redeem%2Clevel%2Creward&api_key=141073538',
 		content: "application/json; charset=utf-8",
 		dataType: "json",
 		success: function(d) {
@@ -521,11 +674,11 @@ function get_time_diff( datetime )
     	}
 	}
 }
-function buildFeed(data){
-	var text = '';
+function buildFeed(data,callback){
+    var text = '';
 	TempFeed = data;
     console.log(data)
-    $('table#feed-content > tr').remove();
+    // $('table#feed-content > tr').remove();
     for (var i = 0; i < data.length; i++) {
     	var img = '';
     	var item_img = '';
@@ -538,41 +691,50 @@ function buildFeed(data){
 		}
     	var time = get_time_diff(data[i].date_added);
     	// console.log(time)
-    	if (data[i].event_type == 'REDEEM') {
-    		message = 'got a coupon!!!';
-    	}
-    	else{
-    		message = data[i].message;
-    		if (data[i].reward_name == "badge") {
+    	if (data[i].event_type == 'REWARD' || data[i].event_type == 'LEVEL') {
+	    	if (data[i].reward_name == "badge") {
 	    		item_img = data[i].badge.image;
-	    		items = '<img style="width:80%;" src="'+item_img+'">';
+	    		items = '<img style="width: 23px;height: 23px;" src="'+item_img+'">';
 	    	}
 	    	else if(data[i].reward_name == "point"){
 	    		item_img = 'img/coin_22.png';
-	    		items = '<img style="width:80%;" src="'+item_img+'">';
+	    		items = '<img style="width: 23px;height: 23px;" src="'+item_img+'">';
 	    	}
 	    	else if(data[i].reward_name == "exp"){
 	    		item_img = 'img/EXP.png';
-	    		items = '<img style="width:80%;" src="'+item_img+'">';
+	    		items = '<img style="width: 23px;height: 23px;" src="'+item_img+'">';
 	    	}
 	    	else if (data[i].reward_name == "Dollar(USD)") {
 	    		item_img = 'img/EXP.png';
-	    		items = '<p style="font-size: 20px;margin-bottom: 0px;text-align: center;">&#x0024</p>';
+	    		items = '<p style="font-size: 20px;margin-bottom: 0px;text-align: center; margin-right: 20px;">&#x0024</p>';
 	    	}
 	    	else if (data[i].reward_name == "Baht(THB)") {
-	    		item_img = '<p style="font-size: 20px;margin-bottom: 0px;text-align: center;;">&#x0E3F</p>';
+	    		item_img = '<p style="font-size: 20px;margin-bottom: 0px;text-align: center; margin-right: 20px;">&#x0E3F</p>';
 	    	}
+	    	message = data[i].message;
     	}
-    	text += '<tr class="tr-feed"><td class="feedRow activities-user-img"><img style="width:75%;" src="'+img+'"></td>'+
-    	'<td class="feedRow activities-info" style="font-size: 10px;">'+
+    	else if(data[i].event_type == 'REDEEM'){
+    		message = 'got a coupon!!!'
+    	}
+    	text +='<tr class="tr-feed"><td class="feedRow activities-user-img"><img src="'+img+'"></td>'+
+    	'<td class="feedRow activities-info">'+
     		'<table>'+
-	    	'<tr><span class="feed-user-name-hilight">'+data[i].player.first_name+'</span> '+message+'</tr>'+
+	    	'<tr style="font-size: 10px;"><span class="feed-user-name-hilight">'+data[i].player.first_name+'</span> '+message+'</tr>'+
+	    	'<tr>'+
+	    		// '<td><span class="feed-user-time-hilight">'+time+'</span></td>'+
+	    	'</tr>'+
 	    	'</table>'+
 	    '</td>'+
 	    '<td class="feedRow activities-badge">'+items+'</td>'+
-	    '</tr>'	
+	    '</tr>'
     }
     $('#feed-content').append(text);
+    $(".tr-feed").each(function(i) {
+    	$(".tr-feed").delay(100* i ).fadeIn(500);
+	});
+	callback();
+    // $('#feed-content').addClass('animated fadeInUp');
+    // $('#feed-content').addClass('animated fadeOutUp');
 }
 var quiz_type = '';
 function getQuizType(){
@@ -625,13 +787,13 @@ function buildQuiz(result, callback){
 		    	cur_score = 0;
 		    }
 
-			// setTimeout(function(){
-			// 	// $('#in-scored').text(cur_score);
-			// 	// if ($('#in-scored').hasClass('flipOutX')) {
-			// 	// 		console.log('Has class flipOutX')
-			// 	// 		$('#in-scored').removeClass('flipOutX').addClass('flipInX');
-			// 	// 	}
-			// 	// },500);
+			setTimeout(function(){
+				// $('#in-scored').text(cur_score);
+				if ($('#in-scored').hasClass('flipOutX')) {
+						console.log('Has class flipOutX')
+						$('#in-scored').removeClass('flipOutX').addClass('flipInX');
+					}
+				},500);
 	    }
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
@@ -654,7 +816,7 @@ function buildQuiz(result, callback){
 	    	// document.getElementById("quizImg").style.backgroundImage = 'url('+QuestImg+')';
 	    	// topic += type;
 	    	$('#topic').text(topic);
-	    	$('#topic').prepend('<span class="glyphicon glyphicon-ok" style="font-size:10px;"></span> ');
+	    	$('.topic').prepend('<span class="glyphicon glyphicon-ok" style="font-size:10px;margin-top:3px;margin-right:10px;"></span>');
 	    	btn_text += '<button class="btn btn-warning pause-btn" id="stopCount" type="button"  style="float:left;width:40%;display:none;" onclick="myStopFunction()">Pause</button>'+
 	    			'<button class="btn btn-danger" id="resetQuiz" type="button"  style="float:left;width:40%;display:none;">'+contentSummary['BTN_RESET']+
 	    			'</button>'+
@@ -678,8 +840,8 @@ function buildQuiz(result, callback){
 	    		// }
 		    	for (var i=0;i<option.length;i++) {
 		    		text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
-		    			'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
-			          '<input class="inputTXT_SQ" name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
+		    			'<label class="btn choice-overlay " style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
+			          '<input class="inputTXT_SQ " name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			          
 			        '</label>'
 			        // if ((i+1)%2==0) {
@@ -766,7 +928,7 @@ function buildQuiz(result, callback){
 		    			continue;
 	    			}
 		    		text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
-		    		'<label class="btn choice-overlay" style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
+		    		
 			          '<input class="inputTXT_SQ_S_MULTI" name="'+topic+'" typeZ="SQ_S_MULTI" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" style="visibility:hidden;" type="radio"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'+
 			        '<div class="inputSQ_S_MULTI" idZ="'+option[i].option_id+'" style="display:none;"><span class="glyphicon glyphicon-plus" style="float: left;margin-right: 10px;margin-left: 10px;font-size: 13px;margin-top: 7px;"></span><input type="text" class="form-control inputTXT_S" idX="'+option[i].option_id+'" style="border: 1px solid #ddd;border-radius: 30px;text-align:center;width: 80%;font-size: 16px;margin-bottom: 5px;" placeholder="'+placeHolder[i]+'"></div>'
@@ -820,7 +982,7 @@ function buildQuiz(result, callback){
 
 	    	}
 	    	else if(type == 'SLI'){
-	    		$("#quizPanel").css('height', '80%');
+	    		// $("#quizPanel").css('height', '60%');
 	    		console.log("Enter SLI")
 	    		console.log(a+' '+b+' '+c+' ')
 	    		$('#nextBtn').css('display','block')
@@ -841,7 +1003,7 @@ function buildQuiz(result, callback){
 	    		// select1 = Quiz01.response.result.options[0].option_id;
 	    	}
 	    	else if(type == 'SLI_S'){
-	    		$("#quizPanel").css('height', '80%');
+	    		// $("#quizPanel").css('height', '60%');
 	    		document.getElementById("realDeal").style.display = "none";
 	    		console.log(a+' '+b+' '+c+' ')
 	    		$('#nextBtn').css('display','block')
@@ -974,8 +1136,7 @@ function buildQuiz(result, callback){
 				// 	$('.live-box-content').css('height', 0);
 				// 	$('.live-box').css('margin-top', 225);
 				// }
-				$("#quizPanel").css('height', '80%');
-				$("#nextBtn").prop('disabled', true);
+				$("#quizPanel").css('height', '60%');
 	    	 	$('.choice-overlay').css('display','block');
 	    	 	// $('.choice-overlay').addClass('animated fadeInDown');
 	    	 });
@@ -988,7 +1149,7 @@ function buildQuiz(result, callback){
 	    	 	$(this).parent().css("background-color","mediumslateblue");
 	    	 	$(this).parent().css("color","white");
 	    	 	if ($('.btn-choices').hasClass('last')) {
-	    	 		console.log("Has class LAST asdasdasdasdasdasdasdasdasdasdwqdqwdqwwqeqwdqwdqwdqwdqdsadawdawdqwdq")
+	    	 		console.log("Has class LAST")
 	    	 		$('#stopCount').css("display","none");
 	    	 		$('#resetQuiz').css("display","block");
 	    			$('#timer').removeClass("glyphicon glyphicon-play");
@@ -1029,8 +1190,13 @@ function buildQuiz(result, callback){
 	    	 });
 	    	 $('.inputTXT_SQ_S_MULTI').click(function(){
 	    	 	showButtons()
-	    	 	$("#nextBtn").prop('disabled', true);
-	    	 	var remain = parseInt(sessionStorage['pause_num']);
+	    	 	$('#nextBtn').prop('disabled', false);
+	    	 	$('#stopCount').css('display','none')
+	    	 	$('#nextBtn').css('display','block')
+	    		$('#nextBtn').text('Next')
+	    		$('#nextBtn').removeClass('normal-form-next').addClass('btn-primary')
+	    		$('#resetQuiz').addClass('animated bounceInLeft')
+	    		$('#resetQuiz').css('display','block')
 	    	 	$('.btn-choices').css("background-color","white")
 	    	 	$('.btn-choices').css("color","black")
 	    	 	$(this).parent().css("background-color","mediumslateblue");
@@ -1041,19 +1207,19 @@ function buildQuiz(result, callback){
 	    	 		$('#resetQuiz').css("display","block");
 	    			$('#timer').removeClass("glyphicon glyphicon-play");
 	    			$('#nextBtn').removeClass("stop");
-		    		$('#timer').text(sessionStorage['pause_num']);
-		    		timerasdsd(0);
+		    		// $('#timer').text(sessionStorage['pause_num']);
+		    		// timerasdsd(0);
 	    	 	}else{
 	    	 		console.log("No have class last")
-	    	 		setTimeout(function(){
-						timerasdsd(6);
+	    	//  		setTimeout(function(){
+						// timerasdsd(6);
 						$('#nextBtn').addClass("countDown-btn");
-					},600);
+					// },600);
 	    	 	}
 	    	 });
 	    	 $('.inputTXT_MULTI').click(function(){
 	    	 	showButtons()
-	    	 	$("#nextBtn").prop('disabled', true);
+	    	 	$('#nextBtn').prop('disabled', false);
 	    	 	$('#stopCount').css('display','none')
 	    	 	$('#nextBtn').css('display','block')
 	    		$('#nextBtn').text('Next')
@@ -1067,7 +1233,7 @@ function buildQuiz(result, callback){
 	    	 });
 	    	 $('.inputTXT_MULTI_S').click(function(){
 	    	 	showButtons()
-	    	 	$("#nextBtn").prop('disabled', true);
+	    	 	$('#nextBtn').prop('disabled', false);
 	    	 	$('#stopCount').css('display','none')
 	    	 	$('#nextBtn').css('display','block')
 	    		$('#nextBtn').text('Next')
@@ -1080,7 +1246,7 @@ function buildQuiz(result, callback){
 	    	 });
 	    	 $('.inputTXT_TXT').focus(function(){
 	    	 	showButtons()
-	    	 	$("#nextBtn").prop('disabled', true);
+	    	 	$('#nextBtn').prop('disabled', true);
 	    	 	var remain = parseInt(sessionStorage['pause_num']);
 		    	if ($('#nextBtn').hasClass('countDown-btn')) {
 		    		console.log("Has class countDown-btn")
@@ -1512,18 +1678,7 @@ function nextQuestion(callback){
 					// scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
 					rewardPop(d.response.result.grade, d.response.result.rewards);
 					console.log("Hey! it is the last now! check the console about reward!")
-					getFeed(function(data){
-					if (data != undefined || data != null) {
-						// updateFeedPositionI(function(){
-						// 	updateFeedPositionI(function(){
-						// 		$('.feedRow').css('top','0px');
-						// 		setTimeout(function(){
-									buildFeed(data);
-						// 		},1000);
-						// 	});
-						// });
-					}
-				});
+					
 					// $('#myModal').modal("hide");
 				
 			}else{
@@ -1919,6 +2074,7 @@ function translateResult(a){
 	var data = JSON.parse(a);
 	return data;
 }
+
 function isLastQuestion(){
 	if (sessionStorage['isLast'] == "true") { //true == out *Default = false
 		return true;
@@ -1926,6 +2082,7 @@ function isLastQuestion(){
 		return false;
 	}
 }
+
 function percentage(num, per)
 {
   return (num/100)*per;
