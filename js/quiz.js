@@ -576,11 +576,6 @@ function buildFeed(data){
 	    '</tr>'
     }
     $('#feed-content').append(text);
-    $(".tr-feed").each(function(i) {
-    	$(".tr-feed").delay(100* i ).fadeIn(500);
-	});
-    // $('#feed-content').addClass('animated fadeInUp');
-    // $('#feed-content').addClass('animated fadeOutUp');
 }
 var quiz_type = '';
 function getQuizType(){

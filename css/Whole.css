@@ -1291,7 +1291,7 @@ hr {
   border-radius: 5px; 
   box-shadow: 0 7px 11px rgba(0, 0, 0, 0.3);
 }
-.blink {
+/*.blink {
   -webkit-animation-name: blink;  
   -webkit-animation-duration: 2s;  
 }
@@ -1302,4 +1302,4 @@ hr {
   50% {
     background-color: #00ff00;
   }
-}
+}*/
