@@ -11,6 +11,11 @@
 				sessionStorage['type'] = null;
 				var updateFeedInterval = setInterval(function(){
 					checkFeed();
+					// setTimeout(function(){
+					// 	if ($('.liveFeed').hasClass('fadeInUp')) {
+					// 		$('.liveFeed').removeClass('fadeInUp').addClass('fadeOutDown')
+					// 	}
+					// },10000);
 				},10000);
 			}
 		    $('.range-slider__range').on('input', function(){
@@ -39,7 +44,11 @@
 		    	$('.noi').css("background-color","white");
 		    	$('.yesi').css("color","white");
 		    	$('.noi').css("color","black");
-		    	$('#spece-for-S').slideDown();
+		    	// if (type == 'MULTI_S') {
+		    	// 	$('#assetsChoose').modal()
+		    	// }else{
+		    		$('#spece-for-S').slideDown();
+		    	// }
 		    	sessionStorage['ans_no'] = "Yes";
 		    });
 		    $('#noi').click(function(){
@@ -268,6 +277,12 @@
 		#feed-reward-img.fadeInDown,#feed-reward-img.fadeOutUp{
 			animation-duration: 0.5s;
 		}
+		.score{
+			height: 50%;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
 	</style>
 	<!-- .in-scored = reward label -->
 	<div class="sams" id="" style="margin-top: 0px;"> <!-- padding: 0px 20px 0px 20px; -->
@@ -291,8 +306,8 @@
 						<img id="feed-reward-img" src="img/EXP.png" class="animated fadeInDown" style="margin-right: 0px;width: 100%;height: 100%;border-radius: 50%;background-color: #ffffff00;">
 					</div>
 					<div class="in-scored animated flipInX" id="in-scored">
-						<div style="border-bottom: 1px solid white;">3</div>
-						<div>2,500,000</div>
+						<div class="score oldScore" style="border-bottom: 1px solid white;">3</div>
+						<div class="score newScore">2,500,000</div>
 					</div>
 				</div>
 			</div>
@@ -312,13 +327,13 @@
 			</div>	
 		</div>
 	</div>
-	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;height: 55%;">
+	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;">
 		<div id="quizPanel" style="display: table;width: 100%;">
 		<!-- <div style="width: 100%;height: 100%;position: absolute;padding-right: 40px;"></div> -->
 		<div class="topic" style="display: flex;">
 			<p id="topic" style="align-self: center;margin-bottom: 0px;"></p>
 		</div>
-		<div class="row" style="z-index: 1042;position: relative;">
+		<div class="row bvcs" style="z-index: 1042;position: relative;max-height: 220px;overflow-y: auto;">
 		<div class="col-md-6 qa" id="img" style="display: none;">
 			<center style="height: 0px;overflow: hidden;">
 				<img src="img/Playbasis-logo.png" class="quizImg quizImg_temp" id="" style="display:block;">
@@ -332,7 +347,7 @@
 								<input id="yesi" style="visibility:hidden;" type="radio" value="Yes">Yes<br>
 							</label>
 						</div>
-						<div id="spece-for-S" style="display: none;">
+						<div id="spece-for-S" style="display: none;max-height: 110px;overflow-y: auto;overflow-x: hidden;">
 											<div class="row" id="slider-panel_S" typeZ="SLI" style="display: none;text-align: center;margin-bottom: 20px;">
 												<div class="range-slider">
 													<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
@@ -340,8 +355,8 @@
 												 		<div class="col-8" style="padding: 0px;"><input class="range-slider__range" id="slider-bar_S" type="range" style="width: 80%"  ></div>
 												 		<div class="col-2" style="padding: 0px;"><span id="maxslider_S"></span></div>
 												 	</div>
-												  <div style="text-align: center;margin-top: 30px;">
-												  	<span id="disValueSli_S" style="padding: 15px;" class="range-slider__value" style="width: 20%">
+												  <div style="text-align: center;margin-top: 20px;">
+												  	<span id="disValueSli_S" style="padding: 10px;font-size: 18px;" class="range-slider__value" style="width: 20%">
 
 													</span>
 													<span id="unit_S" style="margin-left: 10px;display: none;"></span>
@@ -378,11 +393,12 @@
 				</div>
 				<input type="hidden" id="aPrefix">
 				<input type="hidden" id="aAnswer">
-				<div class="button-group" id="btn_NR">
-
-				</div>
+				
 		</div>
 	</div>
+	<div class="button-group" id="btn_NR">
+
+				</div>
 	</div>
 </div>
 <div class="bg next-bg animated" style="flex: 0 1 auto;">
@@ -391,7 +407,7 @@
 <style type="text/css">
 	.liveFeed{
 		    width: 100%;
-		    height: 20%;
+		    /*height: 20%;*/
 		    /*position: fixed;
 		    bottom: 0px;
 		    display: flex;*/
@@ -450,7 +466,7 @@
 	#feed-content{
 	}
 </style>
-<div class="liveFeed" id="liveFeed">
+<div class="liveFeed " id="liveFeed"> <!-- animated fadeOutDown -->
 	<div class="live-box blink blinkAlert">
 		<!-- <div class="live-box-header">
 			<h4 style="float: left;" id="click-hide-feed">
@@ -475,9 +491,28 @@
   <div class="btnB"><i class="icon-ok"><input type="checkbox" value="2">2</i></div>
   <div class="btnB"><i class="icon-ok"><input type="checkbox" value="3">3</i></div>
 </div> -->
-  <div id="modal_score">
+  <div id="modal_score"></div>
 
+  <div class="modal fade" id="assetsChoose" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
   </div>
+
 	<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
