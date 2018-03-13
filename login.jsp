@@ -320,20 +320,41 @@
 	    margin-top: -73px;
 	    width: 100%;
 	    position: absolute;
-	  	background-image: url(gif/Day0_1.gif);
+	  	background-image: url(gif/Login_motion.gif);
 	    background-size: contain;
 	  }
+	  #display_time_weather{
+	  	height: 30%;
+	  	width: 100%;
+	  }
+	  #display_time_weather>div{
+      	width: 50%;
+	    height: 100%;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    color: white;
+	    font-size: 60px;
+		}
 	</style>
 <div class="login-bg">
-	
+	<div id="display_time_weather">
+		<div id="half-1" style="float: left;">
+			1
+		</div>
+		<div id="half-2" style="float: right;">
+			2
+		</div>
+		<div style="clear: both;"></div>
+	</div>
 </div>	
 <div class="test-bg">
 	<div class="card-box animated " style="display: none;">
 	<div class="swiper-container" id="wipp_con">
 	    <div class="swiper-wrapper" id="wipp_userCard">
-	    	<button class="swiper-slide cctest" id="guestClick" onclick="guestFunction()" style="background-color: red;">Guest</button>
-	      <button class="swiper-slide" id="signInClick" style="background-color: blue;">Sign in</button>
-	      <button class="swiper-slide" id="signUpBtn" style="background-color: green;">Sign up</button>
+	    	<button class="swiper-slide cctest" id="guestClick" onclick="guestFunction()" style="background-color: #ff000042;color: white;width: 240px;margin-right: 20px;border: none;border-radius: 10px;font-size: 22px !important;">Guest</button>
+	      <button class="swiper-slide" id="signInClick" style="background-color: #0000ff4a;color: white;width: 240px;font-size: 22px !important;margin-right: 20px;border: none;border-radius: 10px;">Sign in</button>
+	      <button class="swiper-slide" id="signUpBtn" style="font-size: 22px !important;background-color: #00800040;color: white;width: 240px;margin-right: 20px;border: none;border-radius: 10px;">Sign up</button>
 	    </div>
   </div>
   </div>
