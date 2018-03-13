@@ -9,6 +9,7 @@
 			sessionStorage['lang'] = 'English';
 			if (checkUser()) {
 				getToken();
+				getLocation();
 				getContent();
 				// initialSwipeCard();
 			}else{
@@ -303,9 +304,31 @@
 	      -webkit-align-items: center;
 	      align-items: center;
 	  }
+	  .card-box.fadeInDown{
+	  	animation-duration: 0.8s;
+	  }
+	  .login-bg{
+  	    height: calc(100% + 73px);
+	    margin-top: -73px;
+	    width: 100%;
+	    position: relative;
+	    background-color: black;
+	    
+	  }
+	  .test-bg{
+	  	height: calc(100% + 73px);
+	    margin-top: -73px;
+	    width: 100%;
+	    position: absolute;
+	  	background-image: url(gif/Day0_1.gif);
+	    background-size: contain;
+	  }
 	</style>
+<div class="login-bg">
 	
-	<div class="card-box">
+</div>	
+<div class="test-bg">
+	<div class="card-box animated " style="display: none;">
 	<div class="swiper-container" id="wipp_con">
 	    <div class="swiper-wrapper" id="wipp_userCard">
 	    	<button class="swiper-slide cctest" id="guestClick" onclick="guestFunction()" style="background-color: red;">Guest</button>
@@ -314,7 +337,7 @@
 	    </div>
   </div>
   </div>
-
+</div>	
 	 <div class="modal animated fadeInDownBig" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	 <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;margin:0px;">
 	    <div class="modal-content" style="height: 100%;">

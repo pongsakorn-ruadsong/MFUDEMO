@@ -872,7 +872,6 @@ function buildQuiz(result, callback){
 		    	}
 		    	text += '';
 	    	}
-
 	    	else if(type == 'MULTI_S'){
 	    		document.getElementById("slider-panel_S").style.display = "none";
 	    		document.getElementById("4Play").style.display = "block";

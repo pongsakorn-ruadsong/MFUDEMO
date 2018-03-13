@@ -22,6 +22,56 @@ function analyzePhonenum(code,numbers){
 	console.log('Out of if: return. . .')
 	return number;
 }
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+}
+function showPosition(position) {
+	console.log(position);
+	console.log("Latitude: " + position.coords.latitude);
+	console.log("Longitude: " + position.coords.longitude);
+	getWeather(position.coords.latitude, position.coords.longitude,function(data){
+		$('.card-box').css('display','block');
+		$('.card-box').addClass('fadeInDown');
+	});
+}
+function getWeather(a,b,callback){
+	console.log(a+' | '+b)
+	var getIP = 'http://ip-api.com/json/';
+	var openWeatherMap = 'http://api.openweathermap.org/data/2.5/weather'
+	$.getJSON(getIP).done(function(location) {
+	    $.getJSON(openWeatherMap, {
+	        lat: a,
+	        lon: b,
+	        units: 'metric',
+	        APPID: 'bb2ab1ec0121db5d9a8bffeca8257694'
+	    }).done(function(weather) {
+	    	sessionStorage.setItem("weather", JSON.stringify(weather));
+	        console.log(weather)
+	        callback(weather);
+	    })
+	})
+}
+function showError(error) {
+	console.log(error);
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+        	console.log("User denied the request for Geolocation.")
+            break;
+        case error.POSITION_UNAVAILABLE:
+        	console.log("Location information is unavailable.")
+            break;
+        case error.TIMEOUT:
+        	console.log("The request to get user location timed out.")
+            break;
+        case error.UNKNOWN_ERROR:
+        	console.log("An unknown error occurred.")
+            break;
+    }
+}
 function requestOtp(player_id){
 	var data = new Object();
 	data.token = sessionStorage['Token'];
