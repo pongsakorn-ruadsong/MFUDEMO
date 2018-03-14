@@ -190,6 +190,7 @@
 		    height: 50%;
 		    display: inline-block;
 		    z-index: 1041;
+		    padding-top: 10px;
 		}
 		.playCount,.quiz_label{
 			float: left;
@@ -201,9 +202,10 @@
 		    color: black;
 		}
 		.quiz_label{
-			font-size: 16px;
-			width: 60%;
+			font-size: 18px;
+			width: 100%;
 		    color: black;
+		        display: block;
 		    justify-content: left;
 		    padding: 5px 10px 5px 10px;
 		}
@@ -217,6 +219,7 @@
     		justify-content:center;
     		align-items:center;
     		width: 100%;
+    		padding-top: 5px;
 		}
 		.timeleap_Count{
 			 width: 50%;
@@ -237,21 +240,21 @@
 		    background-color: #ff002fa1;
 		}
 		.in-scored{
-			color: white;
-		    width: 65%;
+			color: black;
+		    width: 75%;
 		    height: 100%;
 		    font-size: 13px;
 		    text-align: center;
-		    background-color: #ff002fa1;
-		   /* margin-top: 90px;*/
+		       background-color: #ff002f00;
+    border-bottom: 1px solid aqua;
 		}
 		.reward-feed-img{
 			color: white;
-		    width: 35%;
+		    width: 25%;
 		    height: 100%;
 		    font-size: 10px;
 		    text-align: center;
-		    background-color: burlywood;
+		    border-bottom: 1px solid aqua;
 		}
 		.playCount-in{
 		    width: 80%;
@@ -272,60 +275,108 @@
 		    z-index: 1041;
 		}
 		.sams{
-			height: 15%;
+			height: 20%;
+			margin-bottom: 30px;
 		}
 		#feed-reward-img.fadeInDown,#feed-reward-img.fadeOutUp{
 			animation-duration: 0.5s;
 		}
 		.score{
 			height: 50%;
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
+			text-align: right;
+			padding: 5px 10px 10px 10px;
+			font-weight: bold;
+   			font-size: 16px;
+		}
+		.preview-logo{
+       position: fixed;
+       z-index: 50px;
+       border-radius: 50%;
+       background-color: darksalmon;
+        padding: 8px;
+        width: 60px;
+        height: 60px;
+        border:4px solid white;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -100px;
+		}
+		.nameTag{ 
+	       padding: 5px 10px 10px 10px;
+		    width: 40%;
+		    height: 100%;
+		    text-align: left;
+		    background-color: #00ff0000;
+		    position: relative;
+		    float: left;
+		    border-bottom: 1px solid aqua;
+		}
+		.logo_preview{
+		        position: relative;
+		        width: 55px;
+		        height: 55px;
+		        border-radius: 50%;
+		        background-color: grey;
+		        padding: 8px;
+		        margin-top: 0%;
+		       border: 4px solid white;
+		       overflow: hidden;
 		}
 	</style>
 	<!-- .in-scored = reward label -->
 	<div class="sams" id="" style="margin-top: 0px;"> <!-- padding: 0px 20px 0px 20px; -->
 		<div id="utilities_tab" class="utilities-tab" style="position: relative;">
-			<div id="" class="quiz_label" style="position: relative;">
-				<span class="glyphicon glyphicon-play" style="margin-right: 5px;font-size: 10px;margin-bottom: 5px;"></span>
-					<span id="played" style="font-size: 14px;"></span>
-				<div class="" id="quiz_label_dis" style="padding-left: 8px;">
-					Quiz's name
-				</div>
-				<!-- <div style="position: absolute;right: 0px;height: 100%;width: 20%;background-color: darkolivegreen;border: 1px solid white;/* top: 40px; */">
-					ICON
-				</div> -->
-			</div>
 			<!-- <div style="position: absolute;left: 50%;height: 100%;width: 15%;padding: 2px 0px 2px 0px;">
 				<div style="position: relative;left: -50%;border-radius: 50%;border:1px solid white;height: 100%;background-color:cadetblue;">Test</div>
 			</div> -->
+
+			<div class="nameTag">
+	            <label id="Player_username" style="
+			    font-size: 14px;
+			    font-weight: bold;
+			    margin-bottom: 0px;
+			">Player One</label>
+				            <br>
+				            <label id="Player_Phonenum" style="
+			    font-size: 10px;
+			">080-213-5555</label>
+			        	</div>
+        	
 			<div id="scored" class="scored">
 				<div id="covered-rw-feed" class="scored" style="/*display: none;*/">
 					<div class="reward-feed-img" id="reward-feed-img">
-						<img id="feed-reward-img" src="img/EXP.png" class="animated fadeInDown" style="margin-right: 0px;width: 100%;height: 100%;border-radius: 50%;background-color: #ffffff00;">
+						<img id="feed-reward-img" src="img/EXP.png" class="animated" style="margin-right: 0px;/* width: 100%; *//* height: 100%; *//* border-radius: 50%; */background-color: #ffffff00;align-self: center;">
 					</div>
-					<div class="in-scored animated flipInX" id="in-scored">
-						<div class="score oldScore" style="border-bottom: 1px solid white;">3</div>
+					<div class="in-scored animated" id="in-scored">
+						
 						<div class="score newScore">2,500,000</div>
 					</div>
 				</div>
 			</div>
+
+			<div style="position: absolute;left: 50%;">
+        		 <div class="logo_preview col-md-12" style="z-index:1; position:relative; left:-50%; background-color:#cccccc;">
+	                <img src="" style="background-size: cover;">
+	            </div>
+        	</div>
+        	<div style="clear: both;"></div>
 		</div>
 
 		<div class="display-quiz-name" id="disQuizName">
-			<div id="playCount" class="playCount">
-				<div class="playCount-in animated" id="playCount-in">
+			<div id="" class="quiz_label" style="position: relative;">
+				
 					
+				<div class="" id="quiz_label_dis" style="padding-left: 8px;"></div>
+				<span class="" id="time_remain" style="position: relative;text-align: right;font-size: 8px;float: right;margin-top: -18px;"></span>
+				<div>
+					<span class="glyphicon glyphicon-play" style="margin-right: 1px;font-size: 10px;"></span>
+					<span id="played" style="font-size: 12px;font-weight: bold;">23.5k</span>
 				</div>
 			</div>
-			<div id="" class="timeleap_Count">
-				<div class="" id="time_remain" style="
-				    height: 100%;
-				    text-align: right;
-				">time</div>
-			</div>	
 		</div>
+		
 	</div>
 	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;">
 		<div id="quizPanel" style="display: table;width: 100%;">

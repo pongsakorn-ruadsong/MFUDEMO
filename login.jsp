@@ -369,10 +369,15 @@
 	 <div class="modal animated fadeInDownBig" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	 <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;margin:0px;">
 	    <div class="modal-content" style="height: 100%;">
-	      <div class="modal-header" style="border-bottom:0px;background-image: url(img/LL.jpg);height: 50%;background-size: cover;">
+	      <div class="modal-header" style="border-bottom:0px;background-image: url(img/LL.jpg);height: 50%;background-size: contain;background-repeat: no-repeat;position: relative;z-index: 2;">
+
 	        <button type="button" class="loginClose close" id="loginClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
-	      <div class="modal-body" style="text-align: center;height: 50%;background-color: #e6e6e6;">
+	      <div style="width: 100%;height: 100%;background-color: #e6e6e6;position: fixed;left: 0px;z-index: 1;">
+	      		
+	      	</div>
+	      <div class="modal-body" style="text-align: center;height: 50%;background-color: #e6e6e6;position: relative;z-index: 2;">
+	      	
 	      	<div class="animated" style="height: 100%;width: 100%;" id="login_tel_input">
 	       	<div class="row" id="login_tel_input">
 	       		<div class="col-md-12" style="text-align: left;">
@@ -410,16 +415,16 @@
 	</div>
 
 	<!-- Modal mySignUp-->
-	<div id="mySignUp" class="modal animated fadeInDownBig" role="dialog">
-	  <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;margin:0px;">
+	<div id="mySignUp" class="modal animated fadeInDownBig" role="dialog" style="width: 100% !important;margin-top: 0px;height: 100% !important;">
+	  <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100% !important;margin:0px;">
 
 	    <!-- Modal content-->
-	    <div class="modal-content" style="height: 100%;">
+	    <div class="modal-content" style="height: 100% !important;display: -webkit-box;">
 	      <div class="modal-header" style="border-bottom:0px">
 	        <button type="button" class="testClose close" id="testClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
-	      <div class="modal-body" style="text-align: center;margin-top: -25px;height: 100%;">
-		      	<div style="width: 100%;height: 100%;">
+	      <div class="modal-body" style="text-align: center;margin-top: -25px;">
+		      	<div style="width: 100%;">
 		      		<center>
 			      	<div style="width: 100%;">
 			      			<img src="img/otp_logo.png" style="width: 40%;margin-right: 0px;">
@@ -517,11 +522,11 @@
 	  </div>
 	</div>
 	<!-- performOtp -->
-	<div id="performOtp" class="modal animated" role="dialog">
-	  <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;margin:0px;">
+	<div id="performOtp" class="modal animated" role="dialog" style="width: 100% !important;margin-top: 0px;height: 100% !important;">
+	   <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100% !important;margin:0px;">
 
 	    <!-- Modal content-->
-	    <div class="modal-content" style="height: 100%;">
+	    <div class="modal-content" style="height: 100% !important;display: -webkit-box;">
 	      <div class="modal-header" style="border-bottom:0px">
 	        <button type="button" class="testClose close" id="testClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>

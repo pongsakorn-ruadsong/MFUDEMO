@@ -4,7 +4,6 @@ html, body, .container-fluid{
   overflow-y: hidden;
 }
 .container-fluid{
-  padding-top: 73px;
   display: flex;
   flex-flow: column;
 }
@@ -72,8 +71,8 @@ html, body, .container-fluid{
     font-size: 18px;
     font-weight: bold;
 }
-.glyphicon-user,.glyphicon-gift,.glyphicon-home,.glyphicon-globe,.glyphicon-off{
-  font-size: 2.5rem;
+.glyphicon-user,.glyphicon-gift,.glyphicon-home,.glyphicon-globe,.glyphicon-off,.glyphicon-list-alt{
+  font-size: 1.5rem;
 }
 .p-header{
   font-size: 18px;
@@ -198,7 +197,7 @@ html, body, .container-fluid{
     padding-left: 0px !important;
   }
   p#topic{
-    font-size: 16px;
+    font-size: 18px;
   }
   #img{
     /*padding: 20px !important;*/
