@@ -1,6 +1,6 @@
 <%@include file="top.jsp" %>
-<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
-<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+<script src="js/formValidation.min.js"></script>
+<script src="js/bootstrapValidation.min.js"></script>
 <script type="text/javascript">
 		$(document).ready(function(){
 			var otp = [];
@@ -343,10 +343,10 @@
 <div class="login-bg">
 	<div id="display_time_weather">
 		<div id="half-1" style="float: left;">
-			1
+			
 		</div>
 		<div id="half-2" style="float: right;">
-			2
+			
 		</div>
 		<div style="clear: both;"></div>
 	</div>

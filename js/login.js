@@ -40,9 +40,7 @@ function showPosition(position) {
 }
 function getWeather(a,b,callback){
 	console.log(a+' | '+b)
-	var getIP = 'http://ip-api.com/json/';
 	var openWeatherMap = 'http://api.openweathermap.org/data/2.5/weather'
-	$.getJSON(getIP).done(function(location) {
 	    $.getJSON(openWeatherMap, {
 	        lat: a,
 	        lon: b,
@@ -53,7 +51,6 @@ function getWeather(a,b,callback){
 	        console.log(weather)
 	        callback(weather);
 	    })
-	})
 }
 function showError(error) {
 	console.log(error);
