@@ -145,8 +145,10 @@ function getReward(callback){
 					}
 				}
 			}
-			else{
+			else if (full_reward[i].indexOf(':') > -1) {
 				reward.push(full_reward[i].split(':'));
+			}else{
+				console.log('Empty full_array')
 			}
 		}
 		full_reward.pop();
@@ -977,6 +979,8 @@ function buildQuiz(result, callback){
 
 	    	}
 	    	else if(type == 'TXT'){
+	    		document.getElementById("4Play").style.display = "none";
+	    		document.getElementById("realDeal").style.display = "none";
 	    		text+='<textarea class="form-control inputTXT_TXT" rows="4" placeholder="'+ph+'" typeZ="TXT"></textarea>'
 	    		select1 = Quiz01.response.result.options[0].option_id;
 

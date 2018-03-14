@@ -24,6 +24,7 @@
 					{   e.preventDefault();
 	                $('#performOtp').removeClass('fadeOutUpBig').addClass('fadeInDownBig');
 	                setTimeout("$('#performOtp').modal('show')", 300);}
+	                $('.modal-content').css('height','100%');
 				}else{
 					if($('#mySignUp').hasClass('fadeOutUpBig'))
 		                {   e.preventDefault();
@@ -31,6 +32,7 @@
 		                setTimeout("$('#mySignUp').modal('show')", 300);}
 		                else{
 		                	$('#mySignUp').modal('show');
+		                	$('.modal-content').css('height','100%');
 		                }
 	            }
 			});
@@ -40,9 +42,11 @@
 					e.preventDefault();
 					$('#loginModal').removeClass('fadeOutUpBig').addClass('fadeInDownBig');
 					setTimeout("$('#loginModal').modal('show')", 300);
+					$('.modal-content').css('height','100%');
 				}else{
 			        $('#loginModal').addClass('fadeInDownBig');
 			        setTimeout("$('#loginModal').modal('show')", 300);
+			        $('.modal-content').css('height','100%');
 					}
 			});
 			$('#loginModal').on('hidden.bs.modal', function () {
@@ -438,6 +442,7 @@
 			        	.gest{
 			        		font-size: 22px;
     						padding: 10px;
+    						width: 30%;
 			        	}
 			        	.btn-send-otp{
 			        		background-color: #45a1bc;
@@ -448,55 +453,60 @@
 						    color: white;
 						    padding: 5px;
 						    font-weight: lighter;
+						    border: none;
+			        	}
+			        	button.telNumber,button.reset-phone,button.del-phone,button.telNumber-otp{
+			        		background-color: rgba(255, 228, 196, 0);
+							border: none;
 			        	}
 			        </style>
 			        <div style="width: 70%;margin-top: 20px;">
 			        	<button class="btn-send-otp" id="sendOtp">Send</button>
 			        </div>
 			        </center>
-			        <div style="width: 100%;margin-top: 10px;padding-left: 4.5%;padding-right: 4.5%;">
+			        <div style="width: 90%;margin-top: 10px;margin-left: auto;">
 			        	
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >1</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >2</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >3</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >4</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >5</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >6</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >7</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >8</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >9</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="reset-phone" id="reset-phone">Reset</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >0</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="del-phone" id="del-phone">DEL</button>
 			        		</div>
 			        	</div>
@@ -539,6 +549,7 @@
 			        	.input-otp{
 			        		padding-right: 5px;
 			        		padding-left: 5px;
+			        		width: 16%;
 			        	}
 			        	.input-otp-p{
 			        		border-bottom: 1px solid gray;
@@ -548,22 +559,22 @@
 			        </style>
 			        <div class="input-otp-OutFrame" style="width: 100%;padding-left: 10%;padding-right: 10%;height: 40px;">
 			        	<div class="row input-otp-inFrame" style="">
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
 			        	</div>
@@ -591,49 +602,49 @@
 			        	<button class="btn-send-otp" id="perform-otp" disabled >Confirm</button>
 			        </div>
 			        </center>
-			        <div style="width: 100%;margin-top: 10px;padding-left: 2.5%;padding-right: 2.5%;">
+			        <div style="width: 90%;margin-top: 10px;margin-left: auto;">
 			        	
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >1</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >2</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >3</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >4</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >5</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >6</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >7</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >8</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >9</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="reset-phone" id="reset-phone-otp">Reset</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >0</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="del-phone" id="del-phone-otp">DEL</button>
 			        		</div>
 			        	</div>

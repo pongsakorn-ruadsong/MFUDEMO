@@ -312,7 +312,7 @@
         _initListeners: function() {
             this._initKeyListeners();
             if (this.options.autoHideDialCode) {
-                this._initFocusListeners();
+                // this._initFocusListeners();
             }
             if (this.options.allowDropdown) {
                 this._initDropdownListeners();
@@ -464,7 +464,7 @@
                 if (!that.telInput.is(":focus") && !that.telInput.val()) {
                     e.preventDefault();
                     // but this also cancels the focus, so we must trigger that manually
-                    that.telInput.focus();
+                    // that.telInput.focus();
                 }
             });
             // on focus: if empty, insert the dial code for the currently selected flag

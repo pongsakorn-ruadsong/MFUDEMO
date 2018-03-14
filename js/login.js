@@ -40,7 +40,7 @@ function showPosition(position) {
 }
 function getWeather(a,b,callback){
 	console.log(a+' | '+b)
-	var openWeatherMap = 'http://api.openweathermap.org/data/2.5/weather'
+	var openWeatherMap = 'https://api.openweathermap.org/data/2.5/weather'
 	    $.getJSON(openWeatherMap, {
 	        lat: a,
 	        lon: b,
