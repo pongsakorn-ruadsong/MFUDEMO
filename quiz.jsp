@@ -88,6 +88,11 @@
 					$('.live-box').css('margin-top', 0);
 				}
 			});
+			$('#showUser').click(function(){
+				getUserInfo(function(){
+				$('#userInfo').modal();
+			});
+		});
 		});
 
 	</script>
@@ -357,7 +362,7 @@
 			</div>
 
 			<div style="position: absolute;left: 50%;">
-        		 <div class="logo_preview col-md-12" style="z-index:1; position:relative; left:-50%; background-color:#cccccc;">
+        		 <div class="logo_preview col-md-12" id="showUser" style="z-index:1; position:relative; left:-50%; background-color:#cccccc;">
 	                <img src="" style="background-size: cover;">
 	            </div>
         	</div>

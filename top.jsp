@@ -227,7 +227,7 @@
 
 		<!-- Modal -->
 
-		<div class="modal  fade" id="menuPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+		<!-- <div class="modal  fade" id="menuPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
 		    <div class="modal-content mCustom">
 		      <div class="modal-body" style="text-align: center;padding: 1rem !important;">
@@ -267,7 +267,7 @@
 		      </div>
 		    </div>
 		  </div>
-		</div>
+		</div> -->
 
 		<!-- Modal -->
 

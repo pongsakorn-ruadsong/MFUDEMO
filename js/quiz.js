@@ -177,12 +177,16 @@ function autoNext(){
 			getReward(function(reward, datas){
 				var k = 0;
 				console.log(datas)
+				console.log(k+' | '+datas.length)
 				show_interval = setInterval(function(){
 					if (k<datas.length) {
+						console.log(k+' | '+datas.length)
 						$('#feed-reward-img').removeClass('fadeInDown')
 						$('#in-scored').removeClass('flipInX').addClass('flipOutX');
+						console.log('Here')
 						setTimeout(function(){
 							updateRewardFeed(datas[k],function(){
+								console.log('HAHA')
 								$('#feed-reward-img').removeClass('fadeOutUp').addClass('fadeInDown')
 								$('#in-scored').removeClass('flipOutX').addClass('flipInX');
 								k++;
