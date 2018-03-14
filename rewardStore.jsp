@@ -115,20 +115,31 @@
      	</div>
      </div>
 </div>
+
 <input type="hidden" id="hid-couponId">
  <input type="hidden" id="hid-goodsType">
-
-
-
-<!-- <input id="text" type="text" style="width:80%" /><br />
-<div id="qrcode"></div> -->
-
-
 
 
 <div class="modal animated bounceInDown" id="checkOutGoods" role="dialog">
     
 </div>
+
+<div class="modal animated bounceInDown" id="displayCondition" role="dialog">
+    <div class="modal-dialog " style="top: 10%"> 
+        <div class="modal-content " style="border-radius: 10px; width: 80%; height: 380px; background-color: white; left: 10%;">
+        	<div class="modal-body">
+        		<div style="text-align: center; margin-top: 10px; color: red;" id="qrcode1"><h4>Term & Condition</h4></div>
+        		<div style="text-align: center; color: red;" id="qrcode1"><h5>Privacy Policy</h5></div>
+        		<p class="term" id="Term"> </p>
+        	</div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn-lg info" data-dismiss="modal">Close</button>
+	        </div>
+     	</div>
+    </div>
+</div>
+
+
 </div>
 <!-- <input type="hidden" id="hid-couponId"> -->
 <!-- <script>

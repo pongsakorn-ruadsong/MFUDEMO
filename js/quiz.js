@@ -576,6 +576,7 @@ function buildFeed(data){
 	    '</tr>'
     }
     $('#feed-content').append(text);
+	callback();
 }
 var quiz_type = '';
 function getQuizType(){

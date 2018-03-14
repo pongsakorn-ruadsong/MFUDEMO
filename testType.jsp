@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		eventShow();
+		// eventShow();
 	// 	reset();
 	// 	animateText();
 	// 	animateBlobs();
@@ -22,6 +22,11 @@
 	// 	  animateText();
 	// 	  animateBlobs();
 	// 	});
+		$('#js-flip-1').toggle(function() {
+	        $('#js-flip-1 .card').addClass('flipped');
+	    },
+	    function() { $('#js-flip-1 .card').removeClass('flipped');
+	    });
 	});
 </script>
 <style type="text/css">
@@ -313,11 +318,98 @@
 	text-align: center;
 	background-color: blue;
 }
+<<<<<<< Updated upstream
+=======
+
+
+/*--------- card flip --------*/
+
+.flip {
+    -webkit-perspective: 800;
+    width: 400px;
+    height: 200px;
+    position: relative;
+    margin: 50px auto;
+}
+.flip .card.flipped {
+    -webkit-transform: rotateY(-180deg);
+}
+.flip .card {
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 1.5s;
+}
+.flip .card .face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    z-index: 2;
+    font-family: Georgia;
+    font-size: 3em;
+    text-align: center;
+    line-height: 200px;
+}
+.flip .card .front {
+    position: absolute;
+    z-index: 1;
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+.flip .card .back {
+    -webkit-transform: rotateY(-180deg);
+    background: blue;
+    background: white;
+    color: black;
+    cursor: pointer;
+}
+.profile {
+	width: 100px;
+	height: 100px;
+	background: red;
+	border-radius: 50px;
+	animation-name: fulFill;
+    animation-duration: 1.5s;
+    text-align: center;
+    animation-iteration-count: 1;
+}
+@keyframes fulFill {
+	from{
+		background-color: white;
+		direction: bottom;
+	}
+	to{
+		direction: top;
+		background-color: red;
+	}
+}
+.spanPrice{
+	position: relative;
+    font-size: 15px;
+    top: 30%;
+}
 </style>
 
 <div class="container" style="margin-top: 10%;">
 
-<div class="goodsBox">
+	<div class="profile">
+ 		<span class="spanPrice" id="user_point">15,559</span><br>
+ 		<span class="spanPrice">THB</span>
+	</div>
+
+</div>
+
+<!-- <div class="goodsBox">
+	<div id="js-flip-1" class="flip">
+    	<div class="card">
+        	<div class="face front">Front</div>
+        	<div class="face back">Back</div>
+	    </div>
+	</div>
+ -->
+<!-- <div class="goodsBox">
 	<div class="header">
 		<div class="nameTag">
 			<label>Tester</label><br>
@@ -325,8 +417,8 @@
 			<div class="logo_preview col-md-12" style="z-index:1; position:absolute; top:-5px; left:-5px; background-color:#cccccc;">
 				<img src=" " style="background-size: cover;">
 			</div>
-		</div>
-		<div class="row">
+		</div> -->
+		<!-- <div class="row">
 		<img src=" " style="float:left; margin:5px; width:100px; height:50px; background-size:cover;">
 		</div>
 		<div class="row">
@@ -363,6 +455,58 @@
 				<div style="margin-top: 35px;">1 THB</div>
 			</div>
 		</div>
+		<div class="timeLine">
+				<li>
+					<div class="message">
+						<div class="wrappe-flag">
+							<span class="flag">
+								message.
+							</span>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="message">
+						<div class="wrappe-flag">
+							<span class="flag">
+								message.
+							</span>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="message">
+						<div class="wrappe-flag">
+							<span class="flag">
+								message.
+							</span>
+						</div>
+					</div>
+				</li>
+		</div>
+	</div>
+	<div class="footer">
+		<a href="#" class="readTerm">Term & Condition</a> -->
+<!-- =======
+>>>>>>> Stashed changes
+	</div>
+	<div class="body">
+		<div class="row">
+			<div class="currencyBox" style="border-right:1px solid; border-bottom: 1px solid;">
+				<div style="margin-top: 35px;">1 THB</div>
+			</div>
+			<div class="currencyBox" style="border-left:1px solid; border-bottom: 1px solid; ">
+				<div style="margin-top: 35px;">1 THB</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="currencyBox" style="border-right: 1px solid; border-top: 1px solid; ">
+				<div style="margin-top: 35px;">1 THB</div>
+			</div>
+			<div class="currencyBox" style="border-left:1px solid; border-top: 1px solid; ">
+				<div style="margin-top: 35px;">1 THB</div>
+			</div>
+		</div> -->
 		<!-- <div class="timeLine">
 				<li>
 					<div class="message">
@@ -392,11 +536,12 @@
 					</div>
 				</li>
 		</div> -->
-	</div>
+<!-- 	</div>
 	<div class="footer">
 		<a href="#" class="readTerm">Term & Condition</a>
-	</div>
-</div>
+	</div> -->
+
+
 
 
 

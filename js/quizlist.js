@@ -232,12 +232,16 @@ function buildUserReward(){
 						console.log("point")
 						point = contentGoods[goodsId][k].value;
 					}
+					if (contentGoods[goodsId][k].key == 'Condition') {
+						console.log("Condition")
+						condition = contentGoods[goodsId][k].value;
+					}
 					}
 					console.log(dataGoods[i]);
 					if (dataGoods[i].amount == 0) {
 						continue;
 					}
-					text += '<tr class="spaceUnder goods-store" goodID="'+dataGoods[i].goods_id+'" icon="'+icon+'" detail="'+detail+'" point="'+point+'" nameID="'+dataGoods[i].name+'" imgID="'+dataGoods[i].image+'" expireID="'+dataGoods[i].date_expire+'" iconID="'+icon+'" codeID="'+dataGoods[i].code+'" detailID="'+detail+'">'+
+					text += '<tr class="spaceUnder goods-store" goodID="'+dataGoods[i].goods_id+'" icon="'+icon+'" detail="'+detail+'" point="'+point+'" nameID="'+dataGoods[i].name+'" imgID="'+dataGoods[i].image+'" expireID="'+dataGoods[i].date_expire+'" termId="'+condition+'" iconID="'+icon+'" codeID="'+dataGoods[i].code+'" detailID="'+detail+'">'+
 					'<td><img src='+dataGoods[i].image+' style="width:50px;height:50px;" class="img-circle"></td>'+
 					'<td>'+dataGoods[i].name+'</td>'+
 					'<td>'+dataGoods[i].amount+'</td>'+
@@ -259,7 +263,7 @@ function buildUserReward(){
 	// 	$('#imageShow').css("background-image", "url("+b+")");
 
 		var text1 = '<div class="modal-dialog" style="top: 5%">  '+
-'        				<div class="modal-content" style="border-radius: 10px; width: 75%; height: 100%; background-color: white; left: 13%;">'+
+'        				<div class="modal-content" style="border-radius: 10px; width: 80%; height: 100%; background-color: white; left: 10%;">'+
 '       					<div class="header couponTop" id="imageShow" style="background-image: url('+$(this).attr('imgID')+');border-radius: 10px background-size: cover;"></div>'+		
 '						<div class="container">'+
 '							<div class="logo_preview col-md-12" style="z-index:1; position: absolute; top:100px;left: 5%;box-shadow: 1px 4px 5px #999999;">'+
@@ -271,16 +275,11 @@ function buildUserReward(){
 '						<div class="container">	'+	      					
 '							<div class="couponDetail" type="text" id="detailCoupon">'+$(this).attr('detailID')+'</div>'+
 '						</div>'+
-'						<div class="row">'+
-'							<div class="halfCricle-wrapper">'+
-'								<div class="halfCricle"></div>'+
-'							<hr>'+
-'							</div>'+
-'						</div>'+
+'							<hr style="border: 1px dashed #d9d9d9; align-self: center;">'+
 '						<div class="row">'+
 '							<div class="couponPoint" style="margin-left: 38%;" id="points"> </div>'+
 '						</div>'+
-'						<div class="col-md-12" style="text-align: center; margin-top: 5%;">'+
+'						<div class="col-md-12" style="text-align: center;">'+
 '							<div style="text-align: center;  font-weight: bold;">Method redeem:</div>'+
 '								<ul class="nav nav-tabs" style="margin-left: 15%; border-bottom: hidden;">   '+
 '									<li class="" id="QRCode" style="width: 40%;">'+
@@ -290,33 +289,39 @@ function buildUserReward(){
 '										<a data-toggle="tab"  href="#BarCode" style="padding: 0px;"> <span class="glyphicon glyphicon-barcode"></span>Barcode</a>'+
 '									</li>'+
 '								</ul><br>'+
-'						<code id="code" style="color: #4d4d4d; font-weight: bold; font-size: 30px;">'+$(this).attr('codeID')+'</code>'+						
+'								<div class="input-group" style="height:25px; margin-left: 10px;">'+
+'      								<input class="clipboard" id="stringCode" value="'+$(this).attr('codeID')+'" readOnly>'+
+'      								<button class="sentClipboard btn"><span class="glyphicon glyphicon-floppy-save" style="top: -4px;"></span></button>'+
+'    							</div>'+
 '							<div class="tab-content increaseHeight" style="height: auto;">'+
 '								<div class="tab-pane fade" id="QR">'+
-'									<center>'+
+'									<center><br>'+
 '										<div id="qrcode" style="width: 50%; margin: 10px;" cID="'+$(this).attr('codeID')+'"></div>'+
 '									</center>'+
 '								</div>'+
 '								<div class="tab-pane fade" id="BarCode">'+
-'									<center>'+
+'									<center><br>'+
 '										<div id="displaybarcode"></div>'+
 '									</center>'+
 '								</div>'+
 '							</div><br>'+
-'						<a href="#" style="text-align: center; margin: 10px;">Term & Condition</a>'+
+'						<div class="termAndcon" id="termDetail" conditaionId="'+$(this).attr('termId')+'" style="text-align: center; margin-bottom:10px; color: #0073e6;">Term & Condition</div>'+
 '						</div>'+
 '					</div>'
 		$('#checkOutGoods').append(text1);
+			// $('#userInfo').addClass('blur');
+			// $('#userInfo').removeClass('blur');
+
 		$('#QRCode').click(function(){
 			$('.myTab').removeClass('active');
 			$('#QRcode1').addClass('active');
-			$('.increaseHeight').css('height','110')
+			$('.increaseHeight').css('height','120')
 			getUserReward();
 		});
 		$('#Barcode').click(function(){
 			$('.myTab').removeClass('active');
 			$('#Barcode1').addClass('active');
-			$('.increaseHeight').css('height','70')
+			$('.increaseHeight').css('height','85')
 			getUserReward();
 		});	
 		setTimeout(function(){
@@ -324,9 +329,24 @@ function buildUserReward(){
 			console.log($('#qrcode').attr('cID'))
 			$("#displaybarcode").barcode($('#qrcode').attr('cID'),"code128");
 			new QRCode(document.getElementById("qrcode"), $('#qrcode').attr('cID'));
-			$('#checkOutGoods').modal();
+			$('#checkOutGoods').modal();	
 		},500);
+		$('.sentClipboard').click(function(){
+			copyToClipboard();
+		});	
+		$('.termAndcon').on('click', function () {
+			$('#Term').text($('#termDetail').attr('conditaionId'));
+			$('#checkOutGoods').addClass('blur');
+			$('#displayCondition').modal();
+		});
 	});
+}
+
+function copyToClipboard() {
+  var copyText = document.getElementById("stringCode");
+  copyText.select();
+  document.execCommand("Copy");
+  // alert("Copied the text: " + copyText.value);
 }
 
 function changeLang(callback){
