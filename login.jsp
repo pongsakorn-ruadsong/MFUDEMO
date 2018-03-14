@@ -277,6 +277,7 @@
 	                preferredCountries: ['th', 'us', 'gb','fr','kr','jp']
 	            });
 	        $('.intl-tel-input').append('<label style="position: absolute;width: 80%;height: 100%;background-color: #00ffff00;top: 0px;left: 50px;"></label>')
+	        checkTime();
 	        });
 	</script>
 	<link rel="stylesheet" href="css/swiper.min.css">

@@ -735,13 +735,6 @@ function buildFeed(data,callback){
 	    '<td class="feedRow activities-badge">'+items+'</td>'+
 	    '</tr>'
     }
-    $('#feed-content').append(text);
-    $(".tr-feed").each(function(i) {
-    	$(".tr-feed").delay(100* i ).fadeIn(500);
-	});
-	callback();
-    // $('#feed-content').addClass('animated fadeInUp');
-    // $('#feed-content').addClass('animated fadeOutUp');
 }
 var quiz_type = '';
 function getQuizType(){
