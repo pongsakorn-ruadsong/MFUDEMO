@@ -10,7 +10,10 @@
 			if (checkUser()) {
 				getToken();
 				getLocation();
-				getContent();
+				getContent(function(){
+					$('.card-box').css('display','block');
+					$('.card-box').addClass('fadeInDown');
+				});
 				// initialSwipeCard();
 			}else{
 				window.location.replace("index");

@@ -34,8 +34,8 @@ function showPosition(position) {
 	console.log("Latitude: " + position.coords.latitude);
 	console.log("Longitude: " + position.coords.longitude);
 	getWeather(position.coords.latitude, position.coords.longitude,function(data){
-		$('.card-box').css('display','block');
-		$('.card-box').addClass('fadeInDown');
+		// $('.card-box').css('display','block');
+		// $('.card-box').addClass('fadeInDown');
 	});
 }
 function getWeather(a,b,callback){
@@ -467,7 +467,7 @@ function checkUser(){
 function chkPage(){
 	
 }
-function getContent(){
+function getContent(callback){
 	$.ajax({
 		type: "GET",
 		async: false,
@@ -480,6 +480,7 @@ function getContent(){
 	    			alert("Cannot get content!");
 	    		}else{
 	    		sessionStorage.setItem("contentData", JSON.stringify(data));
+	    		callback();
 	    	}
 	    	
 	    },
