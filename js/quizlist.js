@@ -46,12 +46,12 @@ function nFormatter(num, digits) {
   return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 }
 function getUserInfo(callback) {
-	if (sessionStorage['loginType'] == 'guest') {
-		console.log(guestImage)
-		var randomNum = Math.floor(Math.random() * guestImage.length);
-		console.log(randomNum)
-		$("#userPro").attr("src", guestImage[randomNum]);
-	}else{
+	// if (sessionStorage['loginType'] == 'guest') {
+	// 	console.log('Guest')
+	// 	// var randomNum = Math.floor(Math.random() * guestImage.length);
+	// 	// console.log(randomNum)
+	// 	// $("#userPro").attr("src", guestImage[randomNum]);
+	// }else{
 	var data = new Object();
 	data.token = sessionStorage['Token'];
 	$.ajax({
@@ -63,7 +63,9 @@ function getUserInfo(callback) {
 	    		Index05 = data;
 	    		console.log(data);
 	    		buildPlayerFull(data.response.player,function(){
+
 	    		});
+	    		callback(data);
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
@@ -71,45 +73,7 @@ function getUserInfo(callback) {
                 console.log("Failed : getLang() @ index.js");
             }
         });
-	callback();
-	}
-}
-function buildPlayer(a,callback) {
-	var img = a.image;
-	var img_for_check = /[^/]*$/.exec(img)[0];
-	console.log(img_for_check)
-	if (img_for_check == 'default_profile.jpg') {
-		img = 'img/default_user.png'
-	}
-	var Fname = a.first_name;
-	var Lname = a.last_name;
-	var exp = a.exp;
-	var point = ''; //In points
-	var lv = a.level;
-	var badge = ''; //many in array
-	var gender = a.gender; // 1 or 2
-	var lv_percent = a.percent_of_level-15;
-	var regis_date = a.registered;
-	var username = a.username;
-	var phone_number = ''; //null
-	if (a.phone_number == null) {
-		phone_number = 'null';
-	}else{
-		phone_number = a.phone_number;
-	}
-	var email = a.email;
-	var birthDate = ''; //null
-	if (a.birth_date == null) {
-		birthDate = 'null';
-	}else{
-		birthDate = a.birth_date;
-	}
-	for(var i = 0; i<a.points.length;i++){
-		if (a.points[i].reward_name == "point") {
-			point = a.points[i].value;
-		}
-	}
-	callback();
+	// }
 }
 function buildPlayerFull(a,callback) {
 	// $('#playerPanel > div').remove();
@@ -127,6 +91,12 @@ function buildPlayerFull(a,callback) {
 	var badge = ''; //many in array
 	var gender = a.gender; // 1 or 2
 	var lv_percent = a.percent_of_level;
+	if (a.percent_of_level > 0) {
+		$('#exp_progress').css('color','white');
+	}
+	else{
+		$('#exp_progress').css('color','black');
+	}
 	var regis_date = a.registered;
 	var username = a.username;
 	var phone_number = ''; //null
@@ -142,13 +112,21 @@ function buildPlayerFull(a,callback) {
 	}else{
 		birthDate = a.birth_date;
 	}
-	for(var i = 0; i<a.points.length;i++){
-		if (a.points[i].reward_name == "point") {
-			point = a.points[i].value;
+	if (a.points.length > 0) {
+		for(var i = 0; i<a.points.length;i++){
+			if (a.points[i].reward_name == "point") {
+				point = a.points[i].value;
+			}
 		}
+	}else{
+		point = 'None';
 	}
-	$('#user_pic').attr("src",img);
-	$('#userName').text(username);
+	$('#user_pic').attr("src",sessionStorage['tempUserProfile_Img']);
+	if (sessionStorage['loginType'] == 'guest') {
+		$('#userName').text('Guest\'s profile');
+	}else{
+		$('#userName').text(username);
+	}
 	$('#user_level').text(lv);
 	$('#user_point').text(point);
 	$('#exp_progress').text(lv_percent+'%');

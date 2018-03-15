@@ -277,7 +277,6 @@
 	                preferredCountries: ['th', 'us', 'gb','fr','kr','jp']
 	            });
 	        $('.intl-tel-input').append('<label style="position: absolute;width: 80%;height: 100%;background-color: #00ffff00;top: 0px;left: 50px;"></label>')
-	        checkTime();
 	        });
 	</script>
 	<link rel="stylesheet" href="css/swiper.min.css">
@@ -316,20 +315,20 @@
 	  	animation-duration: 0.8s;
 	  }
 	  .login-bg{
-  	    height: calc(100% + 73px);
-	    margin-top: -73px;
+  	    height: calc(100%);
 	    width: 100%;
 	    position: relative;
 	    background-color: black;
 	    
 	  }
 	  .test-bg{
-	  	height: calc(100% + 73px);
-	    margin-top: -73px;
+	  	height: 100%;
 	    width: 100%;
 	    position: absolute;
-	  	background-image: url(gif/Login_motion.gif);
+	    background-image: url(gif/Login_motion.gif);
 	    background-size: contain;
+	    background-repeat: no-repeat;
+	    background-position-y: bottom;
 	  }
 	  #display_time_weather{
 	  	height: 30%;

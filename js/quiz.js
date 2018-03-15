@@ -177,16 +177,12 @@ function autoNext(){
 			getReward(function(reward, datas){
 				var k = 0;
 				console.log(datas)
-				console.log(k+' | '+datas.length)
 				show_interval = setInterval(function(){
 					if (k<datas.length) {
-						console.log(k+' | '+datas.length)
 						$('#feed-reward-img').removeClass('fadeInDown')
 						$('#in-scored').removeClass('flipInX').addClass('flipOutX');
-						console.log('Here')
 						setTimeout(function(){
 							updateRewardFeed(datas[k],function(){
-								console.log('HAHA')
 								$('#feed-reward-img').removeClass('fadeOutUp').addClass('fadeInDown')
 								$('#in-scored').removeClass('flipOutX').addClass('flipInX');
 								k++;
@@ -471,6 +467,7 @@ function checkFeed(){
 		// }
 	}
 function getQuestion(result, callback){
+	$('#userImg_03').attr('src',sessionStorage['tempUserProfile_Img']);
 	var k = 2;
 	var i = 0;
 	var getFeed_delay;
@@ -735,6 +732,13 @@ function buildFeed(data,callback){
 	    '<td class="feedRow activities-badge">'+items+'</td>'+
 	    '</tr>'
     }
+    $('#feed-content').append(text);
+    $(".tr-feed").each(function(i) {
+    	$(".tr-feed").delay(100* i ).fadeIn(500);
+	});
+	callback();
+    // $('#feed-content').addClass('animated fadeInUp');
+    // $('#feed-content').addClass('animated fadeOutUp');
 }
 var quiz_type = '';
 function getQuizType(){
@@ -767,7 +771,7 @@ function buildQuiz(result, callback){
 	    	// $('#in-scored').html('&#x0E3F;');
 	    }else if (quizType[sessionStorage['qId']] == 'quiz'){
 		    if (result != undefined) {
-		    	$('#in-scored').css('display','block');
+		    	$('#in-scored').css('display','flex');
 		    	var ans_result = result.response.result.explanation;
 		    	var get_score = result.response.result.grade.score;
 		    	var max_this_score = result.response.result.grade.score;
@@ -909,6 +913,7 @@ function buildQuiz(result, callback){
 		    			continue;
 	    			}
 		    		text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
+		    		'<label class="btn choice-overlay " style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
 			          '<input class="inputTXT_SQ_S" name="'+topic+'" typeZ="SQ_S"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
 
@@ -1062,7 +1067,7 @@ function buildQuiz(result, callback){
 	    	});
 	    	$('#nextBtn').click(function() {
 		    	console.log("ENTER")
-		    	if (type == 'SLI' || type == 'SLI_S' || type == 'MULTI_S' || type == 'MULTI') {
+		    	if (type == 'SLI' || type == 'SLI_S' || type == 'MULTI_S' || type == 'MULTI' || type == 'SQ_S') {
 		    		autoNext();
 		    	}else{
 		    	var remain = parseInt(sessionStorage['pause_num']);
@@ -1190,7 +1195,14 @@ function buildQuiz(result, callback){
 						},600);
 		    	 	}
 		    	 }else{
-		    	 	$('#stopCount').click();
+		    		$('#nextBtn').removeClass("stop");
+		    	 	$("#nextBtn").prop('disabled', false);
+		    	 	$('#stopCount').css("display","block");
+		    	 	$('#resetQuiz').css("display","none");
+		    	 	$('#stopCount').removeClass('zoomOut');
+		    	 	$('#timer').text('');
+		    	 	$('#timer').addClass("glyphicon glyphicon-play");
+		    	 	$('#nextBtn').removeClass('normal-form-next').addClass('btn-primary')
 		    	 }
 	    	 });
 	    	 $('.inputTXT_SQ_S_MULTI').click(function(){

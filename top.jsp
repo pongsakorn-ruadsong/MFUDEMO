@@ -118,6 +118,21 @@
 			   changeUI($(window).width());
 			   console.log($(window).width())
 		};
+		getUserInfo(function(player){
+			sessionStorage.setItem("playerMainData", JSON.stringify(player.response.player));
+		});
+		$('#Setting').click(function(){
+			console.log('Clicking')
+			if ($('.otherMenu').hasClass('menu-hide')) {
+				$('.otherMenu').removeClass('menu-hide').addClass('menu-show');
+				$('.otherMenu').css('bottom','10%');
+			}
+			else if($('.otherMenu').hasClass('menu-show')){
+				$('.otherMenu').removeClass('menu-show').addClass('menu-hide');
+				var h = $('.otherMenu').height();
+				$('.otherMenu').css('bottom', -h);
+			}
+		});
 	});
 		function changeUI(a){
 			console.log($(window).width())
@@ -181,9 +196,24 @@
 	}*/
 	.nonPadding{
 		padding: 0px !important;
+		width: 15%;
+		display: inline-block;
+	}
+	.otherMenu{
+		transition: all 1s;
 	}
 </style>
 <body>
+	<div class="otherMenu menu-hide" style="position: fixed;bottom: -100px;right: 0px;width: 22%;z-index: 1020;background-color: aqua;">
+		<div class=" center" style="padding: 10px">
+			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
+			<p style="font-size: 8px;text-align: center;">Language</p>
+		</div>
+		<div class=" center" style="padding: 10px">
+			<a href="#"><span class="glyphicon glyphicon-off" id="logOut"></span></a>
+			<p style="font-size: 8px;text-align: center;">Logout</p>
+		</div>
+	</div>
 	<nav class="navbar navbar-inverse navbar-fixed-bottom" id="myNav" style="height: 10%;">
 		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;margin-left: 15px;">
 			<div class="row">
@@ -196,26 +226,33 @@
 					
 				</a>
 		</ul>
-		<div class="row" style="padding-top: 10px;">
-	   		<div class="col-2 nonPadding center">
+
+		<div class="" style="width: 35%;float: left;">
+	   		<div class="center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
 	   			<a href="Leader.jsp"><span class="glyphicon glyphicon-list-alt"></span></a>
-	   			<p style="font-size: 8px;text-align: center;">Leader</p>
+	   			<p style="font-size: 8px;text-align: center;">News</p>
 	   		</div>
-	   		<div class="col-2 nonPadding center">
+	   		<div class="center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
 	   			<a href="rewardStore"><span class="glyphicon glyphicon-gift"></span></a>
-	   			<p style="font-size: 8px;text-align: center;">Reward</p>
+	   			<p style="font-size: 8px;text-align: center;">Offers</p>
 	   		</div>
-	   		<div class="col-4 nonPadding center">
-	   			<a href="index"><img src="img/iconplaylist.png" style="margin-right: 0px;width: 40%;margin-top: -10px;"></a>
-	   			<p style="font-size: 8px;text-align: center;">QuizList</p>
-	   		</div>
-	   		<div class="col-2 nonPadding center">
-				<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
-				<p style="font-size: 8px;text-align: center;">Language</p>
+	   	</div>
+
+	   	<div class="center" style="position: absolute;left: 50%;">
+	   		<div style="position: relative;left: -50%;">
+	   			<a href="index"><img src="img/iconplaylist.png" style="margin-right: 0px;width: 25%;"></a>
+	   			<p style="font-size: 8px;text-align: center;">Playlists</p>
+   			</div>
+   		</div>
+
+	   	<div style="width: 35%;float: right;">
+	   		<div class=" center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
+				<a href="#"><span class="glyphicon glyphicon-credit-card" id="Wallet"></span></a>
+				<p style="font-size: 8px;text-align: center;">Wallet</p>
 			</div>
-			<div class="col-2 nonPadding center" id="logOut">
-				<a href="#"><span class="glyphicon glyphicon-off"></span></a>
-				<p style="font-size: 8px;text-align: center;">Logout</p>
+			<div class=" center" id="Setting" style="display: inline-block;width: 48.5%;margin-top: 10px;">
+				<a href="#"><span class="glyphicon glyphicon-cog"></span></a>
+				<p style="font-size: 8px;text-align: center;">Settings</p>
 			</div>
 		</div>
 	</nav>
