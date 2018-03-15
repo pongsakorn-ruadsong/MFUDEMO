@@ -18,13 +18,14 @@
 					// },10000);
 				},10000);
 			}
+			var c = JSON.parse(sessionStorage['playerMainData'])
 			if (sessionStorage['playerMainData'] != undefined && sessionStorage['loginType'] != 'guest') {
-				var c = JSON.parse(sessionStorage['playerMainData'])
+				
 				$('#Player_username').html(c.first_name);
 				$('#Player_Phonenum').html(c.level_title);
 			}else{
 				$('#Player_username').html('Player');
-				$('#Player_Phonenum').html('Level: 0');
+				$('#Player_Phonenum').html(c.level_title);
 			}
 		    $('.range-slider__range').on('input', function(){
 		    	// $("#nextBtn").prop('disabled', false);
@@ -513,7 +514,7 @@
 	#feed-content{
 	}
 </style>
-<div class="liveFeed " id="liveFeed"> <!-- animated fadeOutDown -->
+<div class="liveFeed animated" id="liveFeed"> <!-- animated fadeOutDown -->
 	<div class="live-box blink blinkAlert">
 		<!-- <div class="live-box-header">
 			<h4 style="float: left;" id="click-hide-feed">

@@ -62,7 +62,7 @@
 		if (sessionStorage['pageName'] == 'login' || sessionStorage['pageName'] == 'login.jsp') {
 			$('#myNav').hide();
 			$('.footer').css('display','none');
-			
+			$('.otherMenu').css('display','none');
 		}
 		else{
 			$('#myNav').show();
@@ -102,13 +102,13 @@
 		$('#reward').click(function(){
 			$('.myTab').removeClass('active');
 			$('#reward').addClass('active');
-			$('.tab-content').css('height','400');
+			$('.tab-content').css('height','250');
 			getUserReward();
 		});
 		$('#badge').click(function(){
 			$('.myTab').removeClass('active');
 			$('#badge').addClass('active');
-			$('.tab-content').css('height','400');
+			$('.tab-content').css('height','250');
 			buildRewardList();
 		});
 		$('#anime').click(function(){
@@ -124,16 +124,33 @@
 		$('#Setting').click(function(){
 			console.log('Clicking')
 			if ($('.otherMenu').hasClass('menu-hide')) {
-				$('.otherMenu').removeClass('menu-hide').addClass('menu-show');
-				$('.otherMenu').css('bottom','10%');
+				$('.otherMenu').css('display','block');
+				setTimeout(function(){
+					$('.otherMenu').removeClass('menu-hide').addClass('menu-show');
+					$('.otherMenu').css('bottom','10%');
+				},100);
 			}
 			else if($('.otherMenu').hasClass('menu-show')){
 				$('.otherMenu').removeClass('menu-show').addClass('menu-hide');
 				var h = $('.otherMenu').height();
 				$('.otherMenu').css('bottom', -h);
+				setTimeout(function(){
+					$('.otherMenu').css('display','none');
+				},500);
 			}
 		});
 	});
+	// $(document).mouseup(function(e) 
+	// 	{
+	// 	    var container = $('.otherMenu');
+
+	// 	    // if the target of the click isn't the container nor a descendant of the container
+	// 	    if (!container.is(e.target) && container.has(e.target).length === 0) 
+	// 	    {
+	// 	        container.hide();
+	// 	        container.removeClass('menu-show').addClass('menu-hide');
+	// 	    }
+	// });
 		function changeUI(a){
 			console.log($(window).width())
 			if (a == 1024) {
@@ -200,11 +217,11 @@
 		display: inline-block;
 	}
 	.otherMenu{
-		transition: all 1s;
+		transition: all 0.5s;
 	}
 </style>
 <body>
-	<div class="otherMenu menu-hide" style="position: fixed;bottom: -100px;right: 0px;width: 22%;z-index: 1020;background-color: aqua;">
+	<div class="otherMenu menu-hide" onblur="myFunction()" style="position: fixed;bottom: -12%;right: 0px;width: 22%;z-index: 1020;background-color: aqua;display: none;">
 		<div class=" center" style="padding: 10px">
 			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
 			<p style="font-size: 8px;text-align: center;">Language</p>
@@ -227,34 +244,43 @@
 				</a>
 		</ul>
 
-		<div class="" style="width: 35%;float: left;">
-	   		<div class="center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
-	   			<a href="Leader.jsp"><span class="glyphicon glyphicon-list-alt"></span></a>
-	   			<p style="font-size: 8px;text-align: center;">News</p>
-	   		</div>
-	   		<div class="center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
-	   			<a href="rewardStore"><span class="glyphicon glyphicon-gift"></span></a>
-	   			<p style="font-size: 8px;text-align: center;">Offers</p>
-	   		</div>
+		<div class="" style="width: 37%;float: left;">
+			<a href="Leader.jsp">
+		   		<div class="center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
+		   			<img src="img/newspaper.png" style="margin-right: 0px;width: 55%;">
+		   			<p style="font-size: 8px;text-align: center;color: black;">News</p>
+		   		</div>
+	   		</a>
+	   		<a href="rewardStore">
+		   		<div class="center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
+		   			<img src="img/offers_untrim.png" style="margin-right: 0px;width: 55%;">
+		   			<p style="font-size: 8px;text-align: center;color: black;">Offers</p>
+		   		</div>
+	   		</a>
 	   	</div>
 
-	   	<div class="center" style="position: absolute;left: 50%;">
-	   		<div style="position: relative;left: -50%;">
-	   			<a href="index"><img src="img/iconplaylist.png" style="margin-right: 0px;width: 25%;"></a>
-	   			<p style="font-size: 8px;text-align: center;">Playlists</p>
-   			</div>
+	   	<div class="center" style="position: absolute;left: 50%;position: absolute;left: 50%;width: 24%;height: 100%;">
+		   		<div style="position: relative;left: -50%;height: 100%;" onclick="location.href='index'">
+		   			<img src="img/playlistsicon.png" style="margin-right: 0px;width: 50%;height: 55%;margin-top: 10px;">
+		   			<p style="font-size: 8px;text-align: center;color: black;">Playlists</p>
+	   			</div>
    		</div>
 
-	   	<div style="width: 35%;float: right;">
-	   		<div class=" center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
-				<a href="#"><span class="glyphicon glyphicon-credit-card" id="Wallet"></span></a>
-				<p style="font-size: 8px;text-align: center;">Wallet</p>
-			</div>
-			<div class=" center" id="Setting" style="display: inline-block;width: 48.5%;margin-top: 10px;">
-				<a href="#"><span class="glyphicon glyphicon-cog"></span></a>
-				<p style="font-size: 8px;text-align: center;">Settings</p>
-			</div>
+	   	<div style="width: 37%;float: right;margin-right: -10px;">
+	   		<a href="#">
+		   		<div class=" center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
+					<img src="img/wallet_untrim.png" style="margin-right: 0px;width: 55%;">
+					<p style="font-size: 8px;text-align: center;color: black;">Wallet</p>
+				</div>
+			</a>	
+			<a href="#">
+				<div class=" center" id="Setting" style="display: inline-block;width: 48.5%;margin-top: 10px;">
+					<img src="img/setting.png" style="margin-right: 0px;width: 55%;">
+					<p style="font-size: 8px;text-align: center;color: black;">Settings</p>
+				</div>
+			</a>
 		</div>
+		<div style="clear: both;"></div>
 	</nav>
 	<div class="container-fluid">
 		<input type="hidden" id="pageName" name="pageName" value="<%=pageName%>">
@@ -355,7 +381,7 @@
 								    <li class="myTab" id="badge"><a data-toggle="tab" href="#menu2">Badge</a></li>
 								</ul>
 
-								  <div class="tab-content">
+								  <div class="tab-content" style="overflow-y: auto;">
 								    <div id="home" class="tab-pane fade in active" style="padding: 20px 10px 10px 10px;">
 
 								    </div>

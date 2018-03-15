@@ -54,6 +54,7 @@ function getUserInfo(callback) {
 	// }else{
 	var data = new Object();
 	data.token = sessionStorage['Token'];
+	if (sessionStorage['pageName'] != 'login') {
 	$.ajax({
         	type: "POST",
             url: 'https://api.pbapp.net/Player/'+sessionStorage['player']+'/data/all',
@@ -73,6 +74,7 @@ function getUserInfo(callback) {
                 console.log("Failed : getLang() @ index.js");
             }
         });
+	}
 	// }
 }
 function buildPlayerFull(a,callback) {
@@ -136,22 +138,28 @@ function buildPlayerFull(a,callback) {
 }
 function buildRewardList() {
 	$('#table_reward > tr').remove();
+	$('#table_reward > h2').remove();
 	console.log("Enter build reward list")
 	var badges = Index05.response.player.badges;
 	var length = badges.length;
 	var k =1;
+	var text = '';
 	console.log(badges);
-	var text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
-	for (var i = 0; i < length; i++) {
-		if (badges[i].amount == 0) {
-			continue;
+	if (badges.length > 0) {
+		text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
+		for (var i = 0; i < length; i++) {
+			if (badges[i].amount == 0) {
+				continue;
+			}
+			text += '<tr class="spaceUnder">'+
+			'<td><img src='+badges[i].image+' style="width:50px;height:50px;"></td>'+
+			'<td>'+badges[i].name+'</td>'+
+			'<td>'+badges[i].amount+'</td>'+
+			'</tr>'
+			k++;
 		}
-		text += '<tr class="spaceUnder">'+
-		'<td><img src='+badges[i].image+' style="width:50px;height:50px;"></td>'+
-		'<td>'+badges[i].name+'</td>'+
-		'<td>'+badges[i].amount+'</td>'+
-		'</tr>'
-		k++;
+	}else{
+		text += '<h2> Empty . . . </h2>';
 	}
 	$('#table_reward').append(text);
 }
@@ -186,46 +194,51 @@ function buildUserReward(){
 	var dataGoods = GoodsData.response.goods;
 	var length = dataGoods.length;
 		$('#table_goods > tr').remove();
+		$('#table_goods > h2').remove();
 		console.log(length)
-		var icon = '';
-		var detail = '';
-		var point = '';
-		var text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
-		for(let i=0;i<length;i++){ 
-			console.log(i)
-				var goodsId = dataGoods[i].goods_id;
-				var custom_lenght = contentGoods[goodsId].length;
-				console.log(goodsId)
-				for (let k = 0; k < custom_lenght; k++) {
-					console.log("Enter for")
-					if (contentGoods[goodsId][k].key == 'Detail') {
-						console.log("detail")
-						detail = contentGoods[goodsId][k].value;
-					}
-					if (contentGoods[goodsId][k].key == 'Icon') {
-						console.log("icon")
-						icon = contentGoods[goodsId][k].value;
-					}
-					if (contentGoods[goodsId][k].key == 'Points') {
-						console.log("point")
-						point = contentGoods[goodsId][k].value;
-					}
-					if (contentGoods[goodsId][k].key == 'Condition') {
-						console.log("Condition")
-						condition = contentGoods[goodsId][k].value;
-					}
-					}
-					console.log(dataGoods[i]);
-					if (dataGoods[i].amount == 0) {
-						continue;
-					}
-					text += '<tr class="spaceUnder goods-store" goodID="'+dataGoods[i].goods_id+'" icon="'+icon+'" detail="'+detail+'" point="'+point+'" nameID="'+dataGoods[i].name+'" imgID="'+dataGoods[i].image+'" expireID="'+dataGoods[i].date_expire+'" termId="'+condition+'" iconID="'+icon+'" codeID="'+dataGoods[i].code+'" detailID="'+detail+'">'+
-					'<td><img src='+dataGoods[i].image+' style="width:50px;height:50px;" class="img-circle"></td>'+
-					'<td>'+dataGoods[i].name+'</td>'+
-					'<td>'+dataGoods[i].amount+'</td>'+
-					'</tr>'
-					}
-
+		var text = '';
+		if (length > 0) {
+			var icon = '';
+			var detail = '';
+			var point = '';
+			text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
+			for(let i=0;i<length;i++){ 
+				console.log(i)
+					var goodsId = dataGoods[i].goods_id;
+					var custom_lenght = contentGoods[goodsId].length;
+					console.log(goodsId)
+					for (let k = 0; k < custom_lenght; k++) {
+						console.log("Enter for")
+						if (contentGoods[goodsId][k].key == 'Detail') {
+							console.log("detail")
+							detail = contentGoods[goodsId][k].value;
+						}
+						if (contentGoods[goodsId][k].key == 'Icon') {
+							console.log("icon")
+							icon = contentGoods[goodsId][k].value;
+						}
+						if (contentGoods[goodsId][k].key == 'Points') {
+							console.log("point")
+							point = contentGoods[goodsId][k].value;
+						}
+						if (contentGoods[goodsId][k].key == 'Condition') {
+							console.log("Condition")
+							condition = contentGoods[goodsId][k].value;
+						}
+						}
+						console.log(dataGoods[i]);
+						if (dataGoods[i].amount == 0) {
+							continue;
+						}
+						text += '<tr class="spaceUnder goods-store" goodID="'+dataGoods[i].goods_id+'" icon="'+icon+'" detail="'+detail+'" point="'+point+'" nameID="'+dataGoods[i].name+'" imgID="'+dataGoods[i].image+'" expireID="'+dataGoods[i].date_expire+'" termId="'+condition+'" iconID="'+icon+'" codeID="'+dataGoods[i].code+'" detailID="'+detail+'">'+
+						'<td><img src='+dataGoods[i].image+' style="width:50px;height:50px;" class="img-circle"></td>'+
+						'<td>'+dataGoods[i].name+'</td>'+
+						'<td>'+dataGoods[i].amount+'</td>'+
+						'</tr>'
+			}
+		}else{
+			text += '<h2> Empty . . . </h2>';
+		}
 	$('#table_goods').append(text);
 	$('.goods-store').click(function(){
 		$('#checkOutGoods > div').remove();
