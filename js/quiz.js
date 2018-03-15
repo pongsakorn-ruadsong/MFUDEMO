@@ -178,22 +178,21 @@ function autoNext(){
 				console.log(datas)
 				show_interval = setInterval(function(){
 					if (k<datas.length) {
-						console.log(datas)
 						console.log(k+' | '+datas.length)
-						console.log(datas[k][0].reward_type)
-						if(datas[k][0].event_type == 'LEVEL_UP'){
-							console.log('Skiped: '+datas[k][0].event_type)
-							reward.shift();
-								console.log(reward)
-								k++;
-						}
-						else if (datas[k][0].reward_type == 'goods') {
-							console.log('Skiped: '+datas[k][0].reward_type)
-							reward.shift();
-								console.log(reward)
-								k++;
-						}
-						else{
+						// console.log(datas[k][0].reward_type)
+						// if(datas[k][0].event_type == 'LEVEL_UP'){
+						// 	console.log('Skiped: '+datas[k][0].event_type)
+						// 	reward.shift();
+						// 		console.log(reward)
+						// 		k++;
+						// }
+						// else if (datas[k][0].reward_type == 'goods') {
+						// 	console.log('Skiped: '+datas[k][0].reward_type)
+						// 	reward.shift();
+						// 		console.log(reward)
+						// 		k++;
+						// }
+						// else{
 						$('#feed-reward-img').removeClass('fadeInDown')
 						$('#in-scored').removeClass('flipInX').addClass('flipOutX');
 						setTimeout(function(){
@@ -206,7 +205,7 @@ function autoNext(){
 								k++;
 							});
 						},500);
-						}
+						// }
 					}else{
 						clearInterval(show_interval);
 					}
