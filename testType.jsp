@@ -2,25 +2,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		getUserdate();
+		graph();
 		// eventShow();
-	// 	reset();
-	// 	animateText();
-	// 	animateBlobs();
-
-	// 	$(function() {
-	// 	  var numberOfStars = 20;
-		  
-	// 	  for (var i = 0; i < numberOfStars; i++) {
-	// 	    $('.congrats').append('<div class="blob fa fa-star ' + i + '"></div>');
-	// 	  } 
-	// 	  animateText();
-	// 	  animateBlobs();
-	// 	});
-
-	// 	$('.congrats').click(function() {
-	// 	  reset();
-	// 	  animateText();
-	// 	  animateBlobs();
 	// 	});
 		$('#js-flip-1').toggle(function() {
 	        $('#js-flip-1 .card').addClass('flipped');
@@ -29,6 +13,7 @@
 	    });
 	});
 </script>
+<link rel="stylesheet" href="css/swiper.min.css">
 <style type="text/css">
 
 /* Cannon */
@@ -365,41 +350,168 @@
     color: black;
     cursor: pointer;
 }
-.profile {
-	width: 100px;
-	height: 100px;
-	background: red;
-	border-radius: 50px;
-	animation-name: fulFill;
-    animation-duration: 1.5s;
-    text-align: center;
-    animation-iteration-count: 1;
-}
-@keyframes fulFill {
-	from{
-		background-color: white;
-		direction: bottom;
-	}
-	to{
-		direction: top;
-		background-color: red;
-	}
-}
-.spanPrice{
+.profile-wrapper{
+	width: 185px;
+	height: 185px;
+	overflow: hidden;
 	position: relative;
-    font-size: 15px;
-    top: 30%;
 }
+.profile {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  /*background-image: url(img/wonderwoman.png);*/
+  /*background-size: cover;*/
+  border-radius: 50%;
+  border: 1px solid #b3ccff;
+  overflow: hidden;
+  box-shadow: 0px 1px 20px #b3ccff;
+  margin: 10px;
+}
+#water{
+	width: 100%;
+	height: 0%;
+	font-size: 20px;
+    text-align: right;
+	background: #4A90E2;
+	position: relative;
+	top: -4px;
+}
+/*.percent{
+	content: '%';
+	position: absolute;
+	animation: percent 4s;
+	color: white;
+}
+@keyframes percent {
+  0% {
+  	left: 0;
+    height: 0;
+  }
+  50%{
+  	left: 100%
+  }
+  100% {
+  	left: 0;
+    height: 100%;
+  }
+}*/
+.percent{
+	left: 60%;
+    top: 5%;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+}
+.price{
+	position: absolute;
+	font-size: 20px;
+	text-align: center;
+
+	/*transform: rotateX(180deg);*/
+	color: #4d4d4d;
+    top: 40%;
+    left: 10%;
+}
+
+
+.water-block {
+  margin-top:20vh;
+
+}
+@keyframes a0_t { 
+  0% { transform: translate(-420.5px,15px); } 
+  100% { transform: translate(-140px,15px); } 
+}
+@keyframes a1_t { 
+  0% { transform: translate(0px,15px); } 
+  100% { transform: translate(-280.5px,15px); }
+}
+
+.water-fill {
+  fill:#4A90E2;
+}
+.water-fill.full {
+  opacity:0.45;
+}
+.water-block{
+	transition: all 1s;
+}
+.swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      /*-webkit-align-items: center;
+      align-items: center;*/
+    }
+.ct-line{
+	stroke-width: 3px;
+	stroke-linecap: round;
+	/*stroke-dasharray: 30px 5px;*/
+	animation-duration: 1.2s;
+	animation-iteration-count: 2;
+}
+
 </style>
 
-<div class="container" style="margin-top: 10%;">
 
-	<div class="profile">
- 		<span class="spanPrice" id="user_point">15,559</span><br>
- 		<span class="spanPrice">THB</span>
+	<div class="swiper-container swiperCircle1">
+		<div class="swiper-wrapper" style="width: 100%; left: -180px;;">
+			<div class="swiper-slide">
+				<div class="profile">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 279 46" class="water-block" id="water-block">
+					    <g class="water-fill" transform="translate(-70.75,30.5318) translate(-349.75,-15.5318)" style="animation: a0_t 1s cubic-bezier(.28,.57,.62,.34) infinite;">
+					        <g transform="translate(279.5,0)">
+					            <path d="M420,31C398.5,30.3801,381.2,27.1259,368.9,24.0267C355.5,20.6175,342.4,15.9686,341.6,15.6586C326,10.08,322,7.29062,311.5,4.19136C304.3,2.17684,293.6,-0.147612,280,0.00735136C280,0.00735136,280,10.3382,280,31L420,31ZM140,31C161.5,30.3801,178.8,27.1259,191.1,24.0267C204.5,20.6175,217.6,15.9686,218.4,15.6586C234,10.08,238,7.29062,248.5,4.19136C255.6,2.17684,266.4,-0.147612,280,0.00735136C280,0.00735136,280,0.00735136,280,0.00735136L280,31L140,31ZM140,31C118.5,30.3801,101.2,27.1259,88.9,24.0267C75.5,20.6175,62.4,15.9686,61.6,15.6586C46,10.08,42,7.29062,31.5,4.19136C24.3,2.17684,13.6,-0.147612,0,0.00735136C0,0.00735136,0,0.00735136,0,0.00735136L0,31L140,31Z"/>
+					        </g>
+					        <g transform="translate(-0.5,0.0635166)">
+					            <path d="M420,31C398.5,30.3801,381.2,27.1259,368.9,24.0267C355.5,20.6175,342.4,15.9686,341.6,15.6586C326,10.08,322,7.29062,311.5,4.19136C304.3,2.17684,293.6,-0.147612,280,0.00735136C280,0.00735136,280,10.3382,280,31L420,31ZM140,31C161.5,30.3801,178.8,27.1259,191.1,24.0267C204.5,20.6175,217.6,15.9686,218.4,15.6586C234,10.08,238,7.29062,248.5,4.19136C255.6,2.17684,266.4,-0.147612,280,0.00735136C280,0.00735136,280,0.00735136,280,0.00735136L280,31L140,31ZM140,31C118.5,30.3801,101.2,27.1259,88.9,24.0267C75.5,20.6175,62.4,15.9686,61.6,15.6586C46,10.08,42,7.29062,31.5,4.19136C24.3,2.17684,13.6,-0.147612,0,0.00735136C0,0.00735136,0,0.00735136,0,0.00735136L0,31L140,31Z"/>
+					        </g>
+					    </g>
+					    <g class="water-fill full" transform="translate(420,30.5) translate(-420,-15.5)" style="animation: a1_t 1s linear infinite;">
+					        <g>
+					            <path d="M420,31C398.5,30.3801,381.2,27.1259,368.9,24.0267C355.5,20.6175,342.4,15.9686,341.6,15.6586C326,10.08,322,7.29062,311.5,4.19136C304.3,2.17684,293.6,-0.147612,280,0.00735136C280,0.00735136,280,10.3382,280,31L420,31ZM140,31C161.5,30.3801,178.8,27.1259,191.1,24.0267C204.5,20.6175,217.6,15.9686,218.4,15.6586C234,10.08,238,7.29062,248.5,4.19136C255.6,2.17684,266.4,-0.147612,280,0.00735136C280,0.00735136,280,0.00735136,280,0.00735136L280,31L140,31ZM140,31C118.5,30.3801,101.2,27.1259,88.9,24.0267C75.5,20.6175,62.4,15.9686,61.6,15.6586C46,10.08,42,7.29062,31.5,4.19136C24.3,2.17684,13.6,-0.147612,0,0.00735136C0,0.00735136,0,0.00735136,0,0.00735136L0,31L140,31Z"/>
+					        </g>
+					        <g transform="translate(840,0) scale(-1,1)">
+					            <path d="M420,31C398.5,30.3801,381.2,27.1259,368.9,24.0267C355.5,20.6175,342.4,15.9686,341.6,15.6586C326,10.08,322,7.29062,311.5,4.19136C304.3,2.17684,293.6,-0.147612,280,0.00735136C280,0.00735136,280,10.3382,280,31L420,31ZM140,31C161.5,30.3801,178.8,27.1259,191.1,24.0267C204.5,20.6175,217.6,15.9686,218.4,15.6586C234,10.08,238,7.29062,248.5,4.19136C255.6,2.17684,266.4,-0.147612,280,0.00735136C280,0.00735136,280,0.00735136,280,0.00735136L280,31L140,31ZM140,31C118.5,30.3801,101.2,27.1259,88.9,24.0267C75.5,20.6175,62.4,15.9686,61.6,15.6586C46,10.08,42,7.29062,31.5,4.19136C24.3,2.17684,13.6,-0.147612,0,0.00735136C0,0.00735136,0,0.00735136,0,0.00735136L0,31L140,31Z"/>
+					        </g>
+					    </g>
+					</svg>
+					<div id="water"></div>
+					<div class="price" id="userPrice"></div>
+				</div>
+			</div>
+			<div class="swiper-slide">
+				<div class="profile" style="box-shadow: 0px 1px 20px #ff8080;border: 1px solid #ff8080;">
+					<div class="ct-chart ct-perfect-fourth" style="left: -10%;top: 10%;"></div>
+					<div class="price" id="userPrice1"></div>					
+				</div>	
+			</div>
+			<div class="swiper-slide">
+				<div class="profile" style="box-shadow: 0px 1px 20px #ffff00;border: 1px solid #ffff00;">
+					<div class="ct-chart ct-perfect-fourth" style="left: -10%;top: 10%;"></div>
+					<div class="price" id=""></div>					
+				</div>	
+			</div>
+			<div class="swiper-slide">
+				<div class="profile" style="box-shadow: 0px 1px 20px #77ff33;border: 1px solid #77ff33;">
+					<div class="ct-chart ct-perfect-fourth" style="left: -10%;top: 10%;"></div>
+					<div class="price" id=""></div>					
+				</div>	
+			</div>
+		</div>
 	</div>
-
-</div>
 
 <!-- <div class="goodsBox">
 	<div id="js-flip-1" class="flip">
@@ -622,8 +734,7 @@
 </div>
  -->
 
-
-</div>
+<script src="js/swiper.min.js"></script>
 <%@include file="bottom.jsp" %>
 
 

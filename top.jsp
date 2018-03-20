@@ -31,7 +31,10 @@
 	<script src="js/Leader.js"></script>
 	<script src="js/qrcode.min.js"></script>
 	<!-- <script src="js/jquery-1.3.2.min.js"></script>     -->
-	<script src="js/jquery-barcode.min.js"></script>  
+	<script src="js/jquery-barcode.min.js"></script> 
+
+	<script src="js/chartist.js"></script>
+
 	<link rel="stylesheet" href="css/intlTelInput.css" />
 	<link href="css/bootstrap-glyphicons.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
@@ -41,6 +44,9 @@
 	<link rel="stylesheet" type="text/css" href="css/Whole.css">
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+	
+	<link rel="stylesheet" type="text/css" href="css/chartist.css">
+
 	<link rel="stylesheet" type="text/css" href="css/flags.min.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
