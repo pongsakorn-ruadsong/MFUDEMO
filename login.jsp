@@ -1,6 +1,6 @@
 <%@include file="top.jsp" %>
-<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
-<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+<script src="js/formValidation.min.js"></script>
+<script src="js/bootstrapValidation.min.js"></script>
 <script type="text/javascript">
 		$(document).ready(function(){
 			var otp = [];
@@ -9,7 +9,11 @@
 			sessionStorage['lang'] = 'English';
 			if (checkUser()) {
 				getToken();
-				getContent();
+				getLocation();
+				getContent(function(){
+					$('.card-box').css('display','block');
+					$('.card-box').addClass('fadeInDown');
+				});
 				// initialSwipeCard();
 			}else{
 				window.location.replace("index");
@@ -20,6 +24,7 @@
 					{   e.preventDefault();
 	                $('#performOtp').removeClass('fadeOutUpBig').addClass('fadeInDownBig');
 	                setTimeout("$('#performOtp').modal('show')", 300);}
+	                $('.modal-content').css('height','100%');
 				}else{
 					if($('#mySignUp').hasClass('fadeOutUpBig'))
 		                {   e.preventDefault();
@@ -27,6 +32,7 @@
 		                setTimeout("$('#mySignUp').modal('show')", 300);}
 		                else{
 		                	$('#mySignUp').modal('show');
+		                	$('.modal-content').css('height','100%');
 		                }
 	            }
 			});
@@ -36,9 +42,11 @@
 					e.preventDefault();
 					$('#loginModal').removeClass('fadeOutUpBig').addClass('fadeInDownBig');
 					setTimeout("$('#loginModal').modal('show')", 300);
+					$('.modal-content').css('height','100%');
 				}else{
 			        $('#loginModal').addClass('fadeInDownBig');
 			        setTimeout("$('#loginModal').modal('show')", 300);
+			        $('.modal-content').css('height','100%');
 					}
 			});
 			$('#loginModal').on('hidden.bs.modal', function () {
@@ -269,6 +277,7 @@
 	                preferredCountries: ['th', 'us', 'gb','fr','kr','jp']
 	            });
 	        $('.intl-tel-input').append('<label style="position: absolute;width: 80%;height: 100%;background-color: #00ffff00;top: 0px;left: 50px;"></label>')
+	        checkTime();
 	        });
 	</script>
 	<link rel="stylesheet" href="css/swiper.min.css">
@@ -303,25 +312,73 @@
 	      -webkit-align-items: center;
 	      align-items: center;
 	  }
+	  .card-box.fadeInDown{
+	  	animation-duration: 0.8s;
+	  }
+	  .login-bg{
+  	    height: calc(100% + 73px);
+	    margin-top: -73px;
+	    width: 100%;
+	    position: relative;
+	    background-color: black;
+	    
+	  }
+	  .test-bg{
+	  	height: calc(100% + 73px);
+	    margin-top: -73px;
+	    width: 100%;
+	    position: absolute;
+	  	background-image: url(gif/Login_motion.gif);
+	    background-size: contain;
+	  }
+	  #display_time_weather{
+	  	height: 30%;
+	  	width: 100%;
+	  }
+	  #display_time_weather>div{
+      	width: 50%;
+	    height: 100%;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    color: white;
+	    font-size: 60px;
+		}
 	</style>
-	
-	<div class="card-box">
+<div class="login-bg">
+	<div id="display_time_weather">
+		<div id="half-1" style="float: left;">
+			
+		</div>
+		<div id="half-2" style="float: right;">
+			
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+</div>	
+<div class="test-bg">
+	<div class="card-box animated " style="display: none;">
 	<div class="swiper-container" id="wipp_con">
 	    <div class="swiper-wrapper" id="wipp_userCard">
-	    	<button class="swiper-slide cctest" id="guestClick" onclick="guestFunction()" style="background-color: red;">Guest</button>
-	      <button class="swiper-slide" id="signInClick" style="background-color: blue;">Sign in</button>
-	      <button class="swiper-slide" id="signUpBtn" style="background-color: green;">Sign up</button>
+	    	<button class="swiper-slide cctest" id="guestClick" onclick="guestFunction()" style="background-color: #ff000042;color: white;width: 240px;margin-right: 20px;border: none;border-radius: 10px;font-size: 22px !important;">Guest</button>
+	      <button class="swiper-slide" id="signInClick" style="background-color: #0000ff4a;color: white;width: 240px;font-size: 22px !important;margin-right: 20px;border: none;border-radius: 10px;">Sign in</button>
+	      <button class="swiper-slide" id="signUpBtn" style="font-size: 22px !important;background-color: #00800040;color: white;width: 240px;margin-right: 20px;border: none;border-radius: 10px;">Sign up</button>
 	    </div>
   </div>
   </div>
-
+</div>	
 	 <div class="modal animated fadeInDownBig" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	 <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;margin:0px;">
 	    <div class="modal-content" style="height: 100%;">
-	      <div class="modal-header" style="border-bottom:0px;background-image: url(img/LL.jpg);height: 50%;background-size: cover;">
+	      <div class="modal-header" style="border-bottom:0px;background-image: url(img/LL.jpg);height: 50%;background-size: contain;background-repeat: no-repeat;position: relative;z-index: 2;">
+
 	        <button type="button" class="loginClose close" id="loginClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
-	      <div class="modal-body" style="text-align: center;height: 50%;background-color: #e6e6e6;">
+	      <div style="width: 100%;height: 100%;background-color: #e6e6e6;position: fixed;left: 0px;z-index: 1;">
+	      		
+	      	</div>
+	      <div class="modal-body" style="text-align: center;height: 50%;background-color: #e6e6e6;position: relative;z-index: 2;">
+	      	
 	      	<div class="animated" style="height: 100%;width: 100%;" id="login_tel_input">
 	       	<div class="row" id="login_tel_input">
 	       		<div class="col-md-12" style="text-align: left;">
@@ -359,16 +416,16 @@
 	</div>
 
 	<!-- Modal mySignUp-->
-	<div id="mySignUp" class="modal animated fadeInDownBig" role="dialog">
-	  <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;margin:0px;">
+	<div id="mySignUp" class="modal animated fadeInDownBig" role="dialog" style="width: 100% !important;margin-top: 0px;height: 100% !important;">
+	  <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100% !important;margin:0px;">
 
 	    <!-- Modal content-->
-	    <div class="modal-content" style="height: 100%;">
+	    <div class="modal-content" style="height: 100% !important;display: -webkit-box;">
 	      <div class="modal-header" style="border-bottom:0px">
 	        <button type="button" class="testClose close" id="testClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
-	      <div class="modal-body" style="text-align: center;margin-top: -25px;height: 100%;">
-		      	<div style="width: 100%;height: 100%;">
+	      <div class="modal-body" style="text-align: center;margin-top: -25px;">
+		      	<div style="width: 100%;">
 		      		<center>
 			      	<div style="width: 100%;">
 			      			<img src="img/otp_logo.png" style="width: 40%;margin-right: 0px;">
@@ -391,6 +448,7 @@
 			        	.gest{
 			        		font-size: 22px;
     						padding: 10px;
+    						width: 30%;
 			        	}
 			        	.btn-send-otp{
 			        		background-color: #45a1bc;
@@ -401,55 +459,60 @@
 						    color: white;
 						    padding: 5px;
 						    font-weight: lighter;
+						    border: none;
+			        	}
+			        	button.telNumber,button.reset-phone,button.del-phone,button.telNumber-otp{
+			        		background-color: rgba(255, 228, 196, 0);
+							border: none;
 			        	}
 			        </style>
 			        <div style="width: 70%;margin-top: 20px;">
 			        	<button class="btn-send-otp" id="sendOtp">Send</button>
 			        </div>
 			        </center>
-			        <div style="width: 100%;margin-top: 10px;padding-left: 4.5%;padding-right: 4.5%;">
+			        <div style="width: 90%;margin-top: 10px;margin-left: auto;">
 			        	
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >1</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >2</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >3</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >4</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >5</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >6</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >7</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >8</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >9</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="reset-phone" id="reset-phone">Reset</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber" >0</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="del-phone" id="del-phone">DEL</button>
 			        		</div>
 			        	</div>
@@ -460,11 +523,11 @@
 	  </div>
 	</div>
 	<!-- performOtp -->
-	<div id="performOtp" class="modal animated" role="dialog">
-	  <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;margin:0px;">
+	<div id="performOtp" class="modal animated" role="dialog" style="width: 100% !important;margin-top: 0px;height: 100% !important;">
+	   <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100% !important;margin:0px;">
 
 	    <!-- Modal content-->
-	    <div class="modal-content" style="height: 100%;">
+	    <div class="modal-content" style="height: 100% !important;display: -webkit-box;">
 	      <div class="modal-header" style="border-bottom:0px">
 	        <button type="button" class="testClose close" id="testClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
@@ -492,6 +555,7 @@
 			        	.input-otp{
 			        		padding-right: 5px;
 			        		padding-left: 5px;
+			        		width: 16%;
 			        	}
 			        	.input-otp-p{
 			        		border-bottom: 1px solid gray;
@@ -501,22 +565,22 @@
 			        </style>
 			        <div class="input-otp-OutFrame" style="width: 100%;padding-left: 10%;padding-right: 10%;height: 40px;">
 			        	<div class="row input-otp-inFrame" style="">
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
-			        		<div class="col-2 input-otp">
+			        		<div class="input-otp">
 			        			<p class="input-otp-p"></p>
 			        		</div>
 			        	</div>
@@ -544,49 +608,49 @@
 			        	<button class="btn-send-otp" id="perform-otp" disabled >Confirm</button>
 			        </div>
 			        </center>
-			        <div style="width: 100%;margin-top: 10px;padding-left: 2.5%;padding-right: 2.5%;">
+			        <div style="width: 90%;margin-top: 10px;margin-left: auto;">
 			        	
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >1</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >2</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >3</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >4</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >5</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >6</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >7</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >8</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >9</button>
 			        		</div>
 			        	</div>
 			        	<div class="row" style="">
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="reset-phone" id="reset-phone-otp">Reset</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="telNumber-otp" >0</button>
 			        		</div>
-			        		<div class="col-4 gest">
+			        		<div class="gest">
 			        			<button class="del-phone" id="del-phone-otp">DEL</button>
 			        		</div>
 			        	</div>

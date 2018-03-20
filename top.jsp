@@ -31,7 +31,10 @@
 	<script src="js/Leader.js"></script>
 	<script src="js/qrcode.min.js"></script>
 	<!-- <script src="js/jquery-1.3.2.min.js"></script>     -->
-	<script src="js/jquery-barcode.min.js"></script>  
+	<script src="js/jquery-barcode.min.js"></script> 
+
+	<script src="js/chartist.js"></script>
+
 	<link rel="stylesheet" href="css/intlTelInput.css" />
 	<link href="css/bootstrap-glyphicons.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
@@ -41,6 +44,9 @@
 	<link rel="stylesheet" type="text/css" href="css/Whole.css">
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+	
+	<link rel="stylesheet" type="text/css" href="css/chartist.css">
+
 	<link rel="stylesheet" type="text/css" href="css/flags.min.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -135,7 +141,8 @@
 	.navbar-inverse{
 		/*background-color: rgba(255,255,255,0);*/
 		border-color: rgba(255,255,255,0);
-		background-color: #21252942;
+		background-color:white;
+		border-color: aqua;
 		color: black;
 	}
 	.navbar-nav > li > a {
@@ -174,9 +181,16 @@
 		font-weight: bold;
 		text-align: center;
 	}
+	/*.col-2{
+		width: 16%;
+		display: inline-block;
+	}*/
+	.nonPadding{
+		padding: 0px !important;
+	}
 </style>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" id="myNav" style="flex: 0 1 40px;">
+	<nav class="navbar navbar-inverse navbar-fixed-bottom" id="myNav" style="height: 10%;">
 		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;margin-left: 15px;">
 			<div class="row">
 
@@ -184,8 +198,32 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;padding: 5px 5px;">
 				<!-- <a class="navbar-brand userPhoto" href="#" style="padding: 0px;border: 3px solid green;border-radius: 50%;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a> -->
-				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 0px;float: right;"><img src="img/iconplaylist.png" style="width: 100%;height: 100%"></a>
+				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 0px;float: right;">
+					
+				</a>
 		</ul>
+		<div class="row" style="padding-top: 10px;">
+	   		<div class="col-2 nonPadding center">
+	   			<a href="Leader.jsp"><span class="glyphicon glyphicon-list-alt"></span></a>
+	   			<p style="font-size: 8px;text-align: center;">Leader</p>
+	   		</div>
+	   		<div class="col-2 nonPadding center">
+	   			<a href="rewardStore"><span class="glyphicon glyphicon-gift"></span></a>
+	   			<p style="font-size: 8px;text-align: center;">Reward</p>
+	   		</div>
+	   		<div class="col-4 nonPadding center">
+	   			<a href="index"><img src="img/iconplaylist.png" style="margin-right: 0px;width: 40%;margin-top: -10px;"></a>
+	   			<p style="font-size: 8px;text-align: center;">QuizList</p>
+	   		</div>
+	   		<div class="col-2 nonPadding center">
+				<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
+				<p style="font-size: 8px;text-align: center;">Language</p>
+			</div>
+			<div class="col-2 nonPadding center" id="logOut">
+				<a href="#"><span class="glyphicon glyphicon-off"></span></a>
+				<p style="font-size: 8px;text-align: center;">Logout</p>
+			</div>
+		</div>
 	</nav>
 	<div class="container-fluid">
 		<input type="hidden" id="pageName" name="pageName" value="<%=pageName%>">
@@ -195,7 +233,7 @@
 
 		<!-- Modal -->
 
-		<div class="modal  fade" id="menuPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+		<!-- <div class="modal  fade" id="menuPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		  <div class="modal-dialog" role="document" style="margin-top: 15%;">
 		    <div class="modal-content mCustom">
 		      <div class="modal-body" style="text-align: center;padding: 1rem !important;">
@@ -235,7 +273,7 @@
 		      </div>
 		    </div>
 		  </div>
-		</div>
+		</div> -->
 
 		<!-- Modal -->
 

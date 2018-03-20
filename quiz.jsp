@@ -11,6 +11,11 @@
 				sessionStorage['type'] = null;
 				var updateFeedInterval = setInterval(function(){
 					checkFeed();
+					// setTimeout(function(){
+					// 	if ($('.liveFeed').hasClass('fadeInUp')) {
+					// 		$('.liveFeed').removeClass('fadeInUp').addClass('fadeOutDown')
+					// 	}
+					// },10000);
 				},10000);
 			}
 		    $('.range-slider__range').on('input', function(){
@@ -39,7 +44,11 @@
 		    	$('.noi').css("background-color","white");
 		    	$('.yesi').css("color","white");
 		    	$('.noi').css("color","black");
-		    	$('#spece-for-S').slideDown();
+		    	// if (type == 'MULTI_S') {
+		    	// 	$('#assetsChoose').modal()
+		    	// }else{
+		    		$('#spece-for-S').slideDown();
+		    	// }
 		    	sessionStorage['ans_no'] = "Yes";
 		    });
 		    $('#noi').click(function(){
@@ -79,6 +88,11 @@
 					$('.live-box').css('margin-top', 0);
 				}
 			});
+			$('#showUser').click(function(){
+				getUserInfo(function(){
+				$('#userInfo').modal();
+			});
+		});
 		});
 
 	</script>
@@ -181,6 +195,7 @@
 		    height: 50%;
 		    display: inline-block;
 		    z-index: 1041;
+		    padding-top: 10px;
 		}
 		.playCount,.quiz_label{
 			float: left;
@@ -192,9 +207,10 @@
 		    color: black;
 		}
 		.quiz_label{
-			font-size: 16px;
-			width: 60%;
+			font-size: 18px;
+			width: 100%;
 		    color: black;
+		        display: block;
 		    justify-content: left;
 		    padding: 5px 10px 5px 10px;
 		}
@@ -208,6 +224,7 @@
     		justify-content:center;
     		align-items:center;
     		width: 100%;
+    		padding-top: 5px;
 		}
 		.timeleap_Count{
 			 width: 50%;
@@ -228,21 +245,21 @@
 		    background-color: #ff002fa1;
 		}
 		.in-scored{
-			color: white;
-		    width: 65%;
+			color: black;
+		    width: 75%;
 		    height: 100%;
 		    font-size: 13px;
 		    text-align: center;
-		    background-color: #ff002fa1;
-		   /* margin-top: 90px;*/
+		       background-color: #ff002f00;
+    border-bottom: 1px solid aqua;
 		}
 		.reward-feed-img{
 			color: white;
-		    width: 35%;
+		    width: 25%;
 		    height: 100%;
 		    font-size: 10px;
 		    text-align: center;
-		    background-color: burlywood;
+		    border-bottom: 1px solid aqua;
 		}
 		.playCount-in{
 		    width: 80%;
@@ -263,62 +280,116 @@
 		    z-index: 1041;
 		}
 		.sams{
-			height: 15%;
+			height: 20%;
+			margin-bottom: 30px;
 		}
 		#feed-reward-img.fadeInDown,#feed-reward-img.fadeOutUp{
 			animation-duration: 0.5s;
+		}
+		.score{
+			height: 50%;
+			text-align: right;
+			padding: 5px 10px 10px 10px;
+			font-weight: bold;
+   			font-size: 16px;
+		}
+		.preview-logo{
+       position: fixed;
+       z-index: 50px;
+       border-radius: 50%;
+       background-color: darksalmon;
+        padding: 8px;
+        width: 60px;
+        height: 60px;
+        border:4px solid white;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -100px;
+		}
+		.nameTag{ 
+	       padding: 5px 10px 10px 10px;
+		    width: 40%;
+		    height: 100%;
+		    text-align: left;
+		    background-color: #00ff0000;
+		    position: relative;
+		    float: left;
+		    border-bottom: 1px solid aqua;
+		}
+		.logo_preview{
+		        position: relative;
+		        width: 55px;
+		        height: 55px;
+		        border-radius: 50%;
+		        background-color: grey;
+		        padding: 8px;
+		        margin-top: 0%;
+		       border: 4px solid white;
+		       overflow: hidden;
 		}
 	</style>
 	<!-- .in-scored = reward label -->
 	<div class="sams" id="" style="margin-top: 0px;"> <!-- padding: 0px 20px 0px 20px; -->
 		<div id="utilities_tab" class="utilities-tab" style="position: relative;">
-			<div id="" class="quiz_label" style="position: relative;">
-				<span class="glyphicon glyphicon-play" style="margin-right: 5px;font-size: 10px;margin-bottom: 5px;"></span>
-					<span id="played" style="font-size: 14px;"></span>
-				<div class="" id="quiz_label_dis" style="padding-left: 8px;">
-					Quiz's name
-				</div>
-				<!-- <div style="position: absolute;right: 0px;height: 100%;width: 20%;background-color: darkolivegreen;border: 1px solid white;/* top: 40px; */">
-					ICON
-				</div> -->
-			</div>
 			<!-- <div style="position: absolute;left: 50%;height: 100%;width: 15%;padding: 2px 0px 2px 0px;">
 				<div style="position: relative;left: -50%;border-radius: 50%;border:1px solid white;height: 100%;background-color:cadetblue;">Test</div>
 			</div> -->
+
+			<div class="nameTag">
+	            <label id="Player_username" style="
+			    font-size: 14px;
+			    font-weight: bold;
+			    margin-bottom: 0px;
+			">Player One</label>
+				            <br>
+				            <label id="Player_Phonenum" style="
+			    font-size: 10px;
+			">080-213-5555</label>
+			        	</div>
+        	
 			<div id="scored" class="scored">
 				<div id="covered-rw-feed" class="scored" style="/*display: none;*/">
 					<div class="reward-feed-img" id="reward-feed-img">
-						<img id="feed-reward-img" src="img/EXP.png" class="animated fadeInDown" style="margin-right: 0px;width: 100%;height: 100%;border-radius: 50%;background-color: #ffffff00;">
+						<img id="feed-reward-img" src="img/EXP.png" class="animated" style="margin-right: 0px;/* width: 100%; *//* height: 100%; *//* border-radius: 50%; */background-color: #ffffff00;align-self: center;">
 					</div>
-					<div class="in-scored animated flipInX" id="in-scored">
-						<div style="border-bottom: 1px solid white;">3</div>
-						<div>2,500,000</div>
+					<div class="in-scored animated" id="in-scored">
+						
+						<div class="score newScore">2,500,000</div>
 					</div>
 				</div>
 			</div>
+
+			<div style="position: absolute;left: 50%;">
+        		 <div class="logo_preview col-md-12" id="showUser" style="z-index:1; position:relative; left:-50%; background-color:#cccccc;">
+	                <img src="" style="background-size: cover;">
+	            </div>
+        	</div>
+        	<div style="clear: both;"></div>
 		</div>
 
 		<div class="display-quiz-name" id="disQuizName">
-			<div id="playCount" class="playCount">
-				<div class="playCount-in animated" id="playCount-in">
+			<div id="" class="quiz_label" style="position: relative;">
+				
 					
+				<div class="" id="quiz_label_dis" style="padding-left: 8px;"></div>
+				<span class="" id="time_remain" style="position: relative;text-align: right;font-size: 8px;float: right;margin-top: -18px;"></span>
+				<div>
+					<span class="glyphicon glyphicon-play" style="margin-right: 1px;font-size: 10px;"></span>
+					<span id="played" style="font-size: 12px;font-weight: bold;">23.5k</span>
 				</div>
 			</div>
-			<div id="" class="timeleap_Count">
-				<div class="" id="time_remain" style="
-				    height: 100%;
-				    text-align: right;
-				">time</div>
-			</div>	
 		</div>
+		
 	</div>
-	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;height: 55%;">
+	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;">
 		<div id="quizPanel" style="display: table;width: 100%;">
 		<!-- <div style="width: 100%;height: 100%;position: absolute;padding-right: 40px;"></div> -->
 		<div class="topic" style="display: flex;">
 			<p id="topic" style="align-self: center;margin-bottom: 0px;"></p>
 		</div>
-		<div class="row" style="z-index: 1042;position: relative;">
+		<div class="row bvcs" style="z-index: 1042;position: relative;max-height: 220px;overflow-y: auto;">
 		<div class="col-md-6 qa" id="img" style="display: none;">
 			<center style="height: 0px;overflow: hidden;">
 				<img src="img/Playbasis-logo.png" class="quizImg quizImg_temp" id="" style="display:block;">
@@ -332,7 +403,7 @@
 								<input id="yesi" style="visibility:hidden;" type="radio" value="Yes">Yes<br>
 							</label>
 						</div>
-						<div id="spece-for-S" style="display: none;">
+						<div id="spece-for-S" style="display: none;max-height: 110px;overflow-y: auto;overflow-x: hidden;">
 											<div class="row" id="slider-panel_S" typeZ="SLI" style="display: none;text-align: center;margin-bottom: 20px;">
 												<div class="range-slider">
 													<div class="row" style="width: 100%;text-align: center;margin-left: 0px;margin-right: 0px;">
@@ -340,8 +411,8 @@
 												 		<div class="col-8" style="padding: 0px;"><input class="range-slider__range" id="slider-bar_S" type="range" style="width: 80%"  ></div>
 												 		<div class="col-2" style="padding: 0px;"><span id="maxslider_S"></span></div>
 												 	</div>
-												  <div style="text-align: center;margin-top: 30px;">
-												  	<span id="disValueSli_S" style="padding: 15px;" class="range-slider__value" style="width: 20%">
+												  <div style="text-align: center;margin-top: 20px;">
+												  	<span id="disValueSli_S" style="padding: 10px;font-size: 18px;" class="range-slider__value" style="width: 20%">
 
 													</span>
 													<span id="unit_S" style="margin-left: 10px;display: none;"></span>
@@ -378,11 +449,12 @@
 				</div>
 				<input type="hidden" id="aPrefix">
 				<input type="hidden" id="aAnswer">
-				<div class="button-group" id="btn_NR">
-
-				</div>
+				
 		</div>
 	</div>
+	<div class="button-group" id="btn_NR">
+
+				</div>
 	</div>
 </div>
 <div class="bg next-bg animated" style="flex: 0 1 auto;">
@@ -391,7 +463,7 @@
 <style type="text/css">
 	.liveFeed{
 		    width: 100%;
-		    height: 20%;
+		    /*height: 20%;*/
 		    /*position: fixed;
 		    bottom: 0px;
 		    display: flex;*/
@@ -450,7 +522,7 @@
 	#feed-content{
 	}
 </style>
-<div class="liveFeed" id="liveFeed">
+<div class="liveFeed " id="liveFeed"> <!-- animated fadeOutDown -->
 	<div class="live-box blink blinkAlert">
 		<!-- <div class="live-box-header">
 			<h4 style="float: left;" id="click-hide-feed">
@@ -475,9 +547,28 @@
   <div class="btnB"><i class="icon-ok"><input type="checkbox" value="2">2</i></div>
   <div class="btnB"><i class="icon-ok"><input type="checkbox" value="3">3</i></div>
 </div> -->
-  <div id="modal_score">
+  <div id="modal_score"></div>
 
+  <div class="modal fade" id="assetsChoose" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
   </div>
+
 	<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
