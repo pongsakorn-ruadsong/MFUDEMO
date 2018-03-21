@@ -974,7 +974,7 @@ img{
 }
 .couponCard{
   background: linear-gradient(to bottom right, red, yellow);
-  width: 100%;
+  width: 95%;
   height: 150px;
   margin-bottom: 5px;
   border-radius: 10px;
@@ -1305,4 +1305,3 @@ img{
     .blur-svg {
         display: none;
     }
-

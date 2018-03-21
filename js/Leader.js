@@ -102,7 +102,7 @@ function buildLeaderPoints(){
 			var playerIdPoints = data[i].player_id;
 			var points = data[i].point;
 		text1 +=								
-'					<div class="swiper-slide boxLeader animated fadeInRight" style="width:32%;height:140px;">'+
+'					<div class="swiper-slide boxLeader animated fadeInRight" style="width:32%;height:155px;">'+
 '						<div class="logo_preview col-md-12" style="z-index:1; position: absolute;top:2px;left:18px;background-color: #cccccc;">'+
 '						<img src="'+imgPoints+'" style="background-size: cover;">'+
 '						</div>'+

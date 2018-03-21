@@ -78,7 +78,7 @@ function fillWater(exp){
   var percent = exp;
   elem.style.height =  '100%';
   console.log(percent)
-    for (var i = 0; i < percent; i++) {
+    for (var i = 0; i < 5; i++) {
       var full = 50-i;
      $(elem2).css('margin-top',full+'%');
       // elem1.innerHTML = exp + '%';
@@ -88,9 +88,12 @@ function fillWater(exp){
 
 function initialSwipes_currency(){
       var swiper = new Swiper('.swiperCircle1', {
-      effect: 'fade',
       slidesPerView: 1,
       spaceBetween: 3,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
     });
 }
 
@@ -98,7 +101,7 @@ function graph(){
     var chart = new Chartist.Line('.ct-chart', {
     labels: [1, 2, 3, 4, 5],
     series: [
-      [1, 2, 2, 3, 4]
+      [1, 2, 2, 4, 5],
     ]
   }, {
     low: 0,
@@ -113,7 +116,7 @@ function graph(){
       },
       axisY: {
         showLabel: false,
-        // showGrid: false,
+        showGrid: false,
         offset: 5
       },
   });
@@ -194,3 +197,4 @@ chart.on('draw', function(data) {
   }
 });
 }
+
