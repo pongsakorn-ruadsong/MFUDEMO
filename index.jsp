@@ -5,228 +5,324 @@
 				window.location.replace("login");
 		}else{
 			translateContent();
-	    	getQuizData();
 	    	getUserInfo(function(){
 	    		
 	    	});
 			sessionStorage.removeItem("save_result");
 		}
-		
+		var swiper = new Swiper('.swiper99', {
+	      slidesPerView: 1,
+	      spaceBetween: 0,
+	      centeredSlides: true,
+	    });
+	    
+	    $('#myCoin').click(function(){
+	    	$('#coin-overlay').css('display','block');
+	    	$('.pip-hilight').css('display','none');
+	    	var a = $('#coinNumber').text()
+	    	var x = $(this).position();
+	    	var b = parseInt(a.replace(/,/g, ''))
+	    	console.log(x.top+' '+x.left)
+	    	$('.coin-container').css('display','block');
+	 		setTimeout(function(){
+	 			$('.coin-container').css('height','20%');
+	 		},100);
+	 		setTimeout(function(){
+	 			$(".coin").animate({left: x.left+10, top: x.top+10, width: 20, height: 20});
+	 			setTimeout(function(){
+	 				var n = numberWithCommas(b+10)
+	 				$('#coinNumber').text(n)
+	 				$('#coinNumber').append('<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span>')
+	 				$('.coin-container').css('display','none');
+	 				$('.coin-container').css('height','0px');
+	 				$('#coin-overlay').css('display','none');
+	 				$(".coin").removeAttr('style');
+	 			},600);
+	 		},1500);
+	    });
 	});
+	const numberWithCommas = (x) => {
+	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 </script>
 <link rel="stylesheet" href="css/swiper.min.css">
 <style type="text/css">
 	.swiper-container {
       width: 100%;
-      padding: 8px;
-      height: 70vw;
-      margin: 20px 0;
+      height: 100%;
     }
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      /*-webkit-align-items: center;
-      align-items: center;*/
-    }
-    .shelf{
-    	margin-top: 0px;
-    	padding-top: 60px;
-    	background-image: url('img/BG.jpg');
-   		background-repeat: no-repeat;
-   		background-attachment: scroll;
-    	background-size: cover;
-    	overflow: scroll;
-		height: 130%;
-    }
-    .card-preview{
-    	width: 100%;
-    	background-color: slategrey;
-    }
-    .preview-logo{
-    	position: fixed;
-    	z-index: 50px;
-    	border-radius: 50%;
-    	background-color: darksalmon;
-	    padding: 8px;
-	    width: 60px;
-	    height: 60px;
-	    border:4px solid white;
-	    position: fixed;
-		  top: 50%;
-		  left: 50%;
-		  margin-top: -50px;
-		  margin-left: -100px;
-    }
-    .logo_preview{
-	    position: relative;
-	    width: 55px;
-	    height: 55px;
-	    border-radius: 50%;
-	    background-color: grey;
-	    padding: 8px;
-	    margin-top: 0%;
-    	border: 4px solid white;
-    	overflow: hidden;
+	.main_bg{
+		background: #c0c0aa;  /* fallback for old browsers */
+		background: -webkit-linear-gradient(to right, #66C4C0, #34A2BF);  /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(to right, #66C4C0, #34A2BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		position: relative;
+		width: 100%;
+		height: 100%;
 	}
-    .preview-name{
-
-    }
-    .pre-box{
-    	padding: 0px;
-    	overflow: hidden !important;
-    	border-radius: 5px;
-    }
-    .annouce{
-    	position: fixed;
-	    display: none;
-	    top: 60px;
-	    width: 100%;
-	    min-height: 50px;
-	    max-height: 100px;
-	    background-color: #00ffff59;
-	    text-align: center;
-	    padding-top: 20px;
-	    z-index: 2;
-	    padding-bottom: 20px;
-	}
-    .img-container {
-	    display: inline-block;
-	    position: relative;
-	}
-	.positioning{
-	    position: absolute;
-	    right: 15px;
-	    bottom: 22px;
-	    background-color: red;
-	    color: white;
-	    padding: 4px;
-	    font-size: 17px;
-	    line-height: 18px;
-	}
-	.parallax {
-	    height: 100vh;
-	    overflow-x: hidden;
-	    overflow-y: auto;
-	    -webkit-perspective: 1px;
-	    perspective: 1px;
-	    margin-bottom: 10px;
-	  }
-	.parallax__layer {
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    right: 0;
-	    bottom: 0;
+	.coin-icon{
+		color: white;
 	    height: 100%;
-	  }
-	.parallax__layer--base {
-	  	-webkit-transform: translateZ(0);
-    	transform: translateZ(0);
+	    font-size: 10px;
+	    text-align: center;
+	    display: flex;
+	    margin-right: 10%;
 	}
-	.parallax__layer--back {
-	  	-webkit-transform: translateZ(-1px) scale(2);
-    	transform: translateZ(-1px) scale(2);
+	.coin-amount{
+		color: white;
+	    height: 100%;
+	    font-size: 28px;
+	    text-align: center;
+	    background-color: #ff002f00;
+	    display: flex;
 	}
+	.pb-coin-amount{
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		height: 20%;
+	}
+	.pb-coin-amount-2{
+		width: 100%;
+		height: 20%;
+		padding: 40px 25px 20px 25px;
+		padding-top: 15%;
+	}
+	.good-display-details{
+	    background-color: white;
+    	border-top-left-radius: 30px;
+    	border-top-right-radius: 30px;
+    	height: 80%;
+    }
+    .good-header{
+    	width: 100%;
+    }
+    .good-img{
+    	width: 50%;
+    	float: left;
+    	padding: 10px;
+    }
+    .good-own-name{
+    	width: 50%;
+    	float: right;
+    	padding: 20px 10px 10px 0px;
+    }
+    .good-named{
+    	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    	font-size: 22px;
+    	font-weight: bold;
+    }
+    .good-body{
+    	width: 100%;
+    	height: 40%;
+    	padding: 0px 20px 0px 20px;
+    }
+    .good-tag{
+    	top: -20px;
+	    z-index: 99;
+	    width: 32%;
+	    position: absolute;
+	    right: 20px;
+    }
+    .pip-hilight{
+    	animation-duration: 1000ms;
+	    animation-name: blinking;
+	    animation-iteration-count: infinite;
+	    -webkit-animation:blinking 1000ms infinite;
+    }
+    @keyframes blinking {
+    from {
+        color:white;
+    }
+    to {
+        color:red;
+    }
+}
+@-webkit-keyframes blinking {
+    from {
+        color:white;
+    }
+    to {
+        color:red;
+    }
+}
 </style>
-<div class="annouce">
-	Annoucement
-</div>
-<!-- Swiper -->
-<div class="parallax">
-	<div class="parallax__layer parallax__layer--back" style="position: relative;">
-		<div class="shelf"></div>
+<div class="main_bg">
+	<div class="pb-coin-amount">
+		<div class="coin-icon" >
+			<img id="myCoin" src="img/playbasis_coin_single_500px.png" style="align-self: center;width: 40px;height: unset;position: relative;z-index: 1039;">
+			<div id="coin-overlay" style="align-self: center;width: 40px;height: 40px;z-index: 1040;position: absolute;background-color: #d2691e00;display: none;"></div>
+			<span class="pip-hilight" style="position: absolute;top: 40px;left: 38px;z-index: 1040;">Click here!</span>
+		</div>
+		<div class="coin-amount">
+			<span id="coinNumber" style="align-self: center;display: flex;align-items: center;">3,996,240 <span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span></span> 
+		</div>
 	</div>
-<div class="parallax__layer parallax__layer--base" style="top: 35px;">
-  <div class="swiper-container swiper1">
-    <div class="swiper-wrapper" id="swip_hot">
-      
+	<!-- <div class="pb-coin-amount-2">
+		<div class="coin-icon-2" style="float: left;">
+			<img src="img/coin_22.png" style="width: 60px;">
+		</div>
+		<div class="coin-amount-2" style="float: right;padding-top: 8px;">
+			<span style="font-size: 28px;color: white;">3,996,240</span> 
+		</div>
+		<div style="clear: both;"></div>
+	</div> -->
+	<div class="swiper-container swiper99" style="overflow: visible;">
+	    <div class="swiper-wrapper" style="height: 100%;">
+			<style type="text/css">
+				.padding-left-right-20{
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+				.icons{
+					font-size: 12px;
+				}
+			</style>
+			<div class="swiper-slide good-display-details" style="padding: 60px 20px 0px 20px;text-align: center;overflow-y: scroll;">
+				<div class="row">
+					<div class="col-4 padding-left-right-20">
+						<img src="img/DigitalDollars.png">
+						<span class="icons">Digital Dollars</span>
+					</div>
+					<div class="col-4 padding-left-right-20">
+						<img src="img/Vochers4.png">
+						<span class="icons">Virtual Vouchers</span>
+					</div>
+					<div class="col-4 padding-left-right-20">
+						<img src="img/Coupons6.png">
+						<span class="icons">Crypto Coupons</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4 padding-left-right-20">
+						<img src="img/Linked.png">
+						<span class="icons">Linked Loans</span>
+					</div>
+					<div class="col-4 padding-left-right-20">
+						<img src="img/Bonds2.png">
+						<span class="icons">Byte Bound</span>
+					</div>
+					<div class="col-4 padding-left-right-20">
+						<img src="img/stocks4.png">
+						<span class="icons">Synthetic Stocks</span>
+					</div>
+				</div>
+				<div class="row" style="margin-bottom: 100px;">
+					<div class="col-4 padding-left-right-20">
+						<img src="img/Coverage.png">
+						<span class="icons">Cyber Coverage</span>
+					</div>
+					<div class="col-4 padding-left-right-20">
+						<img src="img/Mortgage.png">
+						<span class="icons">Mobile Mortgage</span>
+					</div>
+					<div class="col-4 padding-left-right-20">
+						
+					</div>
+				</div>
+				<!-- <div class="demo-wrapper">
+				<div class="csspie" data-start="0" data-value="14"></div>
+				<div class="csspie big" data-start="14" data-value="86"></div>
+				</div> -->
+			</div>
+			<div class="swiper-slide good-display-details">
+				<div class="good-tag">
+					<img src="img/tag_bestSeller.png">
+				</div>
+				<div class="good-header">
+					<div class="good-img">
+						<img src="img/travelsim49.png" style="margin-right: 0px;">
+					</div>
+					<div class="good-own-name">
+						<img src="img/AIS_Logo.png" style="width: 50%;margin-bottom: 10px;">
+						<label class="good-named">AIS Prepaid Sim Card for Travellers</label>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+				<p style="text-align: center;">WHAT YOU WILL GET</p>
+				<div class="good-body">
+					description from setting in dashboard (getting from API)
+				</div>
+				<div class="good-footer">
+					<div class="real-currency">
+						
+					</div>
+					<div class="pb-currency">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="coin-container">
+  <div class="coin">
+    <div class="front">
+    </div>
+    <div class="back">
     </div>
   </div>
-
-  <!-- Swiper -->
-  <div class="swiper-container swiper2">
-    <div class="swiper-wrapper" id="swip_old">
-      
-    </div>
-  </div>
-
-  <!-- Swiper -->
-   <div class="swiper-container swiper3" style="margin-bottom: 70px;">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide default-slide">
-      	<div class="swiper-slide default-slide" style="display: inline-block;margin: auto;">
-      	<div style="position: relative;width: 100%;height: 50%;border-top-right-radius: 15px;border-top-left-radius: 15px;background-color: #0000004a">
-      		<div style="width: 100%;">
-      			<div style="left: 50%;position: absolute;height: 50px;width: 50px;">
-	      			<div style="width: 20%;position: relative;left: -50%;top: -8px;background-color: darkkhaki;width: 100%;height: 100%;border-radius: 50%;border: 4px solid white;">
-	      				Logo
-	      			</div>
-      			</div>
-      		</div>
-      		Picture
-      		<div style="position: absolute;bottom: 0px;width: 100%;background-color: #00ffff5c">
-      			Overlay
-      		</div>
-      	</div>
-      	<div style="position: relative;width: 100%;height: 40%;background: aqua;">
-      		<div>
-      			Title
-      		</div>
-      		<div>
-      			EXAMPLE LAYOUT
-      		</div>
-      	</div>
-      	<div style="position: absolute;bottom: 0px;width: 100%;text-align: center;">
-      		Footer
-      	</div>
-      </div>
-      </div>
-      <div class="swiper-slide default-slide">Slide 2</div>
-      <div class="swiper-slide default-slide">Slide 3</div>
-      <div class="swiper-slide default-slide">Slide 4</div>
-      <div class="swiper-slide default-slide">Slide 5</div>
-      <div class="swiper-slide default-slide">Slide 6</div>
-      <div class="swiper-slide default-slide">Slide 7</div>
-      <div class="swiper-slide default-slide">Slide 8</div>
-      <div class="swiper-slide default-slide">Slide 9</div>
-      <div class="swiper-slide default-slide">Slide 10</div>
-    </div>
+</div>
+<style type="text/css">
+.coin-container{
+    perspective: 1100px;
+    position: absolute;
+    z-index: 11;
+    width: 100%;
+    height: 0px; 
+    transition: all 1.1s;
+    display: none;
+    transition-timing-function: cubic-bezier(0.11, 1.66, 0.57, 0.97);
+}
+.coin{
+      font-family: arial;
+    text-transform: uppercase;
+    color: black;
+    position: absolute;
+    text-align: center;
+    line-height: 200px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    left: 45%;
+    bottom: 0px;
+    transition: all 5 ease;
+    transform-style: preserve-3d;
+    -webkit-transition: all 1s cubic-bezier(0, 1.4, 0.58, 1.2);
    
-  </div>
+}
+.coin{
+  animation-name: spin;
+  animation-duration: 0.4s;
+  animation-iteration-count: 3;
+}
+@keyframes spin{
+  0% {transform: rotateY(180deg);}
+  25% {transform: rotateY(360deg);}
+  50% {transform: rotateY(540deg);}
+  75% {transform: rotateY(720deg);}
+  100% {transform: rotateY(900deg);}
+}
+.front, .back{
+    border-radius: 50%;
+    background-image: url(img/playbasis_coin_single_500px.png);
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;}
+.back{
+    transform: rotateY(180deg);
+}
+h1{
+  margin: 0px;
+}
 
 
- </div>
- </div>
- <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content" style="background-color: rgba(157, 157, 179, 0);border:none;">
-        <CENTER>
-        <div class="modal-body" style="position: fixed;top: 80px;left: 0px;">
-          <div class="" style="">
-          	<img src="gif/Newest_Lotus.gif" style="width: 100%;height: 100%;">
-		  </div>
-        </div>
-        </CENTER>
-      </div>
-
-    </div>
-  </div>
-  <script src="js/swiper.min.js"></script>
-  <script>
-    
-  </script>
+</style>
+<script type="text/javascript">
+	
+</script>
+<script src="js/swiper.min.js"></script>
 <%@include file="bottom.jsp" %>
