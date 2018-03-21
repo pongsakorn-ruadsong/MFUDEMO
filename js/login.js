@@ -242,6 +242,10 @@ function performOTP(code, player_id, from, callback){
 	    			result = true;
 	    			updateUser(player_id);
 	    		}
+				var randomNum = Math.floor(Math.random() * guestImage.length);
+				console.log(randomNum)
+				sessionStorage['tempUserProfile_Img'] = guestImage[randomNum];
+				// $("#userPro").attr("src", guestImage[randomNum]);
 	    		// sessionStorage['auth'] = "true";
 	    		// sessionStorage['username'] = number;
 	    		console.log("e")
@@ -364,6 +368,9 @@ function guestFunction(){
 	    	if (d.success == false) {
 	    		guestFunction();
 	    	}else{
+	    		var randomNum = Math.floor(Math.random() * guestImage.length);
+				console.log(randomNum)
+				sessionStorage['tempUserProfile_Img'] = guestImage[randomNum];
 	    		sessionStorage['player'] = guestID;
 	    		sessionStorage['loginType'] = 'guest';
 	    		window.location.replace("index");

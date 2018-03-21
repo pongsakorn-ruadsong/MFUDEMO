@@ -158,15 +158,14 @@ function getReward(callback){
 	console.log(rewards);
 	console.log(reward);
 	console.log("")
+	var kop = [];
 	for (var s = 0; s < reward.length; s++) {
 		genReward(reward[s][0],reward[s][1],function(data){
 			kop.push(data);
-
 		});
 	}
 	callback(reward,kop);
 }
-var kop = [];
 var full_reward = [];
 function autoNext(){
  	console.log("Auto Next")
@@ -177,26 +176,40 @@ function autoNext(){
 			getReward(function(reward, datas){
 				var k = 0;
 				console.log(datas)
-				console.log(k+' | '+datas.length)
 				show_interval = setInterval(function(){
 					if (k<datas.length) {
 						console.log(k+' | '+datas.length)
+						// console.log(datas[k][0].reward_type)
+						// if(datas[k][0].event_type == 'LEVEL_UP'){
+						// 	console.log('Skiped: '+datas[k][0].event_type)
+						// 	reward.shift();
+						// 		console.log(reward)
+						// 		k++;
+						// }
+						// else if (datas[k][0].reward_type == 'goods') {
+						// 	console.log('Skiped: '+datas[k][0].reward_type)
+						// 	reward.shift();
+						// 		console.log(reward)
+						// 		k++;
+						// }
+						// else{
 						$('#feed-reward-img').removeClass('fadeInDown')
 						$('#in-scored').removeClass('flipInX').addClass('flipOutX');
-						console.log('Here')
 						setTimeout(function(){
 							updateRewardFeed(datas[k],function(){
-								console.log('HAHA')
+								console.log(datas[k])
 								$('#feed-reward-img').removeClass('fadeOutUp').addClass('fadeInDown')
 								$('#in-scored').removeClass('flipOutX').addClass('flipInX');
-								k++;
 								reward.shift();
+								console.log(reward)
+								k++;
 							});
-						},100);
+						},500);
+						// }
 					}else{
 						clearInterval(show_interval);
 					}
-				},800);
+				},1000);
 			});
 			// var rewards = [];
 			// var reward = [];
@@ -271,12 +284,12 @@ function autoNext(){
 				console.log('Has class zoomIn')
 				$('#quizPanel').removeClass('zoomIn').addClass('fadeOutLeft');
 			}
-			if (quizType[sessionStorage['qId']] == 'quiz'){
-				if ($('#in-scored').hasClass('flipInX')) {
-					console.log('Has class flipInX')
-					$('#in-scored').removeClass('flipInX').addClass('flipOutX');
-				}
-			}
+			// if (quizType[sessionStorage['qId']] == 'quiz'){
+			// 	if ($('#in-scored').hasClass('flipInX')) {
+			// 		console.log('Has class flipInX')
+			// 		$('#in-scored').removeClass('flipInX').addClass('flipOutX');
+			// 	}
+			// }
 			clearInterval(timeOut);
 			unit = [];
 			topic = '';
@@ -302,7 +315,7 @@ function updateRewardFeed(data, callback){
 	console.log(data)
 	var a = $('.in-scored').children()[0]
 	var b = $('.in-scored').children()[1]
-	$(a).text($(b).text());
+	// $(a).text($(b).text());
 	for (var i = 0; i < data.length; i++) {
 		if(data[i].event_type != 'REWARD_RECEIVED'){
 			continue;
@@ -310,19 +323,19 @@ function updateRewardFeed(data, callback){
 		else{
 			if (data[i].reward_type == 'badge') {
 				$('#feed-reward-img').attr('src',data[i].reward_data.image)
-				$(b).text(data[i].value+' badge');
+				$('.newScore').text(data[i].value+' badge');
 			}
 			else if (data[i].reward_type == 'point') {
 				$('#feed-reward-img').attr('src','img/coin_22.png')
-				$(b).text(data[i].value+' points');
+				$('.newScore').text(data[i].value+' points');
 			}
 			else if (data[i].reward_type == 'exp') {
 				$('#feed-reward-img').attr('src','img/EXP.png')
-				$(b).text(data[i].value+' exp');
+				$('.newScore').text(data[i].value+' exp');
 			}
-			else{
-				$('#feed-reward-img').attr('src','')
-				$('.feed-reward-img').append('<span class="glyphicon glyphicon-usd"></span>');
+			else if (data[i].reward_type == 'Dollar(USD)') {
+				$('#feed-reward-img').attr('src','img/dollarBag.png')
+				$('.newScore').text(data[i].value+' dollar');
 			}
 		}
 	}
@@ -471,6 +484,7 @@ function checkFeed(){
 		// }
 	}
 function getQuestion(result, callback){
+	$('#userImg_03').attr('src',sessionStorage['tempUserProfile_Img']);
 	var k = 2;
 	var i = 0;
 	var getFeed_delay;
@@ -735,6 +749,13 @@ function buildFeed(data,callback){
 	    '<td class="feedRow activities-badge">'+items+'</td>'+
 	    '</tr>'
     }
+    $('#feed-content').append(text);
+    $(".tr-feed").each(function(i) {
+    	$(".tr-feed").delay(100* i ).fadeIn(500);
+	});
+	callback();
+    // $('#feed-content').addClass('animated fadeInUp');
+    // $('#feed-content').addClass('animated fadeOutUp');
 }
 var quiz_type = '';
 function getQuizType(){
@@ -767,7 +788,7 @@ function buildQuiz(result, callback){
 	    	// $('#in-scored').html('&#x0E3F;');
 	    }else if (quizType[sessionStorage['qId']] == 'quiz'){
 		    if (result != undefined) {
-		    	$('#in-scored').css('display','block');
+		    	$('#in-scored').css('display','flex');
 		    	var ans_result = result.response.result.explanation;
 		    	var get_score = result.response.result.grade.score;
 		    	var max_this_score = result.response.result.grade.score;
@@ -787,13 +808,13 @@ function buildQuiz(result, callback){
 		    	cur_score = 0;
 		    }
 
-			setTimeout(function(){
-				// $('#in-scored').text(cur_score);
-				if ($('#in-scored').hasClass('flipOutX')) {
-						console.log('Has class flipOutX')
-						$('#in-scored').removeClass('flipOutX').addClass('flipInX');
-					}
-				},500);
+			// setTimeout(function(){
+			// 	// $('#in-scored').text(cur_score);
+			// 	if ($('#in-scored').hasClass('flipOutX')) {
+			// 			console.log('Has class flipOutX')
+			// 			$('#in-scored').removeClass('flipOutX').addClass('flipInX');
+			// 		}
+			// 	},500);
 	    }
 	    a = parseInt(rMin);
 	    b = parseInt(rMax);
@@ -909,6 +930,7 @@ function buildQuiz(result, callback){
 		    			continue;
 	    			}
 		    		text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
+		    		'<label class="btn choice-overlay " style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
 			          '<input class="inputTXT_SQ_S" name="'+topic+'" typeZ="SQ_S"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'
 
@@ -1062,7 +1084,7 @@ function buildQuiz(result, callback){
 	    	});
 	    	$('#nextBtn').click(function() {
 		    	console.log("ENTER")
-		    	if (type == 'SLI' || type == 'SLI_S' || type == 'MULTI_S' || type == 'MULTI') {
+		    	if (type == 'SLI' || type == 'SLI_S' || type == 'MULTI_S' || type == 'MULTI' || type == 'SQ_S') {
 		    		autoNext();
 		    	}else{
 		    	var remain = parseInt(sessionStorage['pause_num']);
@@ -1190,7 +1212,14 @@ function buildQuiz(result, callback){
 						},600);
 		    	 	}
 		    	 }else{
-		    	 	$('#stopCount').click();
+		    		$('#nextBtn').removeClass("stop");
+		    	 	$("#nextBtn").prop('disabled', false);
+		    	 	$('#stopCount').css("display","block");
+		    	 	$('#resetQuiz').css("display","none");
+		    	 	$('#stopCount').removeClass('zoomOut');
+		    	 	$('#timer').text('');
+		    	 	$('#timer').addClass("glyphicon glyphicon-play");
+		    	 	$('#nextBtn').removeClass('normal-form-next').addClass('btn-primary')
 		    	 }
 	    	 });
 	    	 $('.inputTXT_SQ_S_MULTI').click(function(){

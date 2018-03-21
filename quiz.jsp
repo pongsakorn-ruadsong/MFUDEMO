@@ -18,6 +18,15 @@
 					// },10000);
 				},10000);
 			}
+			var c = JSON.parse(sessionStorage['playerMainData'])
+			if (sessionStorage['playerMainData'] != undefined && sessionStorage['loginType'] != 'guest') {
+				
+				$('#Player_username').html(c.first_name);
+				$('#Player_Phonenum').html(c.level_title);
+			}else{
+				$('#Player_username').html('Player');
+				$('#Player_Phonenum').html(c.level_title);
+			}
 		    $('.range-slider__range').on('input', function(){
 		    	// $("#nextBtn").prop('disabled', false);
 		    	if (type == 'SLI') {
@@ -220,11 +229,7 @@
 		}
 		.scored,.timeleap_Count{
     		height: 100%;
-    		display: flex;
-    		justify-content:center;
-    		align-items:center;
     		width: 100%;
-    		padding-top: 5px;
 		}
 		.timeleap_Count{
 			 width: 50%;
@@ -246,20 +251,19 @@
 		}
 		.in-scored{
 			color: black;
-		    width: 75%;
 		    height: 100%;
 		    font-size: 13px;
 		    text-align: center;
-		       background-color: #ff002f00;
-    border-bottom: 1px solid aqua;
+		    background-color: #ff002f00;
+		    display: flex;
 		}
 		.reward-feed-img{
 			color: white;
-		    width: 25%;
 		    height: 100%;
 		    font-size: 10px;
 		    text-align: center;
-		    border-bottom: 1px solid aqua;
+		    display: flex;
+		    padding-top: 5px;
 		}
 		.playCount-in{
 		    width: 80%;
@@ -281,7 +285,7 @@
 		}
 		.sams{
 			height: 20%;
-			margin-bottom: 30px;
+			margin-bottom: 20px;
 		}
 		#feed-reward-img.fadeInDown,#feed-reward-img.fadeOutUp{
 			animation-duration: 0.5s;
@@ -289,7 +293,7 @@
 		.score{
 			height: 50%;
 			text-align: right;
-			padding: 5px 10px 10px 10px;
+			padding: 0px 5px 0px 5px;
 			font-weight: bold;
    			font-size: 16px;
 		}
@@ -309,7 +313,7 @@
         margin-left: -100px;
 		}
 		.nameTag{ 
-	       padding: 5px 10px 10px 10px;
+	       padding: 5px 10px 0px 10px;
 		    width: 40%;
 		    height: 100%;
 		    text-align: left;
@@ -319,15 +323,12 @@
 		    border-bottom: 1px solid aqua;
 		}
 		.logo_preview{
-		        position: relative;
-		        width: 55px;
-		        height: 55px;
-		        border-radius: 50%;
-		        background-color: grey;
-		        padding: 8px;
-		        margin-top: 0%;
-		       border: 4px solid white;
-		       overflow: hidden;
+		    width: 55px;
+		    height: 55px;
+		    border-radius: 50%;
+		    padding: 1px;
+		    margin-top: 0%;
+		    overflow: hidden;
 		}
 	</style>
 	<!-- .in-scored = reward label -->
@@ -336,34 +337,25 @@
 			<!-- <div style="position: absolute;left: 50%;height: 100%;width: 15%;padding: 2px 0px 2px 0px;">
 				<div style="position: relative;left: -50%;border-radius: 50%;border:1px solid white;height: 100%;background-color:cadetblue;">Test</div>
 			</div> -->
-
 			<div class="nameTag">
-	            <label id="Player_username" style="
-			    font-size: 14px;
-			    font-weight: bold;
-			    margin-bottom: 0px;
-			">Player One</label>
-				            <br>
-				            <label id="Player_Phonenum" style="
-			    font-size: 10px;
-			">080-213-5555</label>
-			        	</div>
-        	
+		        <label id="Player_username" style="font-size: 14px;font-weight: bold;margin-bottom: 0px;width: 100%;height: 50%;display: flex;align-items: center;">Player One</label>
+				<label id="Player_Phonenum" style="font-size: 10px;font-weight: bold;margin-bottom: 0px;width: 100%;height: 50%;display: flex;align-items: center;">080-213-5555</label>
+			</div>
 			<div id="scored" class="scored">
-				<div id="covered-rw-feed" class="scored" style="/*display: none;*/">
+				<div id="covered-rw-feed" style="border-bottom: 1px solid aqua;display: flex;width: 100%;justify-content: flex-end;align-items: center;height: 100%;">
 					<div class="reward-feed-img" id="reward-feed-img">
-						<img id="feed-reward-img" src="img/EXP.png" class="animated" style="margin-right: 0px;/* width: 100%; *//* height: 100%; *//* border-radius: 50%; */background-color: #ffffff00;align-self: center;">
+						<img id="feed-reward-img" src="img/EXP.png" class="animated" style="margin-right: 0px;width: 35px;height: 35px;background-color: #ffffff00;align-self: center;">
 					</div>
 					<div class="in-scored animated" id="in-scored">
 						
-						<div class="score newScore">2,500,000</div>
+						<div class="score newScore" style="align-self: center;display: flex;align-items: center;">2,500,000</div>
 					</div>
 				</div>
 			</div>
 
 			<div style="position: absolute;left: 50%;">
-        		 <div class="logo_preview col-md-12" id="showUser" style="z-index:1; position:relative; left:-50%; background-color:#cccccc;">
-	                <img src="" style="background-size: cover;">
+        		 <div class="logo_preview col-md-12" id="showUser" style="z-index:1;position:relative;left:-50%;background-color: #a05454;margin-top: -5px;">
+	                <img src="" id="userImg_03" style="background-size: cover;">
 	            </div>
         	</div>
         	<div style="clear: both;"></div>
@@ -522,7 +514,7 @@
 	#feed-content{
 	}
 </style>
-<div class="liveFeed " id="liveFeed"> <!-- animated fadeOutDown -->
+<div class="liveFeed animated" id="liveFeed"> <!-- animated fadeOutDown -->
 	<div class="live-box blink blinkAlert">
 		<!-- <div class="live-box-header">
 			<h4 style="float: left;" id="click-hide-feed">

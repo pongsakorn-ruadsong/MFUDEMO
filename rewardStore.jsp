@@ -84,7 +84,7 @@
 <div class="goodsStore"></div>
 	<div class="shelf" style="background-color: white;">
 		<div class="swiper-container">
-			<div class="swiper-wrapper col-md-12" id="display">
+			<div class="swiper-wrapper col-md-12" id="display" style="margin-bottom: 35%;">
 			</div>
 		</div>
 	</div>	

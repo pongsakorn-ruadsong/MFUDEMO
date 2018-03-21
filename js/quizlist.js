@@ -46,14 +46,15 @@ function nFormatter(num, digits) {
   return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 }
 function getUserInfo(callback) {
-	if (sessionStorage['loginType'] == 'guest') {
-		console.log(guestImage)
-		var randomNum = Math.floor(Math.random() * guestImage.length);
-		console.log(randomNum)
-		$("#userPro").attr("src", guestImage[randomNum]);
-	}else{
+	// if (sessionStorage['loginType'] == 'guest') {
+	// 	console.log('Guest')
+	// 	// var randomNum = Math.floor(Math.random() * guestImage.length);
+	// 	// console.log(randomNum)
+	// 	// $("#userPro").attr("src", guestImage[randomNum]);
+	// }else{
 	var data = new Object();
 	data.token = sessionStorage['Token'];
+	if (sessionStorage['pageName'] != 'login') {
 	$.ajax({
         	type: "POST",
             url: 'https://api.pbapp.net/Player/'+sessionStorage['player']+'/data/all',
@@ -63,7 +64,9 @@ function getUserInfo(callback) {
 	    		Index05 = data;
 	    		console.log(data);
 	    		buildPlayerFull(data.response.player,function(){
+
 	    		});
+	    		callback(data);
 	    	},
 	    	error: function (xhr, textStatus, errorThrown){
 //                window.location.reload(true)
@@ -71,45 +74,8 @@ function getUserInfo(callback) {
                 console.log("Failed : getLang() @ index.js");
             }
         });
-	callback();
 	}
-}
-function buildPlayer(a,callback) {
-	var img = a.image;
-	var img_for_check = /[^/]*$/.exec(img)[0];
-	console.log(img_for_check)
-	if (img_for_check == 'default_profile.jpg') {
-		img = 'img/default_user.png'
-	}
-	var Fname = a.first_name;
-	var Lname = a.last_name;
-	var exp = a.exp;
-	var point = ''; //In points
-	var lv = a.level;
-	var badge = ''; //many in array
-	var gender = a.gender; // 1 or 2
-	var lv_percent = a.percent_of_level-15;
-	var regis_date = a.registered;
-	var username = a.username;
-	var phone_number = ''; //null
-	if (a.phone_number == null) {
-		phone_number = 'null';
-	}else{
-		phone_number = a.phone_number;
-	}
-	var email = a.email;
-	var birthDate = ''; //null
-	if (a.birth_date == null) {
-		birthDate = 'null';
-	}else{
-		birthDate = a.birth_date;
-	}
-	for(var i = 0; i<a.points.length;i++){
-		if (a.points[i].reward_name == "point") {
-			point = a.points[i].value;
-		}
-	}
-	callback();
+	// }
 }
 function buildPlayerFull(a,callback) {
 	// $('#playerPanel > div').remove();
@@ -127,6 +93,12 @@ function buildPlayerFull(a,callback) {
 	var badge = ''; //many in array
 	var gender = a.gender; // 1 or 2
 	var lv_percent = a.percent_of_level;
+	if (a.percent_of_level > 0) {
+		$('#exp_progress').css('color','white');
+	}
+	else{
+		$('#exp_progress').css('color','black');
+	}
 	var regis_date = a.registered;
 	var username = a.username;
 	var phone_number = ''; //null
@@ -142,13 +114,21 @@ function buildPlayerFull(a,callback) {
 	}else{
 		birthDate = a.birth_date;
 	}
-	for(var i = 0; i<a.points.length;i++){
-		if (a.points[i].reward_name == "point") {
-			point = a.points[i].value;
+	if (a.points.length > 0) {
+		for(var i = 0; i<a.points.length;i++){
+			if (a.points[i].reward_name == "point") {
+				point = a.points[i].value;
+			}
 		}
+	}else{
+		point = 'None';
 	}
-	$('#user_pic').attr("src",img);
-	$('#userName').text(username);
+	$('#user_pic').attr("src",sessionStorage['tempUserProfile_Img']);
+	if (sessionStorage['loginType'] == 'guest') {
+		$('#userName').text('Guest\'s profile');
+	}else{
+		$('#userName').text(username);
+	}
 	$('#user_level').text(lv);
 	$('#user_point').text(point);
 	$('#exp_progress').text(lv_percent+'%');
@@ -158,22 +138,28 @@ function buildPlayerFull(a,callback) {
 }
 function buildRewardList() {
 	$('#table_reward > tr').remove();
+	$('#table_reward > h2').remove();
 	console.log("Enter build reward list")
 	var badges = Index05.response.player.badges;
 	var length = badges.length;
 	var k =1;
+	var text = '';
 	console.log(badges);
-	var text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
-	for (var i = 0; i < length; i++) {
-		if (badges[i].amount == 0) {
-			continue;
+	if (badges.length > 0) {
+		text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
+		for (var i = 0; i < length; i++) {
+			if (badges[i].amount == 0) {
+				continue;
+			}
+			text += '<tr class="spaceUnder">'+
+			'<td><img src='+badges[i].image+' style="width:50px;height:50px;"></td>'+
+			'<td>'+badges[i].name+'</td>'+
+			'<td>'+badges[i].amount+'</td>'+
+			'</tr>'
+			k++;
 		}
-		text += '<tr class="spaceUnder">'+
-		'<td><img src='+badges[i].image+' style="width:50px;height:50px;"></td>'+
-		'<td>'+badges[i].name+'</td>'+
-		'<td>'+badges[i].amount+'</td>'+
-		'</tr>'
-		k++;
+	}else{
+		text += '<h2> Empty . . . </h2>';
 	}
 	$('#table_reward').append(text);
 }
@@ -208,46 +194,51 @@ function buildUserReward(){
 	var dataGoods = GoodsData.response.goods;
 	var length = dataGoods.length;
 		$('#table_goods > tr').remove();
+		$('#table_goods > h2').remove();
 		console.log(length)
-		var icon = '';
-		var detail = '';
-		var point = '';
-		var text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
-		for(let i=0;i<length;i++){ 
-			console.log(i)
-				var goodsId = dataGoods[i].goods_id;
-				var custom_lenght = contentGoods[goodsId].length;
-				console.log(goodsId)
-				for (let k = 0; k < custom_lenght; k++) {
-					console.log("Enter for")
-					if (contentGoods[goodsId][k].key == 'Detail') {
-						console.log("detail")
-						detail = contentGoods[goodsId][k].value;
-					}
-					if (contentGoods[goodsId][k].key == 'Icon') {
-						console.log("icon")
-						icon = contentGoods[goodsId][k].value;
-					}
-					if (contentGoods[goodsId][k].key == 'Points') {
-						console.log("point")
-						point = contentGoods[goodsId][k].value;
-					}
-					if (contentGoods[goodsId][k].key == 'Condition') {
-						console.log("Condition")
-						condition = contentGoods[goodsId][k].value;
-					}
-					}
-					console.log(dataGoods[i]);
-					if (dataGoods[i].amount == 0) {
-						continue;
-					}
-					text += '<tr class="spaceUnder goods-store" goodID="'+dataGoods[i].goods_id+'" icon="'+icon+'" detail="'+detail+'" point="'+point+'" nameID="'+dataGoods[i].name+'" imgID="'+dataGoods[i].image+'" expireID="'+dataGoods[i].date_expire+'" termId="'+condition+'" iconID="'+icon+'" codeID="'+dataGoods[i].code+'" detailID="'+detail+'">'+
-					'<td><img src='+dataGoods[i].image+' style="width:50px;height:50px;" class="img-circle"></td>'+
-					'<td>'+dataGoods[i].name+'</td>'+
-					'<td>'+dataGoods[i].amount+'</td>'+
-					'</tr>'
-					}
-
+		var text = '';
+		if (length > 0) {
+			var icon = '';
+			var detail = '';
+			var point = '';
+			text = '<tr class="spaceUnder tr-head"><td>Image</td><td>Name</td><td>Amount</td></tr>';
+			for(let i=0;i<length;i++){ 
+				console.log(i)
+					var goodsId = dataGoods[i].goods_id;
+					var custom_lenght = contentGoods[goodsId].length;
+					console.log(goodsId)
+					for (let k = 0; k < custom_lenght; k++) {
+						console.log("Enter for")
+						if (contentGoods[goodsId][k].key == 'Detail') {
+							console.log("detail")
+							detail = contentGoods[goodsId][k].value;
+						}
+						if (contentGoods[goodsId][k].key == 'Icon') {
+							console.log("icon")
+							icon = contentGoods[goodsId][k].value;
+						}
+						if (contentGoods[goodsId][k].key == 'Points') {
+							console.log("point")
+							point = contentGoods[goodsId][k].value;
+						}
+						if (contentGoods[goodsId][k].key == 'Condition') {
+							console.log("Condition")
+							condition = contentGoods[goodsId][k].value;
+						}
+						}
+						console.log(dataGoods[i]);
+						if (dataGoods[i].amount == 0) {
+							continue;
+						}
+						text += '<tr class="spaceUnder goods-store" goodID="'+dataGoods[i].goods_id+'" icon="'+icon+'" detail="'+detail+'" point="'+point+'" nameID="'+dataGoods[i].name+'" imgID="'+dataGoods[i].image+'" expireID="'+dataGoods[i].date_expire+'" termId="'+condition+'" iconID="'+icon+'" codeID="'+dataGoods[i].code+'" detailID="'+detail+'">'+
+						'<td><img src='+dataGoods[i].image+' style="width:50px;height:50px;" class="img-circle"></td>'+
+						'<td>'+dataGoods[i].name+'</td>'+
+						'<td>'+dataGoods[i].amount+'</td>'+
+						'</tr>'
+			}
+		}else{
+			text += '<h2> Empty . . . </h2>';
+		}
 	$('#table_goods').append(text);
 	$('.goods-store').click(function(){
 		$('#checkOutGoods > div').remove();
