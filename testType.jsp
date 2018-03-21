@@ -5,13 +5,7 @@
 		getUserdate();
 		graph();
 		// eventShow();
-	// 	});
-		$('#js-flip-1').toggle(function() {
-	        $('#js-flip-1 .card').addClass('flipped');
-	    },
-	    function() { $('#js-flip-1 .card').removeClass('flipped');
-	    });
-	});
+		});
 </script>
 <link rel="stylesheet" href="css/swiper.min.css">
 <style type="text/css">
@@ -154,58 +148,13 @@
   		transform: rotateY(180deg);
   }
 }*/
-.preview-logo{
-    	position: fixed;
-    	z-index: 50px;
-    	border-radius: 50%;
-    	background-color: darksalmon;
-	    padding: 8px;
-	    width: 60px;
-	    height: 60px;
-	    border:4px solid white;
-	    position: fixed;
-		top: 50%;
-		left: 50%;
-		margin-top: -50px;
-		margin-left: -100px;
-}
-.nameTag{ 
-	width: 107%;
-    height: 45px;
-    top: -3%;
-    left: -9%;
-    text-align: center;
-	margin-left: 15px;
-	border-radius: 20px;
-	background-color: lime;
-    position: relative;
-}
-.logo_preview{
-	    position: relative;
-	    width: 55px;
-	    height: 55px;
-	    border-radius: 50%;
-	    background-color: grey;
-	    padding: 8px;
-	    margin-top: 0%;
-    	border: 4px solid white;
-    	overflow: hidden;
-}
-.dataCricle{
-	width: 50px;
-	height: 50px;
-	margin: 15px;
-	font-size: 17px;
-	font-weight: bold;
-	text-align: center;
-	box-shadow: 0px 0px 7px #d9d9d9;
-	background-color: #e60000;
-	border-radius: 50%;
-}
+
 .header{
 	width: 100%;
-	height: 54%;
-	background-color: red;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 3px;
+    border-bottom: 1px solid gray;
 }
 .body{
 	width: 100%;
@@ -214,148 +163,68 @@
 }
 .footer{
 	width: 100%;
-	text-align: center;
-	background-color: yellow;
-	font-size: 15px;
+	text-align: right;
+	font-size: 10px;
+	margin: 3px;
+	border-top: 1px solid gray;
 }
-.timeLine{
-  position: relative;
+
+.wrapper-timeline {
+    width: 100%;
+    height: 35%;
+    padding: 0 20px;
+    overflow: scroll;
+}
+
+.post {
   width: 100%;
-  left: 52%;
-  height: 100%;
-  overflow: scroll;
-  margin: 0 auto;
-  margin-top: 20px;
-  padding: 1em 0;
-  list-style-type: none;
+  border-left: 5px solid #0682FF;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  position: relative;
 }
-.timeLine:before{
-	content: '';
-	width: 6px;
-	height: 130%;
-	position: absolute;
-	display: block;
-	left: 3%;
-    background-color: lime;
+
+.postDate {
+  width: 10px;
+  height: 10px;
+  top: 36px;
+  left: -8px;
+  border-radius: 100%;
+  background: #FFF;
+  position: absolute;
+  box-shadow: 0 0 0 5px rgba(20,92,95,0.15), 0 0 0 3px #0682FF;
 }
-.message{
-	position: relative;
-    width: 50%;
-    left: 30px;
-    margin-top: 25px;
+
+@keyframes tt { 
+  0% { 
+  	opacity: 0; 
+  } 
+  100% { 
+  	opacity: 1; 
+  } 
 }
-.message:after{
-	content: "";
-    position: absolute;
-    right: 100%;
-    top: 50%;
-    height: 0;
-    width: 0;
-    margin-top: -8px;
-    border: solid transparent;
-    border-right-color: rgb(248,248,248);
-    border-width: 8px;
-    pointer-events: none;
+
+.post:after {
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 12px solid #0682FF;
+  top: 30px;
+  left: 8px;
 }
-.wrappe-flag{
-	position: relative;
-    display: inline-block;
-    text-align: center;
+
+.post-inner {
+  border: 1px solid #0682FF;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.35);
 }
-.flag{
-	position: relative;
-    display: inline;
-    background: rgb(248,248,248);
-    padding: 6px 10px;
-    border-radius: 5px;
-    font-weight: 600;
-    text-align: left;
-}
-.flag:before{
-	position: absolute;
-    top: 60%;
-    right: 86px;
-    content: ' ';
-    display: block;
-    width: 15px;
-    height: 15px;
-    margin-top: -10px;
-    background: #fff;
-    border-radius: 10px;
-    border: 4px solid rgb(255,80,80);
-}
-.flag:after{
-	content: "";
-    position: absolute;
-    right: 100%;
-    top: 50%;
-    height: 0;
-    width: 0;
-    margin-top: -8px;
-    border: solid transparent;
-    border-right-color: rgb(248,248,248);
-    border-width: 8px;
-    pointer-events: none;
-}
-.currencyBox{
-	width: 50%;
-	height: 86px;
-	text-align: center;
-	background-color: blue;
-}
-<<<<<<< Updated upstream
-=======
 
 
-/*--------- card flip --------*/
-
-.flip {
-    -webkit-perspective: 800;
-    width: 400px;
-    height: 200px;
-    position: relative;
-    margin: 50px auto;
-}
-.flip .card.flipped {
-    -webkit-transform: rotateY(-180deg);
-}
-.flip .card {
-    width: 100%;
-    height: 100%;
-    -webkit-transform-style: preserve-3d;
-    -webkit-transition: 1.5s;
-}
-.flip .card .face {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    -webkit-backface-visibility: hidden;
-    z-index: 2;
-    font-family: Georgia;
-    font-size: 3em;
-    text-align: center;
-    line-height: 200px;
-}
-.flip .card .front {
-    position: absolute;
-    z-index: 1;
-    background: black;
-    color: white;
-    cursor: pointer;
-}
-.flip .card .back {
-    -webkit-transform: rotateY(-180deg);
-    background: blue;
-    background: white;
-    color: black;
-    cursor: pointer;
-}
-.profile-wrapper{
-	width: 185px;
-	height: 185px;
-	overflow: hidden;
-	position: relative;
-}
 .profile {
   width: 150px;
   height: 150px;
@@ -370,32 +239,11 @@
 }
 #water{
 	width: 100%;
-	height: 0%;
-	font-size: 20px;
-    text-align: right;
+	height: 100%;
 	background: #4A90E2;
 	position: relative;
-	top: -4px;
+	top: -7px;
 }
-/*.percent{
-	content: '%';
-	position: absolute;
-	animation: percent 4s;
-	color: white;
-}
-@keyframes percent {
-  0% {
-  	left: 0;
-    height: 0;
-  }
-  50%{
-  	left: 100%
-  }
-  100% {
-  	left: 0;
-    height: 100%;
-  }
-}*/
 .percent{
 	left: 60%;
     top: 5%;
@@ -407,14 +255,10 @@
 	position: absolute;
 	font-size: 20px;
 	text-align: center;
-
-	/*transform: rotateX(180deg);*/
 	color: #4d4d4d;
     top: 40%;
     left: 10%;
 }
-
-
 .water-block {
   margin-top:20vh;
 
@@ -431,17 +275,19 @@
 .water-fill {
   fill:#4A90E2;
 }
+
 .water-fill.full {
   opacity:0.45;
 }
+
 .water-block{
 	transition: all 1s;
 }
+
 .swiper-slide {
       text-align: center;
       font-size: 18px;
       background: #fff;
-      /* Center slide text vertically */
       display: -webkit-box;
       display: -ms-flexbox;
       display: -webkit-flex;
@@ -452,19 +298,23 @@
       justify-content: center;
       -webkit-box-align: center;
       -ms-flex-align: center;
-      /*-webkit-align-items: center;
-      align-items: center;*/
     }
+
 .ct-line{
-	stroke-width: 3px;
+	stroke-width: 2px;
 	stroke-linecap: round;
-	/*stroke-dasharray: 30px 5px;*/
-	animation-duration: 1.2s;
-	animation-iteration-count: 2;
+	stroke-dasharray: 400;
+    stroke-dashoffset: 150000;
+  	animation: dash 600s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 </style>
-
 
 	<div class="swiper-container swiperCircle1">
 		<div class="swiper-wrapper" style="width: 100%; left: -180px;;">
@@ -495,7 +345,7 @@
 			<div class="swiper-slide">
 				<div class="profile" style="box-shadow: 0px 1px 20px #ff8080;border: 1px solid #ff8080;">
 					<div class="ct-chart ct-perfect-fourth" style="left: -10%;top: 10%;"></div>
-					<div class="price" id="userPrice1"></div>					
+					<div class="price" id="userPrice1"></div>
 				</div>	
 			</div>
 			<div class="swiper-slide">
@@ -511,152 +361,34 @@
 				</div>	
 			</div>
 		</div>
+		<div class="swiper-button-next" style="left: 10%; height: 12%;"></div>
+    	<div class="swiper-button-prev" style="left: 1%; height: 12%;"></div>
 	</div>
 
-<!-- <div class="goodsBox">
-	<div id="js-flip-1" class="flip">
-    	<div class="card">
-        	<div class="face front">Front</div>
-        	<div class="face back">Back</div>
-	    </div>
-	</div>
- -->
-<!-- <div class="goodsBox">
-	<div class="header">
-		<div class="nameTag">
-			<label>Tester</label><br>
-			<label>08x-xxx-xxxx</label>
-			<div class="logo_preview col-md-12" style="z-index:1; position:absolute; top:-5px; left:-5px; background-color:#cccccc;">
-				<img src=" " style="background-size: cover;">
-			</div>
-		</div> -->
-		<!-- <div class="row">
-		<img src=" " style="float:left; margin:5px; width:100px; height:50px; background-size:cover;">
-		</div>
-		<div class="row">
-			<div class="dataCricle">
-				<div style="margin-top: 12px;">10</div>
-			</div>
-			<div class="dataCricle">
-				<div style="margin-top: 12px;">2.5</div>
-			</div>
-			<div class="dataCricle">
-				<div style="margin-top: 12px;">WIFI</div>
-			</div>
-		</div>
-		<div class="row">
-			<label style="margin-left: 30px;">GB</label>
-			<label style="margin-left: 62px;">MIN</label>
-			<label style="margin-left: 57px;">FREE</label>
-		</div>
-	</div>
-	<div class="body">
-		<div class="row">
-			<div class="currencyBox" style="border-right:1px solid; border-bottom: 1px solid;">
-				<div style="margin-top: 35px;">1 THB</div>
-			</div>
-			<div class="currencyBox" style="border-left:1px solid; border-bottom: 1px solid; ">
-				<div style="margin-top: 35px;">1 THB</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="currencyBox" style="border-right: 1px solid; border-top: 1px solid; ">
-				<div style="margin-top: 35px;">1 THB</div>
-			</div>
-			<div class="currencyBox" style="border-left:1px solid; border-top: 1px solid; ">
-				<div style="margin-top: 35px;">1 THB</div>
-			</div>
-		</div>
-		<div class="timeLine">
-				<li>
-					<div class="message">
-						<div class="wrappe-flag">
-							<span class="flag">
-								message.
-							</span>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="message">
-						<div class="wrappe-flag">
-							<span class="flag">
-								message.
-							</span>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="message">
-						<div class="wrappe-flag">
-							<span class="flag">
-								message.
-							</span>
-						</div>
-					</div>
-				</li>
-		</div>
-	</div>
-	<div class="footer">
-		<a href="#" class="readTerm">Term & Condition</a> -->
-<!-- =======
->>>>>>> Stashed changes
-	</div>
-	<div class="body">
-		<div class="row">
-			<div class="currencyBox" style="border-right:1px solid; border-bottom: 1px solid;">
-				<div style="margin-top: 35px;">1 THB</div>
-			</div>
-			<div class="currencyBox" style="border-left:1px solid; border-bottom: 1px solid; ">
-				<div style="margin-top: 35px;">1 THB</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="currencyBox" style="border-right: 1px solid; border-top: 1px solid; ">
-				<div style="margin-top: 35px;">1 THB</div>
-			</div>
-			<div class="currencyBox" style="border-left:1px solid; border-top: 1px solid; ">
-				<div style="margin-top: 35px;">1 THB</div>
-			</div>
-		</div> -->
-		<!-- <div class="timeLine">
-				<li>
-					<div class="message">
-						<div class="wrappe-flag">
-							<span class="flag">
-								message.
-							</span>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="message">
-						<div class="wrappe-flag">
-							<span class="flag">
-								message.
-							</span>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="message">
-						<div class="wrappe-flag">
-							<span class="flag">
-								message.
-							</span>
-						</div>
-					</div>
-				</li>
-		</div> -->
-<!-- 	</div>
-	<div class="footer">
-		<a href="#" class="readTerm">Term & Condition</a>
-	</div> -->
 
-
-
-
-
+	<div class="wrapper-timeline" id="timelimePost">
+		<div class="post">
+		  	<div class="postDate"></div>
+			<div class="post-inner">
+				<div class="header" id="">14 Jan 2539</div>
+			      		The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.
+			</div>
+  		</div>
+  		<div class="post">
+		  	<div class="postDate"></div>
+			<div class="post-inner">
+			      		The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak.
+			    <div class="footer" id="">Jan 14</div>	
+			</div>
+  		</div>
+  		<div class="post">
+		  	<div class="postDate">
+		  	</div>
+			<div class="post-inner">
+			      		The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men.
+			</div>
+  		</div>
+  	</div>
 
 <!-- <canvas id="confeti" class="active" width="100%" height="100vh"></canvas>
 
@@ -731,8 +463,8 @@
 			<div class="ribbon cannon__confetti nth-child color-1"></div>
 		</div>
 	</div>
-</div>
- -->
+</div> -->
+
 
 <script src="js/swiper.min.js"></script>
 <%@include file="bottom.jsp" %>

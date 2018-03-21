@@ -261,8 +261,7 @@ function initialSwipes(){
     	slidesPerView: 2,
       spaceBetween: 8,
       pagination: {
-        el: '.swiper-pagination1',
-        clickable: true,
+        el: '.swiper-pagination',
       },
     });
     var swiper2 = new Swiper('.swiper2', {
