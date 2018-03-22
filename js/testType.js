@@ -106,7 +106,7 @@ function graph(){
   }, {
     low: 0,
     showArea: true,
-    showPoint: true,
+    showPoint: false,
     width: 225,
     height: 150,
       axisX: {
@@ -197,4 +197,3 @@ chart.on('draw', function(data) {
   }
 });
 }
-
