@@ -30,18 +30,18 @@
 	 		setTimeout(function(){
 	 			$('.coin-container').css('height','20%');
 	 		},100);
-	 		setTimeout(function(){
-	 			$(".coin").animate({left: x.left+10, top: x.top+10, width: 20, height: 20});
-	 			setTimeout(function(){
-	 				var n = numberWithCommas(b+10)
-	 				$('#coinNumber').text(n)
-	 				$('#coinNumber').append('<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span>')
-	 				$('.coin-container').css('display','none');
-	 				$('.coin-container').css('height','0px');
-	 				$('#coin-overlay').css('display','none');
-	 				$(".coin").removeAttr('style');
-	 			},600);
-	 		},1500);
+	 		// setTimeout(function(){
+	 		// 	$(".coin").animate({left: x.left+10, top: x.top+10, width: 20, height: 20});
+	 		// 	setTimeout(function(){
+	 		// 		var n = numberWithCommas(b+10)
+	 		// 		$('#coinNumber').text(n)
+	 		// 		$('#coinNumber').append('<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span>')
+	 		// 		$('.coin-container').css('display','none');
+	 		// 		$('.coin-container').css('height','0px');
+	 		// 		$('#coin-overlay').css('display','none');
+	 		// 		$(".coin").removeAttr('style');
+	 		// 	},600);
+	 		// },1500);
 	    });
 	});
 	const numberWithCommas = (x) => {
@@ -136,6 +136,7 @@
 	    display: inline-flex;
 	    flex: 1 1 auto;
 	    margin-bottom: 10px;
+	    margin-top: 10px;
     }
     .pip-hilight{
     	animation-duration: 1000ms;
@@ -150,22 +151,22 @@
     to {
         color:red;
     }
-}
-@-webkit-keyframes blinking {
-    from {
-        color:white;
-    }
-    to {
-        color:red;
-    }
-}
+	}
+	@-webkit-keyframes blinking {
+	    from {
+	        color:white;
+	    }
+	    to {
+	        color:red;
+	    }
+	}
 </style>
 <div class="main_bg">
 	<div class="pb-coin-amount">
 		<div class="coin-icon" >
 			<img id="myCoin" src="img/playbasis_coin_single_500px.png" style="align-self: center;width: 40px;height: unset;position: relative;z-index: 1039;">
 			<div id="coin-overlay" style="align-self: center;width: 40px;height: 40px;z-index: 1040;position: absolute;background-color: #d2691e00;display: none;"></div>
-			<span class="pip-hilight" style="position: absolute;top: 40px;left: 38px;z-index: 1040;">Click here!</span>
+			<!-- <span class="pip-hilight" style="position: absolute;top: 40px;left: 38px;z-index: 1040;">Click here!</span> -->
 		</div>
 		<div class="coin-amount">
 			<span id="coinNumber" style="align-self: center;display: flex;align-items: center;">3,996,240 <span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span></span> 
@@ -187,49 +188,56 @@
 					padding-left: 20px;
 					padding-right: 20px;
 				}
+				.cols-33{
+					width: 33.33%
+				}
+				.row100{
+					display: -webkit-box;
+					width: 100%;
+				}
 				.icons{
-					font-size: 12px;
+					font-size: 11.5px;
 				}
 			</style>
-			<div class="swiper-slide good-display-details" style="padding: 60px 20px 0px 20px;text-align: center;overflow-y: scroll;">
-				<div class="row">
-					<div class="col-4 padding-left-right-20">
+			<div class="swiper-slide good-display-details" style="padding: 40px 20px 0px 20px;text-align: center;overflow-y: scroll;">
+				<div class="row100">
+					<div class="cols-33 padding-left-right-20">
 						<img src="img/DigitalDollars.png">
 						<span class="icons">Digital Dollars</span>
 					</div>
-					<div class="col-4 padding-left-right-20">
+					<div class="cols-33 padding-left-right-20">
 						<img src="img/Vochers4.png">
 						<span class="icons">Virtual Vouchers</span>
 					</div>
-					<div class="col-4 padding-left-right-20">
+					<div class="cols-33 padding-left-right-20">
 						<img src="img/Coupons6.png">
 						<span class="icons">Crypto Coupons</span>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-4 padding-left-right-20">
+				<div class="row100">
+					<div class="cols-33 padding-left-right-20">
 						<img src="img/Linked.png">
 						<span class="icons">Linked Loans</span>
 					</div>
-					<div class="col-4 padding-left-right-20">
+					<div class="cols-33 padding-left-right-20">
 						<img src="img/Bonds2.png">
 						<span class="icons">Byte Bound</span>
 					</div>
-					<div class="col-4 padding-left-right-20">
+					<div class="cols-33 padding-left-right-20">
 						<img src="img/stocks4.png">
 						<span class="icons">Synthetic Stocks</span>
 					</div>
 				</div>
-				<div class="row" style="margin-bottom: 100px;">
-					<div class="col-4 padding-left-right-20">
+				<div class="row100" style="margin-bottom: 50px;">
+					<div class="cols-33 padding-left-right-20">
 						<img src="img/Coverage.png">
 						<span class="icons">Cyber Coverage</span>
 					</div>
-					<div class="col-4 padding-left-right-20">
+					<div class="cols-33 padding-left-right-20">
 						<img src="img/Mortgage.png">
 						<span class="icons">Mobile Mortgage</span>
 					</div>
-					<div class="col-4 padding-left-right-20">
+					<div class="cols-33 padding-left-right-20">
 						
 					</div>
 				</div>
@@ -341,6 +349,9 @@
     transition: all 1.1s;
     display: none;
     transition-timing-function: cubic-bezier(0.11, 1.66, 0.57, 0.97);
+    top: 0px;
+    left: 0px;
+    z-index: 9;
 }
 .coin{
       font-family: arial;

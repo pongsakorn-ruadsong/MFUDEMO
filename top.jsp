@@ -419,7 +419,7 @@
      player-id="jontestuser"
      show-debug-log
    >Loading...</pb-spinwheel> -->
-	<div class="otherMenu menu-hide" onblur="myFunction()" style="position: fixed;bottom: -12%;right: 0px;width: 22%;z-index: 1020;background-color: aqua;display: none;">
+	<div class="otherMenu menu-hide" onblur="myFunction()" style="position: fixed;bottom: -118px;right: 0px;width: 22%;z-index: 1020;background-color: aqua;display: none;">
 		<div class=" center" style="padding: 10px">
 			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
 			<p style="font-size: 8px;text-align: center;">Language</p>
@@ -447,19 +447,18 @@
 	   	</div>
 
 	   	<div class="center" style="position: absolute;left: 50%;position: absolute;left: 50%;width: 24%;height: 100%;display: flex;justify-content: center;">
-		   		<div style="position: relative;left: -28%;height: 100%;display: flex;margin-top: -5px;" > <!-- onclick="location.href='index'" -->
+		   		<div onclick="location.href='index.jsp'" style="position: relative;left: -28%;height: 100%;display: flex;margin-top: -5px;" > <!-- onclick="location.href='index'" -->
 		   			<img class="middle-menu" id="wheels" src="img/tar.png">
 		   			<img class="middle-menu" src="img/pin.png" style="margin-right: 0px;width: 15%;position: relative;margin-top: 0px;height: auto;align-self: center;left: -37%;top: -16px;">
 		   			<!-- <p style="font-size: 8px;text-align: center;color: black;">Playlists</p> -->
 	   			</div>
 	   			
-	   				<div class="ani bottom " id="test" style="position: absolute;z-index: -1;top: 5px;margin-left: -50%;display: -webkit-box;overflow: hidden;">
-	   					<!-- <p style="transform: rotate(180deg);">Test</p> -->
+	   				<!-- <div class="ani bottom " id="test" style="position: absolute;z-index: -1;top: 5px;margin-left: -50%;display: -webkit-box;overflow: hidden;">
 	   					<div onclick="location.href='index.jsp'" class="pie" style="top: 15px;right: 15px;">Index    (Temporary)</div>
 	   					<div class="pie" style="top: 65px;right: 65px;">Game1</div>
 	   					<div class="pie" style="top: 65px;left: 65px;">Game2</div>
 	   					<div class="pie" style="top: 15px;left: 15px;">Game3</div>
-	   				</div>
+	   				</div> -->
 
 	   			
 	   			
