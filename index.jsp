@@ -28,20 +28,20 @@
 	    	console.log(x.top+' '+x.left)
 	    	$('.coin-container').css('display','block');
 	 		setTimeout(function(){
-	 			$('.coin-container').css('height','20%');
+	 			$('.coin-container').css('height','30%');
 	 		},100);
-	 		// setTimeout(function(){
-	 		// 	$(".coin").animate({left: x.left+10, top: x.top+10, width: 20, height: 20});
-	 		// 	setTimeout(function(){
-	 		// 		var n = numberWithCommas(b+10)
-	 		// 		$('#coinNumber').text(n)
-	 		// 		$('#coinNumber').append('<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span>')
-	 		// 		$('.coin-container').css('display','none');
-	 		// 		$('.coin-container').css('height','0px');
-	 		// 		$('#coin-overlay').css('display','none');
-	 		// 		$(".coin").removeAttr('style');
-	 		// 	},600);
-	 		// },1500);
+	 		setTimeout(function(){
+	 			$(".coin").animate({left: x.left+10, top: x.top+10, width: 20, height: 20});
+	 			setTimeout(function(){
+	 				var n = numberWithCommas(b+10)
+	 				$('#coinNumber').text(n)
+	 				$('#coinNumber').append('<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span>')
+	 				$('.coin-container').css('display','none');
+	 				$('.coin-container').css('height','0px');
+	 				$('#coin-overlay').css('display','none');
+	 				$(".coin").removeAttr('style');
+	 			},600);
+	 		},1500);
 	    });
 	});
 	const numberWithCommas = (x) => {
