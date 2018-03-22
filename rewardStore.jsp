@@ -12,11 +12,11 @@
 </script>
 <style type="text/css">
 	.shelf{
-		background-image: url('img/BG.jpg');
-		background-repeat: no-repeat;
+    	background-image: url('img/BG.jpg');
    		background-attachment: scroll;
     	background-size: cover;
     	overflow: scroll;
+		height: 100%;
 	}
 	.swiper-container {
       width: 100%;
@@ -81,12 +81,9 @@
     	overflow: hidden;
 	}
 </style>
-<div class="goodsStore"></div>
-	<div class="shelf" style="background-color: white;">
-		<div class="swiper-container">
-			<div class="swiper-wrapper col-md-12" id="display" style="margin-bottom: 35%;">
-			</div>
-		</div>
+<!-- <div class="goodsStore"></div> -->
+	<div class="shelf">
+			<div class="col-md-12" id="display" style="margin-bottom: 35%;"></div>
 	</div>	
 
 <div class="modal animated bounceInDown" id="rewardDetail" role="dialog">

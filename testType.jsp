@@ -1,11 +1,21 @@
 <%@include file="top.jsp" %>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		getUserdate();
-		graph();
-		// eventShow();
-		});
+	$(document).ready(function(){
+		var scrollPos = 0;
+			getUserdate();
+			graph();
+				// $('.wrapper-timeline').scroll(function(){
+				// 	var scrollDown = $(this).scrollTop();
+				// 	if(scrollDown>scrollPos){
+				// 		// alert('down')
+				// 	 	$("post-inner").addClass("animated1");
+				// 	} else{
+				// 		// alert('up')
+				// 		$("post-inner").removeClass("animated1");
+				// 	}
+				// });
+	});
 </script>
 <link rel="stylesheet" href="css/swiper.min.css">
 <style type="text/css">
@@ -190,20 +200,26 @@
   height: 10px;
   top: 36px;
   left: -8px;
+  animation-duration: 0.8s;
+  animation-name: opacity;
   border-radius: 100%;
   background: #FFF;
   position: absolute;
   box-shadow: 0 0 0 5px rgba(20,92,95,0.15), 0 0 0 3px #0682FF;
 }
 
-@keyframes tt { 
-  0% { 
-  	opacity: 0; 
-  } 
-  100% { 
-  	opacity: 1; 
-  } 
-}
+@keyframes opacity {
+   0% {
+      transform: scale(0);
+   }
+   50%{
+   	  transform: scale(1.3);
+   }
+   100% {
+      transform: scale(1);
+   }
+} 
+
 
 .post:after {
   content: "";
@@ -221,9 +237,25 @@
   border: 1px solid #0682FF;
   border-radius: 4px;
   padding: 10px;
+  animation-duration: 1.5s;
   box-shadow: 1px 1px 3px rgba(0,0,0,0.35);
 }
 
+.animated1 {
+  animation-duration: 1.5s;
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+   0% {
+      opacity: 0;
+      transform: translateX(20px);
+   }
+   100% {
+      opacity: 1;
+      transform: translateX(0);
+   }
+} 
 
 .profile {
   width: 150px;
@@ -242,7 +274,7 @@
 	height: 100%;
 	background: #4A90E2;
 	position: relative;
-	top: -7px;
+	top: -4.5%;
 }
 .percent{
 	left: 60%;
@@ -300,12 +332,12 @@
       -ms-flex-align: center;
     }
 
-.ct-line{
+.ct-line {
 	stroke-width: 2px;
 	stroke-linecap: round;
 	stroke-dasharray: 400;
-    stroke-dashoffset: 150000;
-  	animation: dash 600s linear forwards;
+    stroke-dashoffset: 1000;
+  	animation: dash 6s linear forwards;
 }
 
 @keyframes dash {
@@ -367,17 +399,18 @@
 
 
 	<div class="wrapper-timeline" id="timelimePost">
-		<div class="post">
-		  	<div class="postDate"></div>
-			<div class="post-inner">
-				<div class="header" id="">14 Jan 2539</div>
-			      		The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.
-			</div>
-  		</div>
   		<div class="post">
 		  	<div class="postDate"></div>
 			<div class="post-inner">
-			      		The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak.
+			      	
+			    <div class="footer" id="">Jan 15</div>	
+			</div>
+  		</div>
+  		<div class="post">
+		  	<div class="postDate">
+		  	</div>
+			<div class="post-inner">
+			    
 			    <div class="footer" id="">Jan 14</div>	
 			</div>
   		</div>
@@ -385,7 +418,16 @@
 		  	<div class="postDate">
 		  	</div>
 			<div class="post-inner">
-			      		The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men.
+			    
+			    <div class="footer" id="">Jan 14</div>	
+			</div>
+  		</div>
+  		<div class="post">
+		  	<div class="postDate">
+		  	</div>
+			<div class="post-inner">
+			   
+			    <div class="footer" id="">Jan 14</div>	
 			</div>
   		</div>
   	</div>
@@ -468,6 +510,4 @@
 
 <script src="js/swiper.min.js"></script>
 <%@include file="bottom.jsp" %>
-
-
-<!-- <input type="text" mozactionhint="next"> -->
+	
