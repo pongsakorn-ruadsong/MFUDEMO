@@ -149,7 +149,6 @@
 	// $(document).mouseup(function(e) 
 	// 	{
 	// 	    var container = $('.otherMenu');
-
 	// 	    // if the target of the click isn't the container nor a descendant of the container
 	// 	    if (!container.is(e.target) && container.has(e.target).length === 0) 
 	// 	    {
@@ -174,7 +173,7 @@
 		/*background-color: rgba(255,255,255,0);*/
 		border-color: rgba(255,255,255,0);
 		background-color:white;
-		border-color: aqua;
+		/*border-color: aqua;*/
 		color: black;
 	}
 	.navbar-nav > li > a {
