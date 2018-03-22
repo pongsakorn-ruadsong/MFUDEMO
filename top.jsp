@@ -331,19 +331,8 @@
     width: 260px;
 }
 
-.right,
-.left {
-  height: 90px;
-  width: 45px;
-}
-
 .top {
   border-top-left-radius: 90px;
-  border-top-right-radius: 90px;
-}
-
-.right {
-  border-bottom-right-radius: 90px;
   border-top-right-radius: 90px;
 }
 
@@ -351,12 +340,6 @@
   border-bottom-left-radius: 130px;
   border-bottom-right-radius: 130px;
 }
-
-.left {
-  border-bottom-left-radius: 90px;
-  border-top-left-radius: 90px;
-}
-
 .rotate-show {
   -webkit-animation: 0.5s linear rotate-s;
           animation: 0.5s linear rotate-s;
@@ -487,7 +470,7 @@
 			</a>	
 			<a href="#">
 				<div class=" center" id="Setting" style="display: inline-block;width: 48.5%;margin-top: 10px;">
-					<img src="img/wallet_untrim.png" style="margin-right: 0px;width: 55%;">
+					<img src="img/wallet2.png" style="margin-right: 0px;width: 55%;">
 					<!-- <p style="font-size: 8px;text-align: center;color: black;">Settings</p> -->
 				</div>
 			</a>

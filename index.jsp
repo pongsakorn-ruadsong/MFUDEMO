@@ -15,7 +15,9 @@
 	      spaceBetween: 0,
 	      centeredSlides: true,
 	    });
-	    
+	    $('.pip-hilight').click(function(){
+	    	$('#myCoin').click();
+	    });
 	    $('#myCoin').click(function(){
 	    	$('#coin-overlay').css('display','block');
 	    	$('.pip-hilight').css('display','none');
@@ -57,7 +59,7 @@
 		background: linear-gradient(to right, #66C4C0, #34A2BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 		position: relative;
 		width: 100%;
-		height: 100%;
+		height: calc(100% - 10%);
 	}
 	.coin-icon{
 		color: white;
@@ -93,9 +95,12 @@
     	border-top-left-radius: 30px;
     	border-top-right-radius: 30px;
     	height: 80%;
+    	display: flex;
+    	flex-flow: column;
     }
     .good-header{
     	width: 100%;
+    	flex: 0 1 auto;
     }
     .good-img{
     	width: 50%;
@@ -114,8 +119,9 @@
     }
     .good-body{
     	width: 100%;
-    	height: 40%;
     	padding: 0px 20px 0px 20px;
+    	flex: 0 1 40%;
+    	overflow-y: scroll;
     }
     .good-tag{
     	top: -20px;
@@ -123,6 +129,12 @@
 	    width: 32%;
 	    position: absolute;
 	    right: 20px;
+    }
+    .good-footer{
+    	width: 100%;
+	    display: inline-flex;
+	    flex: 1 1 auto;
+	    margin-bottom: 10px;
     }
     .pip-hilight{
     	animation-duration: 1000ms;
@@ -242,13 +254,25 @@
 				<p style="text-align: center;">WHAT YOU WILL GET</p>
 				<div class="good-body">
 					description from setting in dashboard (getting from API)
+
+					<div style="height: 500px;background-color: aqua;">Test long information<p style="position: absolute;bottom: 0px;">Bottom</p></div>
 				</div>
 				<div class="good-footer">
 					<div class="real-currency">
-						
+						<div class="cur-flag">
+							<img src="img/th_flag.png" style="padding: 1px;">
+						</div>
+						<div class="cur-text">
+							THB 599
+						</div>
 					</div>
 					<div class="pb-currency">
-						
+						<div class="cur-flag">
+							<img src="img/playbasis_coin_single_500px.png">
+						</div>
+						<div class="cur-text">
+							PBC 720
+						</div>
 					</div>
 				</div>
 			</div>
@@ -264,6 +288,43 @@
   </div>
 </div>
 <style type="text/css">
+.cur-flag{
+	border-radius: 50%;
+	overflow: hidden;
+	    margin-right: 5px;
+	    width: 25%;
+    display: flex;
+    align-items: center;
+}
+.cur-text{
+	background-color: wheat;
+	border-radius: 15px;
+	width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+}
+.real-currency{
+	width: 50%;
+    text-align: -webkit-center;
+    align-self: center;
+    min-height: 40px;
+    height: 50px;
+    display: inline-flex;
+        padding: 8px;
+}
+.pb-currency{
+	width: 50%;
+    text-align: -webkit-center;
+    align-self: center;
+    min-height: 40px;
+    height: 50px;
+    display: inline-flex;
+        padding: 8px;
+}
 .coin-container{
     perspective: 1100px;
     position: absolute;
