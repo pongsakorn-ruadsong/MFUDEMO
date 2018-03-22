@@ -256,7 +256,7 @@
 				<div class="good-body">
 					description from setting in dashboard (getting from API)
 					<pb-spinwheel 
-					     env-point-reward-levels=""
+					     env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
 					     env-target-action="click"
 					     env-target-tag="spin-wheel-01"
 					     env-custom-param-url-values='["spin"]'

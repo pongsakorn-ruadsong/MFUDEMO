@@ -61,6 +61,9 @@
 	<title>Demo v0.1</title>
 </head>
 <script type="text/javascript">
+	function c(m){
+		console.log(m);
+	}
 	Playbasis.builder
 	    .setApiKey(sessionStorage['api_key'])
 	    .setApiSecret(sessionStorage['api_sec'])
@@ -92,14 +95,16 @@
 		});
 		sessionStorage['pageName'] = $('#pageName').val();
 		console.log(sessionStorage['pageName']);
-		if (sessionStorage['pageName'] == 'login' || sessionStorage['pageName'] == 'login.jsp') {
-			$('#myNav').hide();
-			$('.footer').css('display','none');
-			$('.otherMenu').css('display','none');
+		if (sessionStorage['pageName'] != 'login') {
+			c('In');
+			$('#myNav').css('display','flex');
+			$('.footer').css('display','block');
+			$('.otherMenu').css('display','block');
 		}
 		else{
-			$('#myNav').show();
-			$('.footer').css('display','block');
+			c('Out');
+			$('#myNav').hide();
+			$('.footer').css('display','none');
 		}
 		if (sessionStorage['pageName'] != 'index.jsp') {
 			$('#barHome').removeClass('active');
@@ -119,7 +124,6 @@
 		// 	$('#userInfo').modal("hide");
 		// });
 		$('#submitLang').click(function(){
-
 			changeLang(function(){
 				location.reload();
 			});
@@ -425,7 +429,7 @@
 			<p style="font-size: 8px;text-align: center;">Logout</p>
 		</div>
 	</div>
-	<nav class="navbar navbar-inverse navbar-fixed-bottom" id="myNav" style="height: 10%;display: flex;">
+	<nav class="navbar navbar-inverse navbar-fixed-bottom" id="myNav" style="height: 10%;display: none;">
 		<div style="position: absolute;z-index: 0;width: 100%;height: 100%;background-color: white;"></div>
 		<div class="" style="width: 37%;float: left;align-self: center;margin-right: 26%;z-index: 1;margin-top: -10px;">
 			<a href="Leader.jsp">
