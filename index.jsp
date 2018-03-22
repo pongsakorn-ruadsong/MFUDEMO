@@ -10,6 +10,7 @@
 	    	});
 			sessionStorage.removeItem("save_result");
 		}
+		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
 		var swiper = new Swiper('.swiper99', {
 	      slidesPerView: 1,
 	      spaceBetween: 0,
@@ -254,8 +255,14 @@
 				<p style="text-align: center;">WHAT YOU WILL GET</p>
 				<div class="good-body">
 					description from setting in dashboard (getting from API)
-
-					<div style="height: 500px;background-color: aqua;">Test long information<p style="position: absolute;bottom: 0px;">Bottom</p></div>
+					<pb-spinwheel 
+					     env-point-reward-levels=""
+					     env-target-action="click"
+					     env-target-tag="spin-wheel-01"
+					     env-custom-param-url-values='["spin"]'
+					     player-id=""
+					     show-debug-log
+					   >Loading...</pb-spinwheel>
 				</div>
 				<div class="good-footer">
 					<div class="real-currency">

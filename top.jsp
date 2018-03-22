@@ -32,8 +32,9 @@
 	<script src="js/Leader.js"></script>
 	<script src="js/untitled.js"></script>
 	<script src="js/qrcode.min.js"></script>
-	<!-- <script src="js/Playbasis.js"></script>
-	<script src="js/require.js"></script> -->
+	<script src="js/Playbasis.min.js"></script>
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<link rel="import" href="playbasis/pb-spinwheel-component.v.html">
 	<!-- <script src="js/jquery-1.3.2.min.js"></script>     -->
 	<script src="js/jquery-barcode.min.js"></script> 
 	<script src="js/chartist.js"></script>
@@ -60,10 +61,10 @@
 	<title>Demo v0.1</title>
 </head>
 <script type="text/javascript">
-	// Playbasis.builder
-	//     .setApiKey(sessionStorage['api_key'])
-	//     .setApiSecret(sessionStorage['api_sec'])
-	//     .build();
+	Playbasis.builder
+	    .setApiKey(sessionStorage['api_key'])
+	    .setApiSecret(sessionStorage['api_sec'])
+	    .build();
 	var guestImage = new Array("img/batman.png","img/flash.png","img/robin.png","img/superman.png","img/spiderman.png","img/punisher.png","img/wonderwoman.png","img/ironman.png")
 	$( function() {
     $( "#draggable" ).draggable();
