@@ -10,6 +10,7 @@
 	    	});
 			sessionStorage.removeItem("save_result");
 		}
+
 		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
 		var swiper = new Swiper('.swiper99', {
 	      slidesPerView: 1,
@@ -24,22 +25,42 @@
 	    	$('.pip-hilight').css('display','none');
 	    	var a = $('#coinNumber').text()
 	    	var x = $(this).position();
-	    	var b = parseInt(a.replace(/,/g, ''))
+	    	var b = parseFloat(a.replace(/,/g, ''))
+	    	var j = 1 + Math.random() * (20 - 1).toFixed(2);
+	    	var l = parseFloat(j);
+	    	var top = x.top+10;
+	    	var left = x.left+10;
 	    	console.log(x.top+' '+x.left)
 	    	$('.coin-container').css('display','block');
 	 		setTimeout(function(){
 	 			$('.coin-container').css('height','30%');
 	 		},100);
 	 		setTimeout(function(){
-	 			$(".coin").animate({left: x.left+10, top: x.top+10, width: 20, height: 20});
-	 			setTimeout(function(){
-	 				var n = numberWithCommas(b+10)
+	 			$(".coin").velocity({
+	 				top: top, 
+	 				left: left
+	 			},300 ,function(){
+	 				c('finished')
+	 				var o = b+l;
+	 				var r = o.toFixed(2)
+	 				var total = r.split('.');
+	 				c(r+' | typeof:'+typeof(r))
+	 				c(total)
+	 				var n = numberWithCommas(total[0])
 	 				$('#coinNumber').text(n)
-	 				$('#coinNumber').append('<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span>')
+	 				$('#coinNumber').append('<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.'+total[1]+'</span>')
 	 				$('.coin-container').css('display','none');
 	 				$('.coin-container').css('height','0px');
 	 				$('#coin-overlay').css('display','none');
 	 				$(".coin").removeAttr('style');
+	 			});
+	 			setTimeout(function(){
+	 				// c('')
+	 				// c(b+' | typeof:'+typeof(b))
+	 				// c(l+' | typeof:'+typeof(l))
+	 				// c(b+l)
+	 				// c('')
+	 				
 	 			},600);
 	 		},1500);
 	    });
@@ -365,9 +386,6 @@
     height: 40px;
     left: 45%;
     bottom: 0px;
-    transition: all 5 ease;
-    transform-style: preserve-3d;
-    -webkit-transition: all 1s cubic-bezier(0, 1.4, 0.58, 1.2);
    
 }
 .coin{

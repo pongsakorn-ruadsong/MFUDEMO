@@ -33,6 +33,8 @@
 	<script src="js/untitled.js"></script>
 	<script src="js/qrcode.min.js"></script>
 	<script src="js/Playbasis.min.js"></script>
+	<script src="js/velocity.min.js"></script>
+	<script src="js/velocity.ui.min.js"></script>
 	<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 	<link rel="import" href="playbasis/pb-spinwheel-component.v.html">
 	<!-- <script src="js/jquery-1.3.2.min.js"></script>     -->
