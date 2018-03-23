@@ -72,8 +72,10 @@
 	 			});
 	 			setTimeout(function(){
 	 				$('#coin-frame').css('width','50px').css('height','50px');
+	 				$('.coin-icon').css('width','60px').css('height','60px');
 	 				setTimeout(function(){
 	 					$('#coin-frame').css('width','40px').css('height','40px');
+	 					$('.coin-icon').css('width','50px').css('height','50px');
 	 				},100);
 	 			},200);
 	 		},1500);
@@ -106,10 +108,12 @@
 	}
 	.coin-icon{
 		color: white;
-	    height: 100%;
+	    height: 50px;
+	    width: 50px;
 	    font-size: 10px;
 	    text-align: center;
 	    display: flex;
+	    justify-content: center;
 	    margin-right: 10%;
 	}
 	.coin-amount{
@@ -271,7 +275,7 @@
 						<span class="icons">Digital Dollars</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Vochers4.png">
+						<img src="img/Vochers5.png">
 						<span class="icons">Virtual Vouchers</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
@@ -281,7 +285,7 @@
 				</div>
 				<div class="row100">
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Linked.png">
+						<img src="img/Loans4.png">
 						<span class="icons">Linked Loans</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
@@ -299,7 +303,7 @@
 						<span class="icons">Cyber Coverage</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Mortgage.png">
+						<img src="img/Mortgage2.png">
 						<span class="icons">Mobile Mortgage</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
