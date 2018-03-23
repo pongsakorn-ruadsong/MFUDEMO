@@ -54,16 +54,11 @@
 	 				$('#coinNumber').append('<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.'+total[1]+'</span>')
 	 				$('.coin-container').css('display','none');
 	 				$('.coin-container').css('top','-140px');
-	 				$('#coin-overlay').css('display','none');
+	 				
 	 				$(".coin").removeAttr('style');
 	 			});
 	 			setTimeout(function(){
-	 				// c('')
-	 				// c(b+' | typeof:'+typeof(b))
-	 				// c(l+' | typeof:'+typeof(l))
-	 				// c(b+l)
-	 				// c('')
-	 				
+	 				$('#coin-overlay').css('display','none');
 	 			},600);
 	 		},1500);
 	    });
