@@ -21,11 +21,12 @@
 	    	$('#myCoin').click();
 	    });
 	    $('#myCoin').click(function(){
+	    	// $('#coin-frame').css('width','35px').css('height','35px');
 	    	$('#coin-overlay').css('display','block');
 	    	$('.pip-hilight').css('display','none');
 	    	var z;
 	    	var a = $('#coinNumber').text()
-	    	var x = $(this).position();
+	    	var x = $('#coin-frame').position();
 	    	var b = parseFloat(a.replace(/,/g, ''))
 	    	var j = 1 + Math.random() * (20 - 1).toFixed(2);
 	    	var l = parseFloat(j);
@@ -46,6 +47,7 @@
 	 				c('finished')
 	 				var o = b+l;
 	 				var r = o.toFixed(2)
+	 				var p = l.toFixed(2)
 	 				var total = r.split('.');
 	 				c(r+' | typeof:'+typeof(r))
 	 				c(total)
@@ -54,14 +56,35 @@
 	 				$('#coinNumber').append('<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.'+total[1]+'</span>')
 	 				$('.coin-container').css('display','none');
 	 				$('.coin-container').css('top','-140px');
-	 				
+	 				$('#coin-overlay').css('display','none');
 	 				$(".coin").removeAttr('style');
+	 				var text = '<span class="animated bounceIn display-coin-plus" style="position: absolute;font-size: 12px;top: -2px;right: 28px;align-self: flex-start;">+'+p+'</span>'
+	 				$('#amount-frame').append(text)
+	 				setTimeout(function(){
+	 					$(".display-coin-plus").removeClass('animated bounceIn')
+	 					$(".display-coin-plus").animate({
+	 					top: -20,
+	 					opacity: 0
+	 				},500,function(){
+	 					$(".display-coin-plus").remove();
+	 				});
+	 				},500);
 	 			});
 	 			setTimeout(function(){
-	 				$('#coin-overlay').css('display','none');
-	 			},600);
+	 				$('#coin-frame').css('width','50px').css('height','50px');
+	 				setTimeout(function(){
+	 					$('#coin-frame').css('width','40px').css('height','40px');
+	 				},100);
+	 			},200);
 	 		},1500);
 	    });
+	    $('#myCoin').mousedown(function(e) {
+			c('Down')
+		   $('#coin-frame').css('width','35px').css('height','35px');
+		   setTimeout(function(){
+		   		$('#coin-frame').css('width','40px').css('height','40px');
+		   },100);
+		}); 
 	});
 	const numberWithCommas = (x) => {
 	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -92,10 +115,12 @@
 	.coin-amount{
 		color: white;
 	    height: 100%;
+	    width: 190px;
 	    font-size: 28px;
 	    text-align: center;
 	    background-color: #ff002f00;
 	    display: flex;
+	    margin-right: -25px;
 	}
 	.pb-coin-amount{
 		display: flex;
@@ -179,18 +204,37 @@
 	        color:red;
 	    }
 	}
+	#coin-frame{
+		align-self: center;
+		width: 40px;
+		height: 40px;
+		position: relative;
+		z-index: 1039;
+		transition: all 0.1s;
+	}
+	#myCoin{
+		align-self: center;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
 </style>
 <div class="main_bg">
 	<div class="pb-coin-amount">
 		<div class="coin-icon" >
-			<div style="align-self: center;width: 40px;height: 40px;position: relative;z-index: 1039;">
-				<img id="myCoin" src="img/playbasis_coin_single_500px.png" style="align-self: center;width: 100%;height: 100%;position: absolute;top: 0px;left: 0px;">
-				<div id="coin-overlay" style="align-self: center;width: 100%;height: 100%;z-index: 1040;position: absolute;background-color: #d2691e00;display: none;background-color: #ff000078;top: 0px;left: 0px;"></div>
+			<div id="coin-frame">
+				<img id="myCoin" src="img/playbasis_coin_single_500px.png">
+				<div id="coin-overlay" style="align-self: center;width: 100%;height: 100%;z-index: 1040;position: absolute;background-color: #d2691e00;display: none;background-color: #ff000000;top: 0px;left: 0px;"></div>
 			</div>
 			<!-- <span class="pip-hilight" style="position: absolute;top: 40px;left: 38px;z-index: 1040;">Click here!</span> -->
 		</div>
 		<div class="coin-amount">
-			<span id="coinNumber" style="align-self: center;display: flex;align-items: center;">3,996,240 <span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span></span> 
+			<div id="amount-frame" style="align-self: center;display: flex;align-items: center;justify-content: flex-end;position: relative;width: 100%;height: 40px;">
+				<span id="coinNumber" style="position: absolute;top: 0px;left: 0px;align-self: center;">3,996,240<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span></span> 
+				
+			</div>
 		</div>
 	</div>
 	<!-- <div class="pb-coin-amount-2">
