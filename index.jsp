@@ -183,8 +183,10 @@
 <div class="main_bg">
 	<div class="pb-coin-amount">
 		<div class="coin-icon" >
-			<img id="myCoin" src="img/playbasis_coin_single_500px.png" style="align-self: center;width: 40px;height: unset;position: static;z-index: 1039;">
-			<div id="coin-overlay" style="align-self: center;width: 40px;height: 40px;z-index: 1040;position: absolute;background-color: #d2691e00;display: none;background-color: #ff000078;"></div>
+			<div style="align-self: center;width: 40px;height: 40px;position: relative;z-index: 1039;">
+				<img id="myCoin" src="img/playbasis_coin_single_500px.png" style="align-self: center;width: 100%;height: 100%;position: absolute;top: 0px;left: 0px;">
+				<div id="coin-overlay" style="align-self: center;width: 100%;height: 100%;z-index: 1040;position: absolute;background-color: #d2691e00;display: none;background-color: #ff000078;top: 0px;left: 0px;"></div>
+			</div>
 			<!-- <span class="pip-hilight" style="position: absolute;top: 40px;left: 38px;z-index: 1040;">Click here!</span> -->
 		</div>
 		<div class="coin-amount">
