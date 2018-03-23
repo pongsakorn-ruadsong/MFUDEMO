@@ -36,9 +36,12 @@
 	 			$('.coin-container').css('height','30%');
 	 		},100);
 	 		setTimeout(function(){
-	 			$(".coin").velocity({
+	 			alert('top: '+top+' | left: '+left)
+	 			$(".coin").animate({
 	 				top: top, 
-	 				left: left
+	 				left: left, 
+	 				width: 20, 
+	 				height: 20
 	 			},300 ,function(){
 	 				c('finished')
 	 				var o = b+l;
