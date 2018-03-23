@@ -34,13 +34,12 @@
 	    	console.log(x.top+' '+x.left)
 	    	$('.coin-container').css('display','block');
 	 		setTimeout(function(){
-	 			$('.coin-container').css('height','30%');
-
+	 			$('.coin-container').css('top','0px');
 	 		},100);
 	 		setTimeout(function(){
-	 			
 	 			$(".coin").animate({
 	 				top: top, 
+	 				left: left, 
 	 				width: 20, 
 	 				height: 20
 	 			},300 ,function(){
@@ -54,7 +53,7 @@
 	 				$('#coinNumber').text(n)
 	 				$('#coinNumber').append('<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.'+total[1]+'</span>')
 	 				$('.coin-container').css('display','none');
-	 				$('.coin-container').css('height','0px');
+	 				$('.coin-container').css('top','-140px');
 	 				$('#coin-overlay').css('display','none');
 	 				$(".coin").removeAttr('style');
 	 			});
@@ -374,7 +373,7 @@
     transition: all 1.1s;
     display: none;
     transition-timing-function: cubic-bezier(0.11, 1.66, 0.57, 0.97);
-    top: 0px;
+    top: -140px;
     left: 0px;
     z-index: 9;
 }
@@ -389,7 +388,7 @@
     width: 40px;
     height: 40px;
     left: 45%;
-    bottom: 0px;
+    top: 100px;
    
 }
 .coin{
