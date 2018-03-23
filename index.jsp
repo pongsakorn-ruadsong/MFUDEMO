@@ -23,6 +23,7 @@
 	    $('#myCoin').click(function(){
 	    	$('#coin-overlay').css('display','block');
 	    	$('.pip-hilight').css('display','none');
+	    	var z;
 	    	var a = $('#coinNumber').text()
 	    	var x = $(this).position();
 	    	var b = parseFloat(a.replace(/,/g, ''))
@@ -34,12 +35,12 @@
 	    	$('.coin-container').css('display','block');
 	 		setTimeout(function(){
 	 			$('.coin-container').css('height','30%');
+
 	 		},100);
 	 		setTimeout(function(){
-	 			alert('top: '+top+' | left: '+left)
+	 			
 	 			$(".coin").animate({
 	 				top: top, 
-	 				left: left, 
 	 				width: 20, 
 	 				height: 20
 	 			},300 ,function(){
