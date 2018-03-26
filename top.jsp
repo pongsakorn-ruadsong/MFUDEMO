@@ -450,7 +450,7 @@
 	   	</div>
 
 	   	<div class="center" style="position: absolute;left: 50%;position: absolute;left: 50%;width: 24%;height: 100%;display: flex;justify-content: center;">
-		   		<div onclick="location.href='index.jsp'" style="position: relative;left: -28%;height: 100%;display: flex;margin-top: -5px;" > <!-- onclick="location.href='index'" -->
+		   		<div  style="position: relative;left: -28%;height: 100%;display: flex;margin-top: -5px;" > <!-- onclick="location.href='index'" -->
 		   			<img class="middle-menu" id="wheels" src="img/tar.png">
 		   			<img class="middle-menu" src="img/pin.png" style="margin-right: 0px;width: 15%;position: relative;margin-top: 0px;height: auto;align-self: center;left: -37%;top: -16px;">
 		   			<!-- <p style="font-size: 8px;text-align: center;color: black;">Playlists</p> -->
