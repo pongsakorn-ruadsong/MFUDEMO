@@ -230,7 +230,7 @@ function buildUserReward(){
 						if (dataGoods[i].amount == 0) {
 							continue;
 						}
-						text += '<tr class="spaceUnder goods-store" goodID="'+dataGoods[i].goods_id+'" icon="'+icon+'" detail="'+detail+'" point="'+point+'" nameID="'+dataGoods[i].name+'" imgID="'+dataGoods[i].image+'" expireID="'+dataGoods[i].date_expire+'" termId="'+condition+'" iconID="'+icon+'" codeID="'+dataGoods[i].code+'" detailID="'+detail+'">'+
+						text += '<tr class="spaceUnder goods-store" goodID="'+dataGoods[i].goods_id+'" icon="'+icon+'" detail="'+detail+'" point="'+point+'" nameID="'+dataGoods[i].name+'" imgID="'+dataGoods[i].image+'" expireID="'+dataGoods[i].date_expire+'" termId="" iconID="'+icon+'" codeID="'+dataGoods[i].code+'" detailID="'+detail+'">'+
 						'<td><img src='+dataGoods[i].image+' style="width:50px;height:50px;" class="img-circle"></td>'+
 						'<td>'+dataGoods[i].name+'</td>'+
 						'<td>'+dataGoods[i].amount+'</td>'+
@@ -243,6 +243,7 @@ function buildUserReward(){
 	$('.goods-store').click(function(){
 		$('#checkOutGoods > div').remove();
 		var text1 = '';
+		var codeID = '';
 	// 	var a = $(this).attr('icon');
 	// 	var b = $(this).attr('imgID');
 	// 	$('#couponId').text($(this).attr('goodId'));
@@ -252,7 +253,15 @@ function buildUserReward(){
 	// 	$('#code').text($(this).attr('codeID'));
 	// 	$('#Icon').attr("src", a);
 	// 	$('#imageShow').css("background-image", "url("+b+")");
-
+	
+	if ($(this).attr('codeID') == "") {
+		codeID = '99';
+		console.log('True')
+	}else{
+		codeID = $(this).attr('codeID');
+		console.log('False')
+	}
+	console.log(codeID)
 		var text1 = '<div class="modal-dialog" style="top: 5%">  '+
 '        				<div class="modal-content" style="border-radius: 10px; width: 80%; height: 100%; background-color: white; left: 10%;">'+
 '       					<div class="header couponTop" id="imageShow" style="background-image: url('+$(this).attr('imgID')+');border-radius: 10px background-size: cover;"></div>'+		
@@ -287,7 +296,7 @@ function buildUserReward(){
 '							<div class="tab-content increaseHeight" style="height: auto;">'+
 '								<div class="tab-pane fade" id="QR">'+
 '									<center><br>'+
-'										<div id="qrcode" style="width: 50%; margin: 10px;" cID="'+$(this).attr('codeID')+'"></div>'+
+'										<div id="qrcode" style="width: 50%; margin: 10px;" cID="'+codeID+'"></div>'+
 '									</center>'+
 '								</div>'+
 '								<div class="tab-pane fade" id="BarCode">'+
@@ -316,12 +325,19 @@ function buildUserReward(){
 			getUserReward();
 		});	
 		setTimeout(function(){
-			console.log(text1)
 			console.log($('#qrcode').attr('cID'))
-			$("#displaybarcode").barcode($('#qrcode').attr('cID'),"code128");
-			new QRCode(document.getElementById("qrcode"), $('#qrcode').attr('cID'));
+			
+			if ($('#qrcode').attr('cID') == '99') {
+				$("#displaybarcode").text('Code un-avaiable')
+				$("#qrcode").text('Code un-avaiable')
+				$('.increaseHeight').css('height','70px')
+			}else{
+				$("#displaybarcode").barcode($('#qrcode').attr('cID'),"code128");
+				new QRCode(document.getElementById("qrcode"), $('#qrcode').attr('cID'));
+			}
+			
 			$('#checkOutGoods').modal();	
-		},500);
+		},200);
 		$('.sentClipboard').click(function(){
 			copyToClipboard();
 		});	

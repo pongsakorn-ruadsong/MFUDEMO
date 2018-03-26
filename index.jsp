@@ -468,11 +468,11 @@ html, body, .container-fluid{
 			<div class="swiper-slide good-display-details" style="padding: 40px 20px 0px 20px;text-align: center;overflow-y: scroll;">
 				<div class="row100">
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/DigitalDollars.png">
+						<img src="img/Digital.png">
 						<span class="icons">Digital Dollars</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Vochers5.png">
+						<img src="img/Vochers7.png">
 						<span class="icons">Virtual Vouchers</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
@@ -486,7 +486,7 @@ html, body, .container-fluid{
 						<span class="icons">Linked Loans</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Bonds2.png">
+						<img src="img/Bonds5.png">
 						<span class="icons">Byte Bound</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">

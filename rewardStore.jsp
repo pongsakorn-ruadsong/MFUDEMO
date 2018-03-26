@@ -117,9 +117,7 @@
  <input type="hidden" id="hid-goodsType">
 
 
-<div class="modal animated bounceInDown" id="checkOutGoods" role="dialog">
-    
-</div>
+
 
 <div class="modal animated bounceInDown" id="displayCondition" role="dialog">
     <div class="modal-dialog " style="top: 10%"> 

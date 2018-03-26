@@ -631,7 +631,9 @@
 		    </div>
 		  </div>
 		</div>
-
+		<div class="modal animated bounceInDown" id="checkOutGoods" role="dialog">
+    
+</div>
 		<!-- Modal -->
 
 		<!-- <div class="modal  fade" id="animation-panel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
