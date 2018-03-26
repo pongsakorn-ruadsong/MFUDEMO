@@ -246,7 +246,6 @@
 		<div class="coin-amount">
 			<div id="amount-frame" style="align-self: center;display: flex;align-items: center;justify-content: flex-end;position: relative;width: 100%;height: 40px;">
 				<span id="coinNumber" style="position: absolute;top: 0px;left: 0px;align-self: center;">3,996,240<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span></span> 
-				
 			</div>
 		</div>
 	</div>
