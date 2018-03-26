@@ -4,7 +4,7 @@
 			getUserExp();
 			getUserPoints();
 			getUserLevel();
-	});	
+	});
 </script>
 <link rel="stylesheet" href="css/swiper.min.css">
 <style type="text/css">
@@ -63,7 +63,6 @@
 <div class="container" style="margin-top: 10%;">
 <label style="font-size: 30px; text-align: center;	font-family: "Times New Roman", Times, serif;">Leader Board <span class="glyphicon glyphicon-tower"></span></label>
 <hr style="border: 1px solid #d9d9d9;">
-
 		<div class="swiper-container swiperLog1">
 			<div class="" style="background-color: red; color: white; text-align: center;">Exp</div>
 			<div class="swiper-wrapper" id="expLeaderList">

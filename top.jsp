@@ -38,7 +38,7 @@
 	<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 	<link rel="import" href="playbasis/pb-spinwheel-component.v.html">
 	<!-- <script src="js/jquery-1.3.2.min.js"></script>     -->
-	<script src="js/jquery-barcode.min.js"></script> 
+	<script src="js/jquery-barcode.min.js"></script>
 	<script src="js/chartist.js"></script>
 	<link rel="stylesheet" href="css/intlTelInput.css" />
 	<link href="css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -76,11 +76,11 @@
   	} );
   	document.addEventListener("pb-spinwheel-success-event", function(e) {
 	   console.log("You got reward: ", e.detail);
-	   
+
 	 });
   	document.addEventListener("pb-spinwheel-error-event", function(e) {
    		console.log("Error code " + e.detail.code + " with detail: '", e.detail, "'");
-   
+
  });
 	$(document).ready(function(){
 		$("#wheels").click(function(){
@@ -251,11 +251,11 @@
 	      centeredSlides: true
 		});
 		});
-	// $(document).mouseup(function(e) 
+	// $(document).mouseup(function(e)
 	// 	{
 	// 	    var container = $('.otherMenu');
 	// 	    // if the target of the click isn't the container nor a descendant of the container
-	// 	    if (!container.is(e.target) && container.has(e.target).length === 0) 
+	// 	    if (!container.is(e.target) && container.has(e.target).length === 0)
 	// 	    {
 	// 	        container.hide();
 	// 	        container.removeClass('menu-show').addClass('menu-hide');
@@ -307,7 +307,7 @@
 	}
 	.container-fluid > .navbar-collapse {
 	    margin-right: 0px;
-	     margin-left: 0px; 
+	     margin-left: 0px;
 	}
 	.navbar-inverse{
 		/*background-color: rgba(255,255,255,0);*/
@@ -317,7 +317,7 @@
 		color: black;
 	}
 	.navbar-nav > li > a {
-		
+
 	}
 	.swiper-container-horizontal>.swiper-pagination-bullets{
 		bottom: -2px !important;
@@ -365,16 +365,16 @@
 		transition: all 0.5s;
 	}
 	#test{
-		
-		background: 
-		linear-gradient(-45deg, lightblue 50%, yellow 0%), 
+
+		background:
+		linear-gradient(-45deg, lightblue 50%, yellow 0%),
 		linear-gradient(45deg, tomato 50%, red 0%);
-		
+
 		background-size: 50% 100%;
 
-		background-position: 
-		
-		0 100%, 
+		background-position:
+
+		0 100%,
 		100% 100%;
 
 		background-repeat: no-repeat;
@@ -481,7 +481,7 @@
     position: absolute;
     padding-top: 10vw;
     bottom: -40%;
-    margin: unset; 
+    margin: unset;
     z-index: 10;
     top: 80%;
     left: -48.5%;
@@ -492,7 +492,7 @@
     height: 200vw;
     left: -0.5vw;
     top: 10vw;
-    margin-left: 0; 
+    margin-left: 0;
 }
 #wheel.pb-spinwheel{
   width: 200vw;
@@ -520,7 +520,7 @@
     background-repeat: no-repeat;
     background-image: url(img/playbasis_coin_single_500px.png);
 }
-    
+
 button.pb-spinwheel {
   width: 40vw;
   height: 40vw;
@@ -585,12 +585,12 @@ html, body, .container-fluid{
   position: relative;
   top: -4.5vw;
 }
-@keyframes a0_t { 
-  0% { transform: translate(-420.5px,15px); } 
-  100% { transform: translate(-140px,15px); } 
+@keyframes a0_t {
+  0% { transform: translate(-420.5px,15px); }
+  100% { transform: translate(-140px,15px); }
 }
-@keyframes a1_t { 
-  0% { transform: translate(0px,15px); } 
+@keyframes a1_t {
+  0% { transform: translate(0px,15px); }
   100% { transform: translate(-280.5px,15px); }
 }
 
@@ -630,10 +630,10 @@ html, body, .container-fluid{
 			    position: absolute;
 			    padding-top: 10vw;
 			    bottom: -40%;
-			    margin: unset; 
+			    margin: unset;
 			    z-index: 10;
 			    top: 80%;
-			    left: -48.5%;
+			    left: -26.5%;
 			    opacity: 0;
 			}
 			#wrapper.pb-spinwheel:before{
@@ -641,7 +641,7 @@ html, body, .container-fluid{
     			height: 150vw;
 			    left: -0.5vw;
 			    top: 10vw;
-			    margin-left: 0; 
+			    margin-left: 0;
 			}
 			#wheel.pb-spinwheel{
 			    width: 150vw;
@@ -687,7 +687,7 @@ html, body, .container-fluid{
 <div id="sipnWheel" style="width: 100%;z-index: 1099;">
     <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;right: -10vw"></div>
       <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -10vw"></div>
-        <pb-spinwheel 
+        <pb-spinwheel
           env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
           env-target-action="click"
           env-target-tag="spin-wheel-01"
@@ -729,7 +729,7 @@ html, body, .container-fluid{
 		   			<img class="middle-menu" id="wheels" src="img/tar.png">
 		   			<img class="middle-menu" src="img/pin.png" style="margin-right: 0px;width: 15%;position: relative;margin-top: 0px;height: auto;align-self: center;left: -37%;top: -16px;">
 		   			<!-- <p style="font-size: 8px;text-align: center;color: black;">Playlists</p> -->
-	   			</div>		
+	   			</div>
    		</div>
 
 	   	<div style="width: 37%;float: right;margin-right: -10px;align-self: center;z-index: 1;margin-top: -10px;">
@@ -738,7 +738,7 @@ html, body, .container-fluid{
 					<img src="img/offers_untrim.png" style="margin-right: 0px;width: 55%;">
 					<!-- <p style="font-size: 8px;text-align: center;color: black;">Wallet</p> -->
 				</div>
-			</a>	
+			</a>
 			<a href="#">
 				<div class=" center" id="Setting" style="display: inline-block;width: 48.5%;margin-top: 10px;">
 					<img src="img/wallet2.png" style="margin-right: 0px;width: 55%;">
@@ -748,7 +748,7 @@ html, body, .container-fluid{
 		</div>
 		<div style="clear: both;"></div>
 	</nav>
-	
+
 	<div class="container-fluid">
 		<input type="hidden" id="pageName" name="pageName" value="<%=pageName%>">
 		<!-- <div id="draggable" class="ui-widget-content" style="position: absolute;top: 100px;z-index: 9999;">
@@ -834,7 +834,7 @@ html, body, .container-fluid{
 		       			<dir class="col-12">
 				       		<div class="progress">
 							    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" id="exp_progress">
-							      
+
 							    </div>
 							</div>
 						</dir>
@@ -857,7 +857,7 @@ html, body, .container-fluid{
 										  <!-- Default panel contents -->
 										  <div class="panel-heading" style="padding: 20px 10px 15px 10px;">
 										  	<table id="table_goods">
-										  		
+
 										  	</table>
 										  </div>
 										</div>
@@ -868,7 +868,7 @@ html, body, .container-fluid{
 										  <div class="panel-heading" style="padding: 20px 10px 15px 10px;">
 										  	<center>
 											  	<table id="table_reward">
-											  		
+
 											  	</table>
 										  	</center>
 										  </div>
@@ -907,7 +907,7 @@ html, body, .container-fluid{
 		  </div>
 		</div>
 		<div class="modal animated bounceInDown" id="checkOutGoods" role="dialog">
-    
+
 </div>
 		<!-- Modal -->
 
@@ -918,7 +918,7 @@ html, body, .container-fluid{
 		         <h3>Language Selection</h3>
 		      </div>
 		      <div class="modal-body" style="text-align: center;padding: 25px 70px 25px 70px;">
-		       	
+
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn custom btn-primary" data-dismiss="modal" id="submitLang">Select</button>
@@ -926,5 +926,3 @@ html, body, .container-fluid{
 		    </div>
 		  </div>
 		</div> -->
-
-		
