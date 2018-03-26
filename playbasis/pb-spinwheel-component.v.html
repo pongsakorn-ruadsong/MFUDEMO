@@ -374,7 +374,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
     <img id="wheel-arrow" src="../assets/arrow.png">
   </div>
-  <button on-tap="beginSpinWheelFlow" id="pb-spinwheel-button">Spin</button>
+  <div class="swiper-container gameSwip" style="position: absolute;height: 90%;z-index: 2;">
+     <div class="swiper-wrapper">
+      <div class="swiper-slide" style="position: relative;">
+        <button  on-tap="beginSpinWheelFlow" class="pb-spinwheel-button" id="pb-spinwheel-button" style="position:relative;width: 40vw;height: 40vw;">Spin</button>
+      </div>
+      <div class="swiper-slide" style="position: relative;">
+        <button  on-tap="beginSpinWheelFlow" class="pb-spinwheel-button" id="pb-spinwheel-button2" style="position:relative;width: 40vw;height: 40vw;">Spin2</button>
+      </div>
+      <div class="swiper-slide" style="position: relative;">
+        <button  on-tap="beginSpinWheelFlow" class="pb-spinwheel-button" id="pb-spinwheel-button3" style="position:relative;width: 40vw;height: 40vw;">Spin3</button>
+      </div>
+    </div>
+  </div>
+  
 
 </template>
 </dom-module>

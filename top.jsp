@@ -84,44 +84,52 @@
  });
 	$(document).ready(function(){
 		$("#wheels").click(function(){
+		
         var showSpinWheel = $('#wrapper').css('opacity');
         buildWater();
           if(showSpinWheel == 0){
+          	$('body').append('<div class="wheel-tran" style="width:100%;height:100%;position: absolute;z-index: 1;top: 0px;left: 0px;background-color: #0000006e;"></div>')
             $('#wrapper').animate({
                   'top' : '-=70vw',
                   'opacity' : 1
               },1000);
             $('#arrowNext').animate({
-              'left' : '-=15vw',
+              'right' : '10vw',
                   'opacity' : 1
-            },500);
+            },1000);
             $('#arrowPrev').animate({
-              'left' : '+=25vw',
+              'left' : '10vw',
                   'opacity' : 1
-            },500);
-            $("#pb-spinwheel-button").animate({
+            },1000);
+            $(".pb-spinwheel-button").animate({
               'top' : '+=55vw',
                   'opacity' : 1
             },1000);
-            $(".main_bg").addClass('blur-filter');
           } else if(showSpinWheel == 1 ){
+          	$('body > .wheel-tran').remove();
+          	// $('.swiper-slide-active').removeClass('swiper-slide-active');
+          	// $('.swiper-slide-prev').removeClass('swiper-slide-prev');
+          	// $('.swiper-slide-next').removeClass('swiper-slide-next');
+          	// var first = $('.swiper-wrapper.style-scope').children()[0];
+          	// var second = $('.swiper-wrapper.style-scope').children()[1];
+          	// $(first).addClass('swiper-slide-active')
+          	// $(second).addClass('swiper-slide-next')
             $('#wrapper').animate({
                 'top' : '+=70vw',
                 'opacity' : 0
             },1000);
             $('#arrowNext').animate({
-              'left' : '+=15vw',
+              'right' : '-10vw',
                   'opacity' : 0
             },500);
             $('#arrowPrev').animate({
-              'left' : '-=25vw',
+              'left' : '-10vw',
                   'opacity' : 0
             },500);
-            $("#pb-spinwheel-button").animate({
+            $(".pb-spinwheel-button").animate({
               'top' : '-=55vw',
                   'opacity' : 0
             },1000);
-            $(".main_bg").removeClass('blur-filter');
           }
         });
 		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
@@ -233,7 +241,11 @@
 				$('#wheels-menu').removeClass('rotate').addClass('rotate-hid');
 			}
 		});
-	});
+		var swiper = new Swiper('.gameSwip', {
+	      slidesPerView: 1,
+	      centeredSlides: true
+		});
+		});
 	// $(document).mouseup(function(e) 
 	// 	{
 	// 	    var container = $('.otherMenu');
@@ -507,7 +519,7 @@ button.pb-spinwheel {
   overflow: hidden;
   box-shadow: 0px 1px 20px #b3ccff;
   margin: 10px;
-  z-index: 10;
+  z-index: 1099;
 }
 button.pb-spinwheel:disabled{
   width: 40vw;
@@ -524,6 +536,7 @@ button.pb-spinwheel:disabled{
   overflow: hidden;
   box-shadow: 0px 1px 20px #b3ccff;
   margin: 10px;
+  z-index: 1099;
 }
 html, body, .container-fluid{
   overflow: hidden;
@@ -588,9 +601,9 @@ html, body, .container-fluid{
 }
 </style>
 <body>
-<div id="sipnWheel" style="width: 100%;">
-    <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;left: 100vw"></div>
-      <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -15vw"></div>
+<div id="sipnWheel" style="width: 100%;z-index: 1099;">
+    <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;right: -10vw"></div>
+      <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -10vw"></div>
         <pb-spinwheel 
           env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
           env-target-action="click"
