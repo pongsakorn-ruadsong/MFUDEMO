@@ -76,8 +76,9 @@ function fillWater(exp){
   var elem2 = document.getElementById("water-block");
   var height = $('#water-block').css('margin-top');
   var percent = exp;
-  elem.style.height =  '100%';
+  // elem.style.height =  '100%';
   console.log(percent)
+  console.log(height)
     for (var i = 0; i < 5; i++) {
       var full = 50-i;
      $(elem2).css('margin-top',full+'%');

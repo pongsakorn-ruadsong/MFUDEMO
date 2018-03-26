@@ -78,6 +78,7 @@
    alert("There's an error!\nSee console for detail.");
  });
 	$(document).ready(function(){
+		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
 		$('.middle-menu').click(function(){
 	    	if (!$('#test').hasClass('rotate-hide') && !$('#test').hasClass('rotate-show')) {
 	    		console.log('no have class hide and show')
@@ -449,7 +450,7 @@
 		   			<!-- <p style="font-size: 8px;text-align: center;color: black;">Playlists</p> -->
 	   			</div>
 	   			
-	   				<div class="ani bottom " id="test" style="position: absolute;z-index: -1;top: 5px;margin-left: -50%;display: -webkit-box;overflow: hidden;">
+	   				<div class="ani bottom " id="" style="position: absolute;z-index: -1;top: 5px;margin-left: -50%;display: -webkit-box;overflow: hidden;">
 	   					<!-- <p style="transform: rotate(180deg);">Test</p> -->
 	   					<div onclick="location.href='index.jsp'" class="pie" style="top: 15px;right: 15px;">Index    (Temporary)</div>
 	   					<div class="pie" style="top: 65px;right: 65px;">Game1</div>

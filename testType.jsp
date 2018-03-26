@@ -2,9 +2,50 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		var scrollPos = 0;
-			getUserdate();
-			graph();
+			// getUserdate();
+			// graph();
+
+			$("#wheels").click(function(){
+				var showSpinWheel = $('#wrapper').css('opacity');
+				buildWater();
+					if(showSpinWheel == 0){
+						$('#wrapper').animate({
+				        	'top' : '-=70vw',
+				        	'opacity' : 1
+				    	},1000);
+						$('#arrowNext').animate({
+							'left' : '-=15vw',
+				        	'opacity' : 1
+						},500);
+						$('#arrowPrev').animate({
+							'left' : '+=25vw',
+				        	'opacity' : 1
+						},500);
+						$("#pb-spinwheel-button").animate({
+							'top' : '+=55vw',
+				        	'opacity' : 1
+						},1000);
+						// $(".container-fluid").addClass('blur-filter');
+					} else if(showSpinWheel == 1 ){
+						$('#wrapper').animate({
+				        'top' : '+=70vw',
+				        'opacity' : 0
+				    },1000);
+						$('#arrowNext').animate({
+							'left' : '+=15vw',
+				        	'opacity' : 0
+						},500);
+						$('#arrowPrev').animate({
+							'left' : '-=25vw',
+				        	'opacity' : 0
+						},500);
+						$("#pb-spinwheel-button").animate({
+							'top' : '-=55vw',
+				        	'opacity' : 0
+						},1000);
+						// $(".container-fluid").removeClass('blur-filter');
+					}
+		    });
 				// $('.wrapper-timeline').scroll(function(){
 				// 	var scrollDown = $(this).scrollTop();
 				// 	if(scrollDown>scrollPos){
@@ -15,6 +56,7 @@
 				// 		$("post-inner").removeClass("animated1");
 				// 	}
 				// });
+				// }
 	});
 </script>
 <link rel="stylesheet" href="css/swiper.min.css">
@@ -257,81 +299,6 @@
    }
 } 
 
-.profile {
-  width: 150px;
-  height: 150px;
-  position: relative;
-  /*background-image: url(img/wonderwoman.png);*/
-  /*background-size: cover;*/
-  border-radius: 50%;
-  border: 1px solid #b3ccff;
-  overflow: hidden;
-  box-shadow: 0px 1px 20px #b3ccff;
-  margin: 10px;
-}
-#water{
-	width: 100%;
-	height: 100%;
-	background: #4A90E2;
-	position: relative;
-	top: -4.5%;
-}
-.percent{
-	left: 60%;
-    top: 5%;
-    font-size: 20px;
-    font-weight: bold;
-    position: absolute;
-}
-.price{
-	position: absolute;
-	font-size: 20px;
-	text-align: center;
-	color: #4d4d4d;
-    top: 40%;
-    left: 10%;
-}
-.water-block {
-  margin-top:20vh;
-
-}
-@keyframes a0_t { 
-  0% { transform: translate(-420.5px,15px); } 
-  100% { transform: translate(-140px,15px); } 
-}
-@keyframes a1_t { 
-  0% { transform: translate(0px,15px); } 
-  100% { transform: translate(-280.5px,15px); }
-}
-
-.water-fill {
-  fill:#4A90E2;
-}
-
-.water-fill.full {
-  opacity:0.45;
-}
-
-.water-block{
-	transition: all 1s;
-}
-
-.swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-    }
-
 .ct-line {
 	stroke-width: 2px;
 	stroke-linecap: round;
@@ -339,7 +306,6 @@
     stroke-dashoffset: 1000;
   	animation: dash 6s linear forwards;
 }
-
 @keyframes dash {
   to {
     stroke-dashoffset: 0;
@@ -347,8 +313,7 @@
 }
 
 </style>
-
-	<div class="swiper-container swiperCircle1">
+<!-- 	<div class="swiper-container swiperCircle1">
 		<div class="swiper-wrapper" style="width: 100%; left: -180px;;">
 			<div class="swiper-slide">
 				<div class="profile">
@@ -393,12 +358,26 @@
 				</div>	
 			</div>
 		</div>
-		<div class="swiper-button-next" style="left: 10%; height: 12%;"></div>
-    	<div class="swiper-button-prev" style="left: 1%; height: 12%;"></div>
+		<div class="swiper-button-next" id="arrowNext" style="left: 10%; height: 12%;opacity: 0;"></div>
+    	<div class="swiper-button-prev" id="arrowPrev" style="left: 1%; height: 12%;opacity: 0;"></div>
+	</div> -->
+<div class="container" style="overflow: hidden; height: 100%">
+	<div id="sipnWheel" style="width: 100%;">
+		<div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;left: 100vw"></div>
+	    <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -15vw"></div>
+				<pb-spinwheel 
+					env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
+					env-target-action="click"
+					env-target-tag="spin-wheel-01"
+					env-custom-param-url-values='["spin"]'
+					player-id=""
+					show-debug-log
+					class="spinwheel"
+				>Loading...</pb-spinwheel>
 	</div>
+</div>
 
-
-	<div class="wrapper-timeline" id="timelimePost">
+<!-- 	<div class="wrapper-timeline" id="timelimePost">
   		<div class="post">
 		  	<div class="postDate"></div>
 			<div class="post-inner">
@@ -430,7 +409,7 @@
 			    <div class="footer" id="">Jan 14</div>	
 			</div>
   		</div>
-  	</div>
+  	</div> -->
 
 <!-- <canvas id="confeti" class="active" width="100%" height="100vh"></canvas>
 

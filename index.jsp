@@ -1,6 +1,47 @@
 <%@include file="top.jsp" %>
 <script type="text/javascript">
 	$(document).ready(function(){
+    $("#wheels").click(function(){
+        var showSpinWheel = $('#wrapper').css('opacity');
+        buildWater();
+          if(showSpinWheel == 0){
+            $('#wrapper').animate({
+                  'top' : '-=70vw',
+                  'opacity' : 1
+              },1000);
+            $('#arrowNext').animate({
+              'left' : '-=15vw',
+                  'opacity' : 1
+            },500);
+            $('#arrowPrev').animate({
+              'left' : '+=25vw',
+                  'opacity' : 1
+            },500);
+            $("#pb-spinwheel-button").animate({
+              'top' : '+=55vw',
+                  'opacity' : 1
+            },1000);
+            $(".main_bg").addClass('blur-filter');
+          } else if(showSpinWheel == 1 ){
+            $('#wrapper').animate({
+                'top' : '+=70vw',
+                'opacity' : 0
+            },1000);
+            $('#arrowNext').animate({
+              'left' : '+=15vw',
+                  'opacity' : 0
+            },500);
+            $('#arrowPrev').animate({
+              'left' : '-=25vw',
+                  'opacity' : 0
+            },500);
+            $("#pb-spinwheel-button").animate({
+              'top' : '-=55vw',
+                  'opacity' : 0
+            },1000);
+            $(".main_bg").removeClass('blur-filter');
+          }
+        });
 		if (checkUser()) {
 				window.location.replace("login");
 		}else{
@@ -10,7 +51,7 @@
 	    	});
 			sessionStorage.removeItem("save_result");
 		}
-		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
+		
 		var swiper = new Swiper('.swiper99', {
 	      slidesPerView: 1,
 	      spaceBetween: 0,
@@ -159,7 +200,157 @@
         color:red;
     }
 }
+#wheel-arrow.pb-spinwheel{
+  left: 91vw;
+    top: 1vw;
+}
+#wrapper.pb-spinwheel{
+    width: 200vw;
+    overflow: hidden;
+    position: absolute;
+    padding-top: 10vw;
+    padding-bottom: 10vw;
+    z-index: 10;
+    top: 80%;
+    left: -46%;
+    opacity: 0;
+}
+#wrapper.pb-spinwheel:before{
+  width: 201vw;
+    height: 200vw;
+    left: -0.5vw;
+    top: 10vw;
+    margin-left: 0; 
+}
+#wheel.pb-spinwheel{
+  width: 200vw;
+  height: 200vw;
+}
+#wheel.pb-spinwheel:before{
+  width: 195vw;
+    height: 195vw;
+    top: 0vw;
+    left: 0vw;
+}
+#spin.pb-spinwheel{
+  width: 70vw;
+  height: 70vw;
+  top: 74vw;
+  left: 74vw;
+}
+    
+button.pb-spinwheel {
+  width: 40vw;
+  height: 40vw;
+  position: absolute;
+  background: white;
+  color: gray;
+  left: 28vw;
+  top: -46vw;
+  padding-top: 16vw;
+  opacity: 0;
+  border-radius: 50%;
+  border: 1px solid #b3ccff;
+  overflow: hidden;
+  box-shadow: 0px 1px 20px #b3ccff;
+  margin: 10px;
+  z-index: 10;
+}
+button.pb-spinwheel:disabled{
+  width: 40vw;
+  height: 40vw;
+  position: absolute;
+  background: lightgray;
+  opacity: 0.5;
+  color: gray;
+  left: 28vw;
+  top: -46vw;
+  padding-top: 16vw;
+  border-radius: 50%;
+  border: 1px solid #b3ccff;
+  overflow: hidden;
+  box-shadow: 0px 1px 20px #b3ccff;
+  margin: 10px;
+}
+html, body, .container-fluid{
+  overflow: hidden;
+}
+.blur-filter {
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+.profile {
+  width: 40vw;
+  height: 40vw;
+  position: relative;
+  /*opacity: 0;*/
+  /*background-image: url(img/wonderwoman.png);*/
+  /*background-size: cover;*/
+  border-radius: 50%;
+  border: 1px solid #b3ccff;
+  overflow: hidden;
+  box-shadow: 0px 1px 20px #b3ccff;
+  margin: 10px;
+}
+#water{
+  width: 60vw;
+  height: 100%;
+  background: #4A90E2;
+  position: relative;
+  top: -4.5vw;
+}
+@keyframes a0_t { 
+  0% { transform: translate(-420.5px,15px); } 
+  100% { transform: translate(-140px,15px); } 
+}
+@keyframes a1_t { 
+  0% { transform: translate(0px,15px); } 
+  100% { transform: translate(-280.5px,15px); }
+}
+
+.water-fill {
+  fill:#4A90E2;
+}
+
+.water-fill.full {
+  opacity:0.45;
+}
+
+.water-block{
+  top: -3vw;
+  position: relative;
+  transition: all 1s;
+}
+#wheel.pb-spinwheel div.sec.pb-spinwheel .fa.pb-spinwheel{
+  margin-top: -280px;
+}
+#wheel.pb-spinwheel div.sec.sec-8.pb-spinwheel{
+    border-width: 150vw 63vw 0;
+    transform-origin: 63.2vw 150vw;
+    left: 17%;
+    top: -27%;
+}
 </style>
+
+<!-- <div class="container" style="overflow: hidden; height: 100%"> -->
+  <div id="sipnWheel" style="width: 100%;">
+    <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;left: 100vw"></div>
+      <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -15vw"></div>
+        <pb-spinwheel 
+          env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
+          env-target-action="click"
+          env-target-tag="spin-wheel-01"
+          env-custom-param-url-values='["spin"]'
+          player-id=""
+          show-debug-log
+          class="spinwheel"
+        >Loading...</pb-spinwheel>
+  </div>
+<!-- </div> -->
+
 <div class="main_bg">
 	<div class="pb-coin-amount">
 		<div class="coin-icon" >
@@ -255,14 +446,14 @@
 				<p style="text-align: center;">WHAT YOU WILL GET</p>
 				<div class="good-body">
 					description from setting in dashboard (getting from API)
-					<pb-spinwheel 
+					<!-- <pb-spinwheel 
 					     env-point-reward-levels=""
 					     env-target-action="click"
 					     env-target-tag="spin-wheel-01"
 					     env-custom-param-url-values='["spin"]'
 					     player-id=""
 					     show-debug-log
-					   >Loading...</pb-spinwheel>
+					   >Loading...</pb-spinwheel> -->
 				</div>
 				<div class="good-footer">
 					<div class="real-currency">
