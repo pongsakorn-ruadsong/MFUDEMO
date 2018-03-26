@@ -94,11 +94,11 @@
                   'opacity' : 1
               },1000);
             $('#arrowNext').animate({
-              'right' : '10vw',
+              'right' : '5vw',
                   'opacity' : 1
             },1000);
             $('#arrowPrev').animate({
-              'left' : '10vw',
+              'left' : '5vw',
                   'opacity' : 1
             },1000);
             $(".pb-spinwheel-button").animate({
@@ -120,11 +120,11 @@
                 'opacity' : 0
             },1000);
             $('#arrowNext').animate({
-              'right' : '-10vw',
+              'right' : '-5vw',
                   'opacity' : 0
             },500);
             $('#arrowPrev').animate({
-              'left' : '-10vw',
+              'left' : '-5vw',
                   'opacity' : 0
             },500);
             $(".pb-spinwheel-button").animate({
@@ -616,6 +616,9 @@ html, body, .container-fluid{
     left: 17%;
     top: -27%;
 }
+.swiper-button-next, .swiper-button-prev{
+	background-size: 17px 44px;
+}
 @media (max-width: 320px) and (max-height: 480px) {
 			#wheel-arrow.pb-spinwheel{
 				left: 70vw;
@@ -674,6 +677,9 @@ html, body, .container-fluid{
 			    transform-origin: 63.2vw 150vw;
 			    left: 7%;
     			top: -53%;
+			}
+			.swiper-button-next, .swiper-button-prev{
+				background-size: 17px 44px;
 			}
 		}
 </style>
