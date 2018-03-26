@@ -354,6 +354,9 @@
 			.test-bg{
 				background-size: contain;
 			}
+			#loginModal-head{
+				background-size: contain !important;
+			}
 		}
 	</style>
 <div class="login-bg">
@@ -381,7 +384,7 @@
 	 <div class="modal animated fadeInDownBig" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	 <div class="modal-dialog" style="width: 100% !important;margin-top: 0px;height: 100%;margin:0px;">
 	    <div class="modal-content" style="height: 100%;">
-	      <div class="modal-header" style="border-bottom:0px;background-image: url(img/LL.jpg);height: 50%;background-size: contain;background-repeat: no-repeat;position: relative;z-index: 2;">
+	      <div class="modal-header" id="loginModal-head" style="border-bottom:0px;background-image: url(img/LL.jpg);height: 50%;background-size: cover;background-repeat: no-repeat;position: relative;z-index: 2;">
 
 	        <button type="button" class="loginClose close" id="loginClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
@@ -435,7 +438,7 @@
 	      <div class="modal-header" style="border-bottom:0px">
 	        <button type="button" class="testClose close" id="testClose"  style="font-size: 30px;padding-bottom: 0px;padding-right: 15px;">&times;</button>
 	      </div>
-	      <div class="modal-body" style="text-align: center;margin-top: -25px;">
+	      <div class="modal-body" style="text-align: center;margin-top: -25px;height: 100%;overflow: scroll;">
 		      	<div style="width: 100%;">
 		      		<center>
 			      	<div style="width: 100%;">
@@ -481,7 +484,7 @@
 			        	<button class="btn-send-otp" id="sendOtp">Send</button>
 			        </div>
 			        </center>
-			        <div style="width: 90%;margin-top: 10px;margin-left: auto;">
+			        <div style="width: 90%;margin-top: 10px;margin-left: auto;margin-bottom: 20px;">
 			        	
 			        	<div class="row" style="">
 			        		<div class="gest">

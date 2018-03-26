@@ -5144,7 +5144,7 @@ var _createClass = function() {
                                     e.code = this.kErrorCode.PLAYBASIS_NOT_BUILD, this.fireErrorEvent(e)
                                 }
                             }, this.ready = function() {
-                                this._degree = 1800, this._kOdds = [0, 1, 3, 5, 7, 9, 11, 13, 15], this._rewards = [], this._gotRewardItem = null, this._targetSelectionIndex, this._spinButtonDisabled = !0, this._kParamName = "url", this._innerWheelHtmlElement
+                                this._degree = 1800, this._kOdds = [0, 1, 3, 5, 7, 9, 11, 13, 15,17], this._rewards = [], this._gotRewardItem = null, this._targetSelectionIndex, this._spinButtonDisabled = !0, this._kParamName = "url", this._innerWheelHtmlElement
                             }
                         }
                     }, {
@@ -5205,10 +5205,15 @@ var _createClass = function() {
                                 n = void 0,
                                 r = void 0;
                             if (this.dlog("kOdds: ", this._kOdds), 0 == e) {
+                                console.log('Here')
                                 var i = 0 != Math.floor(2 * Math.random());
                                 i ? (n = this._kOdds[this._rewards.length] * t, r = 360.01, this.dlog("target index at 0: go right"),
                                     this.dlog("minAngle: " + n + ", maxAngle: " + r)) : (n = 0, r = t, this.dlog("target index at 0: go left"), this.dlog("minAngle: " + n + ", maxAngle: " + r))
-                            } else n = this._kOdds[e] * t, r = this._kOdds[e + 1] * t, this.dlog("minAngle: " + n + ", maxAngle: " + r);
+                            } else {n = this._kOdds[e] * t, r = this._kOdds[e + 1] * t, this.dlog("minAngle: " + n + ", maxAngle: " + r);}
+                            if (n == NaN || r == NaN) {
+                                console.log(n)
+                                console.log(r)
+                            }
                             var o = Math.floor(Math.random() * (r - n)) + n;
                             return this.dlog("spin to angle: " + o), o
                         }
@@ -5280,7 +5285,12 @@ var _createClass = function() {
                                     break
                                 }
                             }
-                            null == this._targetSectionIndex ? (this.dlog("_targetSectionIndex is null"), this.dlog("type = " + t)) : this.dlog(this._targetSectionIndex)
+                            //null == this._targetSectionIndex ? (this.dlog("_targetSectionIndex is null"), this.dlog("type = " + t)) : this.dlog(this._targetSectionIndex)
+                            if(null == this._targetSectionIndex ){
+                                this.dlog("_targetSectionIndex is null"), this.dlog("type = " + t)
+                            }else{
+                                this.dlog(this._targetSectionIndex)
+                            }
                         }
                     }, {
                         key: "getSpinWheelSectionCSSString",
@@ -5291,12 +5301,15 @@ var _createClass = function() {
                     }, {
                         key: "generateAndAddRewardHTMLElement_to_spinWheelSection",
                         value: function generateAndAddRewardHTMLElement_to_spinWheelSection() {
+                            var colors = ['#007e85','#ece862','#f8db47','#f69e37','#ee5929','#e63323','#d9201e']
+                            var lastColor = '#71b76a';
                             for (var e = this._innerWheelHtmlElement, t = 0; t < this._rewards.length; t++) {
                                 var n = this._rewards[t],
                                     r = document.createElement("div");
                                 r.className += "sec sec-" + this._rewards.length + " " + this.is;
-                                var i = void 0;
-                                this._rewards.length % 2 != 0 ? 5 == this._rewards.length ? i = t == this._rewards.length - 1 ? "#cccccc" : t % 2 == 0 ? "#d6d6d6" : "#bebebe" : 7 == this._rewards.length && (t == this._rewards.length - 1 ? i = "#d6d6d6" : t % 3 == 0 ? i = "#cccccc" : t % 3 == 1 ? i = "#d6d6d6" : t % 3 == 2 && (i = "#bebebe")) : i = t % 2 == 0 ? "#d6d6d6" : "#bebebe", r.setAttribute("style", this.getSpinWheelSectionCSSString(t, i, this._rewards.length)), r.setAttribute("data-index", t + "");
+                                let i = t == this._rewards.length-1 ? lastColor : colors[t%colors.length];
+                                console.log(t)
+                                r.setAttribute("style", this.getSpinWheelSectionCSSString(t, i, this._rewards.length)), r.setAttribute("data-index", t + "");
                                 var o = document.createElement("span");
                                 if (o.className += "fa flag-icon " + this.is, "goods" == n.reward_name || "badge" == n.reward_name) o.setAttribute("style", "background-image: url(" + n.data.image + ");");
                                 else if ("point" == n.reward_name) {

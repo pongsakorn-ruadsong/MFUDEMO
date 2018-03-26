@@ -84,11 +84,12 @@
  });
 	$(document).ready(function(){
 		$("#wheels").click(function(){
+			$('#spinPlay').show()
         var showSpinWheel = $('#wrapper').css('opacity');
         buildWater();
           if(showSpinWheel == 0){
             $('#wrapper').animate({
-                  'top' : '-=70vw',
+                  'top' : '-=50vw',
                   'opacity' : 1
               },1000);
             $('#arrowNext').animate({
@@ -103,10 +104,10 @@
               'top' : '+=55vw',
                   'opacity' : 1
             },1000);
-            $(".main_bg").addClass('blur-filter');
+            $(".blur").addClass('blur-filter');
           } else if(showSpinWheel == 1 ){
             $('#wrapper').animate({
-                'top' : '+=70vw',
+                'top' : '+=50vw',
                 'opacity' : 0
             },1000);
             $('#arrowNext').animate({
@@ -121,7 +122,7 @@
               'top' : '-=55vw',
                   'opacity' : 0
             },1000);
-            $(".main_bg").removeClass('blur-filter');
+            $(".blur").removeClass('blur-filter');
           }
         });
 		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
@@ -375,7 +376,7 @@
 
 .top,
 .bottom {
-      height: 130px;
+    height: 130px;
     width: 260px;
 }
 
@@ -462,14 +463,15 @@
     overflow: hidden;
     position: absolute;
     padding-top: 10vw;
-    padding-bottom: 10vw;
+    bottom: -40%;
+    margin: unset; 
     z-index: 10;
     top: 80%;
     left: -46%;
     opacity: 0;
 }
 #wrapper.pb-spinwheel:before{
-  width: 201vw;
+  	width: 201vw;
     height: 200vw;
     left: -0.5vw;
     top: 10vw;
@@ -489,7 +491,17 @@
   width: 70vw;
   height: 70vw;
   top: 74vw;
-  left: 74vw;
+  left: 70vw;
+}
+#inner-spin.pb-spinwheel{
+	width: 60%;
+    height: 60%;
+    top: 29%;
+    left: 29%;
+    background-size: contain;
+   	box-shadow: rgba(255,255,255,1) 0px 0px 0px inset, rgba(255,255,255,1) 0px 0px 0px inset, rgba(0,0,0,0.4) 2px 7px 10px;
+    background-repeat: no-repeat;
+    background-image: url(img/playbasis_coin_single_500px.png);
 }
     
 button.pb-spinwheel {
@@ -586,21 +598,83 @@ html, body, .container-fluid{
     left: 17%;
     top: -27%;
 }
+@media (max-width: 320px) and (max-height: 480px) {
+			#wheel-arrow.pb-spinwheel{
+				left: 70vw;
+				top: 1vw;
+			}
+			#wrapper.pb-spinwheel{
+			   	width: 200vw;
+			    overflow: hidden;
+			    position: absolute;
+			    padding-top: 10vw;
+			    bottom: -40%;
+			    margin: unset; 
+			    z-index: 10;
+			    top: 80%;
+			    left: -26%;
+			    opacity: 0;
+			}
+			#wrapper.pb-spinwheel:before{
+			  	width: 151vw;
+    			height: 150vw;
+			    left: -0.5vw;
+			    top: 10vw;
+			    margin-left: 0; 
+			}
+			#wheel.pb-spinwheel{
+			    width: 150vw;
+    			height: 150vw;
+			}
+			#wheel.pb-spinwheel:before{
+			    width: 145vw;
+    			height: 145vw;
+			    top: 0vw;
+			    left: 0vw;
+			}
+			#spin.pb-spinwheel{
+			  	width: 60vw;
+			    height: 60vw;
+			    top: 55vw;
+			    left: 55vw;
+			}
+			#inner-spin.pb-spinwheel{
+				width: 75px;
+			    height: 75px;
+			    top: 42%;
+			    left: 42%;
+			    background-size: contain;
+			    box-shadow: rgba(255,255,255,1) 0px 0px 0px inset, rgba(255,255,255,1) 0px 0px 0px inset, rgba(0,0,0,0.4) 0px 3px 5px;
+			    background-repeat: no-repeat;
+			    background-image: url(img/playbasis_coin_single_500px.png);
+			}
+			#wheel.pb-spinwheel div.sec.pb-spinwheel .fa.pb-spinwheel{
+			  margin-top: -200px;
+			}
+			#wheel.pb-spinwheel div.sec.sec-8.pb-spinwheel{
+			    border-width: 150vw 63vw 0;
+			    transform-origin: 63.2vw 150vw;
+			    left: 7%;
+    			top: -53%;
+			}
+		}
 </style>
 <body>
-<div id="sipnWheel" style="width: 100%;">
-    <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;left: 100vw"></div>
-      <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -15vw"></div>
-        <pb-spinwheel 
-          env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
-          env-target-action="click"
-          env-target-tag="spin-wheel-01"
-          env-custom-param-url-values='["spin"]'
-          player-id=""
-          show-debug-log
-          class="spinwheel"
-        >Loading...</pb-spinwheel>
-</div>
+
+    		<div id="sipnWheel" style="width: 100%;">
+			    <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;left: 100vw"></div>
+			      	<div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -15vw"></div>
+				        <pb-spinwheel 
+				          env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
+				          env-target-action="click"
+				          env-target-tag="spin-wheel-01"
+				          env-custom-param-url-values='["spin"]'
+				          player-id=""
+				          show-debug-log
+				          class="spinwheel"
+				        >Loading...</pb-spinwheel>
+			</div>
+
 	<div class="otherMenu menu-hide" onblur="myFunction()" style="position: fixed;bottom: -118px;right: 0px;width: 22%;z-index: 1020;background-color: aqua;display: none;">
 		<div class=" center" style="padding: 10px">
 			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
@@ -629,7 +703,7 @@ html, body, .container-fluid{
 	   	</div>
 
 	   	<div class="center" style="position: absolute;left: 50%;position: absolute;left: 50%;width: 24%;height: 100%;display: flex;justify-content: center;">
-		   		<div onclick="location.href='index.jsp'" style="position: relative;left: -28%;height: 100%;display: flex;margin-top: -5px;" > <!-- onclick="location.href='index'" -->
+		   		<div  style="position: relative;left: -28%;height: 100%;display: flex;margin-top: -5px;" > <!-- onclick="location.href='index'" -->
 		   			<img class="middle-menu" id="wheels" src="img/tar.png">
 		   			<img class="middle-menu" src="img/pin.png" style="margin-right: 0px;width: 15%;position: relative;margin-top: 0px;height: auto;align-self: center;left: -37%;top: -16px;">
 		   			<!-- <p style="font-size: 8px;text-align: center;color: black;">Playlists</p> -->
@@ -810,7 +884,9 @@ html, body, .container-fluid{
 		    </div>
 		  </div>
 		</div>
-
+		<div class="modal animated bounceInDown" id="checkOutGoods" role="dialog">
+    
+</div>
 		<!-- Modal -->
 
 		<!-- <div class="modal  fade" id="animation-panel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
