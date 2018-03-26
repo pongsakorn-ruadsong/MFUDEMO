@@ -83,6 +83,7 @@
    alert("There's an error!\nSee console for detail.");
  });
 	$(document).ready(function(){
+		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
 		$('.middle-menu').click(function(){
 	    	if (!$('#test').hasClass('rotate-hide') && !$('#test').hasClass('rotate-show')) {
 	    		console.log('no have class hide and show')
@@ -453,17 +454,7 @@
 		   			<img class="middle-menu" id="wheels" src="img/tar.png">
 		   			<img class="middle-menu" src="img/pin.png" style="margin-right: 0px;width: 15%;position: relative;margin-top: 0px;height: auto;align-self: center;left: -37%;top: -16px;">
 		   			<!-- <p style="font-size: 8px;text-align: center;color: black;">Playlists</p> -->
-	   			</div>
-	   			
-	   				<!-- <div class="ani bottom " id="test" style="position: absolute;z-index: -1;top: 5px;margin-left: -50%;display: -webkit-box;overflow: hidden;">
-	   					<div onclick="location.href='index.jsp'" class="pie" style="top: 15px;right: 15px;">Index    (Temporary)</div>
-	   					<div class="pie" style="top: 65px;right: 65px;">Game1</div>
-	   					<div class="pie" style="top: 65px;left: 65px;">Game2</div>
-	   					<div class="pie" style="top: 15px;left: 15px;">Game3</div>
-	   				</div> -->
-
-	   			
-	   			
+	   			</div>		
    		</div>
 
 	   	<div style="width: 37%;float: right;margin-right: -10px;align-self: center;z-index: 1;margin-top: -10px;">
