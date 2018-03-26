@@ -509,7 +509,7 @@ function getQuestion(result, callback){
 					}
 				},800);
 			}
-	
+
 	$.ajax({
 		type: "GET",
         url: getQuestUrl,
@@ -540,7 +540,7 @@ function getQuestion(result, callback){
 			  else {
 			    swal("Going back!", "We're bringing you to home page!", "success");
 			    setTimeout(function(){
-			    	window.location.replace("index.jsp");
+			    	window.location.replace("playlist.jsp");
 			    },800);
 			  }
 			});
@@ -626,10 +626,10 @@ var TempFeed = [];
 // 	var sec = ISOTime.getSeconds();
 // 	// if(dd<10){
 // 	//     dd='0'+dd;
-// 	// } 
+// 	// }
 // 	// if(mm<10){
 // 	//     mm='0'+mm;
-// 	// } 
+// 	// }
 // 	console.log(dd+' | '+mm+' | '+yyyy+' | '+hh+' | '+min+' | '+sec)
 // 		getTimePass(dd, mm, yyyy, hh, min, sec, function(){
 
@@ -830,7 +830,7 @@ function buildQuiz(result, callback){
 	    	var img_for_check = /[^/]*$/.exec(op_img)[0];
 	    	console.log(img_for_check)
 	    	if (img_for_check == 'no_image.jpg') {
-	    		
+
 	    	}
 		    image += '<img src="'+op_img+'" class="quizImg" id="img_'+option[i].option_id+'" style="display:none;">'
 		}
@@ -863,7 +863,7 @@ function buildQuiz(result, callback){
 		    		text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
 		    			'<label class="btn choice-overlay " style="position: absolute;height: 100%;top: 0px;left: 0px;border-radius: 30px;text-align:left;background-color: #dcd1d100;display: none;"></label>'+
 			          '<input class="inputTXT_SQ " name="'+topic+'" typeZ="SQ"  valueZ="'+choices[i]+'" value="'+option[i].option_id+'" type="radio" style="visibility:hidden;"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
-			          
+
 			        '</label>'
 			        // if ((i+1)%2==0) {
 			        // 	text += '</div></div><div class="row"><div class="btn-group btn-group-vertical" data-toggle="buttons" style="width:100%;">'
@@ -873,7 +873,7 @@ function buildQuiz(result, callback){
 		    	text += '</div>';
 	    	}
 
-	    	// MULIPLE 
+	    	// MULIPLE
 
 	    	else if(type == 'MULTI'){
 	    		document.getElementById("4Play").style.display = "none";
@@ -912,7 +912,7 @@ function buildQuiz(result, callback){
 	    			'<label class="btn btn-choices" style="font-size: 0px;width: 70%;border: 1px solid #ddd;border-radius: 30px;text-align:left;overflow: auto;padding-right: 15px;">'+
 			          		'<input class="inputTXT Input_checkbook" name="'+topic+'" typeZ="MULTI_S"  valueZ="'+choices[i]+'" id="'+option[i].option_id+'" value="'+option[i].option_id+'" type="checkbox" style="visibility:hidden;">'+
 			          			'<span id="'+choices[i]+'">'+choices[i]+'</span>'+
-			          
+
 			        '</label></div>'
 		    		console.log(choices[i]);
 		    	}
@@ -949,7 +949,7 @@ function buildQuiz(result, callback){
 		    			continue;
 	    			}
 		    		text += '<label class="btn btn-choices" style="font-size: 0px;border: 1px solid #ddd;border-radius: 30px;text-align:left;">'+
-		    		
+
 			          '<input class="inputTXT_SQ_S_MULTI" name="'+topic+'" typeZ="SQ_S_MULTI" valueZ="'+choicesTitle[i]+'" value="'+option[i].option_id+'" style="visibility:hidden;" type="radio"><span id="'+choices[i]+'">'+choices[i]+'</span>'+
 			        '</label>'+
 			        '<div class="inputSQ_S_MULTI" idZ="'+option[i].option_id+'" style="display:none;"><span class="glyphicon glyphicon-plus" style="float: left;margin-right: 10px;margin-left: 10px;font-size: 13px;margin-top: 7px;"></span><input type="text" class="form-control inputTXT_S" idX="'+option[i].option_id+'" style="border: 1px solid #ddd;border-radius: 30px;text-align:center;width: 80%;font-size: 16px;margin-bottom: 5px;" placeholder="'+placeHolder[i]+'"></div>'
@@ -1100,7 +1100,7 @@ function buildQuiz(result, callback){
 		    			// $('#nextBtn').removeClass("stop");
 		    			autoNext();
 			    		// $('#timer').text(sessionStorage['pause_num']);
-			    		
+
 		    		}
 		    		else{
 		    			autoNext();
@@ -1301,7 +1301,7 @@ function buildQuiz(result, callback){
 						$('#nextBtn').addClass("countDown-btn");
 					},1000);
 		    	}
-		    	 
+
 	    	 });
 	    	 $('input:radio[name="'+topic+'"]').change(
 			    function(){
@@ -1370,14 +1370,14 @@ function timerasdsd(a){
 			           	},600);
 			       }else{
 				   document.getElementById("timer").textContent = timeleft;
-				  
+
 				  //  	if (timeleft>=0) {
 				 	// 	justquick();
 				 	// }
 				}
 				console.log(timeleft)
 				},1000);
-		
+
 	}
 function myStopFunction() {
     clearInterval(timeOut);
@@ -1429,7 +1429,7 @@ function capitalizeFirstLetter(string) {
 function valid(){
 	if (type == 'TXT') {
 		// if (isEmptyTXT()) {
-			
+
 	 //    	toastr["warning"]("Please put something in the box.", "Hint!");
 	 //    	return false;
 		// }else if(isTooShortTXT()){
@@ -1499,7 +1499,7 @@ function valid(){
 	}else if(type == 'RANGE' || type == 'RANGE_S'){
 		if (sessionStorage['ans_no'] == 'yes' || sessionStorage['ans_no'] == 'null') {
 			if (!validRANGE()) {
-				
+
 		    	toastr["warning"]("The gap between min and max must not more than 10% ("+percentage(b,10).toLocaleString()+").", "Hint!");
 		    	return false;
 			}else{
@@ -1537,7 +1537,7 @@ function valid(){
 	}else if(type == 'YN'){
 		inputType = 'YN';
 		if (!validYN()) {
-			
+
 	    	toastr["warning"]("Please select one of choices.", "Hint!");
 	    	return false;
 		}else{
@@ -1545,7 +1545,7 @@ function valid(){
 		}
 	}else if(type == 'SQ'){
 		if (!validSQ()) {
-			
+
 	    	toastr["warning"]("Please select one of choices.", "Hint!");
 	    	return false;
 		}else{
@@ -1555,7 +1555,7 @@ function valid(){
 	}else if(type == 'SQ_S'){
 		console.log("Enter SQ_S")
 		if (validSQ_S()) {
-			
+
 	    	toastr["warning"]("Invaild input data.", "Hint!");
 	    	return false;
 		}else{
@@ -1712,9 +1712,9 @@ function nextQuestion(callback){
 					// scorePop(Gtemp_02.response.result.grade, Gtemp_02.response.result.rewards);
 					rewardPop(d.response.result.grade, d.response.result.rewards);
 					console.log("Hey! it is the last now! check the console about reward!")
-					
+
 					// $('#myModal').modal("hide");
-				
+
 			}else{
 				// toastr["info"]("Please wait for 1-2 sec. You're going to next question", "Successful");
 				callback(d);
@@ -1753,7 +1753,7 @@ function getRandomPosition(element) {
 	return [randomX,randomY];
 }
 
-// Point 
+// Point
 function generatePoint(src, src2){
 	var img = document.createElement('img');
 	var img_blur = document.createElement('img');
@@ -1766,7 +1766,7 @@ function generatePoint(src, src2){
 	img_blur.setAttribute("style", "position:absolute;");
 	img_blur.setAttribute("src", src2);
 	img_blur.setAttribute("class", "shine animated flip");
-	
+
 	document.getElementById("animation-locate").appendChild(img);
 	document.getElementById("animation-locate").appendChild(img_blur);
 
@@ -1830,7 +1830,7 @@ function rewardPop(grades, rewards){
 	var src2 = '';
 	var i = 0;
 	$('#animation-locate').css('display','block')
-		
+
 		var interval_up = setInterval(function(){
 			console.log('I: '+i)
 			console.log('Reward length: '+rewards.length)
@@ -1877,7 +1877,7 @@ function rewardPop(grades, rewards){
 							}
 							// element.children[k].classList.remove("flip");
 							// element.children[k].classList.add("animated");
-							
+
 							++k;
 						}else{
 							console.log('K: '+k)

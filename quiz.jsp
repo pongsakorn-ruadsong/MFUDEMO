@@ -20,7 +20,7 @@
 			}
 			var c = JSON.parse(sessionStorage['playerMainData'])
 			if (sessionStorage['playerMainData'] != undefined && sessionStorage['loginType'] != 'guest') {
-				
+
 				$('#Player_username').html(c.first_name);
 				$('#Player_Phonenum').html(c.level_title);
 			}else{
@@ -203,7 +203,7 @@
 			width: 100%;
 		    height: 50%;
 		    display: inline-block;
-		    z-index: 1041;
+		    z-index: 2;
 		    padding-top: 10px;
 		}
 		.playCount,.quiz_label{
@@ -312,7 +312,7 @@
         margin-top: -50px;
         margin-left: -100px;
 		}
-		.nameTag{ 
+		.nameTag{
 	       padding: 5px 10px 0px 10px;
 		    width: 40%;
 		    height: 100%;
@@ -350,7 +350,7 @@
 					<div class="in-scored animated" id="in-scored">
 						<div class="score newScore" style="align-self: center;display: flex;align-items: center;">2,500,000</div>
 					</div>
-					
+
 				</div>
 			</div>
 
@@ -364,8 +364,8 @@
 
 		<div class="display-quiz-name" id="disQuizName">
 			<div id="" class="quiz_label" style="position: relative;">
-				
-					
+
+
 				<div class="" id="quiz_label_dis" style="padding-left: 8px;"></div>
 				<span class="" id="time_remain" style="position: relative;text-align: right;font-size: 8px;float: right;margin-top: -18px;"></span>
 				<div>
@@ -374,7 +374,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 	<div class="bg cur-bg animated zoomIn" id="quizPanel" style="flex: 0 1 auto;">
 		<div id="quizPanel" style="display: table;width: 100%;">
@@ -442,7 +442,7 @@
 				</div>
 				<input type="hidden" id="aPrefix">
 				<input type="hidden" id="aAnswer">
-				
+
 		</div>
 	</div>
 	<div class="button-group" id="btn_NR">
@@ -451,7 +451,7 @@
 	</div>
 </div>
 <div class="bg next-bg animated" style="flex: 0 1 auto;">
-	
+
 </div>
 <style type="text/css">
 	.liveFeed{
@@ -500,7 +500,7 @@
 		transition: top 1s;
 	}
 	.tr-feed{
-		
+
 		border-bottom: 1.5px solid white;
 	}
 	.feed-user-name-hilight{
@@ -530,7 +530,7 @@
 		</div> -->
 		<div class="live-box-content">
 			<table id="feed-content" style="text-align: left;overflow-wrap: break-word;table-layout:fixed;width: 100%;background-color: #ffffff29;">
-				
+
 			</table>
 		</div>
 	</div>
@@ -544,7 +544,7 @@
 
   <div class="modal fade" id="assetsChoose" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -558,7 +558,7 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
