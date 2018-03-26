@@ -84,13 +84,12 @@
  });
 	$(document).ready(function(){
 		$("#wheels").click(function(){
-		
         var showSpinWheel = $('#wrapper').css('opacity');
         buildWater();
           if(showSpinWheel == 0){
           	$('body').append('<div class="wheel-tran" style="width:100%;height:100%;position: absolute;z-index: 1;top: 0px;left: 0px;background-color: #0000006e;"></div>')
             $('#wrapper').animate({
-                  'top' : '-=70vw',
+                  'top' : '-=50vw',
                   'opacity' : 1
               },1000);
             $('#arrowNext').animate({
@@ -105,6 +104,7 @@
               'top' : '+=55vw',
                   'opacity' : 1
             },1000);
+            // $(".blur").addClass('blur-filter');
           } else if(showSpinWheel == 1 ){
           	$('body > .wheel-tran').remove();
           	// $('.swiper-slide-active').removeClass('swiper-slide-active');
@@ -115,7 +115,7 @@
           	// $(first).addClass('swiper-slide-active')
           	// $(second).addClass('swiper-slide-next')
             $('#wrapper').animate({
-                'top' : '+=70vw',
+                'top' : '+=50vw',
                 'opacity' : 0
             },1000);
             $('#arrowNext').animate({
@@ -130,6 +130,7 @@
               'top' : '-=55vw',
                   'opacity' : 0
             },1000);
+            // $(".blur").removeClass('blur-filter');
           }
         });
 		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
@@ -387,7 +388,7 @@
 
 .top,
 .bottom {
-      height: 130px;
+    height: 130px;
     width: 260px;
 }
 
@@ -474,14 +475,15 @@
     overflow: hidden;
     position: absolute;
     padding-top: 10vw;
-    padding-bottom: 10vw;
+    bottom: -40%;
+    margin: unset; 
     z-index: 10;
     top: 80%;
     left: -46%;
     opacity: 0;
 }
 #wrapper.pb-spinwheel:before{
-  width: 201vw;
+  	width: 201vw;
     height: 200vw;
     left: -0.5vw;
     top: 10vw;
@@ -501,7 +503,17 @@
   width: 70vw;
   height: 70vw;
   top: 74vw;
-  left: 74vw;
+  left: 70vw;
+}
+#inner-spin.pb-spinwheel{
+	width: 60%;
+    height: 60%;
+    top: 29%;
+    left: 29%;
+    background-size: contain;
+   	box-shadow: rgba(255,255,255,1) 0px 0px 0px inset, rgba(255,255,255,1) 0px 0px 0px inset, rgba(0,0,0,0.4) 2px 7px 10px;
+    background-repeat: no-repeat;
+    background-image: url(img/playbasis_coin_single_500px.png);
 }
     
 button.pb-spinwheel {
@@ -599,8 +611,69 @@ html, body, .container-fluid{
     left: 17%;
     top: -27%;
 }
+@media (max-width: 320px) and (max-height: 480px) {
+			#wheel-arrow.pb-spinwheel{
+				left: 70vw;
+				top: 1vw;
+			}
+			#wrapper.pb-spinwheel{
+			   	width: 200vw;
+			    overflow: hidden;
+			    position: absolute;
+			    padding-top: 10vw;
+			    bottom: -40%;
+			    margin: unset; 
+			    z-index: 10;
+			    top: 80%;
+			    left: -26%;
+			    opacity: 0;
+			}
+			#wrapper.pb-spinwheel:before{
+			  	width: 151vw;
+    			height: 150vw;
+			    left: -0.5vw;
+			    top: 10vw;
+			    margin-left: 0; 
+			}
+			#wheel.pb-spinwheel{
+			    width: 150vw;
+    			height: 150vw;
+			}
+			#wheel.pb-spinwheel:before{
+			    width: 145vw;
+    			height: 145vw;
+			    top: 0vw;
+			    left: 0vw;
+			}
+			#spin.pb-spinwheel{
+			  	width: 60vw;
+			    height: 60vw;
+			    top: 55vw;
+			    left: 55vw;
+			}
+			#inner-spin.pb-spinwheel{
+				width: 75px;
+			    height: 75px;
+			    top: 42%;
+			    left: 42%;
+			    background-size: contain;
+			    box-shadow: rgba(255,255,255,1) 0px 0px 0px inset, rgba(255,255,255,1) 0px 0px 0px inset, rgba(0,0,0,0.4) 0px 3px 5px;
+			    background-repeat: no-repeat;
+			    background-image: url(img/playbasis_coin_single_500px.png);
+			}
+			#wheel.pb-spinwheel div.sec.pb-spinwheel .fa.pb-spinwheel{
+			  margin-top: -200px;
+			}
+			#wheel.pb-spinwheel div.sec.sec-8.pb-spinwheel{
+			    border-width: 150vw 63vw 0;
+			    transform-origin: 63.2vw 150vw;
+			    left: 7%;
+    			top: -53%;
+			}
+		}
 </style>
 <body>
+<<<<<<< HEAD
 <div id="sipnWheel" style="width: 100%;z-index: 1099;">
     <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;right: -10vw"></div>
       <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -10vw"></div>
@@ -614,6 +687,23 @@ html, body, .container-fluid{
           class="spinwheel"
         >Loading...</pb-spinwheel>
 </div>
+=======
+
+    		<div id="sipnWheel" style="width: 100%;">
+			    <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;left: 100vw"></div>
+			      	<div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -15vw"></div>
+				        <pb-spinwheel 
+				          env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
+				          env-target-action="click"
+				          env-target-tag="spin-wheel-01"
+				          env-custom-param-url-values='["spin"]'
+				          player-id=""
+				          show-debug-log
+				          class="spinwheel"
+				        >Loading...</pb-spinwheel>
+			</div>
+
+>>>>>>> hotfix/0.3.11/spinPlay
 	<div class="otherMenu menu-hide" onblur="myFunction()" style="position: fixed;bottom: -118px;right: 0px;width: 22%;z-index: 1020;background-color: aqua;display: none;">
 		<div class=" center" style="padding: 10px">
 			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
