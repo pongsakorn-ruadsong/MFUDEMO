@@ -90,7 +90,7 @@
           	$('.swiper-container.gameSwip').css('z-index','3')
           	$('body').append('<div class="wheel-tran" style="width:100%;height:100%;position: absolute;z-index: 2;top: 0px;left: 0px;background-color: #0000006e;"></div>')
             $('#wrapper').animate({
-                  'top' : '-=50vw',
+                  'top' : '-=80vw',
                   'opacity' : 1
               },1000);
             $('#arrowNext').animate({
@@ -116,7 +116,7 @@
           	// $(first).addClass('swiper-slide-active')
           	// $(second).addClass('swiper-slide-next')
             $('#wrapper').animate({
-                'top' : '+=50vw',
+                'top' : '+=80vw',
                 'opacity' : 0
             },1000);
             $('#arrowNext').animate({
@@ -633,6 +633,7 @@ html, body, .container-fluid{
 			    margin: unset;
 			    z-index: 10;
 			    top: 80%;
+					margin-top: 22%;
 			    left: -26.5%;
 			    opacity: 0;
 			}
