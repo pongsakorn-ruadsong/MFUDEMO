@@ -91,7 +91,6 @@
 	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 </script>
-<link rel="stylesheet" href="css/swiper.min.css">
 <style type="text/css">
 	.swiper-container {
       width: 100%;
@@ -119,7 +118,7 @@
 		color: white;
 	    height: 100%;
 	    width: 190px;
-	    font-size: 28px;
+	    font-size: 8vw;
 	    text-align: center;
 	    background-color: #ff002f00;
 	    display: flex;
@@ -212,7 +211,7 @@
 		width: 40px;
 		height: 40px;
 		position: relative;
-		z-index: 1039;
+		z-index: 2;
 		transition: all 0.1s;
 	}
 	#myCoin{
@@ -244,7 +243,7 @@
 			<!-- <span class="pip-hilight" style="position: absolute;top: 40px;left: 38px;z-index: 1040;">Click here!</span> -->
 		</div>
 		<div class="coin-amount">
-			<div id="amount-frame" style="align-self: center;display: flex;align-items: center;justify-content: flex-end;position: relative;width: 100%;height: 40px;">
+			<div id="amount-frame" style="align-self: center;display: flex;align-items: center;justify-content: flex-end;position: relative;width: 100%;height: 12vw;">
 				<span id="coinNumber" style="position: absolute;top: 0px;left: 0px;align-self: center;">3,996,240<span style="font-size: 18px;font-weight: 100;align-self: flex-end;margin-bottom: 3.5px;">.84</span></span> 
 			</div>
 		</div>
@@ -279,43 +278,52 @@
 			<div class="swiper-slide good-display-details" style="padding: 40px 20px 0px 20px;text-align: center;overflow-y: scroll;">
 				<div class="row100">
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Digital.png">
-						<span class="icons">Digital Dollars</span>
+						<img src="img/bank.png"> <!-- Digital.png -->
+						<!-- <span class="icons">Digital Dollars</span> -->
+						<span class="icons">Bank</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Vochers7.png">
-						<span class="icons">Virtual Vouchers</span>
+						<img src="img/fashion.png"> <!-- Vochers7.png -->
+						<!-- <span class="icons">Virtual Vouchers</span> -->
+						<span class="icons">Fashion</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Coupons6.png">
-						<span class="icons">Crypto Coupons</span>
+						<img src="img/game.png"> <!-- Coupons6.png -->
+						<!-- <span class="icons">Crypto Coupons</span> -->
+						<span class="icons">Game</span>
 					</div>
 				</div>
 				<div class="row100">
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Loans4.png">
-						<span class="icons">Linked Loans</span>
+						<img src="img/gym.png"> <!-- Loans4.png -->
+						<!-- <span class="icons">Linked Loans</span> -->
+						<span class="icons">Gym</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Bonds5.png">
-						<span class="icons">Byte Bound</span>
+						<img src="img/insurance.png"> <!-- Bonds5.png -->
+						<!-- <span class="icons">Byte Bound</span> -->
+						<span class="icons">Insurance</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/stocks4.png">
-						<span class="icons">Synthetic Stocks</span>
+						<img src="img/magazing.png"> <!-- stocks4.png -->
+						<!-- <span class="icons">Synthetic Stocks</span> -->
+						<span class="icons">Magazing</span>
 					</div>
 				</div>
 				<div class="row100" style="margin-bottom: 50px;">
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Coverage.png">
-						<span class="icons">Cyber Coverage</span>
+						<img src="img/pizza.png"> <!-- Coverage.png -->
+						<!-- <span class="icons">Cyber Coverage</span> -->
+						<span class="icons">Pizza</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
-						<img src="img/Mortgage2.png">
-						<span class="icons">Mobile Mortgage</span>
+						<img src="img/shop.png"> <!-- Mortgage2.png -->
+						<!-- <span class="icons">Mobile Mortgage</span> -->
+						<span class="icons">Shop</span>
 					</div>
 					<div class="cols-33 padding-left-right-20">
-						
+						<img src="img/tour.png"> 
+						<span class="icons">Tour</span>
 					</div>
 				</div>
 				<!-- <div class="demo-wrapper">
@@ -411,7 +419,7 @@
 .coin-container{
     perspective: 1100px;
     position: absolute;
-    z-index: 11;
+    z-index: 1;
     width: 100%;
     height: 0px; 
     transition: all 1.1s;
@@ -419,7 +427,6 @@
     transition-timing-function: cubic-bezier(0.11, 1.66, 0.57, 0.97);
     top: -140px;
     left: 0px;
-    z-index: 9;
 }
 .coin{
       font-family: arial;
@@ -468,5 +475,4 @@ h1{
 <script type="text/javascript">
 	
 </script>
-<script src="js/swiper.min.js"></script>
 <%@include file="bottom.jsp" %>
