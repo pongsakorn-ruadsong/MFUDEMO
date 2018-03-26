@@ -296,7 +296,6 @@
 	      text-align: center;
 	      font-size: 18px;
 	      background: #fff;
-	   
 	      /* Center slide text vertically */
 	      display: -webkit-box;
 	      display: -ms-flexbox;
@@ -305,7 +304,6 @@
 	      -webkit-box-pack: center;
 	      -ms-flex-pack: center;
 	      -webkit-justify-content: center;
-	      justify-content: center;
 	      -webkit-box-align: center;
 	      -ms-flex-align: center;
 	      -webkit-align-items: center;
@@ -315,9 +313,11 @@
 	  	animation-duration: 0.8s;
 	  }
 	  .login-bg{
-  	    height: calc(100%);
+  	    height: 100%;
 	    width: 100%;
-	    position: relative;
+	    top: 0px;
+	    left: 0px;
+	    position: absolute;
 	    background-color: black;
 	    
 	  }
@@ -325,8 +325,10 @@
 	  	height: 100%;
 	    width: 100%;
 	    position: absolute;
+	    top: 0px;
+	    left: 0px;
 	    background-image: url(gif/Login_motion.gif);
-	    background-size: contain;
+	    background-size: cover;
 	    background-repeat: no-repeat;
 	    background-position-y: bottom;
 	  }
@@ -342,6 +344,16 @@
 	    align-items: center;
 	    color: white;
 	    font-size: 60px;
+		}
+		@media (max-width: 320px) and (max-height: 500px) {
+			.test-bg{
+				margin-top: 10%;
+			}
+		}
+		@media (min-width: 375px) and (min-height: 670px){
+			.test-bg{
+				background-size: contain;
+			}
 		}
 	</style>
 <div class="login-bg">

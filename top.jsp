@@ -28,13 +28,18 @@
 	<!-- <script src="js/intlTelInput.min.js"></script> -->
 	<script src="js/intlTelInput.js"></script>
 	<script src="js/utils.js"></script>
+	<script src="js/PB_utilities.js"></script>
 	<script src="js/Leader.js"></script>
+	<script src="js/untitled.js"></script>
 	<script src="js/qrcode.min.js"></script>
+	<script src="js/Playbasis.min.js"></script>
+	<script src="js/velocity.min.js"></script>
+	<script src="js/velocity.ui.min.js"></script>
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<link rel="import" href="playbasis/pb-spinwheel-component.v.html">
 	<!-- <script src="js/jquery-1.3.2.min.js"></script>     -->
 	<script src="js/jquery-barcode.min.js"></script> 
-
 	<script src="js/chartist.js"></script>
-
 	<link rel="stylesheet" href="css/intlTelInput.css" />
 	<link href="css/bootstrap-glyphicons.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
@@ -44,12 +49,12 @@
 	<link rel="stylesheet" type="text/css" href="css/Whole.css">
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
-	
 	<link rel="stylesheet" type="text/css" href="css/chartist.css">
-
 	<link rel="stylesheet" type="text/css" href="css/flags.min.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<!-- <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="playbasis/pb-spinwheel-component.html"> -->
 
 	<%
 		String uri = request.getRequestURI();
@@ -58,21 +63,92 @@
 	<title>Demo v0.1</title>
 </head>
 <script type="text/javascript">
+	function c(m){
+		console.log(m);
+	}
+	Playbasis.builder
+	    .setApiKey(sessionStorage['api_key'])
+	    .setApiSecret(sessionStorage['api_sec'])
+	    .build();
 	var guestImage = new Array("img/batman.png","img/flash.png","img/robin.png","img/superman.png","img/spiderman.png","img/punisher.png","img/wonderwoman.png","img/ironman.png")
 	$( function() {
     $( "#draggable" ).draggable();
   	} );
+  	document.addEventListener("pb-spinwheel-success-event", function(e) {
+	   console.log("You got reward: ", e.detail);
+	   alert("You got reward!\nSee console for detail.");
+	 });
+  	document.addEventListener("pb-spinwheel-error-event", function(e) {
+   console.log("Error code " + e.detail.code + " with detail: '", e.detail, "'");
+   alert("There's an error!\nSee console for detail.");
+ });
 	$(document).ready(function(){
+		$("#wheels").click(function(){
+        var showSpinWheel = $('#wrapper').css('opacity');
+        buildWater();
+          if(showSpinWheel == 0){
+            $('#wrapper').animate({
+                  'top' : '-=70vw',
+                  'opacity' : 1
+              },1000);
+            $('#arrowNext').animate({
+              'left' : '-=15vw',
+                  'opacity' : 1
+            },500);
+            $('#arrowPrev').animate({
+              'left' : '+=25vw',
+                  'opacity' : 1
+            },500);
+            $("#pb-spinwheel-button").animate({
+              'top' : '+=55vw',
+                  'opacity' : 1
+            },1000);
+            $(".main_bg").addClass('blur-filter');
+          } else if(showSpinWheel == 1 ){
+            $('#wrapper').animate({
+                'top' : '+=70vw',
+                'opacity' : 0
+            },1000);
+            $('#arrowNext').animate({
+              'left' : '+=15vw',
+                  'opacity' : 0
+            },500);
+            $('#arrowPrev').animate({
+              'left' : '-=25vw',
+                  'opacity' : 0
+            },500);
+            $("#pb-spinwheel-button").animate({
+              'top' : '-=55vw',
+                  'opacity' : 0
+            },1000);
+            $(".main_bg").removeClass('blur-filter');
+          }
+        });
+		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
+		$('.middle-menu').click(function(){
+	    	if (!$('#test').hasClass('rotate-hide') && !$('#test').hasClass('rotate-show')) {
+	    		console.log('no have class hide and show')
+	    		$('#test').addClass('rotate-show')
+	    	}
+	    	else if($('#test').hasClass('rotate-show')){
+	    		$('#test').removeClass('rotate-show').addClass('rotate-hide')
+	    	}
+	    	else if($('#test').hasClass('rotate-hide')){
+				$('#test').removeClass('rotate-hide').addClass('rotate-show')
+			}
+		});
 		sessionStorage['pageName'] = $('#pageName').val();
 		console.log(sessionStorage['pageName']);
-		if (sessionStorage['pageName'] == 'login' || sessionStorage['pageName'] == 'login.jsp') {
-			$('#myNav').hide();
-			$('.footer').css('display','none');
-			$('.otherMenu').css('display','none');
+		if (sessionStorage['pageName'] != 'login') {
+			c('In');
+			$('#myNav').css('display','flex');
+			$('.footer').css('display','block');
+			$('.otherMenu').css('display','block');
 		}
 		else{
-			$('#myNav').show();
-			$('.footer').css('display','block');
+			c('Out');
+			$('#myNav').hide();
+			$('.footer').css('display','none');
 		}
 		if (sessionStorage['pageName'] != 'index.jsp') {
 			$('#barHome').removeClass('active');
@@ -92,7 +168,6 @@
 		// 	$('#userInfo').modal("hide");
 		// });
 		$('#submitLang').click(function(){
-
 			changeLang(function(){
 				location.reload();
 			});
@@ -145,6 +220,19 @@
 				},500);
 			}
 		});
+		$('.middle-menu').click(function(){
+			$('#wheels').addClass('spinning')
+			setTimeout(function(){
+				$('#wheels').removeClass('spinning')
+			},1000);
+			if (!$('#wheels-menu').hasClass('rotate') || $('#wheels-menu').hasClass('rotate-hid')) {
+				$('#wheels-menu').removeClass('rotate-hid');
+				$('#wheels-menu').addClass('rotate');
+			}
+			else{
+				$('#wheels-menu').removeClass('rotate').addClass('rotate-hid');
+			}
+		});
 	});
 	// $(document).mouseup(function(e) 
 	// 	{
@@ -165,6 +253,40 @@
 		}
 </script>
 <style type="text/css">
+	.spinning{
+		-webkit-animation: spinaa 1s cubic-bezier(0, 0.93, 1, 1);
+	    animation: spinaa 1s cubic-bezier(0, 0.93, 1, 1);
+	    animation-fill-mode: forwards;
+	}
+	#wheels{
+		margin-right: 0px;
+	    width: 60%;
+	    margin-top: 10px;
+	    height: auto;
+	    align-self: center;
+	}
+	@-webkit-keyframes spinaa {
+	  from {
+	    -webkit-transform: rotate(0deg);
+	            transform: rotate(0deg);
+	  }
+	  to {
+	    -webkit-transform: rotate(360deg);
+	            transform: rotate(360deg);
+	  }
+	}
+
+	@keyframes spinaa {
+	  from {
+	    -webkit-transform: rotate(0deg);
+	            transform: rotate(0deg);
+	  }
+	  to {
+	    -webkit-transform: rotate(360deg);
+	            transform: rotate(360deg);
+
+	  }
+	}
 	.container-fluid > .navbar-collapse {
 	    margin-right: 0px;
 	     margin-left: 0px; 
@@ -224,9 +346,262 @@
 	.otherMenu{
 		transition: all 0.5s;
 	}
+	#test{
+		
+		background: 
+		linear-gradient(-45deg, lightblue 50%, yellow 0%), 
+		linear-gradient(45deg, tomato 50%, red 0%);
+		
+		background-size: 50% 100%;
+
+		background-position: 
+		
+		0 100%, 
+		100% 100%;
+
+		background-repeat: no-repeat;
+	}
+	.pie{
+		position: absolute;
+	    transform: rotate(180deg);
+	    width: 50px;
+	    height: 50px;
+	    border-radius: 50px;
+	    background-color: white;
+	}
+	.ani {
+  background: #9e978e;
+}
+
+.top,
+.bottom {
+      height: 130px;
+    width: 260px;
+}
+
+.top {
+  border-top-left-radius: 90px;
+  border-top-right-radius: 90px;
+}
+
+.bottom {
+  border-bottom-left-radius: 130px;
+  border-bottom-right-radius: 130px;
+}
+.rotate-show {
+  -webkit-animation: 0.5s linear rotate-s;
+          animation: 0.5s linear rotate-s;
+  position: relative;
+  animation-fill-mode: forwards;
+  top: 0px;
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+}
+
+@-webkit-keyframes rotate-s {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+}
+
+@keyframes rotate-s {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+
+  }
+}
+
+.rotate-hide {
+  -webkit-animation: 0.5s linear rotate-h;
+          animation: 0.5s linear rotate-h;
+  position: relative;
+  animation-fill-mode: forwards;
+  top: 0px;
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+}
+
+@-webkit-keyframes rotate-h {
+  from {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate-h {
+  from {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+
+  }
+}
+#wheel-arrow.pb-spinwheel{
+  left: 91vw;
+    top: 1vw;
+}
+#wrapper.pb-spinwheel{
+    width: 200vw;
+    overflow: hidden;
+    position: absolute;
+    padding-top: 10vw;
+    padding-bottom: 10vw;
+    z-index: 10;
+    top: 80%;
+    left: -46%;
+    opacity: 0;
+}
+#wrapper.pb-spinwheel:before{
+  width: 201vw;
+    height: 200vw;
+    left: -0.5vw;
+    top: 10vw;
+    margin-left: 0; 
+}
+#wheel.pb-spinwheel{
+  width: 200vw;
+  height: 200vw;
+}
+#wheel.pb-spinwheel:before{
+  width: 195vw;
+    height: 195vw;
+    top: 0vw;
+    left: 0vw;
+}
+#spin.pb-spinwheel{
+  width: 70vw;
+  height: 70vw;
+  top: 74vw;
+  left: 74vw;
+}
+    
+button.pb-spinwheel {
+  width: 40vw;
+  height: 40vw;
+  position: absolute;
+  background: white;
+  color: gray;
+  left: 28vw;
+  top: -46vw;
+  padding-top: 16vw;
+  opacity: 0;
+  border-radius: 50%;
+  border: 1px solid #b3ccff;
+  overflow: hidden;
+  box-shadow: 0px 1px 20px #b3ccff;
+  margin: 10px;
+  z-index: 10;
+}
+button.pb-spinwheel:disabled{
+  width: 40vw;
+  height: 40vw;
+  position: absolute;
+  background: lightgray;
+  opacity: 0.5;
+  color: gray;
+  left: 28vw;
+  top: -46vw;
+  padding-top: 16vw;
+  border-radius: 50%;
+  border: 1px solid #b3ccff;
+  overflow: hidden;
+  box-shadow: 0px 1px 20px #b3ccff;
+  margin: 10px;
+}
+html, body, .container-fluid{
+  overflow: hidden;
+}
+.blur-filter {
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+.profile {
+  width: 40vw;
+  height: 40vw;
+  position: relative;
+  /*opacity: 0;*/
+  /*background-image: url(img/wonderwoman.png);*/
+  /*background-size: cover;*/
+  border-radius: 50%;
+  border: 1px solid #b3ccff;
+  overflow: hidden;
+  box-shadow: 0px 1px 20px #b3ccff;
+  margin: 10px;
+}
+#water{
+  width: 60vw;
+  height: 100%;
+  background: #4A90E2;
+  position: relative;
+  top: -4.5vw;
+}
+@keyframes a0_t { 
+  0% { transform: translate(-420.5px,15px); } 
+  100% { transform: translate(-140px,15px); } 
+}
+@keyframes a1_t { 
+  0% { transform: translate(0px,15px); } 
+  100% { transform: translate(-280.5px,15px); }
+}
+
+.water-fill {
+  fill:#4A90E2;
+}
+
+.water-fill.full {
+  opacity:0.45;
+}
+
+.water-block{
+  top: -3vw;
+  position: relative;
+  transition: all 1s;
+}
+#wheel.pb-spinwheel div.sec.pb-spinwheel .fa.pb-spinwheel{
+  margin-top: -280px;
+}
+#wheel.pb-spinwheel div.sec.sec-8.pb-spinwheel{
+    border-width: 150vw 63vw 0;
+    transform-origin: 63.2vw 150vw;
+    left: 17%;
+    top: -27%;
+}
 </style>
 <body>
-	<div class="otherMenu menu-hide" onblur="myFunction()" style="position: fixed;bottom: -12%;right: 0px;width: 22%;z-index: 1020;background-color: aqua;display: none;">
+<div id="sipnWheel" style="width: 100%;">
+    <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;left: 100vw"></div>
+      <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -15vw"></div>
+        <pb-spinwheel 
+          env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
+          env-target-action="click"
+          env-target-tag="spin-wheel-01"
+          env-custom-param-url-values='["spin"]'
+          player-id=""
+          show-debug-log
+          class="spinwheel"
+        >Loading...</pb-spinwheel>
+</div>
+	<div class="otherMenu menu-hide" onblur="myFunction()" style="position: fixed;bottom: -118px;right: 0px;width: 22%;z-index: 1020;background-color: aqua;display: none;">
 		<div class=" center" style="padding: 10px">
 			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
 			<p style="font-size: 8px;text-align: center;">Language</p>
@@ -236,57 +611,48 @@
 			<p style="font-size: 8px;text-align: center;">Logout</p>
 		</div>
 	</div>
-	<nav class="navbar navbar-inverse navbar-fixed-bottom" id="myNav" style="height: 10%;">
-		<ul class="nav navbar-nav navbar-left" style="margin: 0px;float: left;margin-left: 15px;">
-			<div class="row">
-
-			</div>
-		</ul>
-		<ul class="nav navbar-nav navbar-right" style="margin: 0px;float: right;padding: 5px 5px;">
-				<!-- <a class="navbar-brand userPhoto" href="#" style="padding: 0px;border: 3px solid green;border-radius: 50%;"><img src="img/default_user.png" id="userPro" style="width: 100%;height: 100%"></a> -->
-				<a class="navbar-brand userPhoto" href="#" data-toggle="modal" data-target="#menuPanel" style="padding: 0px;float: right;">
-					
-				</a>
-		</ul>
-
-		<div class="" style="width: 37%;float: left;">
+	<nav class="navbar navbar-inverse navbar-fixed-bottom" id="myNav" style="height: 10%;display: none;">
+		<div style="position: absolute;z-index: 0;width: 100%;height: 100%;background-color: white;"></div>
+		<div class="" style="width: 37%;float: left;align-self: center;margin-right: 26%;z-index: 1;margin-top: -10px;">
 			<a href="Leader.jsp">
 		   		<div class="center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
-		   			<img src="img/newspaper.png" style="margin-right: 0px;width: 55%;">
-		   			<p style="font-size: 8px;text-align: center;color: black;">News</p>
+		   			<img src="img/news1.png" style="margin-right: 0px;width: 55%;">
+		   			<!-- <p style="font-size: 8px;text-align: center;color: black;">News</p> -->
 		   		</div>
 	   		</a>
-	   		<a href="rewardStore">
+	   		<a href="playlist.jsp">
 		   		<div class="center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
-		   			<img src="img/offers_untrim.png" style="margin-right: 0px;width: 55%;">
-		   			<p style="font-size: 8px;text-align: center;color: black;">Offers</p>
+		   			<img src="img/playlistsicon.png" style="margin-right: 0px;width: 55%;">
+		   			<!-- <p style="font-size: 8px;text-align: center;color: black;">Offers</p> -->
 		   		</div>
 	   		</a>
 	   	</div>
 
-	   	<div class="center" style="position: absolute;left: 50%;position: absolute;left: 50%;width: 24%;height: 100%;">
-		   		<div style="position: relative;left: -50%;height: 100%;" onclick="location.href='index'">
-		   			<img src="img/playlistsicon.png" style="margin-right: 0px;width: 50%;height: 55%;margin-top: 10px;">
-		   			<p style="font-size: 8px;text-align: center;color: black;">Playlists</p>
-	   			</div>
+	   	<div class="center" style="position: absolute;left: 50%;position: absolute;left: 50%;width: 24%;height: 100%;display: flex;justify-content: center;">
+		   		<div onclick="location.href='index.jsp'" style="position: relative;left: -28%;height: 100%;display: flex;margin-top: -5px;" > <!-- onclick="location.href='index'" -->
+		   			<img class="middle-menu" id="wheels" src="img/tar.png">
+		   			<img class="middle-menu" src="img/pin.png" style="margin-right: 0px;width: 15%;position: relative;margin-top: 0px;height: auto;align-self: center;left: -37%;top: -16px;">
+		   			<!-- <p style="font-size: 8px;text-align: center;color: black;">Playlists</p> -->
+	   			</div>		
    		</div>
 
-	   	<div style="width: 37%;float: right;margin-right: -10px;">
-	   		<a href="#">
+	   	<div style="width: 37%;float: right;margin-right: -10px;align-self: center;z-index: 1;margin-top: -10px;">
+	   		<a href="rewardStore.jsp">
 		   		<div class=" center" style="display: inline-block;width: 48.5%;margin-top: 10px;">
-					<img src="img/wallet_untrim.png" style="margin-right: 0px;width: 55%;">
-					<p style="font-size: 8px;text-align: center;color: black;">Wallet</p>
+					<img src="img/offers_untrim.png" style="margin-right: 0px;width: 55%;">
+					<!-- <p style="font-size: 8px;text-align: center;color: black;">Wallet</p> -->
 				</div>
 			</a>	
 			<a href="#">
 				<div class=" center" id="Setting" style="display: inline-block;width: 48.5%;margin-top: 10px;">
-					<img src="img/setting.png" style="margin-right: 0px;width: 55%;">
-					<p style="font-size: 8px;text-align: center;color: black;">Settings</p>
+					<img src="img/wallet2.png" style="margin-right: 0px;width: 55%;">
+					<!-- <p style="font-size: 8px;text-align: center;color: black;">Settings</p> -->
 				</div>
 			</a>
 		</div>
 		<div style="clear: both;"></div>
 	</nav>
+	
 	<div class="container-fluid">
 		<input type="hidden" id="pageName" name="pageName" value="<%=pageName%>">
 		<!-- <div id="draggable" class="ui-widget-content" style="position: absolute;top: 100px;z-index: 9999;">

@@ -343,13 +343,14 @@
 			</div>
 			<div id="scored" class="scored">
 				<div id="covered-rw-feed" style="border-bottom: 1px solid aqua;display: flex;width: 100%;justify-content: flex-end;align-items: center;height: 100%;">
+
 					<div class="reward-feed-img" id="reward-feed-img">
 						<img id="feed-reward-img" src="img/EXP.png" class="animated" style="margin-right: 0px;width: 35px;height: 35px;background-color: #ffffff00;align-self: center;">
 					</div>
 					<div class="in-scored animated" id="in-scored">
-						
 						<div class="score newScore" style="align-self: center;display: flex;align-items: center;">2,500,000</div>
 					</div>
+					
 				</div>
 			</div>
 
