@@ -5156,6 +5156,7 @@ var _createClass = function() {
                         key: "fireSuccessEvent",
                         value: function fireSuccessEvent(e) {
                             this.dlog("firing success event: " + this.kSuccessEvent, e);
+
                             var t = new CustomEvent(this.kSuccessEvent, {
                                 detail: e
                             });
@@ -5165,6 +5166,7 @@ var _createClass = function() {
                         key: "fireErrorEvent",
                         value: function fireErrorEvent(e) {
                             this.dlog("firing error event: " + this.kErrorEvent, e);
+                            $('#pb-spinwheel-button').text('none')
                             var t = new CustomEvent(this.kErrorEvent, {
                                 detail: e
                             });
@@ -5192,7 +5194,8 @@ var _createClass = function() {
                         key: "beginSpinWheelFlow",
                         value: function beginSpinWheelFlow() {
                             var e = this;
-                            this.dlog("_spinButtonDisabled: " + this._spinButtonDisabled), this._spinButtonDisabled || (this._spinButtonDisabled = !0, this.executeEngineRuleToGetRewardId().then(function(t) {
+                            console.log(this._spinButtonDisabled)
+                            this.dlog("_spinButtonDisabled: " + this._spinButtonDisabled), this._spinButtonDisabled || (this.executeEngineRuleToGetRewardId().then(function(t) {
                                 e._gotRewardItem = t.response.events[0], e.markTargetSectionIndex(), e.spinWheel(e.getRotationAngleForTargetSectionIndex(e._targetSectionIndex))
                             }, function(t) {
                                 e.dlog(t), e.fireErrorEvent(t)

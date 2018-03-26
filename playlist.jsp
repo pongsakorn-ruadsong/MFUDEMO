@@ -14,15 +14,15 @@
 		
 	});
 </script>
-<link rel="stylesheet" href="css/swiper.min.css">
+
 <style type="text/css">
-	.swiper-container {
+	.swiper-container.swiper1,.swiper-container.swiper2,.swiper-container.swiper3 {
       width: 100%;
       padding: 8px;
       height: 70vw;
       margin: 20px 0;
     }
-    .swiper-slide {
+    .swiper-slide.default-slide {
       text-align: center;
       font-size: 18px;
       background: #fff;
@@ -225,7 +225,7 @@
 
     </div>
   </div>
-  <script src="js/swiper.min.js"></script>
+  
   <script>
     
   </script>

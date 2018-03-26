@@ -15,7 +15,7 @@
     	background-size: cover;
     	overflow: scroll;
 	}
-    .swiper-slide {
+    .swiper-slide.boxLeader {
       text-align: center;
       font-size: 18px;
       background: #fff;

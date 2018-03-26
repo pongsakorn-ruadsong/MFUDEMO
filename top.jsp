@@ -55,7 +55,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<!-- <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 	<link rel="import" href="playbasis/pb-spinwheel-component.html"> -->
-
+	<script src="js/swiper.min.js"></script>
 	<%
 		String uri = request.getRequestURI();
 		String pageName = uri.substring(uri.lastIndexOf("/")+1);
@@ -76,18 +76,19 @@
   	} );
   	document.addEventListener("pb-spinwheel-success-event", function(e) {
 	   console.log("You got reward: ", e.detail);
-	   alert("You got reward!\nSee console for detail.");
+	   
 	 });
   	document.addEventListener("pb-spinwheel-error-event", function(e) {
-   console.log("Error code " + e.detail.code + " with detail: '", e.detail, "'");
-   alert("There's an error!\nSee console for detail.");
+   		console.log("Error code " + e.detail.code + " with detail: '", e.detail, "'");
+   
  });
 	$(document).ready(function(){
 		$("#wheels").click(function(){
         var showSpinWheel = $('#wrapper').css('opacity');
         buildWater();
           if(showSpinWheel == 0){
-          	$('body').append('<div class="wheel-tran" style="width:100%;height:100%;position: absolute;z-index: 1;top: 0px;left: 0px;background-color: #0000006e;"></div>')
+          	$('.swiper-container.gameSwip').css('z-index','3')
+          	$('body').append('<div class="wheel-tran" style="width:100%;height:100%;position: absolute;z-index: 2;top: 0px;left: 0px;background-color: #0000006e;"></div>')
             $('#wrapper').animate({
                   'top' : '-=50vw',
                   'opacity' : 1
@@ -130,7 +131,10 @@
               'top' : '-=55vw',
                   'opacity' : 0
             },1000);
-            // $(".blur").removeClass('blur-filter');
+            setTimeout(function(){
+            	$('.swiper-container.gameSwip').css('z-index','-1')
+            },500);
+
           }
         });
 		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
@@ -265,6 +269,7 @@
 			}
 		}
 </script>
+<link rel="stylesheet" href="css/swiper.min.css">
 <style type="text/css">
 	.spinning{
 		-webkit-animation: spinaa 1s cubic-bezier(0, 0.93, 1, 1);
