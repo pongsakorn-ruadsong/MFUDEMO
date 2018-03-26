@@ -467,7 +467,7 @@
   }
 }
 #wheel-arrow.pb-spinwheel{
-  left: 91vw;
+  left: 93vw;
     top: 1vw;
 }
 #wrapper.pb-spinwheel{
@@ -479,7 +479,7 @@
     margin: unset; 
     z-index: 10;
     top: 80%;
-    left: -46%;
+    left: -48.5%;
     opacity: 0;
 }
 #wrapper.pb-spinwheel:before{
@@ -625,7 +625,7 @@ html, body, .container-fluid{
 			    margin: unset; 
 			    z-index: 10;
 			    top: 80%;
-			    left: -26%;
+			    left: -48.5%;
 			    opacity: 0;
 			}
 			#wrapper.pb-spinwheel:before{
@@ -673,7 +673,6 @@ html, body, .container-fluid{
 		}
 </style>
 <body>
-<<<<<<< HEAD
 <div id="sipnWheel" style="width: 100%;z-index: 1099;">
     <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;right: -10vw"></div>
       <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -10vw"></div>
@@ -687,23 +686,6 @@ html, body, .container-fluid{
           class="spinwheel"
         >Loading...</pb-spinwheel>
 </div>
-=======
-
-    		<div id="sipnWheel" style="width: 100%;">
-			    <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;left: 100vw"></div>
-			      	<div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -15vw"></div>
-				        <pb-spinwheel 
-				          env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
-				          env-target-action="click"
-				          env-target-tag="spin-wheel-01"
-				          env-custom-param-url-values='["spin"]'
-				          player-id=""
-				          show-debug-log
-				          class="spinwheel"
-				        >Loading...</pb-spinwheel>
-			</div>
-
->>>>>>> hotfix/0.3.11/spinPlay
 	<div class="otherMenu menu-hide" onblur="myFunction()" style="position: fixed;bottom: -118px;right: 0px;width: 22%;z-index: 1020;background-color: aqua;display: none;">
 		<div class=" center" style="padding: 10px">
 			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
