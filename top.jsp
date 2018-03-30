@@ -40,6 +40,7 @@
 	<!-- <script src="js/jquery-1.3.2.min.js"></script>     -->
 	<script src="js/jquery-barcode.min.js"></script>
 	<script src="js/chartist.js"></script>
+	<link rel="stylesheet" href="css/aos.css" />
 	<link rel="stylesheet" href="css/intlTelInput.css" />
 	<link href="css/bootstrap-glyphicons.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/gearSlide.css">
