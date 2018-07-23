@@ -36,7 +36,9 @@
 	<script src="js/velocity.min.js"></script>
 	<script src="js/velocity.ui.min.js"></script>
 	<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<script src="bower_components/webcomponentsjs/webcomponents.js"></script>
 	<link rel="import" href="playbasis/pb-spinwheel-component.v.html">
+	<link rel="import" href="playbasis/pb-slot-component.html">
 	<!-- <script src="js/jquery-1.3.2.min.js"></script>     -->
 	<script src="js/jquery-barcode.min.js"></script>
 	<script src="js/chartist.js"></script>
@@ -56,7 +58,12 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<!-- <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 	<link rel="import" href="playbasis/pb-spinwheel-component.html"> -->
+	<script src="js/hammer.js"></script>
+	<script src="playbasis/pb-slot-component.js"></script>
+	<script src="js/Chart.min.js"></script>
 	<script src="js/swiper.min.js"></script>
+	<link rel="stylesheet" href="intlTelInput.css">
+	<script src="intlTelInput.min.js"></script>
 	<%
 		String uri = request.getRequestURI();
 		String pageName = uri.substring(uri.lastIndexOf("/")+1);
@@ -78,33 +85,70 @@
   	document.addEventListener("pb-spinwheel-success-event", function(e) {
 	   console.log("You got reward: ", e.detail);
 
-	 });
+	});
   	document.addEventListener("pb-spinwheel-error-event", function(e) {
    		console.log("Error code " + e.detail.code + " with detail: '", e.detail, "'");
+    });
 
- });
 	$(document).ready(function(){
+	    console.log("Player_ID: "+sessionStorage['player']);
+	    console.log("Token: "+sessionStorage['Token']);
+        createSlots($("#ring1"));
+
+        var sw1=document.getElementById('swipe-area');
+        var swipe=new Hammer(sw1);
+        swipe.get("pan").set({direction:Hammer.DIRECTION_VERTICAL});
+
+        swipe.on("panend",function(){
+            var timer=2;
+            spin(timer);
+        });
+
 		$("#wheels").click(function(){
+		var showSlot=$('#stage').css('opacity');
         var showSpinWheel = $('#wrapper').css('opacity');
         buildWater();
           if(showSpinWheel == 0){
+            if(showSlot==1){
+                $('body > .wheel-tran').remove();
+                $(".go").animate({
+                    'top':'-=50vw',
+                    'opacity':0
+                },1000);
+                $("#stage").animate({
+                    'opacity':0
+                },1000);
+                $(".ring").animate({
+                    'margin-top':'+=30vw',
+                    'z-index':0
+                },1000);
+                $(".slot").animate({
+                    'z-index':0
+                },1000);
+                $(".guide-box").animate({
+                    'margin-top':'+=30vw',
+                    'opacity':0,
+                    'z-index':0
+                },1000);
+                $('.swiper-container.gameSwip').css('z-index','-1')
+            }
           	$('.swiper-container.gameSwip').css('z-index','3')
           	$('body').append('<div class="wheel-tran" style="width:100%;height:100%;position: absolute;z-index: 2;top: 0px;left: 0px;background-color: #0000006e;"></div>')
             $('#wrapper').animate({
-                  'top' : '-=50vw',
-                  'opacity' : 1
+                'top' : '-=50vw',
+                'opacity' : 1
               },1000);
             $('#arrowNext').animate({
-              'right' : '5vw',
-                  'opacity' : 1
+                'right' : '5vw',
+                'opacity' : 1
             },1000);
             $('#arrowPrev').animate({
-              'left' : '5vw',
-                  'opacity' : 1
+                'left' : '5vw',
+                'opacity' : 1
             },1000);
             $(".pb-spinwheel-button").animate({
-              'top' : '+=55vw',
-                  'opacity' : 1
+                'top' : '+=55vw',
+                'opacity' : 1
             },1000);
             // $(".blur").addClass('blur-filter');
           } else if(showSpinWheel == 1 ){
@@ -136,8 +180,100 @@
             	$('.swiper-container.gameSwip').css('z-index','-1')
             },500);
 
+          }else{
           }
         });
+        $("#slot").click(function(){
+            var showSlot=$('#stage').css('opacity');
+            var showSpinWheel = $('#wrapper').css('opacity');
+            if(showSlot == 0){
+                if(showSpinWheel == 1){
+                    $('body > .wheel-tran').remove();
+                    $('#wrapper').animate({
+                        'top' : '+=50vw',
+                        'opacity' : 0
+                    },1000);
+                    $('#arrowNext').animate({
+                        'right' : '-5vw',
+                        'opacity' : 0
+                    },500);
+                    $('#arrowPrev').animate({
+                        'left' : '-5vw',
+                        'opacity' : 0
+                    },500);
+                    $(".pb-spinwheel-button").animate({
+                        'top' : '-=55vw',
+                        'opacity' : 0
+                    },1000);
+                    $('.swiper-container.gameSwip').css('z-index','-1')
+                }
+                $('.swiper-container.gameSwip').css('z-index','3')
+                $('body').append('<div class="wheel-tran" style="width:100%;height:100%;position: absolute;z-index: 2;top: 0px;left: 0px;background-color: #0000006e;"></div>')
+                $("#stage").animate({
+                    'z-index': 1099
+                },50);
+                $("#stage").animate({
+                    'opacity': 1,
+                },1000);
+                $(".go").animate({
+                    'top': '+=50vw',
+                    'opacity': 1
+                },1000);
+                $(".ring").animate({
+                    'margin-top':'-=30vw',
+                    'z-index': 4
+                },1000);
+                $(".slot").animate({
+                    'z-index': 4
+                },1000);
+                $(".guide-box").animate({
+                    'z-index':4
+                },50);
+                $(".guide-box").animate({
+                    'margin-top':'-=30vw',
+                    'opacity':1,
+                },1000);
+                }else if(showSlot==1){
+                $('body > .wheel-tran').remove();
+                $("#stage").animate({
+                    'opacity': 0
+                },1000);
+                $("#stage").animate({
+                    'z-index': 0
+                },500);
+                $(".go").animate({
+                    'top': '-=50vw',
+                    'opacity': 0
+                },1000);
+                $(".ring").animate({
+                    'margin-top': '+=30vw',
+                    'z-index': 0
+                },1000);
+                $(".slot").animate({
+                    'z-index': 0
+                },1000);
+                $(".guide-box").animate({
+                    'margin-top':'+=30vw',
+                    'opacity':0,
+                    'z-index':0
+                },1000);
+                setTimeout(function(){
+                    $('.swiper-container.gameSwip').css('z-index','-1')
+                },500);
+                }else{
+                }
+        })
+        $(".go").on("click", function() {
+            var timer = 2;
+            spin(timer);
+        });
+        setInterval(function(){
+            $('.guide-box').toggleClass('glow');
+        },1000);
+        setInterval(function(){
+            $('#arrow-up').toggleClass('move');
+            $('#arrow-down').toggleClass('move');
+        },500);
 		$('pb-spinwheel').attr('player-id',sessionStorage['player'])
 		$('.middle-menu').click(function(){
 	    	if (!$('#test').hasClass('rotate-hide') && !$('#test').hasClass('rotate-show')) {
@@ -279,11 +415,248 @@
 	}
 	#wheels{
 		margin-right: 0px;
-	    width: 60%;
-	    margin-top: 10px;
-	    height: auto;
-	    align-self: center;
+	    width: 50%;
+	    margin-top: 15px;
+	    height: 70%;
+	    align-self: left;
 	}
+
+	//--------------------------------//
+
+	#spinWheel2{
+	  display: grid;
+      margin: auto;
+      padding: 10px;
+      height: 500px;
+      width: 80%;
+      align-items: center;
+      justify-items: center;
+      align-self:center;
+      justify-self:start;
+    }
+    .perspective-on {
+      -webkit-perspective: 1000px;
+      -moz-perspective: 1000px;
+      perspective: 1000px;
+    }
+    .perspective-off {
+      -webkit-perspective: 0;
+      -moz-perspective: 0;
+      perspective: 0;
+    }
+    #swipe-area{
+      display:grid;
+      position:absolute;
+      margin: 0;
+      width: 80%;
+      height: 600px;
+      grid-template-columns:35% auto;
+      grid-template-areas:"guide-box-left stage"
+    }
+    .ring{
+      display: grid;
+      margin-top: 300px;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-items: center;
+      transform-style: preserve-3d;
+      z-index:5;
+    }
+    .slot {
+      position: absolute;
+      width: 135px;
+      height: 135px;
+      box-sizing: border-box;
+      color: rgba(0,0,0,0.9);
+      background: #fff;
+      border-left:solid 8px #FFFFFF;
+      border-right:solid 8px #FFFFFF;
+      z-index:5;
+      align-items: center;
+      justify-items: center;
+      text-align: center;
+      -webkit-backface-visibility: hidden;
+         -moz-backface-visibility: hidden;
+              backface-visibility: hidden;
+    }
+    .bg2 {
+      display: grid;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-items: center;
+
+    }
+    .pic {
+      display: grid;
+      background-size: cover;
+      width:50px;
+      height:50px;
+      align-items: center;
+      justify-items: center;
+    }
+    span {
+      font-size: 15px;
+      color: white;
+    }
+    .backface-on {
+      -webkit-backface-visibility: visible;
+         -moz-backface-visibility: visible;
+              backface-visibility: visible;
+    }
+    .slot p {
+      font-size: 36px;
+      font-weight: bold;
+      line-height: 80px;
+      padding: 21px;
+      margin: 0;
+      text-align: center;
+      z-index:1099;
+    }
+    #bt {
+      width:100%
+      display: grid;
+      align-items: center;
+      justify-items: center;
+    }
+    .go {
+      top:-35vw;
+      position:absolute;
+      display: block;
+      margin: auto;
+      padding:10px 30px;
+      font-size: 20px;
+      cursor: pointer;
+      opacity:0;
+      border:5px;
+      align-self: center;
+      z-index:1099;
+    }
+    .guide-box {
+      font-family: sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+      color:#FFFFFF;
+      z-index:0;
+      margin-top: 26vw;
+      align-items:center;
+      justify-items:center;
+      align-self:center;
+      justify-self:end;
+      opacity:0;
+      -webkit-transition: text-shadow 1s linear;
+      -moz-transition: text-shadow 1s linear;
+      -ms-transition: text-shadow 1s linear;
+      -o-transition: text-shadow 1s linear;
+      transition: text-shadow 1s linear;
+    }
+    .guide-box.glow {
+        text-shadow: 0 0 35px cyan;
+    }
+    .guide-box h1 {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    .arrow {
+      margin-left: 29px;
+      height: 45px;
+      width: 45px;
+      transform: translate3d(0px,0px,0px);
+      transition: transform .5s ease-in-out;
+    }
+    #arrow-up.move {
+      transform: translate3d(0px,-5px,0px);
+    }
+    #arrow-down.move {
+      transform: translate3d(0px,5px,0px);
+    }
+    label {
+      cursor: pointer;
+      display: inline-block;
+      width: 45%;
+      text-align: center;
+    }
+    .tilted {
+      transform: rotateY(45deg);
+    }
+    /*=====*/
+    .spin-0     { transform: rotateX(-3719deg); }
+    .spin-1     { transform: rotateX(-3749deg); }
+    .spin-2     { transform: rotateX(-3779deg); }
+    .spin-3     { transform: rotateX(-3809deg); }
+    .spin-4     { transform: rotateX(-3839deg); }
+    .spin-5     { transform: rotateX(-3869deg); }
+    .spin-6     { transform: rotateX(-3899deg); }
+    .spin-7     { transform: rotateX(-3929deg); }
+    .spin-8     { transform: rotateX(-3959deg); }
+    .spin-9     { transform: rotateX(-3989deg); }
+    .spin-10    { transform: rotateX(-4019deg); }
+    .spin-11    { transform: rotateX(-4049deg); }
+    /*=====*/
+    @keyframes back-spin {
+        /*0%    { transform: rotateX(0deg); }*/
+        100%  { transform: rotateX(30deg); }
+    }
+    @keyframes tiltin {
+        0%    { transform: rotateY(0deg);}
+        50%   { transform: rotateY(0deg);}
+        100%  { transform: rotateY(45deg);}
+    }
+    @keyframes tiltout {
+        0%    { transform: rotateY(45deg);}
+        100%  { transform: rotateY(0deg);}
+    }
+
+    @keyframes spin-0 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-3719deg); }
+    }
+    @keyframes spin-1 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-3749deg); }
+    }
+    @keyframes spin-2 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-3779deg); }
+    }
+    @keyframes spin-3 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-3809deg); }
+    }
+    @keyframes spin-4 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-3839deg); }
+    }
+    @keyframes spin-5 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-3869deg); }
+    }
+    @keyframes spin-6 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-3899deg); }
+    }
+    @keyframes spin-7 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-3929deg); }
+    }
+    @keyframes spin-8 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-3959deg); }
+    }
+    @keyframes spin-9 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-3989deg); }
+    }
+    @keyframes spin-10 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-4019deg); }
+    }
+    @keyframes spin-11 {
+        0%    { transform: rotateX(30deg); }
+        100%  { transform: rotateX(-4049deg); }
+    }
+//--------------------------------------------------//
 	@-webkit-keyframes spinaa {
 	  from {
 	    -webkit-transform: rotate(0deg);
@@ -685,9 +1058,9 @@ html, body, .container-fluid{
 		}
 </style>
 <body>
-<div id="sipnWheel" style="width: 100%;z-index: 1099;">
+<div id="spinWheel" style="width: 100%;z-index: 1099;">
     <div class="swiper-button-next" id="arrowNext" style="float: right;opacity: 0;position: absolute;top: 31vw;right: -10vw"></div>
-      <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -10vw"></div>
+    <div class="swiper-button-prev" id="arrowPrev" style="float: right;opacity: 0;position: absolute;top: 31vw;left: -10vw"></div>
         <pb-spinwheel
           env-point-reward-levels='{ "level2": 10, "level3": 30, "level4": 60 }'
           env-target-action="click"
@@ -698,7 +1071,25 @@ html, body, .container-fluid{
           class="spinwheel"
         >Loading...</pb-spinwheel>
 </div>
-	<div class="otherMenu menu-hide" onblur="myFunction()" style="position: fixed;bottom: -118px;right: 0px;width: 22%;z-index: 1020;background-color: aqua;display: none;">
+<div id="spinWheel2" style="width: 100%;z-index: 1099;">
+    <div id="swipe-area" style="width: 100%;">
+        <div id="guide-box-left" class="guide-box">
+            <img id="arrow-up" class="arrow" src="img/arrowsUp.png">
+            <h1>SWIPE</h1>
+            <img id="arrow-down" class="arrow" src="img/arrowsDown.png">
+        </div>
+        <pb-spinslot></pb-spinslot>
+    </div>
+</div>
+	<div class="otherMenu menu-hide" onblur="myFunction()" style="position: fixed;bottom: -200px;right: 0px;width: 22%;z-index: 1020;background-color: aqua;display: none;">
+	    <div class=" center" style="padding: 10px">
+            <a href="index.jsp"><span class="glyphicon glyphicon-home" id="Home"></span></a>
+            <p style="font-size: 8px;text-align: center;">Home</p>
+        </div>
+	    <div class=" center" style="padding: 10px">
+            <a href="Chart.jsp"><span class="glyphicon glyphicon-user" id="Profile-info"></span></a>
+            <p style="font-size: 8px;text-align: center;">Profile</p>
+        </div>
 		<div class=" center" style="padding: 10px">
 			<a href="#"><span class="glyphicon glyphicon-globe" id="showLang"></span></a>
 			<p style="font-size: 8px;text-align: center;">Language</p>
@@ -725,11 +1116,12 @@ html, body, .container-fluid{
 	   		</a>
 	   	</div>
 
-	   	<div class="center" style="position: absolute;left: 50%;position: absolute;left: 50%;width: 24%;height: 100%;display: flex;justify-content: center;">
-		   		<div  style="position: relative;left: -28%;height: 100%;display: flex;margin-top: -5px;" > <!-- onclick="location.href='index'" -->
+	   	<div class="center" style="position: absolute;left: 50%;position: absolute;left: 50%;width: 24%;height: 100%;display: flex;justify-content: left;">
+		   		<div  style="position: relative;left: -60%;height: 100%;display: flex;margin-top: -5px;" > <!-- onclick="location.href='index'" -->
 		   			<img class="middle-menu" id="wheels" src="img/tar.png">
-		   			<img class="middle-menu" src="img/pin.png" style="margin-right: 0px;width: 15%;position: relative;margin-top: 0px;height: auto;align-self: center;left: -37%;top: -16px;">
+		   			<img class="middle-menu" src="img/pin.png" style="margin-right: 0px;width: 12%;position: relative;margin-top: 0px;height: auto;align-self: center;left: -30%;top: -13px;">
 		   			<!-- <p style="font-size: 8px;text-align: center;color: black;">Playlists</p> -->
+		   			<img class="slot-machine" id="slot" style="width: 55%;position: relative;margin: 0px;height: auto;align-self: center;top: -6px;left: -5%" src="img/SlotM.png">
 	   			</div>
    		</div>
 

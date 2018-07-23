@@ -5319,9 +5319,9 @@ var _createClass = function() {
                                     var s = n.quantity,
                                         a = this.envPointRewardLevels,
                                         l = void 0;
-                                    l = s >= a.level4 ? "../assets/starpoint_4.png" : s >= a.level3 ? "../assets/starpoint_3.png" : s >= a.level2 ? "../assets/starpoint_2.png" : "../assets/starpoint_1.png", o.setAttribute("style", "background-image: url(" + l + ");")
+                                    l = s >= a.level4 ? "assets/starpoint_4.png" : s >= a.level3 ? "assets/starpoint_3.png" : s >= a.level2 ? "assets/starpoint_2.png" : "assets/starpoint_1.png", o.setAttribute("style", "background-image: url(" + l + ");")
                                 } else {
-                                    var h = "../assets/starpoint_1.png";
+                                    var h = "assets/starpoint_1.png";
                                     o.setAttribute("style", "background-image: url(" + h + ");")
                                 }
                                 r.appendChild(o), e.appendChild(r)
