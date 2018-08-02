@@ -91,16 +91,14 @@
     });
 
 	$(document).ready(function(){
-	    console.log("Player_ID: "+sessionStorage['player']);
-	    console.log("Token: "+sessionStorage['Token']);
         createSlots($("#ring1"));
 
         var sw1=document.getElementById('swipe-area');
         var swipe=new Hammer(sw1);
-        swipe.get("pan").set({direction:Hammer.DIRECTION_VERTICAL});
+        swipe.get("swipe").set({direction:Hammer.DIRECTION_VERTICAL});
 
-        swipe.on("panend",function(){
-            var timer=2;
+        swipe.on("swipeup swipedown",function(){
+            var timer=10;
             spin(timer);
         });
 
@@ -262,10 +260,6 @@
                 },500);
                 }else{
                 }
-        })
-        $(".go").on("click", function() {
-            var timer = 2;
-            spin(timer);
         });
         setInterval(function(){
             $('.guide-box').toggleClass('glow');
@@ -470,8 +464,8 @@
       box-sizing: border-box;
       color: rgba(0,0,0,0.9);
       background: #fff;
-      border-left:solid 8px #FFFFFF;
-      border-right:solid 8px #FFFFFF;
+      border-left:solid 7px #ddd;
+      border-right:solid 7px #ddd;
       z-index:5;
       align-items: center;
       justify-items: center;

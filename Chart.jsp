@@ -16,7 +16,7 @@ function getPlayerInfo() {
     data.token = sessionStorage['Token'];
     $.ajax({
         type: 'POST',
-        url: "https://api.pbapp.net/Player/"+sessionStorage['player']+"/data/all?api_key=141073538&iodocs=true",
+        url: "https://api.pbapp.net/Player/"+sessionStorage['player']+"/data/all?api_key=" + sessionStorage[api_key] + "&iodocs=true",
         datatype: 'json',
         data: data,
         async: false,
@@ -69,7 +69,7 @@ function createChart() {
         angleLineWidth : 1,
         pointLabelFontFamily : "Open Sans",
         pointLabelFontStyle : "normal",
-        pointLabelFontSize : 14,
+        pointLabelFontSize : 13,
         pointLabelFontColor : "#333333",
         pointDot : false,
         pointDotRadius : 3,
@@ -78,16 +78,16 @@ function createChart() {
         datasetStrokeWidth : 1,
         datasetFill : true,
         animation : true,
-        animationSteps : 40,
+        animationSteps : 100,
         animationEasing : "easeOutQuart",
         //onAnimationComplete : null,
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         showTooltips: false,
     };
     var ctx = document.getElementById("radarChart").getContext("2d");
 
-    var radarData = { labels : ["Good[" + goods[0] + "]","Point[" + goods[1]*100 + "]","Baht(THB)[" + goods[2]*100 + "]","Dollar(USD)[" + goods[3]*100 + "]","Level[" + goods[4] + "]"],
+    var radarData = { labels : ["Good[" + goods[0] + "]", "Point[" + goods[1]*100 + "]", "Baht(THB)[" + goods[2]*100 + "]", "Dollar(USD)[" + goods[3]*100 + "]", "Level[" + goods[4] + "]"],
         datasets : [
             {
                 fillColor : 'rgba(151,187,205,0.7)',
@@ -102,9 +102,7 @@ function createChart() {
     $(document).ready(function() {
     var myRadarChart = new Chart(ctx).Radar(radarData,radarOptions);
 
-
     document.getElementById("point").innerHTML = goods[1]*100;
-
 
     console.log("create");
     });
@@ -126,7 +124,7 @@ function feedCheck() {
     data.token = sessionStorage['Token'];
     $.ajax({
         type: 'POST',
-        url: "https://api.pbapp.net/Player/"+sessionStorage['player']+"/data/all?api_key=141073538&iodocs=true",
+        url: "https://api.pbapp.net/Player/" + sessionStorage['player'] + "/data/all?api_key=" + sessionStorage[api_key] + "&iodocs=true",
         datatype: 'json',
         data: data,
         async: true,
@@ -389,30 +387,38 @@ body{
 }
 .chart-demo {
     display: grid;
+    width: 95%;
     height: 100%;
     align-items: center;
     justify-items: center;
+    background-color: #fff;
 }
 .info {
     display: grid;
     height: 100%;
-    width: 100%;
-    align-items: center;
+    align-items: start;
     justify-items: center;
+    grid-template-rows: 12% 12% 35% auto;
 }
 .Profile-pic {
     margin-top: 15px;
-    height: 120px;
-    width: 120px;
+    height: 50px;
+    width: 50px;
     background-size: cover;
 }
+.Name-box {
+    margin: 0px;
+}
 .info-box {
-    width: 85%;
+    padding: 15px 8%;
+    height: 100%;
+    width: 100%;
     text-align: left;
+    align-self: center;
 }
 .info-box p {
     overflow: hidden;
-    font-size: 14px;
+    font-size: 12px;
 }
 .info-box span {
     top: -12px;
@@ -426,6 +432,7 @@ body{
     color: black;
 }
 .Name-box h1{
+    font-size: 16px;
     margin: 0.67em;
     display: inline-block;
 }
@@ -537,15 +544,15 @@ body{
     <div class="info">
         <div class="Profile-pic" id="Profile-pic"></div>
         <div class="Name-box"><h1 id="Name"></h1><span class="glyphicon glyphicon-edit" id="edit-Name"></span></div>
+        <div class="chart-demo">
+            <canvas id="radarChart"></canvas>
+        </div>
         <div class="info-box">
             <div class="box"><h6>Email</h6><p id="Email"></p></div><span class="glyphicon glyphicon-edit" id="edit-Email"></span>
             <div class="box"><h6>Phone</h6><p id="Phone-num"></p></div><span class="glyphicon glyphicon-edit" id="edit-Phone-num"></span>
             <div class="box"><h6>Birth Date</h6><p id="BD"></p></div><span class="glyphicon glyphicon-edit" id="edit-BD"></span>
             <div class="box"><h6>Point</h6><p id="point"></p></div>
         </div>
-    </div>
-    <div class="chart-demo">
-        <canvas id="radarChart"></canvas>
     </div>
 </div>
 <div class="edit-container">

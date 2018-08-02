@@ -46,7 +46,6 @@ function createSlots(ring) {
         ring.append(slot);
         slot.append(bg);
         bg.append(pic);
-
     }
 }
 
@@ -54,7 +53,7 @@ function getReward() {
     $.ajax({
         type: "GET",
         async: false,
-        url: 'https://api.pbapp.net/Engine/rules?action=click&api_key=141073538&iodocs=true',
+        url: "https://api.pbapp.net/Engine/rules?action=click&api_key=" + sessionStorage['api_key'] + "&iodocs=true",
         datatype: "json",
         success: function(data){
             for(var i=0;i<SLOTS_PER_REEL;i++) {
@@ -81,7 +80,7 @@ function getSeed() {
     data.url = "test";
     $.ajax({
         type: "POST",
-        url: 'https://api.pbapp.net/Engine/rule?api_key=141073538&iodocs=true',
+        url: "https://api.pbapp.net/Engine/rule?api_key=" + sessionStorage['api_key'] + "&iodocs=true",
         data: data,
         datatype: "json",
         async: false,
