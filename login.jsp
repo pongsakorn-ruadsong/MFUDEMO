@@ -332,6 +332,9 @@
 	    background-repeat: no-repeat;
 	    background-position-y: bottom;
 	  }
+	  span {
+	    color: black;
+      }
 	  #display_time_weather{
 	  	height: 30%;
 	  	width: 100%;

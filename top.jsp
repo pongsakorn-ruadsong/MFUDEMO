@@ -177,7 +177,6 @@
             setTimeout(function(){
             	$('.swiper-container.gameSwip').css('z-index','-1')
             },500);
-
           }else{
           }
         });
@@ -258,8 +257,8 @@
                 setTimeout(function(){
                     $('.swiper-container.gameSwip').css('z-index','-1')
                 },500);
-                }else{
-                }
+            }else{
+            }
         });
         setInterval(function(){
             $('.guide-box').toggleClass('glow');
